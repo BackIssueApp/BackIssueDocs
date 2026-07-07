@@ -1,0 +1,25 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "description": "Documentation site for BackIssue, published with GitHub Pages (Jekyll, Cayman theme) at **[backissue.app](https://backissue.app)**.",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BackIssueApp/docs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BackIssueApp/docs/issues"
+  },
+  "homepage": "https://github.com/BackIssueApp/docs#readme",
+  "devDependencies": {
+    "vitepress": "^1.6.4"
+  },
+  "type": "module"
+}
