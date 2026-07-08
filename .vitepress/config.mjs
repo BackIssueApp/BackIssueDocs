@@ -10,6 +10,7 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: 'Docs', link: '/getting-started' },
+      { text: 'Discord', link: 'https://discord.gg/T6GTgzz8t2' },
       { text: 'GitHub', link: 'https://github.com/BackIssueApp' },
     ],
 
