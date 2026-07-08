@@ -2,11 +2,63 @@
 
 ## Requirements
 
-- **Node.js 22 or newer**
+- **Docker** (recommended) — or **Node.js 22+** to run from source
 - A **ComicVine API key** — free from [comicvine.gamespot.com/api](https://comicvine.gamespot.com/api/) (you'll need a ComicVine account)
 - Somewhere to put comics — a local folder or a network share
 
-## Install and run
+## Install with Docker (recommended)
+
+The published image is `ghcr.io/backissueapp/backissue` — `latest` tracks
+releases, version tags (e.g. `0.3.0`) pin a release, and `nightly` is the
+newest development build.
+
+With Docker Compose:
+
+```yaml
+services:
+  backissue:
+    image: ghcr.io/backissueapp/backissue:latest
+    container_name: backissue
+    ports:
+      - "8787:8787"
+    volumes:
+      - ./data:/data              # database, settings, installed plugins
+      - /path/to/comics:/comics   # your comic library
+    environment:
+      - PUID=99    # file owner for /data and imported comics (run `id` for yours)
+      - PGID=100
+      - UMASK=022
+      - TZ=Europe/Dublin   # local time for schedules
+    restart: unless-stopped
+```
+
+```bash
+docker compose up -d
+```
+
+Or with plain `docker run`:
+
+```bash
+docker run -d -p 8787:8787 \
+  -e PUID=99 -e PGID=100 -e TZ=Europe/Dublin \
+  -v /path/to/data:/data \
+  -v /path/to/comics:/comics \
+  ghcr.io/backissueapp/backissue:latest
+```
+
+Then open **http://localhost:8787**. Mount your comic library at `/comics` and
+point **Settings → Library → Root folders** at it; if a download client
+(SABnzbd, NZBGet, qBittorrent) runs in another container, mount its
+completed-downloads folder too so BackIssue can import finished downloads.
+
+::: tip Unraid
+There's a ready-made template: in the Docker tab add
+`https://backissue.app/unraid/backissue.xml` as a template URL (or copy it into
+`/boot/config/plugins/dockerMan/templates-user/`), then create the container
+from the **BackIssue** template — paths and permissions come pre-mapped.
+:::
+
+## Install from source
 
 ```bash
 npm install
@@ -26,11 +78,14 @@ Other useful commands:
 
 ## First-run setup
 
-The first time you open BackIssue, a short wizard walks you through the essentials:
+The first time you open BackIssue it asks you to **create the admin account**
+(a fresh install never runs unsecured), then a short wizard walks you through
+the essentials:
 
 1. **ComicVine API key** — paste your key. You can paste *several* keys (one per line); BackIssue rotates between them automatically when one hits its rate limit.
-2. **Library folder** — where your comics live (or should live). This becomes your first *root folder*; you can add more later in Settings.
+2. **Library folder** — where your comics live (or should live, Docker: `/comics`). This becomes your first *root folder*; you can add more later in Settings.
 3. **A download source** — enable at least one of Usenet or torrents so BackIssue can actually fetch comics. You can skip this and set it up later — see [Download sources](sources).
+4. **Plugins** — pick optional plugins (the in-browser reader, Discover, OPDS, Requests, extra sources…); they download and activate when you finish. More can be added anytime from the Plugins page.
 
 Everything the wizard sets can be changed later in **Settings**.
 
@@ -71,15 +126,19 @@ BackIssue is installable: open it in the browser and use **Add to Home Screen** 
 Installing works over plain HTTP, but the reader's offline downloads and other service-worker features need a secure context — put BackIssue behind HTTPS (a reverse proxy like Caddy, or Tailscale) to get the full experience.
 :::
 
-## Securing the app
+## Accounts and access
 
-BackIssue binds to all interfaces so you can reach it from other devices. With no accounts it runs in *open mode* — anyone on your network has full access. To require a login (and to give household members their own accounts, roles, and reading history), **create the first account** from the sidebar's "Secure this install" prompt. See [Users & access](users).
+The first account (created on first run) is the admin. To give household
+members their own logins, roles, permissions, and reading history, add
+accounts under **Users** — see [Users & access](users).
 
 ## Where your data lives
 
-Everything is stored next to the app:
+Everything lives in one data directory — `/data` in Docker (keep that volume
+persistent!), or next to the app when running from source:
 
 - `catalog.db` — the database: series, issues, the file index, history, **and** accounts, roles, reading history, reading lists, and requests. Back it up from **Tools → Back up database** (it keeps the newest 5 snapshots).
 - `settings.json` — your settings, written whenever you save Settings.
+- `plugins/` — plugins installed from the in-app catalog (Docker: under `/data` so they survive image updates).
 
 Comics themselves live in your root folders, organized one folder per series.
