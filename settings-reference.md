@@ -89,6 +89,7 @@ Each scheduled job has a **cron expression** and an **enable** toggle — see [A
 | Search new releases | `recentSearchCron` / `recentSearchEnabled` (default every 6 hours, off), plus `recentSearchDays` (how recent counts as "new", 1–90, default 14) |
 | Wanted search | `wantedSearchCron` / `wantedSearchEnabled`, plus `wantedSearchBatch` (issues per run, 1–200) |
 | Zero-day pack | `zeroDayCron` / `zeroDayEnabled` |
+| Back up database | `backupCron` / `backupEnabled` (default weekly Monday 05:00, **on**) |
 
 Plugins register schedules of their own (e.g. the AirDC++ [announce watch](airdcpp#watching-announce-bots)) — they appear on the Jobs page alongside these.
 

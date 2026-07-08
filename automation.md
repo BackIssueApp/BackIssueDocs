@@ -14,6 +14,7 @@ Set it up once and BackIssue keeps your collection current on its own.
 | **Search new releases** | The fast lane for this week's comics: queues missing issues of monitored series **released in the last N days** (`recentSearchDays`, default 14). Unlike the backfill, failures are **retried on every run** while the issue is inside the window — new releases reach indexers over days — then age out |
 | **Wanted search** | The patient backfill: works through the whole [Wanted list](downloads#the-wanted-page) in batches (`wantedSearchBatch`), skipping anything in flight or previously failed, so back-catalog gaps fill steadily without hammering sources |
 | **Zero-day pack** | Torrents only: grabs the weekly 0-day pack and imports just your gaps — see [Download sources](sources#the-weekly-0-day-pack) |
+| **Back up database** | Snapshots `catalog.db` into `backups/` (keeps the newest 5). **On by default**, weekly — cheap insurance for the database that holds your collection, accounts, and reading history |
 
 Plugins add jobs of their own — for example the AirDC++ plugin's [announce-bot watch](airdcpp#watching-announce-bots).
 
