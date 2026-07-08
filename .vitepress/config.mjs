@@ -41,6 +41,7 @@ export default defineConfig({
         text: 'Reference',
         items: [
           { text: 'Settings reference', link: '/settings-reference' },
+          { text: 'Plugin API', link: '/plugin-api' },
           { text: 'Troubleshooting', link: '/troubleshooting' },
         ],
       },

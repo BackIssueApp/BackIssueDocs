@@ -37,3 +37,5 @@ export default function register(api) {
 Sources implement: `{ id, label, kind: 'immediate' | 'deferred', isEnabled(config), find(ctx), fetch(candidate, ctx, onProgress), manualSearch(ctx)?, fetchPack(candidate, ctx, onProgress)? }`.
 
 The core application ships with no plugins; each plugin lives in its own repository.
+
+**Writing a plugin?** The complete hook, source-contract, client-bridge, and slot documentation lives in the [Plugin API reference](plugin-api).
