@@ -27,10 +27,43 @@ The scanner reads real file contents, not just names:
 ## Tagging and naming
 
 - Every downloaded issue gets **ComicVine metadata embedded** as `ComicInfo.xml` (series, number, title, date, summary, creators) — the standard read by comic readers and library servers.
-- Files are named **`Series VYYYY #NNN (Month YYYY).cbz`** — unambiguous, sortable, and parseable by other library managers.
+- Folder layout and filenames follow your **naming patterns** (below). The defaults — `Publisher/Series (Year)` folders and `Series VYYYY #NNN` filenames — are unambiguous, sortable, and parseable by other library managers.
 - CBRs are converted to CBZ on the way in (solid-archive-safe, pages stored without recompression), because CBZ is what tagging and readers handle best.
 
 Existing files you imported keep their names until you opt into renaming (below).
+
+## Naming patterns
+
+**Settings → Library → File organization** — you decide how comics are organized on disk, with two token patterns and a live example that updates as you type:
+
+- **Folder pattern** — the series folder under a root. Default: `{publisher}/{series} ({year})`. Use `/` for sub-folders.
+- **File pattern** — the issue filename. Default: `{series} V{year} #{issue}`.
+
+| Token | Fills with |
+|---|---|
+| `{publisher}` | Publisher name |
+| `{series}` | Series title (any trailing year marker removed) |
+| `{year}` | The volume's start year |
+| `{issue}` | Issue number, zero-padded to 3 — `{issue:2}` sets the width |
+| `{issueTitle}` | The issue's title |
+| `{date}` | Cover date as "Month YYYY" |
+| `{edition}` | Detected special editions (Annual, TPB, …) |
+
+A token with no value simply drops out and the spacing tidies itself — `{series} V{year}` with no known year renders as just the series. Blank patterns use the defaults.
+
+Two things to know:
+
+- Changing patterns affects **new downloads**; existing files stay put until you explicitly reorganize (below).
+- **Rename downloaded files** (a toggle in the same section, on by default): turn it off and completed downloads keep the source's original release filename, still filed into the comic's folder.
+
+## Applying patterns to existing files
+
+Always explicit, never automatic:
+
+- **One series** — the volume page's **⋯ → Rename files** moves/renames that series' files to match your patterns (a confirm shows the count first).
+- **Whole library** — **Tools → Reorganize library**. **Preview** first: a dry run shows what would move, grouped by destination folder, with counts for already-matching files and name collisions. **Reorganize** then runs as a background job with live progress (also visible on the Jobs page) — a big library on a NAS takes a while, and the app stays fully usable during it.
+
+Safety rules for both: only ComicVine-matched series are touched, name collisions are skipped (never overwritten), files never leave their root folder, and emptied folders are cleaned up.
 
 ## The Tools page
 
@@ -44,7 +77,8 @@ Existing files you imported keep their names until you opt into renaming (below)
 | **Remove duplicate files** | Delete old/corrupt copies that a good copy of the same issue has replaced |
 | **Verify archives** | Deep-check every file for corruption; prune records for files gone from disk |
 | **Re-link to ComicVine** | Re-map owned files to CV issues across the library (fixes owned/missing counts after big changes) |
-| **Rename files to standard** | Rename every CV-linked file to the standard pattern, in place — collisions are skipped, nothing is overwritten |
+| **Rename files to pattern** | Rename every CV-linked file to your [file pattern](#naming-patterns), in place (same folder) — collisions are skipped, nothing is overwritten |
+| **Reorganize library** | Move **and** rename every matched series' files to your folder + file patterns — dry-run preview first, then a background job with progress. See [Applying patterns to existing files](#applying-patterns-to-existing-files) |
 | **Back up database** | Snapshot `catalog.db` into `backups/` (keeps the newest 5); safe while the app runs |
 
 **Restoring a backup:** stop the app, copy the snapshot over `catalog.db`, start again.

@@ -48,7 +48,9 @@ Opening a series shows its full ComicVine issue list with ownership state per is
 - **Search packs** looks for multi-issue collections covering your gaps — see [Packs](downloads#packs).
 - Issue rows support **shift-click** to select ranges for bulk download.
 - **Read** an owned issue in the browser (▶), or **add issues to a reading list** ("☰ Add to list") — see [Reading](reading).
-- Series-level actions include tagging all files, cleaning up duplicates, editing search aliases (extra names the series is known by on indexers), and setting a custom folder.
+- Series-level actions include tagging all files, cleaning up duplicates, **renaming the series' files to your [naming patterns](library#naming-patterns)** (⋯ → Rename files), editing search aliases (extra names the series is known by on indexers), and setting a custom folder.
+
+Download and management buttons only appear for roles holding those permissions — a viewer sees the read buttons and nothing else ([Users & access](users#roles)).
 
 The list toggles between a **cover grid** and a detailed row list; the list view shows each issue's cover date, page count, file size, and format at a glance.
 

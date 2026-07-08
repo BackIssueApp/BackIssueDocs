@@ -44,13 +44,13 @@ Tagging needs a CV match and a CBZ. Run **Convert all CBR → CBZ**, then **Tag 
 ## Access
 
 **Browser asks for a login.**
-An account exists, so authentication is on (this is expected once you've secured the app). Sign in with your account — see [Users & access](users).
+Authentication is always on (the first run creates the admin account). Sign in with your account — see [Users & access](users).
 
 **Can't sign out / stale login.**
 Use **Sign out** from the account menu. If a browser had ever used HTTP Basic, a sign-out marker suppresses those cached credentials so logout sticks.
 
 **Forgot the admin password.**
-Another admin can reset it from the **Users** page. If you've locked out every admin, stop the app and remove the `users` rows from `catalog.db` (e.g. with a SQLite tool) to return to open mode, then create a fresh admin. Your library and settings are untouched.
+Another admin can reset it from the **Users** page. If you've locked out every admin, stop the app and remove the `users` rows from `catalog.db` (e.g. with a SQLite tool) — the next start runs the first-run admin creation again. Your library and settings are untouched.
 
 **"Too many attempts."**
 Login rate limiting kicked in after repeated failures — wait the short lockout out (it grows with continued failures) and try again with the right password.

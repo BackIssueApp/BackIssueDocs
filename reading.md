@@ -4,11 +4,27 @@ The **Reader plugin** turns BackIssue into a full in-browser comic reader — no
 
 ## Opening a comic
 
-Any owned issue shows a **read** button (▶). Reading state appears right on the issue rows:
+Any owned issue shows a **read** button (▶) — on the issue rows and in the issue's information panel. Reading state appears right on the rows:
 
 - **▶** not started · **◐** in progress · **✓** finished
 
 Open an issue and the reader takes over full-screen.
+
+## Reading shelves
+
+The top of the **Library** greets readers with horizontal cover shelves — pick up where you left off without hunting:
+
+| Shelf | Shows | Default |
+|---|---|---|
+| **Continue reading** | Issues you're mid-way through, newest first, with a progress bar | on |
+| **Next up** | The next unread issue in each series you've finished one of | on |
+| **New in your library** | Recently-added issues you haven't read yet | on |
+| **Read later** | Your saved-for-later shelf | off |
+| **Recently finished** | Issues you just completed | off |
+| **Start a new series** | The first issue of owned series you've never opened | off |
+| **Bookmarks** | Bookmarked issues — opens at the saved page | off |
+
+Shelves are **per user**: hide one with its **×**, and turn any on or off under **Profile → Reading shelves**. A shelf with nothing to show simply doesn't appear.
 
 ## Reading modes
 
@@ -29,6 +45,17 @@ Open an issue and the reader takes over full-screen.
 ## Per-series reading profiles
 
 Your mode choices (paged/double/webtoon, RTL, fit) are remembered **per series** — so a manga series stays right-to-left webtoon while your US books stay single-page, without re-setting anything.
+
+## Reading defaults
+
+**Profile → Reading defaults** sets how comics open when a series has no saved profile of its own:
+
+- **Default layout** (single / double / webtoon), **page fit**, and **right-to-left**.
+- **Eye comfort** — a colour filter: invert (dark), grayscale (e-ink), or sepia.
+- **Data saver** (lighter pages) and **trim page margins** (crops white scan borders).
+- **Keep the screen awake while reading** — stops the device dimming mid-page. Needs HTTPS (browsers only allow it on secure origins), so the toggle appears only where it can work.
+- **Always read incognito** — nothing is recorded (no progress, history, or stats) until you turn it off; the header's incognito button flips the same switch.
+- **Count as read at** — when an issue latches as *finished*: the last page (default), or 95/90/85/80% — so skipping ads at the back still counts.
 
 ## Reading stats
 

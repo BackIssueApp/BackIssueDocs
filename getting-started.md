@@ -141,4 +141,4 @@ persistent!), or next to the app when running from source:
 - `settings.json` — your settings, written whenever you save Settings.
 - `plugins/` — plugins installed from the in-app catalog (Docker: under `/data` so they survive image updates).
 
-Comics themselves live in your root folders, organized one folder per series.
+Comics themselves live in your root folders, organized by your [naming patterns](library#naming-patterns) — by default one `Publisher/Series (Year)` folder per series.

@@ -12,6 +12,8 @@ http(s)://<your-backissue-host>/api/opds
 
 Sign in with your BackIssue **username and password** — OPDS uses HTTP Basic auth against your account, so access follows your role and permissions like everything else.
 
+Your personal catalog address (with a copy button) is also shown on your **Profile** page, under *Connect a reader app*.
+
 ::: tip
 The catalog lives under `/api/opds` (not `/opds`) so it's covered by BackIssue's authentication. Use the full path.
 :::

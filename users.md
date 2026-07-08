@@ -2,15 +2,9 @@
 
 BackIssue has a full multi-user system: accounts, roles, and fine-grained permissions. It's designed to run for a household or a small group where not everyone should be able to reshape the library or change settings.
 
-## Open mode (single user)
+## The first account
 
-Out of the box, with **no accounts created**, BackIssue runs in *open mode*: anyone who can reach it has full access, exactly like a personal appliance. This is the simplest setup and fine on a trusted home network.
-
-The moment you create the **first account**, authentication switches on for everyone and open mode ends. That first account is automatically an **admin**.
-
-::: tip Securing the app
-If BackIssue is reachable beyond your local machine, create an account. In the sidebar, the account area offers **"Secure this install"** while in open mode — it creates the first admin and turns on login. After that, every request needs a session.
-:::
+A fresh install **asks you to create the admin account before anything else** — BackIssue never runs open and unsecured. That first account is automatically an **admin**; every request after that needs a login.
 
 ## Accounts
 
@@ -19,8 +13,20 @@ If BackIssue is reachable beyond your local machine, create an account. In the s
 - **Create** accounts with a username, password, and role.
 - **Change a role**, **disable** an account (blocks login without deleting its data), or **delete** it.
 - **Allow self-registration** — a toggle. When on, a sign-up tab appears on the login page and new accounts are created as **viewers**. Off by default; when off, only admins create accounts.
+- Each row shows when the account **last signed in**, and a badge when it's linked to an external sign-in (SSO).
 
-Each user manages their own password from the account menu (**Change password**). Guard rails prevent lock-out: you can't demote, disable, or delete your own account, and there must always be at least one active admin.
+Guard rails prevent lock-out: you can't demote, disable, or delete your own account, and there must always be at least one active admin.
+
+## Your profile
+
+Click your username in the sidebar → **Profile**. Everyone gets one:
+
+- **Account** — set your **email** (used to link external sign-ins to your account), see when you joined and last signed in, **change your password**, **sign out other devices** (ends every session except the one you're on — for a lost or shared device), and sign out.
+- **Per-user options from plugins** — the reader adds its [reading shelves](reading#reading-shelves) toggles and [reading defaults](reading#reading-defaults) here; the OPDS plugin shows your [catalog address](opds).
+
+## Signing in with an identity provider (SSO)
+
+Install the **SSO (OpenID Connect)** plugin from the Plugins page to let users sign in through an identity provider — Authentik, Keycloak, Auth0, Google, Microsoft Entra, and the like. The login page gains a "Sign in with…" button; a first-time sign-in links to an existing account by email or creates a new one (as a viewer, configurable). Admins can also **disable password login** for an SSO-only setup — admins keep a password fallback so a broken provider can't lock everyone out.
 
 ## Roles
 
@@ -28,11 +34,11 @@ Three roles ship built in, each a superset of the one below:
 
 | Role | Can do |
 |---|---|
-| **Viewer** | Browse the library, search, read comics, and queue downloads. |
-| **Trusted** | Everything a viewer can, plus manage the library — add/remove volumes and issues, scan, tag, import, and fix ComicVine matches. |
+| **Viewer** | Browse the library and **read** comics — nothing else. No searching, downloading, or queue access; the download-related pages and buttons simply don't appear. |
+| **Trusted** | Everything a viewer can, plus **search & download** and managing the library — add/remove volumes and issues, scan, tag, import, and fix ComicVine matches. |
 | **Admin** | Everything, plus settings, indexers, users, plugins, jobs, tools, and logs. |
 
-New signups are viewers. Downloading is deliberately a *viewer* capability — a household member can fill gaps without being able to reshape the collection.
+New signups are viewers — safe by default: a household member can read the whole collection without being able to change anything. To let someone fill gaps without reshaping the library, make a custom role (below) with just *Search & download*.
 
 ## Permissions & custom roles
 
@@ -58,7 +64,7 @@ A flagged series becomes invisible to roles without the permission — not just 
 - Give your general or kids' role **everything except** View mature content — the usual way to keep flagged series away from younger household members.
 - Or build a custom role that explicitly holds it, and leave it off the others.
 
-Because it's an ordinary permission, it composes with the rest: a "kids" role can read comics but never see a mature-flagged volume, while a "downloader" role could download but be blind to restricted series too. Open mode (no accounts) has no restrictions — the flag only takes effect once accounts exist.
+Because it's an ordinary permission, it composes with the rest: a "kids" role can read comics but never see a mature-flagged volume, while a "downloader" role could download but be blind to restricted series too.
 
 ## Requests without escalation
 

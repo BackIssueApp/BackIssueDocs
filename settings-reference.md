@@ -16,6 +16,9 @@ Everything in **Settings**, by section. Values persist to `settings.json` next t
 | Setting | Meaning |
 |---|---|
 | Root folders | Your library directories, one per line. Downloads are filed into them; scans read them. |
+| Folder pattern | How each series' folder is built under a root, from tokens — default `{publisher}/{series} ({year})`. See [Naming patterns](library#naming-patterns). |
+| File pattern | How issue files are named — default `{series} V{year} #{issue}`. Tokens: `{publisher}` `{series}` `{year}` `{issue}` (`{issue:2}` sets pad width) `{issueTitle}` `{date}` `{edition}`. A live example previews as you type; blank = default. |
+| Rename downloads | On (default): downloaded files are named to the file pattern. Off: completed downloads keep the source's original filename, still filed into the comic's folder. |
 | Download format | `cbz` (default, recommended — taggable) or `pdf`. |
 | Tag on download | Embed ComicVine metadata into every file as it's imported (recommended: on). |
 | Library concurrency | Parallel workers for library scans/verification (default suits most disks; raise for fast NVMe, lower for busy NAS shares). |
@@ -30,6 +33,8 @@ Account and role management lives on the **Users** page, not in Settings — see
 
 There is **no** username/password field here anymore — the old single HTTP Basic login was replaced by the [user system](users). (`TRUST_PROXY` is an environment variable, not a setting; set it when running behind a reverse proxy.)
 
+With the **SSO (OpenID Connect)** plugin installed, a **Sign-in** section appears here too: the provider configuration and a *Disable password login* toggle (admins keep a password fallback). See [Signing in with an identity provider](users#signing-in-with-an-identity-provider-sso).
+
 ## Notifications
 
 | Setting | Meaning |
@@ -37,7 +42,7 @@ There is **no** username/password field here anymore — the old single HTTP Bas
 | Webhook URL | Discord-compatible webhook for event notifications. Blank = off. |
 | Webhook categories | Which categories the webhook fires for (imports, failures, releases, requests, system). All on = everything. The in-app notification bell records all events regardless. |
 
-## Downloads
+## Downloading
 
 | Setting | Meaning |
 |---|---|
@@ -80,8 +85,12 @@ Each scheduled job has a **cron expression** and an **enable** toggle — see [A
 |---|---|
 | Releases check | `releaseCheckCron` / `releaseCheckEnabled` |
 | ComicVine match | `cvMatchCron` / `cvMatchEnabled` |
+| Watch indexer RSS | `rssWatchCron` / `rssWatchEnabled` (default every 15 minutes, off) |
+| Search new releases | `recentSearchCron` / `recentSearchEnabled` (default every 6 hours, off), plus `recentSearchDays` (how recent counts as "new", 1–90, default 14) |
 | Wanted search | `wantedSearchCron` / `wantedSearchEnabled`, plus `wantedSearchBatch` (issues per run, 1–200) |
 | Zero-day pack | `zeroDayCron` / `zeroDayEnabled` |
+
+Plugins register schedules of their own (e.g. the AirDC++ [announce watch](airdcpp#watching-announce-bots)) — they appear on the Jobs page alongside these.
 
 ## Advanced
 

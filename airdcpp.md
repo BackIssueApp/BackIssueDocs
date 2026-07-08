@@ -39,6 +39,21 @@ DC is not an indexed API — it's a live query across peers — so searches beha
 - **Not-found isn't instant.** A search that returns nothing gives up after a few seconds (the *Give up if empty* setting, default 5s) rather than waiting the full maximum — but across many missing issues that still adds up.
 - **No result ≠ file doesn't exist.** A single DC search occasionally misses even when the file is shared (it just didn't reach the right peers in the window). BackIssue retries an *empty* search a small number of times — but keep that number low, for the reason in the next section.
 
+## Watching announce bots
+
+Many hubs run **announce bots** — users that post a message (with a magnet link) every time a new file is uploaded. BackIssue can watch them and grab anything you're missing, minutes after it appears:
+
+1. In **Settings → Sources → AirDC++**, set **Watch bot nicks** to the bot's username (comma-separated for several). Messages *from those users* are scanned wherever they appear — their **private messages** to you and lines they post in **main chat**.
+2. On the **Jobs** page, enable **Watch AirDC++ announcements** (default cadence: every 15 minutes).
+
+Each run reads the bots' recent messages (each message is considered exactly once), parses the announced magnet links, and matches the filenames against **missing issues of monitored series** — the same strict matching the other sources use, aliases included. A match downloads immediately, and by the announcement's **exact file hash** (TTH), so you get precisely the announced copy rather than a re-search by name.
+
+The **Logs** page (category `airdcpp`) shows every bot message once, each announced file's matched/unmatched verdict, and a per-run summary — so it's easy to confirm the bot's format parses and the matches are what you expect.
+
+::: tip Backfilling after downtime
+If your announce bot supports a history command (commonly `!chathist` in its PM window), asking it to replay recent announcements re-delivers everything in one message — BackIssue processes the replay like live announcements and only acts on what it hasn't already handled.
+:::
+
 ## Avoiding hub bans and flags
 
 ::: warning Repeating the same search trips hub anti-spam
@@ -64,6 +79,7 @@ All under **Settings → Sources → AirDC++**:
 | Web API URL | Where AirDC++'s Web API listens (e.g. `http://host:5600`). |
 | Username / Password | AirDC++ Web API credentials. |
 | Hub URLs | Limit searches to these hubs (comma-separated); blank = all connected hubs. |
+| Watch bot nicks | Announce-bot usernames to watch for upload announcements (see [Watching announce bots](#watching-announce-bots)); blank = off. |
 | Download folder (AirDC++'s view / BackIssue's view) | Two-path mapping for remote/Docker/SMB setups. |
 | Max wait (ms) | Longest to wait for results once a search has started (default 12000). |
 | Give up if empty (ms) | Stop a search that has returned **nothing** by this long — a shared file's peers reply within seconds, so continued silence means it isn't on DC (default 5000). Cuts the wait on not-found issues. |

@@ -2,6 +2,8 @@
 
 The **Discovery plugin** adds a **✨ Discover** entry to the sidebar — a browsable feed of new and notable comics pulled from ComicVine, with one-click add. It's how you find series worth tracking instead of only searching for ones you already know.
 
+Discover appears only for users who can **add series to the library** (the *Manage the library* permission) — its whole point is the one-click add, so read-only viewers don't see it.
+
 ## The feeds
 
 Discover has four tabs:
