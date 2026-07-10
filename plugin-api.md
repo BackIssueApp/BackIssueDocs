@@ -57,7 +57,7 @@ config.mypluginBatch ??= 25;
 
 ### `registerRoute(method, path, handler, opts?)`
 
-An Express route, registered after core routes:
+An Express route, registered after core routes. Plugin routes are part of the app's API surface: sessions, HTTP Basic, and personal [API keys](api) all reach them, gated by the same permission checks — so a route you register here is automatically usable by third-party clients acting as a permitted user.
 
 ```js
 api.registerRoute('get', '/api/myplugin/things', (req, res) => { ... }, { access: 'viewer' });
