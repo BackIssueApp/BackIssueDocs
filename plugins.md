@@ -11,6 +11,7 @@ BackIssue's core stays lean; extra download sources and whole features ship as p
 | **[Requests](requests)** | A request-and-approve workflow for adding volumes |
 | **[Discover](discover)** | A browsable feed of new & notable comics to add |
 | **[AirDC++](airdcpp)** | Direct Connect (DC++) as a download source, with [announce-bot watching](airdcpp#watching-announce-bots) |
+| **[Notifications Hub](notifications)** | Send alerts to Discord, Telegram, Pushover, ntfy, or any webhook — with per-channel category filters |
 | **[SSO (OpenID Connect)](users#signing-in-with-an-identity-provider-sso)** | Sign in through an identity provider — Authentik, Keycloak, Auth0, Google, Microsoft Entra, … |
 
 ## Managing plugins

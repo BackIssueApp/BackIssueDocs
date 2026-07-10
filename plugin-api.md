@@ -68,7 +68,7 @@ api.registerRoute('get', '/api/myplugin/things', (req, res) => { ... }, { access
 - `req.user` carries the authenticated user (`{ id, username, role }`).
 - Core services are on `req.app.locals`:
   - `startDownloads()` — kick the download queue.
-  - `notify(event)` — emit a notification (bell + webhook): `{ type, category, level, title, body, url?, userId? }`.
+  - `notify(event)` — emit a notification (bell + registered notifier channels): `{ type, category, level, title, body, url?, userId?, seriesId? }`.
   - `issueSession(req, res, identity)` — sign in an **already-verified** external identity `{ provider, subject, email?, name?, defaultRole? }`; links or provisions the account and sets the session cookie. For SSO plugins' callback routes.
 
 ### `registerJob(job)`
@@ -136,6 +136,23 @@ api.registerCredentialProvider(async (username, password) => {
 ```
 
 Return a **verified** identity or `null` (not this backend's user / wrong password). Core links or provisions the account and issues the session. Local accounts always win first, so an admin can't be locked out by a downed backend.
+
+### `registerNotifier(fn)` — outbound notification channels
+
+Called (fire-and-forget) with **every** event the notification centre records; the channel does its own filtering and transport:
+
+```js
+api.registerNotifier(async (event, { fetchImpl }) => {
+  // event: { type, category, level, title, body, url, userId, seriesId }
+  if (!myUrl) return;
+  await fetchImpl(myUrl, { method: 'POST', body: JSON.stringify(event) });
+});
+```
+
+- `category` is one of `import | failure | release | request | system`; `level` is `info | success | warn | error`.
+- A thrown error is logged and never breaks the caller or other channels — but still filter/no-op cheaply when unconfigured.
+- Use the passed `fetchImpl` (tests inject it); it defaults to global `fetch`.
+- The **Notifications Hub** plugin is the reference implementation (Discord, Telegram, Pushover, ntfy, generic webhook).
 
 ## The source contract
 
@@ -225,6 +242,8 @@ Plain DOM mount points that stay mounted for the app's lifetime. **Append** chil
 | `settings-plugin-sources` | Settings → Sources — add a source block (`.src-block` markup gets the collapsible-card treatment automatically) |
 | `settings-plugin-auth` | Settings → Sign-in — auth-plugin configuration |
 | `settings-plugin-priority` | Settings → Sources, below source priority |
+| `settings-plugin-library` | Settings → Library — library-behavior preferences |
+| `settings-plugin-notifications` | Settings → Notifications — outbound channels (`.src-block` cards work here too; switchless cards manage their own open state in `onSettingsLoad`) |
 | `menu-plugin-actions` | The sidebar (via `addMenuAction`) |
 | `header-plugin-slot` | The top bar, next to the bell |
 | `home-plugin-rail` | Above the library grid — reading-shelf-style rails |

@@ -43,11 +43,9 @@ Notifications are **per user** — some are broadcast to everyone (a download fi
 - A weekly **release-day** heads-up for series you follow
 - **Requests** activity — a new request filed (for reviewers), or your request approved/declined
 
-### Webhook
+### Sending events elsewhere
 
-Set a **webhook URL** in Settings and the same events are also POSTed as Discord-compatible JSON (with structured fields for smarter receivers). Point it at a Discord channel webhook and you're done — or at anything that accepts a Discord-shaped payload (it also works as a generic post-event hook).
-
-You can choose **which categories** the webhook fires for (imports, failures, releases, requests, system) with per-category checkboxes; the in-app bell always records everything regardless.
+The **[Notifications Hub](notifications)** plugin sends the same events to Discord (rich embeds with cover art), Telegram, Pushover, ntfy, or any webhook — each channel with its own category filter. The in-app bell always records everything regardless.
 
 ## History
 

@@ -32,4 +32,4 @@ Crucially, downloads triggered by an approval run under the **acting user's own 
 
 ## Notifications
 
-Request activity flows into the [notification centre](automation#notifications): reviewers are told when a new request is filed, and requesters are told when theirs is approved or declined. If a webhook is configured, those can reach Discord too.
+Request activity flows into the [notification centre](automation#notifications): reviewers are told when a new request is filed, and requesters are told when theirs is approved or declined. With the [Notifications Hub](notifications) plugin, those can reach Discord, Telegram, or your phone too.

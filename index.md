@@ -37,7 +37,7 @@ features:
     details: See what shipped this week for the series you follow and grab anything you're missing in one click — or let a schedule do it.
   - icon: 🔔
     title: Requests & notifications
-    details: Let people request volumes and approve them from a queue; an in-app notification centre (and optional webhook) keeps everyone posted.
+    details: Let people request volumes and approve them from a queue; an in-app notification centre keeps everyone posted — and the Notifications Hub plugin relays events to Discord, Telegram, and more.
 ---
 
 ## How it works, in one paragraph

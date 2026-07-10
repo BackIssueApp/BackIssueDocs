@@ -37,10 +37,7 @@ With the **SSO (OpenID Connect)** plugin installed, a **Sign-in** section appear
 
 ## Notifications
 
-| Setting | Meaning |
-|---|---|
-| Webhook URL | Discord-compatible webhook for event notifications. Blank = off. |
-| Webhook categories | Which categories the webhook fires for (imports, failures, releases, requests, system). All on = everything. The in-app notification bell records all events regardless. |
+Outbound channels come from the **[Notifications Hub](notifications)** plugin — one collapsible card per channel (Discord, Telegram, Pushover, ntfy, generic webhook), each with its own category filter and test button. Without the plugin this section only points you at it; the in-app notification bell records all events regardless.
 
 ## Downloading
 

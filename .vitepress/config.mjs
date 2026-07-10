@@ -33,6 +33,7 @@ export default defineConfig({
           { text: 'Reading', link: '/reading' },
           { text: 'Discover', link: '/discover' },
           { text: 'Requests', link: '/requests' },
+          { text: 'Notifications', link: '/notifications' },
           { text: 'OPDS catalog', link: '/opds' },
           { text: 'AirDC++ source', link: '/airdcpp' },
           { text: 'Plugins', link: '/plugins' },
