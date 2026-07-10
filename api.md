@@ -35,9 +35,10 @@ useful for a client to discover what it's allowed to offer.
 
 ## The surface
 
-The API lives under `/api`. The best reference is the app itself: open the
-browser dev tools' network tab and click around — every screen is these same
-endpoints. Some anchors:
+The API lives under `/api`. The **[API reference](/api-reference)** lists
+every endpoint with its method and required permission. To watch the calls in
+context, open the browser dev tools' network tab and click around the app —
+every screen is these same endpoints. Some anchors:
 
 | Area | Endpoints |
 |---|---|

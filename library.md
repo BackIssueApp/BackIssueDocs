@@ -77,6 +77,7 @@ Safety rules for both: only ComicVine-matched series are touched, name collision
 | **Remove duplicate files** | Delete old/corrupt copies that a good copy of the same issue has replaced |
 | **Verify archives** | Deep-check every file for corruption; prune records for files gone from disk |
 | **Re-link to ComicVine** | Re-map owned files to CV issues across the library (fixes owned/missing counts after big changes) |
+| **Download issue metadata** | Fetch ComicVine detail (descriptions, credits, dates, covers) for every issue in your collection that's missing it — already-cached issues are skipped, and it stops cleanly if ComicVine rate-limits (re-run to finish) |
 | **Rename files to pattern** | Rename every CV-linked file to your [file pattern](#naming-patterns), in place (same folder) — collisions are skipped, nothing is overwritten |
 | **Reorganize library** | Move **and** rename every matched series' files to your folder + file patterns — dry-run preview first, then a background job with progress. See [Applying patterns to existing files](#applying-patterns-to-existing-files) |
 | **Back up database** | Snapshot `catalog.db` into `backups/` (keeps the newest 5); safe while the app runs |
