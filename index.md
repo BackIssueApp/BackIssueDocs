@@ -29,6 +29,9 @@ features:
   - icon: 📖
     title: Built-in reader
     details: Read your comics in the browser — paged, double-page, or webtoon — with resume, bookmarks, per-user history, reading lists, and story-arc import. Or use a native app over OPDS.
+  - icon: 📱
+    title: Android app
+    details: A native companion app for phone and tablet — sign in with your username, read with full resume and bookmarks, download issues for offline, and add or request comics on the go.
   - icon: 👥
     title: Multi-user
     details: Accounts, roles, and fine-grained permissions. Household members can browse, read, and request; you control who can reshape the library or change settings.
@@ -54,6 +57,7 @@ You add a series (or import an existing library). BackIssue matches it to [Comic
 | [Download sources](/sources) | Configuring Usenet and torrents, source priority |
 | [Your library](/library) | Importing existing files, scanning, tagging, naming, maintenance tools |
 | [Reading](/reading) | The in-browser reader, reading lists, and reading stats |
+| [Android app](/android) | Installing the native app, signing in, offline reading |
 | [Users & access](/users) | Accounts, roles, and permissions |
 | [Requests](/requests) · [Discover](/discover) · [OPDS](/opds) | Requesting volumes, discovering new comics, reading in native apps |
 | [Automation](/automation) | Scheduled jobs, notifications, history and logs |

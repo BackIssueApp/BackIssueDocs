@@ -31,6 +31,7 @@ export default defineConfig({
         text: 'Reading & features',
         items: [
           { text: 'Reading', link: '/reading' },
+          { text: 'Android app', link: '/android' },
           { text: 'Discover', link: '/discover' },
           { text: 'Requests', link: '/requests' },
           { text: 'Notifications', link: '/notifications' },
