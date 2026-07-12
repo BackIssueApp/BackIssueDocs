@@ -4,7 +4,7 @@ The **BackIssue Android app** is a native companion to your server — not a web
 
 <div class="tip custom-block" style="padding-top: 8px">
 
-**Download the latest release:** [backissue-0-1-1.apk](https://static.backissue.app/backissue-0-1-1.apk) · Android 8.0 (Oreo) or newer
+**[Download BackIssue for Android](https://static.backissue.app/backissue.apk)** · Android 8.0 (Oreo) or newer
 
 </div>
 
@@ -12,11 +12,15 @@ The **BackIssue Android app** is a native companion to your server — not a web
 
 The app is distributed as an APK you install directly (it isn't on the Play Store):
 
-1. On your phone, open the [download link](https://static.backissue.app/backissue-0-1-1.apk).
+1. On your phone, open the [download link](https://static.backissue.app/backissue.apk).
 2. When prompted, allow your browser to **install unknown apps** (Android asks the first time; you only need to do this once).
 3. Open the downloaded file to install, then launch **BackIssue**.
 
-Updating later works the same way — download the newer APK and install over the top; your servers and settings are kept.
+## Keeping the app updated
+
+The app **updates itself** — no need to come back here. When a new version is published you'll get an **Update available** prompt, and you can check any time from **Settings → Check for updates**. Tap **Download & install**, confirm the system prompt, and your servers, sign-ins, and settings are all kept. The first update asks you to allow BackIssue to install apps — a one-time Android permission.
+
+You can still grab the latest APK by hand from the [download link](https://static.backissue.app/backissue.apk) if you'd rather.
 
 ## Signing in
 
