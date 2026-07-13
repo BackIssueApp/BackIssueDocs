@@ -56,6 +56,6 @@ export default defineConfig({
 
     outline: { level: [2, 3], label: 'On this page' },
     docFooter: { prev: 'Previous', next: 'Next' },
-    footer: { message: 'BackIssue documentation' },
+    footer: { message: 'BackIssue documentation · <a href="/privacy">Privacy Policy</a>' },
   },
 });
