@@ -15,6 +15,12 @@ Coming from another collection manager, a hand-organized folder tree, or a pile 
 
 Import never moves or renames your files unless you later run the rename tool.
 
+Supported layouts: a flat `Series/` tree, the default `Publisher/Series (Year)/`,
+and Mylar-style `Publisher/Series/Volume/` trees (e.g. `Marvel/X-Men/v2004`) —
+when a folder is only a volume marker (`v2004`, `Vol. 3 (1999)`), the series
+name is read from the folder above it, and each volume folder is matched to its
+own ComicVine volume.
+
 ## How files are recognized
 
 The scanner reads real file contents, not just names:
