@@ -36,6 +36,16 @@ The **Queue** section shows the whole pipeline live. Every downloading item has 
 
 You can **pause and resume** the whole queue, **retry** or **clear** failed items, and **cancel** individual downloads. If the app restarts mid-download, the queue resumes on its own.
 
+## Blocked releases
+
+A Usenet release that the download client reports as **failed** — broken PAR2/repair, missing articles — is very likely to fail the same way every time. So when that happens, the exact release is added to a **blocklist** and skipped on future searches: a retry grabs the next-best release instead of re-fetching the same broken one over and over.
+
+- Only a genuine **client-reported failure** blocks a release. An import hiccup on our side, a download timeout, or an unreachable client does **not** — none of those mean the release itself is bad.
+- Releases are matched by both their indexer id and a normalized title, so the same broken post is caught even if it reappears under a new id or on another indexer.
+- **History → Blocklist** lists blocked releases with the reason they failed. Remove one to allow it to be auto-grabbed again, or clear the whole list. A **manual** [source search](#manual-searches) is never filtered — if you deliberately pick a blocked release, that choice stands.
+
+This applies to Usenet only; torrent seeding/removal is managed in your torrent client.
+
 ## Manual searches
 
 Sometimes you want to pick the exact release yourself:
