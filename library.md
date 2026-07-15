@@ -9,7 +9,7 @@ Root folders are the top-level directories where your comics live — local path
 Coming from another collection manager, a hand-organized folder tree, or a pile of loose files? **Sidebar → Import**:
 
 1. Point the scan at a folder (defaults to your root folders).
-2. BackIssue walks it and proposes a **match** for each series folder against ComicVine. Tagged libraries match best: embedded `ComicInfo.xml` metadata (Mylar, ComicTagger, Kapowarr) supplies the series name, start year, and publisher; untagged files are matched from their folder names.
+2. BackIssue walks it and proposes a **match** for each series folder against ComicVine. Tagged libraries match best: when the embedded `ComicInfo.xml` (Mylar, ComicTagger, Kapowarr) carries a ComicVine id, the volume is matched exactly — otherwise the tagged series name, start year, and publisher drive the search; untagged files are matched from their folder names.
 3. Confident matches import automatically; ambiguous ones become **candidates** you confirm or re-pick with a couple of clicks; anything unrecognizable is listed for manual handling.
 4. Imported files are indexed as owned — the series' missing counts update immediately.
 
