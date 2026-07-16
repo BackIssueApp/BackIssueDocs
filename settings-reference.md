@@ -1,12 +1,12 @@
 # Settings reference
 
-Everything in **Settings**, by section. Values persist to `settings.json` next to the app. Plugins add their own sections; those are documented with each plugin.
+Everything in **Settings**, by tab. Settings opens on an **Overview** tab — health cards (sources, ComicVine, libraries, storage, downloading, notifications) plus a "Needs attention" list that links straight to whatever needs fixing. The other tabs are **Library**, **Downloading**, **Sources**, **Metadata**, **Sign-in**, and **Notifications**; Library and Sources show a small rail on the left (their sub-panels — plugin sources appear there too) with one panel at a time on the right. Edits reveal a save bar at the bottom; library changes apply immediately. Values persist to `settings.json` next to the app. Plugins add their own panels; those are documented with each plugin.
 
 ## ComicVine
 
 | Setting | Meaning |
 |---|---|
-| API keys | One or more ComicVine API keys, one per line. With several, BackIssue rotates to the next key whenever one is rate-limited — CV's per-key limits are the main throttle on big libraries. |
+| API key | Your ComicVine API key (free at comicvine.gamespot.com) — it identifies every series and issue. |
 | Proxy URL | Optional HTTP(S) forward proxy for ComicVine calls only (e.g. `http://user:pass@proxy:port`). Useful when CV is unreachable or rate-limits your IP; rotating-proxy services work well since each request may exit from a fresh IP. |
 | API base URL | Point metadata lookups at a ComicVine-compatible server instead of the official API. Blank = official ComicVine. |
 | Use enriched metadata | When the endpoint supports it, matched series also get a **content rating**, **publication status** (Ongoing/Cancelled/Completed), and **end year** — shown on the series page. Series rated Mature/Explicit/Adult are [flagged mature](users#content-restrictions-mature-series) automatically; your manual flag choices always win. The official ComicVine API ignores this setting. |
@@ -15,7 +15,7 @@ Everything in **Settings**, by section. Values persist to `settings.json` next t
 
 | Setting | Meaning |
 |---|---|
-| Root folders | Your library directories, one per line. Downloads are filed into them; scans read them. |
+| Libraries | Named libraries (see [Libraries](library#libraries)), each with a type, its own folders (first = where new downloads file; the rest are extra scan locations), an optional per-library folder pattern, and a Mature flag. Managed here; changes apply immediately. |
 | Folder pattern | How each series' folder is built under a root, from tokens — default `{publisher}/{series} ({year})`. See [Naming patterns](library#naming-patterns). |
 | File pattern | How issue files are named — default `{series} V{year} #{issue}`. Tokens: `{publisher}` `{series}` `{year}` `{issue}` (`{issue:2}` sets pad width) `{issueTitle}` `{date}` `{edition}`. A live example previews as you type; blank = default. |
 | Rename downloads | On (default): downloaded files are named to the file pattern. Off: completed downloads keep the source's original filename, still filed into the comic's folder. |
