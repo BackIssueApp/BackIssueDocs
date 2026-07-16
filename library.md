@@ -11,6 +11,8 @@ The collection can be split into named **libraries** — say *Comics* and *Manga
 - Deleting a library keeps all its series (they return to the default library) — nothing is removed from disk.
 - With no libraries defined, the sidebar shows per-type entries automatically once a second type (e.g. manga) appears in the collection — explicit libraries simply take over when you create them.
 
+**Manga metadata and covers are provided by [MangaDex](https://mangadex.org).** With a manga library, the Add dialog offers a **Search manga** toggle, and imports into manga folders match against the manga catalog automatically.
+
 ## Root folders
 
 Storage locations live on your **libraries** (above): each library's folder is where its comics are filed — local paths or network shares (`\\NAS\comics`, `/mnt/comics`) — and where scans look for what you own. Upgrading from an older version migrates your root folders automatically: the default becomes a **Comics** library, and extra scan folders each become a library of their own.
