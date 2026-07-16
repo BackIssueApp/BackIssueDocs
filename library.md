@@ -1,5 +1,14 @@
 # Your library
 
+## Libraries
+
+The collection can be split into named **libraries** — say *Comics* and *Manga* — each with its own entry in the sidebar. Create them in **Settings → Library → Libraries**: a library has a name, a **type** that sets how its series behave (manga = chapter-style search and right-to-left reading defaults), and an optional **folder** — new downloads for that library file there instead of the default root.
+
+- Move a series between libraries from its **⋯ menu**; it takes on the library's type.
+- **Import** scans each library's folder too, and anything found under one joins that library automatically, typed correctly.
+- Deleting a library keeps all its series (they return to the default library) — nothing is removed from disk.
+- With no libraries defined, the sidebar shows per-type entries automatically once a second type (e.g. manga) appears in the collection — explicit libraries simply take over when you create them.
+
 ## Root folders
 
 Root folders are the top-level directories where your comics live — local paths or network shares (`\\NAS\comics`, `/mnt/comics`). BackIssue files downloads into them (one folder per series) and scans them to know what you own. Add them in Settings; the first one is created by the setup wizard.
