@@ -13,7 +13,7 @@ The collection can be split into named **libraries** — say *Comics* and *Manga
 
 ## Root folders
 
-Root folders are the top-level directories where your comics live — local paths or network shares (`\\NAS\comics`, `/mnt/comics`). BackIssue files downloads into them (one folder per series) and scans them to know what you own. Add them in Settings; the first one is created by the setup wizard.
+Storage locations live on your **libraries** (above): each library's folder is where its comics are filed — local paths or network shares (`\\NAS\comics`, `/mnt/comics`) — and where scans look for what you own. Upgrading from an older version migrates your root folders automatically: the default becomes a **Comics** library, and extra scan folders each become a library of their own.
 
 ## Importing an existing collection
 
