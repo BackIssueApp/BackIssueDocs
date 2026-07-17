@@ -7,6 +7,17 @@ export default defineConfig({
   lastUpdated: false,
   ignoreDeadLinks: [/^https?:\/\/localhost/], // docs legitimately point at the local app
 
+  head: [
+    ['link', { rel: 'icon', type: 'image/png', href: '/favicon-32.png' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
+    ['link', {
+      rel: 'stylesheet',
+      href: 'https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500;700&display=swap',
+    }],
+    ['meta', { name: 'theme-color', content: '#ff2d6f' }],
+  ],
+
   themeConfig: {
     nav: [
       { text: 'Docs', link: '/getting-started' },

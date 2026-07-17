@@ -1,0 +1,180 @@
+/* ============================================================
+   BackIssue docs — comic-print editorial theme
+   Tokens & prose recreated 1:1 from the design handoff.
+   Dark palette is mapped to VitePress's native `.dark` class
+   (html.dark), which the theme toggle flips and persists.
+   ============================================================ */
+
+:root {
+  --font-display: 'Archivo', 'Arial Narrow', Impact, sans-serif;
+  --font-ui:      'Archivo', sans-serif;
+  --font-serif:   'Newsreader', Georgia, serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+  --font-body:    var(--font-serif);
+
+  --paper:      #F5F1E7;
+  --surface:    #FFFFFF;
+  --surface-2:  #EEE9DB;
+  --ink:        #1B1A16;
+  --ink-soft:   #57534A;
+  --ink-faint:  #8C877A;
+  --line:       #DDD6C5;
+  --accent:     #ff2d6f;
+  --accent-2:   #F2B705;
+  --code-bg:    #1E1C17;
+  --code-ink:   #F3EEE0;
+  --card-shadow: 5px 5px 0 rgba(27, 26, 22, .92);
+}
+
+html.dark {
+  --paper:      #141310;
+  --surface:    #1D1B16;
+  --surface-2:  #26241D;
+  --ink:        #F3EEE1;
+  --ink-soft:   #B0AA99;
+  --ink-faint:  #7E7768;
+  --line:       #332F27;
+  --accent:     #ff2d6f;
+  --accent-2:   #F2B705;
+  --code-bg:    #0C0B09;
+  --code-ink:   #EFEADE;
+  --card-shadow: 5px 5px 0 rgba(0, 0, 0, .6);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img { max-width: 100%; display: block; }
+::selection { background: var(--accent); color: #fff; }
+
+.bi-scroll::-webkit-scrollbar { width: 10px; height: 10px; }
+.bi-scroll::-webkit-scrollbar-thumb { background: var(--line); border-radius: 20px; }
+
+@keyframes bi-pulse {
+  0%, 100% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 26%, transparent); }
+  50%      { box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 6%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bi-pulse-dot { animation: none !important; }
+}
+
+/* keyboard focus */
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---------- rendered article prose ---------- */
+.bi-prose { font-family: var(--font-body); color: var(--ink); font-size: 18px; line-height: 1.72; max-width: none; }
+.bi-prose h1 { display: none; }
+.bi-prose h2 {
+  font-family: var(--font-display); font-weight: 800; font-size: 1.62rem;
+  letter-spacing: -.015em; line-height: 1.15; margin: 2.8rem 0 1rem;
+  padding-top: 1.5rem; border-top: 2px solid var(--line); position: relative;
+  scroll-margin-top: 90px;
+}
+.bi-prose h2::before { content: ""; position: absolute; top: -2px; left: 0; width: 46px; height: 2px; background: var(--accent); }
+.bi-prose h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.16rem; letter-spacing: -.01em; margin: 2rem 0 .55rem; scroll-margin-top: 90px; }
+.bi-prose h4 { font-family: var(--font-display); font-weight: 700; font-size: 1rem; margin: 1.5rem 0 .4rem; scroll-margin-top: 90px; }
+.bi-prose p { margin: 0 0 1.15rem; text-wrap: pretty; }
+.bi-prose a { color: var(--accent); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 2px; font-weight: 500; font-family: var(--font-body); }
+.bi-prose a:hover { background: var(--accent); color: #fff; text-decoration: none; border-radius: 2px; }
+.bi-prose strong { font-weight: 700; color: var(--ink); }
+.bi-prose em { font-style: italic; }
+.bi-prose ul, .bi-prose ol { margin: 0 0 1.2rem; padding-left: 1.35rem; }
+.bi-prose li { margin: .4rem 0; text-wrap: pretty; }
+.bi-prose li::marker { color: var(--accent); font-weight: 700; }
+.bi-prose :not(pre) > code {
+  font-family: var(--font-mono); font-size: .84em; background: var(--surface-2);
+  border: 1px solid var(--line); border-radius: 5px; padding: .13em .42em; color: var(--ink); word-break: break-word;
+}
+.bi-prose pre {
+  font-family: var(--font-mono); background: var(--code-bg); color: var(--code-ink);
+  border: 2px solid var(--ink); border-radius: 10px; padding: 1.05rem 1.2rem; overflow: auto;
+  margin: 0 0 1.4rem; font-size: 13.5px; line-height: 1.65; box-shadow: var(--card-shadow);
+}
+.bi-prose pre code { background: none; border: none; padding: 0; font-family: var(--font-mono); color: inherit; font-size: inherit; white-space: pre; }
+/* VitePress wraps code blocks in div.language-xxx with a label + copy button */
+.bi-prose div[class*="language-"] { position: relative; margin: 0 0 1.4rem; }
+.bi-prose div[class*="language-"] pre { margin: 0; }
+.bi-prose div[class*="language-"] .lang {
+  position: absolute; top: 8px; right: 12px; z-index: 2;
+  font-family: var(--font-mono); font-size: 10px; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--ink-faint); pointer-events: none;
+}
+.bi-prose div[class*="language-"] .copy {
+  position: absolute; top: 10px; right: 10px; z-index: 3; width: 30px; height: 30px;
+  background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px;
+  cursor: pointer; opacity: 0; transition: opacity .2s; background-image: none;
+}
+.bi-prose div[class*="language-"]:hover .copy { opacity: 1; }
+.bi-prose div[class*="language-"] .copy::after { content: "Copy"; font-family: var(--font-mono); font-size: 9px; color: var(--ink-faint); position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.bi-prose div[class*="language-"] .copy.copied::after { content: "✓"; color: var(--accent); }
+.bi-prose div[class*="language-"]:hover .lang { display: none; }
+.bi-prose table { width: 100%; border-collapse: collapse; margin: 0 0 1.6rem; font-family: var(--font-ui); font-size: 14.5px; border: 2px solid var(--ink); overflow: hidden; display: table; }
+.bi-prose thead th { background: var(--ink); color: var(--paper); font-family: var(--font-display); text-transform: uppercase; letter-spacing: .04em; font-size: 11.5px; font-weight: 800; text-align: left; padding: .6rem .85rem; }
+.bi-prose td { padding: .6rem .85rem; border-top: 1px solid var(--line); vertical-align: top; color: var(--ink-soft); }
+.bi-prose td:first-child { color: var(--ink); font-weight: 500; }
+.bi-prose tbody tr:nth-child(even) { background: var(--surface-2); }
+.bi-prose blockquote { margin: 0 0 1.3rem; padding: .4rem 0 .4rem 1.2rem; border-left: 4px solid var(--accent); color: var(--ink-soft); font-style: italic; }
+.bi-prose hr { border: none; border-top: 2px solid var(--line); margin: 2.2rem 0; }
+/* tables that overflow scroll inside their own container */
+.bi-prose { overflow-wrap: break-word; }
+
+/* header anchor (VitePress) — keep it subtle */
+.bi-prose .header-anchor { color: var(--accent); text-decoration: none; opacity: 0; margin-left: .3em; font-weight: 400; }
+.bi-prose .header-anchor:hover { background: none; color: var(--accent); }
+.bi-prose h2:hover .header-anchor, .bi-prose h3:hover .header-anchor, .bi-prose h4:hover .header-anchor { opacity: 1; }
+
+/* ---------- VitePress custom containers -> comic callouts ---------- */
+.bi-prose .custom-block {
+  margin: 0 0 1.5rem; padding: .95rem 1.1rem; border: 2px solid var(--ink);
+  border-left-width: 6px; border-radius: 9px; background: var(--surface-2); box-shadow: var(--card-shadow);
+}
+.bi-prose .custom-block > *:last-child { margin-bottom: 0; }
+.bi-prose .custom-block p { margin: .4rem 0; }
+.bi-prose .custom-block a { color: var(--accent); }
+.bi-prose .custom-block-title {
+  font-family: var(--font-display); font-weight: 800; text-transform: uppercase;
+  letter-spacing: .05em; font-size: 11.5px; margin-bottom: .45rem;
+}
+.bi-prose .custom-block.tip { border-left-color: var(--accent); }
+.bi-prose .custom-block.tip .custom-block-title { color: var(--accent); }
+.bi-prose .custom-block.info { border-left-color: #2F6FEB; }
+.bi-prose .custom-block.info .custom-block-title { color: #2F6FEB; }
+.bi-prose .custom-block.warning { border-left-color: #D9930A; }
+.bi-prose .custom-block.warning .custom-block-title { color: #D9930A; }
+.bi-prose .custom-block.danger { border-left-color: #D92D20; }
+.bi-prose .custom-block.danger .custom-block-title { color: #D92D20; }
+.bi-prose .custom-block.details { border-left-color: var(--ink-faint); }
+.bi-prose .custom-block.details .custom-block-title,
+.bi-prose .custom-block.details summary { color: var(--ink-soft); font-family: var(--font-display); font-weight: 800; text-transform: uppercase; letter-spacing: .05em; font-size: 11.5px; cursor: pointer; }
+
+/* ---------- restyle the built-in local search modal ---------- */
+.VPLocalSearchBox { --vp-c-bg: var(--surface); }
+.VPLocalSearchBox .backdrop { background: rgba(20, 19, 16, .55); backdrop-filter: blur(3px); }
+.VPLocalSearchBox .shell {
+  background: var(--surface); border: 2px solid var(--ink); border-radius: 14px;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, .35); color: var(--ink);
+}
+.VPLocalSearchBox .search-bar { border: 2px solid var(--line); border-radius: 9px; background: var(--surface); }
+.VPLocalSearchBox .search-input { font-family: var(--font-ui); color: var(--ink); }
+.VPLocalSearchBox .search-keyboard-shortcuts kbd,
+.VPLocalSearchBox .result .title,
+.VPLocalSearchBox .result .titles { color: var(--ink); font-family: var(--font-ui); }
+.VPLocalSearchBox .result {
+  background: var(--surface-2); border: 2px solid transparent; border-radius: 9px;
+}
+.VPLocalSearchBox .result.selected { border-color: var(--accent); }
+.VPLocalSearchBox .result mark { background: var(--accent-2); color: var(--ink); border-radius: 2px; }
+.VPLocalSearchBox .titles .title-icon,
+.VPLocalSearchBox .titles mark { color: var(--accent); }
