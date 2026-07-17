@@ -13,15 +13,15 @@ The collection can be split into named **libraries** — say *Comics* and *Manga
 
 **Manga metadata and covers are provided by [MangaDex](https://mangadex.org).** With a manga library, the Add dialog offers a **Search manga** toggle, and imports into manga folders match against the manga catalog automatically.
 
-## Root folders
+## Storage locations
 
-Storage locations live on your **libraries** (above): each library's folder is where its comics are filed — local paths or network shares (`\\NAS\comics`, `/mnt/comics`) — and where scans look for what you own. Upgrading from an older version migrates your root folders automatically: the default becomes a **Comics** library, and extra scan folders each become a library of their own.
+Storage locations live on your **libraries** (above): each library's folder is where its comics are filed — local paths or network shares (`\\NAS\comics`, `/mnt/comics`) — and where scans look for what you own. Upgrading from an older version migrates automatically: your former default scan folder becomes a **Comics** library, and any extra scan folders each become a library of their own.
 
 ## Importing an existing collection
 
 Coming from another collection manager, a hand-organized folder tree, or a pile of loose files? **Sidebar → Import**:
 
-1. Point the scan at a folder (defaults to your root folders).
+1. Point the scan at a folder (defaults to your library folders).
 2. BackIssue walks it and proposes a **match** for each series folder against ComicVine. Tagged libraries match best: when the embedded `ComicInfo.xml` (Mylar, ComicTagger, Kapowarr) carries a ComicVine id, the volume is matched exactly — otherwise the tagged series name, start year, and publisher drive the search; untagged files are matched from their folder names.
 3. Confident matches import automatically; ambiguous ones become **candidates** you confirm or re-pick with a couple of clicks; anything unrecognizable is listed for manual handling.
 4. Imported files are indexed as owned — the series' missing counts update immediately.
@@ -80,17 +80,17 @@ Two things to know:
 Always explicit, never automatic:
 
 - **One series** — the volume page's **⋯ → Rename files** moves/renames that series' files to match your patterns (a confirm shows the count first).
-- **Whole library** — **Tools → Reorganize library**. **Preview** first: a dry run shows what would move, grouped by destination folder, with counts for already-matching files and name collisions. **Reorganize** then runs as a background job with live progress (also visible on the Jobs page) — a big library on a NAS takes a while, and the app stays fully usable during it.
+- **Whole library** — **System → Tools → Reorganize library**. **Preview** first: a dry run shows what would move, grouped by destination folder, with counts for already-matching files and name collisions. **Reorganize** then runs as a background job with live progress (also visible under **System → Jobs**) — a big library on a NAS takes a while, and the app stays fully usable during it.
 
-Safety rules for both: only ComicVine-matched series are touched, name collisions are skipped (never overwritten), files never leave their root folder, and emptied folders are cleaned up.
+Safety rules for both: only ComicVine-matched series are touched, name collisions are skipped (never overwritten), files never leave their library folder, and emptied folders are cleaned up.
 
-## The Tools page
+## Library tools
 
-**Sidebar → Tools** — library-wide maintenance, each with live progress:
+**System → Tools** — library-wide maintenance, each with live progress:
 
 | Tool | What it does |
 |---|---|
-| **Scan entire library** | Re-walk every root folder: index new files, drop records of deleted ones |
+| **Scan entire library** | Re-walk every library folder: index new files, drop records of deleted ones |
 | **Tag all untagged files** | Embed ComicVine metadata into every owned file that lacks it (converts CBR as needed) |
 | **Convert all CBR → CBZ** | Repack every `.cbr` so the whole library is consistently taggable |
 | **Remove duplicate files** | Delete old/corrupt copies that a good copy of the same issue has replaced |

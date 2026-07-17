@@ -47,7 +47,7 @@ docker run -d -p 8787:8787 \
 ```
 
 Then open **http://localhost:8787**. Mount your comic library at `/comics` and
-point **Settings → Library → Root folders** at it; if a download client
+point a **library** at it under **Settings → Library**; if a download client
 (SABnzbd, NZBGet, qBittorrent) runs in another container, mount its
 completed-downloads folder too so BackIssue can import finished downloads.
 
@@ -82,8 +82,8 @@ The first time you open BackIssue it asks you to **create the admin account**
 (a fresh install never runs unsecured), then a short wizard walks you through
 the essentials:
 
-1. **ComicVine API key** — paste your key. You can paste *several* keys (one per line); BackIssue rotates between them automatically when one hits its rate limit.
-2. **Library folder** — where your comics live (or should live, Docker: `/comics`). This becomes your first *root folder*; you can add more later in Settings.
+1. **ComicVine API key** — paste your key (free from ComicVine; it identifies every series and issue).
+2. **Libraries** — create one or more named **libraries**, each with a type (Comics/Manga) and its own folder on disk (Docker: `/comics`). A **Comics** library is set up for you; add more, or leave a folder blank to decide later, and manage them anytime in Settings.
 3. **A download source** — enable at least one of Usenet or torrents so BackIssue can actually fetch comics. You can skip this and set it up later — see [Download sources](sources).
 4. **Plugins** — pick optional plugins (the in-browser reader, Discover, OPDS, Requests, extra sources…); they download and activate when you finish. More can be added anytime from the Plugins page.
 
@@ -95,7 +95,7 @@ The app is laid out with a **sidebar of sections** on the left and the content o
 
 - **Library** — a poster wall (or dense list — toggle ⊞/≣) of every series you track, with owned/total counts and badges for missing, untagged, or corrupt files. Filter chips (All / Incomplete / Not followed / Problems / Unmatched), a sort dropdown, and search sit at the top. Click a series to open its issue list.
 - **Series page** — the full ComicVine issue list for a series: what you own, what's missing, per-issue read/download buttons, and series-level actions (download missing, search sources, search packs, tag files, add to a reading list, and more).
-- **Sidebar sections** — Library, Wanted, Queue (live download progress), Releases (this week's issues for series you follow), Lists (reading lists), History, Stats, plus plugin entries like Discover, Requests, and reading tools. Admins also get a **System** area: Users, Plugins, Jobs, Tools, Logs, and Settings.
+- **Sidebar sections** — Library, Wanted, Queue (live download progress), Releases (this week's issues for series you follow), Lists (reading lists), History, Stats, plus plugin entries like Discover, Requests, and reading tools. Admins also get a **System** area: Users, Plugins, a unified **System** page (Jobs, Tools and Logs on tabs), and Settings.
 - **Header** — global search, a **notification bell**, and a **?** help button that explains whatever page you're on.
 
 Every filter and view is reflected in the URL, so you can bookmark or share any view. Buttons you don't have permission for simply don't appear.
@@ -114,7 +114,7 @@ Prefer to browse rather than search? The **Discover** section surfaces new and n
 | **Issue** | One issue of a series. BackIssue knows the full issue list from ComicVine. |
 | **Owned / Missing** | An issue is *owned* when a valid file for it exists in your library, otherwise *missing*. |
 | **Monitored** (★) | Monitored series are included in automatic searching and weekly-release tracking. Unmonitored series are still tracked, just left alone. |
-| **Root folder** | A top-level library folder BackIssue scans and files comics into. You can have several. |
+| **Library** | A named collection with a type (Comics/Manga) and one or more folders on disk that BackIssue scans and files comics into. You can have several. |
 | **Source** | Somewhere BackIssue can download from — Usenet, torrents, or a plugin source. |
 | **Queue** | The live pipeline of issues being searched, downloaded, and imported. |
 
@@ -137,8 +137,8 @@ accounts under **Users** — see [Users & access](users).
 Everything lives in one data directory — `/data` in Docker (keep that volume
 persistent!), or next to the app when running from source:
 
-- `catalog.db` — the database: series, issues, the file index, history, **and** accounts, roles, reading history, reading lists, and requests. Back it up from **Tools → Back up database** (it keeps the newest 5 snapshots).
+- `catalog.db` — the database: series, issues, the file index, history, **and** accounts, roles, reading history, reading lists, and requests. Back it up from **System → Tools → Back up database** (it keeps the newest 5 snapshots).
 - `settings.json` — your settings, written whenever you save Settings.
 - `plugins/` — plugins installed from the in-app catalog (Docker: under `/data` so they survive image updates).
 
-Comics themselves live in your root folders, organized by your [naming patterns](library#naming-patterns) — by default one `Publisher/Series (Year)` folder per series.
+Comics themselves live in your library folders, organized by your [naming patterns](library#naming-patterns) — by default one `Publisher/Series (Year)` folder per series.

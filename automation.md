@@ -4,7 +4,7 @@ Set it up once and BackIssue keeps your collection current on its own.
 
 ## Scheduled jobs
 
-**Sidebar → Jobs** shows every schedule with its cron expression, an enable toggle, last-run result, and a **Run now** button.
+**System → Jobs** shows every schedule with its cron expression, an enable toggle, last-run result, and a **Run now** button.
 
 | Job | What it does |
 |---|---|
@@ -53,7 +53,7 @@ The **[Notifications Hub](notifications)** plugin sends the same events to Disco
 
 ## Logs
 
-**Sidebar → Logs** — timestamped, filterable application log: searches, grabs, imports, tag results, failures with reasons. First stop when something didn't download; the reason is almost always spelled out here.
+**System → Logs** — timestamped, filterable application log: searches, grabs, imports, tag results, failures with reasons. First stop when something didn't download; the reason is almost always spelled out here.
 
 ## Stats
 

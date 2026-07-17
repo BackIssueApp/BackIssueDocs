@@ -88,7 +88,7 @@ Each scheduled job has a **cron expression** and an **enable** toggle — see [A
 | Zero-day pack | `zeroDayCron` / `zeroDayEnabled` |
 | Back up database | `backupCron` / `backupEnabled` (default weekly Monday 05:00, **on**) |
 
-Plugins register schedules of their own (e.g. the AirDC++ [announce watch](airdcpp#watching-announce-bots)) — they appear on the Jobs page alongside these.
+Plugins register schedules of their own (e.g. the AirDC++ [announce watch](airdcpp#watching-announce-bots)) — they appear under **System → Jobs** alongside these.
 
 ## Advanced
 

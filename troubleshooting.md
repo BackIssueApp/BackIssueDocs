@@ -1,11 +1,11 @@
 # Troubleshooting
 
-**First stop for anything download-related: Sidebar → Logs.** Failures are recorded with their reason — most answers below start there.
+**First stop for anything download-related: System → Logs.** Failures are recorded with their reason — most answers below start there.
 
 ## ComicVine
 
 **"Rate limit exceeded" / matching crawls.**
-CV enforces per-key request limits. Add **more API keys** (Settings → ComicVine, one per line) — BackIssue rotates automatically. Big first-time imports are the heaviest CV users; let the nightly CV-match schedule chew through them instead of re-running manually.
+CV enforces per-key request limits. BackIssue paces its own requests, but for heavy use point the **API base URL** (Settings → ComicVine) at a self-hosted ComicVine-compatible cache, or set a **Proxy URL** so requests exit from a fresh IP. Big first-time imports are the heaviest CV users; let the nightly CV-match schedule chew through them instead of re-running manually.
 
 **"Invalid API key" though the key is right.**
 CV sometimes blocks datacenter/VPN IPs, which can surface as key errors. Try without VPN, or set a **Proxy URL** so CV traffic exits elsewhere.
@@ -27,13 +27,16 @@ The monitor can't see the finished file. Almost always the **completed-folder ma
 **Import fails with "Can't find end of central directory".**
 The file isn't a valid ZIP — usually a truncated download or a RAR-in-disguise. BackIssue sniffs real formats on import, so this typically means genuine corruption: redownload the issue.
 
+**A big collected edition imported as `.cbr` instead of `.cbz`.**
+Very large RAR-based comics (collected volumes, often hundreds of MB) can't be repacked to CBZ in memory, so BackIssue files them as-is: fully readable, just not ComicInfo-tagged. The size ceiling scales with the host's memory (roughly 1 GB on a 32 GB box, down to a 400 MB floor on smaller hosts). If you have RAM to spare and want more of these converted, raise it with the `MAX_RAR_MB` environment variable (value in megabytes).
+
 **Downloads are slow in big batches.**
 Expected to a degree — workers parallelize (`downloadConcurrency`), but each source has its own pacing, and BackIssue deliberately doesn't hammer. Watch the Queue to see where time goes.
 
 ## Library
 
 **Owned issues show as missing.**
-The file isn't linked to the CV issue — odd filename, or metadata pointing elsewhere. Run **Tools → Re-link to ComicVine**, then **Scan entire library** if files were added outside BackIssue.
+The file isn't linked to the CV issue — odd filename, or metadata pointing elsewhere. Run **System → Tools → Re-link to ComicVine**, then **Scan entire library** if files were added outside BackIssue.
 
 **Files flagged corrupt that open fine elsewhere.**
 Some readers tolerate damage that strict verification doesn't. **Redownload** for a clean copy, then **Remove duplicate files** to clear the bad one. If many files flag at once on a network share, check the share mount first — unreadable ≠ corrupt.
@@ -64,7 +67,7 @@ Run `npm run up` (not just `npm start`) so the frontend rebuilds, then reload th
 ## Recovery
 
 **Database.**
-`catalog.db` is everything. **Tools → Back up database** snapshots it (newest 5 kept). Restore: stop the app, copy the snapshot over `catalog.db`, start. Your comics are untouched either way — worst case, a fresh library scan rebuilds the index from disk.
+`catalog.db` is everything. **System → Tools → Back up database** snapshots it (newest 5 kept). Restore: stop the app, copy the snapshot over `catalog.db`, start. Your comics are untouched either way — worst case, a fresh library scan rebuilds the index from disk.
 
 **A crash mid-download.**
 On startup BackIssue reconciles: issues whose file made it to disk are marked done; interrupted ones return to pending automatically. Nothing to clean up by hand.

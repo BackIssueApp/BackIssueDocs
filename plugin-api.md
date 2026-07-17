@@ -248,7 +248,7 @@ Plain DOM mount points that stay mounted for the app's lifetime. **Append** chil
 | `header-plugin-slot` | The top bar, next to the bell |
 | `home-plugin-rail` | Above the library grid — reading-shelf-style rails |
 | `profile-plugin-slot` | The user's Profile page — per-user options |
-| `tools-plugin-actions` | The Tools page — plugin-provided maintenance tools |
+| `tools-plugin-actions` | The Tools tab (System → Tools) — plugin-provided maintenance tools |
 
 Reuse core CSS classes (`.field`, `.btn`, `.switch`, `.modal__note`, `.src-block`, …) so plugin UI is indistinguishable from core UI.
 
@@ -258,5 +258,5 @@ Reuse core CSS classes (`.field`, `.btn`, `.switch`, `.modal__note`, `.src-block
 - **Per-user data**: key your tables by `req.user.id`. Store plugin data in the core database (own tables, created by your plugin) so backups cover it — open your own connection or use the job context's `db`.
 - **Settings fields**: `id="set-<key>"` inputs are loaded and saved automatically; checkboxes map to booleans.
 - **Test buttons**: pattern a connection test as a `POST /api/myplugin/test` route that accepts the posted form values, so it works before Save.
-- **Logging**: `import { logInfo, logWarn, logError } from '../../src/logstore.js'` — entries land on the Logs page with your category.
+- **Logging**: `import { logInfo, logWarn, logError } from '../../src/logstore.js'` — entries land on the Logs tab (System → Logs) with your category.
 - **Graceful degradation**: feature-detect newer host hooks (`api.registerJob?.({...})`, `typeof api.can === 'function'`) so the plugin still loads on older BackIssue versions.
