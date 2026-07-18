@@ -49,6 +49,17 @@ The catalog advertises OpenSearch, so your reader's **search box** works: type a
 - **Download** — every issue offers its file (CBZ/CBR/PDF) as a standard OPDS acquisition link, with its **size** shown up front and a tidy `Series - #012.cbz` filename. Downloads are **resumable** (range requests), so a dropped connection on a large archive picks up where it left off.
 - **Covers** — issues carry cover thumbnails from ComicVine even without the Reader plugin.
 - **Page streaming (OPDS-PSE)** — when the [Reader](reading) plugin is also installed, issues expose per-page streaming, so apps can read page-by-page without downloading the whole archive first. Covers and thumbnails then come through that pipeline at the size the app asks for.
+- **Progress syncs both ways over streaming.** Stream links carry your resume
+  point (`pse:lastRead`), so a PSE app opens an issue where you left off — on
+  any device. And streaming a page records progress the same way the built-in
+  reader does: your resume point only ever moves **forward** (an app
+  prefetching pages can't rewind you), fetching the last page marks the issue
+  read, and it all feeds "Continue reading", the apps, and reading stats
+  (including [Gamify](gamify), where streamed pages count as real reading).
+  Toggle it under **Settings → Plugins → OPDS progress sync**; a client can
+  also opt out per-request with `?progress=0` on the stream URL.
+
+Whole-file **downloads** don't sync progress — plain OPDS has no channel for it; once the file is in the app, reading happens offline.
 
 Only valid, ComicVine-matched files are served, and the best (tagged) copy of each issue is chosen automatically.
 
