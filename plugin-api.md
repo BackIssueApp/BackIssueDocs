@@ -154,6 +154,31 @@ api.registerNotifier(async (event, { fetchImpl }) => {
 - Use the passed `fetchImpl` (tests inject it); it defaults to global `fetch`.
 - The **Notifications Hub** plugin is the reference implementation (Discord, Telegram, Pushover, ntfy, generic webhook).
 
+### `registerIndexerProvider(provider)` — feed the built-in sources
+
+Supply Newznab/Torznab indexers to the built-in **Usenet** and **Torrent**
+sources instead of (or alongside) the manually entered lists:
+
+```js
+api.registerIndexerProvider({
+  id: 'myindexers',
+  isActive: (config) => !!config.myindexersEnabled,   // sync, no network
+  async indexers(config, protocol) {                  // 'newznab' | 'torznab'
+    return { indexers: [{ name, url, apiKey }], exclusive: true };
+  },
+});
+```
+
+- `indexers()` is called at search time; descriptors are the same
+  `{ name, url, apiKey }` shape the manual lists parse to.
+- `exclusive: true` **replaces** the manual list while the provider is active;
+  the settings UI shows those lists as managed. Without it, the provider's
+  indexers merge in alongside.
+- An active provider also counts as "has indexers" for the source's enabled
+  check. The **Prowlarr** plugin is the reference implementation.
+- Client side, `api.onIndexersManaged(cb)` tells core to grey the manual
+  indexer cards while your provider manages them.
+
 ## The source contract
 
 `registerSource(source)` takes:
@@ -240,6 +265,7 @@ Plain DOM mount points that stay mounted for the app's lifetime. **Append** chil
 | Slot id | Where |
 |---|---|
 | `settings-plugin-sources` | Settings → Sources — add a source block (`.src-block` markup gets the collapsible-card treatment automatically) |
+| `settings-plugin-panels` | Settings → Plugins — settings for plugins that are **not** download sources. Same `.src-block` contract as the Sources slot; each block becomes its own rail entry, and the tab appears only when a plugin mounts here |
 | `settings-plugin-auth` | Settings → Sign-in — auth-plugin configuration |
 | `settings-plugin-priority` | Settings → Sources, below source priority |
 | `settings-plugin-library` | Settings → Library — library-behavior preferences |

@@ -10,6 +10,10 @@ Usenet needs two pieces: one or more **Newznab indexers** (to find releases) and
 
 Add any Newznab-compatible indexer (NZBGeek, NZBFinder, althub, a private one — anything exposing the Newznab API). For each: a **URL** and an **API key**. You can add several; searches fan out across all of them and results merge into one ranked list.
 
+::: tip Run Prowlarr?
+The **[Prowlarr plugin](prowlarr)** feeds both this source and Torrents with every indexer your Prowlarr instance manages — one URL + API key instead of listing indexers here.
+:::
+
 ### Download client
 
 Both major clients are supported:

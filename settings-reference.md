@@ -1,6 +1,6 @@
 # Settings reference
 
-Everything in **Settings**, by tab. Settings opens on an **Overview** tab — health cards (sources, ComicVine, libraries, storage, downloading, notifications) plus a "Needs attention" list that links straight to whatever needs fixing. The other tabs are **Library**, **Downloading**, **Sources**, **Metadata**, **Sign-in**, and **Notifications**; Library and Sources show a small rail on the left (their sub-panels — plugin sources appear there too) with one panel at a time on the right. Edits reveal a save bar at the bottom; library changes apply immediately. Values persist to `settings.json` next to the app. Plugins add their own panels; those are documented with each plugin.
+Everything in **Settings**, by tab. Settings opens on an **Overview** tab — health cards (sources, ComicVine, libraries, storage, downloading, notifications) plus a "Needs attention" list that links straight to whatever needs fixing. The other tabs are **Library**, **Downloading**, **Sources**, **Metadata**, **Plugins** (appears when an installed plugin puts its settings there), **Sign-in**, and **Notifications**; Library and Sources show a small rail on the left (their sub-panels — plugin sources appear there too) with one panel at a time on the right. Edits reveal a save bar at the bottom; library changes apply immediately. Values persist to `settings.json` next to the app. Plugins add their own panels; those are documented with each plugin.
 
 ## ComicVine
 
