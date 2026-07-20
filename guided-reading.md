@@ -36,7 +36,7 @@ Edits are saved **per file** and apply to everyone on your server. They outrank 
 Detecting a page that some other BackIssue server has already detected is wasted work — so servers can share layouts through a community cache, keyed by a fingerprint of each page's content:
 
 - Before detecting, your server asks the cache; pages it already knows come back **instantly**.
-- Layouts your server detects, and any hand-corrections your users make, are contributed back for everyone else.
+- Layouts your server's ML detector finds, and any hand-corrections your users make, are contributed back for everyone else (the built-in fallback detector's output stays local — only high-quality layouts enter the pool).
 - **Hand-corrections always outrank detector output.** A model-detected layout is only served to others once **two servers independently agree** on it.
 
 **What leaves your server:** panel rectangles and a hash of each page's image bytes — never the images themselves, never filenames, never titles. The hash lets identical pages match without revealing what they are. If you'd rather not participate at all, turn off **Share panel layouts with the community cache** in **Settings → Library**; detection then runs purely locally.
