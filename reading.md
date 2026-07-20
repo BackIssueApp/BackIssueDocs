@@ -34,6 +34,10 @@ Shelves are **per user**: hide one with its **×**, and turn any on or off under
 - **Right-to-left** — for manga; page turns reverse.
 - Plus zoom/fit controls, white-border trimming for scans, and a data-saver mode that downscales pages.
 
+## Guided panel reading
+
+Press **G** in the reader to read panel by panel — the view zooms each panel in reading order with everything else dimmed, and admins can hand-correct any page's layout in a built-in editor. See [Guided panel reading](guided-reading) for the full story, including the shared layout cache.
+
 ## Progress, resume & bookmarks
 
 - **Resume** — the reader saves your page as you go; reopen an issue and it picks up where you stopped. Finishing an issue marks it read.

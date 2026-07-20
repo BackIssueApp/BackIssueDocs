@@ -1,14 +1,15 @@
 # Settings reference
 
-Everything in **Settings**, by tab. Settings opens on an **Overview** tab — health cards (sources, ComicVine, libraries, storage, downloading, notifications) plus a "Needs attention" list that links straight to whatever needs fixing. The other tabs are **Library**, **Downloading**, **Sources**, **Metadata**, **Plugins** (appears when an installed plugin puts its settings there), **Sign-in**, and **Notifications**; Library and Sources show a small rail on the left (their sub-panels — plugin sources appear there too) with one panel at a time on the right. Edits reveal a save bar at the bottom; library changes apply immediately. Values persist to `settings.json` next to the app. Plugins add their own panels; those are documented with each plugin.
+Everything in **Settings**, by tab. Settings opens on an **Overview** tab — health cards (sources, metadata, libraries, storage, downloading, notifications) plus a "Needs attention" list that links straight to whatever needs fixing. The other tabs are **Library**, **Downloading**, **Sources**, **Metadata**, **Plugins** (appears when an installed plugin puts its settings there), **Sign-in**, and **Notifications**; Library and Sources show a small rail on the left (their sub-panels — plugin sources appear there too) with one panel at a time on the right. Edits reveal a save bar at the bottom; library changes apply immediately. Values persist to `settings.json` next to the app. Plugins add their own panels; those are documented with each plugin.
 
-## ComicVine
+## Metadata
 
 | Setting | Meaning |
 |---|---|
-| API key | Your ComicVine API key (free at comicvine.gamespot.com) — it identifies every series and issue. |
+| Source | Where series and issue data comes from. **BackIssue metadata service** (the default) works with no setup — cached data with enrichment, no rate-limit pauses, authenticated by a key your install provisions for itself. **ComicVine directly** queries the official API with your own key. |
+| ComicVine API key | Only used when the source is ComicVine (free at comicvine.gamespot.com). |
 | Proxy URL | Optional HTTP(S) forward proxy for ComicVine calls only (e.g. `http://user:pass@proxy:port`). Useful when CV is unreachable or rate-limits your IP; rotating-proxy services work well since each request may exit from a fresh IP. |
-| API base URL | Point metadata lookups at a ComicVine-compatible server instead of the official API. Blank = official ComicVine. |
+| Service URL | Self-hosting the metadata service? Point lookups at your own instance. Blank = the built-in service. Ignored when the source is ComicVine. |
 | Use enriched metadata | When the endpoint supports it, matched series also get a **content rating**, **publication status** (Ongoing/Cancelled/Completed), and **end year** — shown on the series page. Series rated Mature/Explicit/Adult are [flagged mature](users#content-restrictions-mature-series) automatically; your manual flag choices always win. The official ComicVine API ignores this setting. |
 
 ## Library

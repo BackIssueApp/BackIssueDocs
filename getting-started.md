@@ -3,7 +3,6 @@
 ## Requirements
 
 - **Docker** (recommended) — or **Node.js 22+** to run from source
-- A **ComicVine API key** — free from [comicvine.gamespot.com/api](https://comicvine.gamespot.com/api/) (you'll need a ComicVine account)
 - Somewhere to put comics — a local folder or a network share
 
 ## Install with Docker (recommended)
@@ -82,7 +81,7 @@ The first time you open BackIssue it asks you to **create the admin account**
 (a fresh install never runs unsecured), then a short wizard walks you through
 the essentials:
 
-1. **ComicVine API key** — paste your key (free from ComicVine; it identifies every series and issue).
+1. **Metadata** — nothing to do: series and issue data comes from the built-in BackIssue metadata service. (Prefer querying ComicVine directly? Paste your own API key here — switchable anytime in Settings → Metadata.)
 2. **Libraries** — create one or more named **libraries**, each with a type (Comics/Manga) and its own folder on disk (Docker: `/comics`). A **Comics** library is set up for you; add more, or leave a folder blank to decide later, and manage them anytime in Settings.
 3. **A download source** — enable at least one of Usenet or torrents so BackIssue can actually fetch comics. You can skip this and set it up later — see [Download sources](sources).
 4. **Plugins** — pick optional plugins (the in-browser reader, Discover, OPDS, Requests, extra sources…); they download and activate when you finish. More can be added anytime from the Plugins page.

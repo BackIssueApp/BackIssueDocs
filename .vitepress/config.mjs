@@ -42,6 +42,7 @@ export default defineConfig({
         text: 'Reading & features',
         items: [
           { text: 'Reading', link: '/reading' },
+          { text: 'Guided panel reading', link: '/guided-reading' },
           { text: 'Gamify', link: '/gamify' },
           { text: 'Android app', link: '/android' },
           { text: 'Discover', link: '/discover' },
