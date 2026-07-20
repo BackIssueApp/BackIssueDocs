@@ -45,7 +45,7 @@ Detecting a page that some other BackIssue server has already detected is wasted
 
 | Setting (Settings → Library) | Does |
 |---|---|
-| Use the ML panel detector | Prefer the neural panel detector when a model is installed on the server; off = the built-in detector only. |
+| Use the ML panel detector | The neural panel detector — downloaded automatically from the BackIssue CDN on first start (checksum-verified) and kept up to date; off = the built-in detector only, and no download happens. |
 | Share panel layouts with the community cache | The shared cache described above. On by default; off = fully local detection. |
 
 ## Known limits
