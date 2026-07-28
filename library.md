@@ -45,9 +45,10 @@ The scanner reads real file contents, not just names:
 
 ## Tagging and naming
 
-- Every downloaded issue gets **ComicVine metadata embedded** as `ComicInfo.xml` (series, number, title, date, summary, creators) — the standard read by comic readers and library servers.
-- Folder layout and filenames follow your **naming patterns** (below). The defaults — `Publisher/Series (Year)` folders and `Series VYYYY #NNN` filenames — are unambiguous, sortable, and parseable by other library managers.
-- CBRs are converted to CBZ on the way in (solid-archive-safe, pages stored without recompression), because CBZ is what tagging and readers handle best.
+- Every downloaded issue gets **ComicVine metadata** as `ComicInfo.xml` (series, number, title, date, summary, creators) — the standard read by comic readers and library servers.
+- **Tag placement** decides where that XML lives. *Embedded* (the default) writes it into the archive. *Sidecar* writes it to a `.xml` file next to the archive — the archive itself is never modified, so its bytes stay identical for torrent seeding and file-share hashing, and `.cbr` files stay `.cbr`. Set it globally in Settings → Metadata, or per library (a seeding library can use sidecars while the rest embed). When a file has both, the sidecar wins.
+- Folder layout and filenames follow your **naming patterns** (below). The defaults — `Publisher/Series (Year)` folders and `Series VYYYY #NNN` filenames — are unambiguous, sortable, and parseable by other library managers. Sidecar files are renamed, moved, and deleted together with their archive.
+- With embedded placement, CBRs are converted to CBZ on the way in (solid-archive-safe, pages stored without recompression), because CBZ is what embedding and readers handle best. Sidecar placement skips the conversion — originals are left untouched.
 
 Existing files you imported keep their names until you opt into renaming (below).
 

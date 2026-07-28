@@ -21,7 +21,8 @@ Everything in **Settings**, by tab. Settings opens on an **Overview** tab — he
 | File pattern | How issue files are named — default `{series} V{year} #{issue}`. Tokens: `{publisher}` `{series}` `{year}` `{issue}` (`{issue:2}` sets pad width) `{issueTitle}` `{date}` `{edition}`. A live example previews as you type; blank = default. |
 | Rename downloads | On (default): downloaded files are named to the file pattern. Off: completed downloads keep the source's original filename, still filed into the comic's folder. |
 | Download format | `cbz` (default, recommended — taggable) or `pdf`. |
-| Tag on download | Embed ComicVine metadata into every file as it's imported (recommended: on). |
+| Tag on download | Write ComicVine metadata for every file as it's imported (recommended: on). |
+| Tag placement | Where tags are written: `Embedded` puts ComicInfo.xml inside the archive (default); `Sidecar` puts it in a `.xml` next to the file and never modifies the archive — share/seed-safe, and `.cbr` files stay unconverted. Each library can override this. |
 | Library concurrency | Parallel workers for library scans/verification (default suits most disks; raise for fast NVMe, lower for busy NAS shares). |
 
 ## Accounts & access

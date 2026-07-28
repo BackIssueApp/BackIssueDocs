@@ -8,7 +8,7 @@ When an issue is queued, a download worker takes it through four steps:
 
 1. **Find** — each enabled source is asked, in your [priority order](sources#source-priority), whether it can serve this issue. The first confident match wins. Matching is strict about series name and issue number (aliases included), so *Spider-Man* never grabs *Amazing Spider-Man*.
 2. **Fetch** — the winning source downloads the file. *Immediate* sources download in-app with live byte/speed progress; *deferred* sources (Usenet, torrents) hand off to your download client and a background monitor picks the file up when the client finishes.
-3. **Convert & tag** — the file's real format is detected from its bytes (mislabeled files are common). CBRs are repacked to CBZ, and ComicVine metadata is embedded as `ComicInfo.xml`.
+3. **Convert & tag** — the file's real format is detected from its bytes (mislabeled files are common). With embedded tag placement (the default), CBRs are repacked to CBZ and ComicVine metadata is embedded as `ComicInfo.xml`; with [sidecar placement](library#tagging-and-naming), the downloaded file is kept byte-identical and the metadata is written to a `.xml` beside it.
 4. **File** — the finished CBZ is named to your [file pattern](library#naming-patterns) (default `Series VYYYY #NNN.cbz`) and placed in the series folder, and the issue flips to *owned*.
 
 Several workers run in parallel (see `downloadConcurrency` in the [settings reference](settings-reference)), so a big batch downloads from multiple sources at once.
