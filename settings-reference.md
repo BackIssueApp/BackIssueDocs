@@ -57,6 +57,7 @@ Outbound channels come from the **[Notifications Hub](notifications)** plugin �
 | Newznab indexers | One or more indexer entries (URL + API key). |
 | Client | `sabnzbd` or `nzbget`. |
 | Client host / port / SSL | Where the client's API lives. |
+| URL base | Path prefix when a proxy serves the client under a subpath — e.g. `/sabnzbd` gives `http://host:port/sabnzbd/api`. Blank for a direct install. |
 | API key (SAB) / Username & password (NZBGet) | Client credentials. |
 | Category | Download category for BackIssue's NZBs (e.g. `backissue`). |
 | Completed folder (client's view / BackIssue's view) | The finished-downloads folder as each side sees it — set both when they run on different machines or in Docker. |

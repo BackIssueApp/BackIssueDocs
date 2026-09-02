@@ -18,7 +18,7 @@ The **[Prowlarr plugin](prowlarr)** feeds both this source and Torrents with eve
 
 Both major clients are supported:
 
-- **SABnzbd** — host, port, API key
+- **SABnzbd** — host, port, API key (plus an optional **URL base** when a proxy serves it under a subpath, e.g. `/sabnzbd`)
 - **NZBGet** — host, port, username/password
 
 Plus a **category** (e.g. `backissue`) so comic downloads stay separate in your client, and a poll interval / timeout for the monitor that watches for finished downloads.
