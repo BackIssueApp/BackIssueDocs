@@ -51,6 +51,7 @@ On the **Users** page you can create **custom roles**: give the role a name and 
 
 - A **"downloader"** role that can browse and download but not edit the library.
 - A **"kids"** role that can read comics but not download or manage anything.
+- A **"curator"** role that can publish [reading lists](reading#sharing-a-list) for everyone (*Share reading lists*) without any library-management rights.
 
 Custom roles pick up plugin permissions automatically, so you can grant or withhold reading, OPDS access, or request approval per role.
 

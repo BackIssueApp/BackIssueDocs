@@ -71,13 +71,19 @@ The reader works offline for issues you've opened (a service worker caches pages
 
 ## Reading lists
 
-**Sidebar → Lists** — personal, ordered lists of issues, private to your account.
+**Sidebar → Lists** — ordered lists of issues, private to your account unless you choose to share one.
 
 - **Build a list by hand** — from any volume page, select issues (or the whole series) and **"☰ Add to list"**. Reorder items with the up/down controls.
 - **Import a ComicVine story arc** — search ComicVine story arcs (e.g. *Infinity Gauntlet*, *Blackest Night*) and import one: BackIssue pulls the arc's issues **in cover-date reading order**, across every series involved — ideal for crossovers that span multiple titles.
 - Items you don't own show a **download** button; items whose volume isn't in your library yet show **"+ Add series"** to add it. A list tracks how many of its issues you own.
 
-Reading lists are per-user, so your lists and their order are yours alone. Two people can work through the same imported arc independently.
+### Sharing a list
+
+A list is private by default. With the **Share reading lists** permission you can publish one from its **Share** button, and every user then sees it alongside their own — a house reading order, a curated run, or an imported crossover everyone can follow. Sharing changes who can *see* a list, never who can change it: only the owner can rename, reorder, add, remove or delete it, and a shared list never reveals mature content to accounts that can't otherwise see it.
+
+Otherwise reading lists are per-user, so your lists and their order are yours alone — two people can work through the same imported arc independently.
+
+Shared and personal lists both appear over [OPDS](opds) in reading order, so a native reader app can tell you what to read next.
 
 ## Reading on other apps (OPDS)
 

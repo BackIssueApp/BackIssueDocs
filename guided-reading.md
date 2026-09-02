@@ -11,6 +11,8 @@ Open any issue in the reader and press **G** (or the panel-grid button in the to
 - Pages without a confident layout (splashes, covers, heavy collage art) show as a normal **full page** inside guided view — advancing just turns the page. A clean full page always beats a broken tour.
 - Turning guided view off (press **G** again) returns to normal reading instantly.
 
+Guided view is also built into the **Android and iOS apps** — tap the panel-grid button in the reader toolbar. The apps use the same panel layouts as the web reader (your server needs the reader plugin 1.6 or newer), so edits you make in the panel editor apply everywhere.
+
 ## How panels are detected
 
 The first time an issue is opened for guided view, the server detects every page's panel layout **once**, in the background, and caches it — you'll see live progress ("Detecting panels… 12/44 pages"), and after that it's instant. Detection runs entirely on your server; pages are never uploaded anywhere.
@@ -27,7 +29,8 @@ Users with the **Edit panel layouts** permission (admin tier by default — gran
 - **Snap** magnetizes edges onto the drawn panel borders, so rough drags become exact layouts (toggle **Auto-snap** off to place panels exactly where you draw them).
 - **Set order** renumbers panels by tapping them in reading sequence; **Preview** plays the guided tour in place so you can check it before saving.
 - **Undo/redo**, **copy/paste** a layout between pages, keyboard nudging, and a **Whole page** button for pages that should just read whole.
-- **Review mode** is the fast path for checking a whole issue: **Space** confirms each page's layout and advances; fix anything that's wrong along the way. Confirmed pages get a ✓ in the rail.
+- **Review mode** is the fast path for checking a whole issue: **Space** confirms each page's layout and advances; fix anything that's wrong along the way. Confirmed pages get a ✓ in the rail. If a page has unsaved edits, Space saves them first — the confirmation always applies to the layout you're looking at.
+- The **Database** button opens a browser over every panel layout stored on your server — filter by detector, edited, reviewed, or page-mode, search by series or issue, and click any row to jump straight to that page in the editor.
 
 Edits are saved **per file** and apply to everyone on your server. They outrank whatever detection says — including future, smarter detectors — and each page can be reverted to automatic detection independently.
 

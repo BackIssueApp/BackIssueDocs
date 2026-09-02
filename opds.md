@@ -38,6 +38,7 @@ Opening the catalog gives you a set of shelves, not just one long list:
 - **All series** — every series with readable files, alphabetical. Large libraries are **paginated** (50 per page) with next/previous links, so the app never has to load everything at once.
 - **Recently added** — the newest issues to land in your library, most recent first.
 - **Publishers** — browse series grouped by publisher. On the series list, publishers also appear as **facets**, so readers that support them can filter inline.
+- **Reading lists** — your reading lists and imported story arcs, plus any a user has shared with everyone. Opening one serves its issues **in reading order**, so the next issue to read is simply the next entry. Issues you don't own yet still appear in place, marked "not on the shelf" and without a download link, so the order stays intact and you can see what's missing.
 - **Continue reading** and **Read later** — shown when the [Reader](reading) plugin is installed. "Continue reading" is your own in-progress, unfinished issues; "Read later" is your personal shelf. Both are **per account** — everyone sees their own.
 
 ## Search
