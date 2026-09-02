@@ -70,6 +70,7 @@ Outbound channels come from the **[Notifications Hub](notifications)** plugin �
 | Torznab indexers | One or more entries (URL + API key) — Prowlarr/Jackett provide these. |
 | Client | qBittorrent. |
 | qB host / port / SSL / username / password | qBittorrent Web UI connection. |
+| URL base | Path prefix when a proxy serves the client under a subpath — e.g. `/qbittorrent` gives `http://host:port/qbittorrent/api/…`. Blank for a direct install. Available for Transmission and Deluge too. |
 | Category | qBittorrent category for BackIssue's torrents. |
 | Completed folder (client's view / BackIssue's view) | Same two-path mapping as Usenet. |
 | Poll seconds / Timeout minutes | Monitor cadence and give-up threshold. |

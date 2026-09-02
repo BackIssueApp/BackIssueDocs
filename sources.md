@@ -38,6 +38,7 @@ Same shape as Usenet: **Torznab indexers** (via Prowlarr or Jackett) plus **qBit
 
 - **Torznab indexers** — one or more URL + API key entries. Prowlarr gives you a Torznab URL per indexer it manages.
 - **qBittorrent** — host, port, username/password, optional SSL.
+- **URL base** — set this when a reverse proxy serves the client under a subpath rather than at the root, so its API lives at `http://host:port/qbittorrent/api/…`. Blank for a normal install. (Seedbox providers commonly do this; it's the same field the *arr apps call "URL Base".) Transmission and Deluge have the same option.
 - **Category** — keeps BackIssue's torrents grouped in qBittorrent.
 - **Completed-folder mapping** — same two-path idea as Usenet, for remote/Docker setups.
 
