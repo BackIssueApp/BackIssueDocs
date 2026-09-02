@@ -42,6 +42,9 @@ export default defineConfig({
         text: 'Reading & features',
         items: [
           { text: 'Reading', link: '/reading' },
+          { text: 'Books', link: '/ebooks' },
+          { text: 'Audiobooks', link: '/audiobooks' },
+          { text: 'Shelves', link: '/shelves' },
           { text: 'Guided panel reading', link: '/guided-reading' },
           { text: 'Gamify', link: '/gamify' },
           { text: 'Android app', link: '/android' },

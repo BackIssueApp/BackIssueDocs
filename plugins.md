@@ -7,6 +7,9 @@ BackIssue's core stays lean; extra download sources and whole features ship as p
 | Plugin | What it adds |
 |---|---|
 | **[Reader](reading)** | Full in-browser comic reader, reading shelves, reading lists, and per-user reading stats |
+| **[Books](ebooks)** | A Books library for EPUB/PDF — scanned, enriched, and read in the browser with bookmarks and progress |
+| **[Audiobooks](audiobooks)** | An Audiobooks library with an in-browser player — chapters, sleep timer, bookmarks and resume |
+| **[Shelves](shelves)** | Faceted browsing for large book and audiobook libraries — author, decade, format, status |
 | **[OPDS](opds)** | Serve your library to native reader apps (Panels, Chunky, …) |
 | **[Requests](requests)** | A request-and-approve workflow for adding volumes |
 | **[Discover](discover)** | A browsable feed of new & notable comics to add |

@@ -85,6 +85,12 @@ Otherwise reading lists are per-user, so your lists and their order are yours al
 
 Shared and personal lists both appear over [OPDS](opds) in reading order, so a native reader app can tell you what to read next.
 
+## Books and audiobooks
+
+Reading here means comics. If your library also holds EPUBs, PDFs or
+audiobooks, those have their own reading and listening flows — see
+[Books](ebooks) and [Audiobooks](audiobooks).
+
 ## Reading on other apps (OPDS)
 
 Prefer a native reader like Panels or Chunky? BackIssue also serves your library over **OPDS** — see [OPDS](opds).

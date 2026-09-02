@@ -11,6 +11,8 @@ The collection can be split into named **libraries** — say *Comics* and *Manga
 - Deleting a library keeps all its series (they return to the default library) — nothing is removed from disk.
 - With no libraries defined, the sidebar shows per-type entries automatically once a second type (e.g. manga) appears in the collection — explicit libraries simply take over when you create them.
 
+A library's **type** decides how its contents behave. Comics and manga follow the ComicVine flow described here; **Books** and **Audiobooks** are self-described libraries with their own scanning, metadata and reading/listening — see [Books](ebooks) and [Audiobooks](audiobooks).
+
 **Manga metadata and covers are provided by [MangaDex](https://mangadex.org).** With a manga library, the Add dialog offers a **Search manga** toggle, and imports into manga folders match against the manga catalog automatically.
 
 ## Storage locations
