@@ -238,6 +238,7 @@ Personal curation — each user manages their own; no files are touched, so
 | POST | `/api/lists/import-cbl` | library.view | Create a list from a CBL file (raw XML body, up to 4 MB); returns `imported`, `total`, `unmatched[]{series,number,volume,reason}` |
 | GET | `/api/lists/cbl-catalog` | library.view | Paths of every list in the community CBL catalog (cached 6 h) |
 | POST | `/api/lists/import-cbl-catalog` | library.view | Create a list from a catalog path `{ path }` |
+| POST | `/api/lists/cbl-preview` | library.view | Preview a CBL without importing — `{ path }` or raw XML; returns the books in order with `owned`/`hasId` flags |
 
 ## Notifications
 
