@@ -75,6 +75,7 @@ The reader works offline for issues you've opened (a service worker caches pages
 
 - **Build a list by hand** — from any volume page, select issues (or the whole series) and **"☰ Add to list"**. Reorder items with the up/down controls.
 - **Import a ComicVine story arc** — search ComicVine story arcs (e.g. *Infinity Gauntlet*, *Blackest Night*) and import one: BackIssue pulls the arc's issues **in cover-date reading order**, across every series involved — ideal for crossovers that span multiple titles.
+- **Import a CBL reading list** — CBL is a widely used reading-list format. **Import CBL** takes a `.cbl` file of your own, or lets you browse the community catalog of 1,700+ curated lists ([DieselTech/CBL-ReadingLists](https://github.com/DieselTech/CBL-ReadingLists)) by publisher and pick one — whole events, character runs, even entire alternate universes, far larger than a single ComicVine arc. The list keeps the **file's own reading order** (tie-ins interleaved with the main event), and any book that can't be matched on ComicVine is listed after the import so nothing is silently dropped.
 - Items you don't own show a **download** button; items whose volume isn't in your library yet show **"+ Add series"** to add it. A list tracks how many of its issues you own.
 
 ### Sharing a list

@@ -235,6 +235,9 @@ Personal curation — each user manages their own; no files are touched, so
 | POST | `/api/lists/{id}/items` | library.view | Add an issue to a list |
 | DELETE | `/api/lists/{id}/items/{cvIssueId}` | library.view | Remove an issue from a list |
 | POST | `/api/lists/import-arc` | library.view | Create a list from a ComicVine story arc |
+| POST | `/api/lists/import-cbl` | library.view | Create a list from a CBL file (raw XML body, up to 4 MB) |
+| GET | `/api/lists/cbl-catalog` | library.view | Paths of every list in the community CBL catalog (cached 6 h) |
+| POST | `/api/lists/import-cbl-catalog` | library.view | Create a list from a catalog path `{ path }` |
 
 ## Notifications
 
