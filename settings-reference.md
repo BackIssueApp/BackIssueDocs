@@ -48,6 +48,7 @@ Outbound channels come from the **[Notifications Hub](notifications)** plugin â€
 | Source priority | Drag-ordered list of enabled sources; searches try them top-to-bottom, first match wins. |
 | Download concurrency | Parallel download workers (default 4). More = faster batches, but be considerate of your sources. |
 | Download on add | When on (the default), adding a volume immediately queues its missing issues. Off = volumes are added empty and you download by hand. |
+| Only the issues that were asked for | With Download on add: when a series is added because of specific issues (a reading-list entry, a release, a CBL import), download just those instead of the whole run. Adding from the Library or Discover still fetches everything missing. Off by default. |
 
 ## Usenet
 

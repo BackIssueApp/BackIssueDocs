@@ -6,7 +6,7 @@ Click **+ Add** on the Library page and search ComicVine by name. Pick the right
 
 Know exactly which volume you want? Paste its **ComicVine URL** or type **`cv:` and the volume id** (e.g. `cv:166619` — the number after `4050-` in any ComicVine volume URL) into the same search box, and that volume comes up directly. It's the sure route when a name search is crowded or a brand-new series hasn't ranked yet.
 
-By default, adding a volume **immediately queues its missing issues to download**. If you'd rather add series empty and choose when to fetch, turn off **Settings → Downloading → "Download on add"**. Either way you can still download per issue, per series, or via [automation](automation) later.
+By default, adding a volume **immediately queues its missing issues to download**. If you'd rather add series empty and choose when to fetch, turn off **Settings → Downloading → "Download on add"**. If you mostly add series *for one issue* — from a reading list, a release, or a CBL import — turn on **"Only the issues that were asked for"** and those adds download just the issues in question, while adding from the Library or Discover still fetches the whole run. Either way you can still download per issue, per series, or via [automation](automation) later.
 
 You can also add series from the **Discover** feed or the **Requests** queue — see [Discover](discover) and [Requests](requests).
 
