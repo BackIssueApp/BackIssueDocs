@@ -64,7 +64,9 @@ Multi-issue collections ("packs") are the fastest way to fill a mostly-empty ser
 
 ## The Wanted page
 
-**Sidebar → Wanted** lists every missing issue across every monitored series — your global gap list. From there you can queue individual issues or batches. The [wanted-search schedule](automation) works through this list automatically on a timer, in batches, so long backfills happen gradually without flooding your sources.
+**Sidebar → Wanted** lists every issue automation is going after — each series' [monitoring policy](collection#monitoring) plus the issues you picked by hand. Rows say why they're there (*picked* when you asked for one yourself), and each series shows its policy. The [wanted-search schedule](automation) works through this list automatically on a timer, in batches, so long backfills happen gradually without flooding your sources.
+
+Switch the **All gaps** chip on to see every missing issue of every series, wanted or not — the honest "what don't I have" view — and want any of them with one click. Sort by series, newest or oldest release, or the series with the most (or fewest) wanted issues. Tick rows (shift-click selects a range) for the bulk bar: **Want**, **Don't want**, **Download selected**. Skipping a queued or failed issue takes it out of the queue.
 
 ## Weekly releases
 

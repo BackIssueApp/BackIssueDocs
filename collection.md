@@ -34,7 +34,7 @@ Each series shows its cover, title, **owned/total** count, and badges:
 | `◆ CV` | Matched to ComicVine (hover for the volume name/year) |
 | `no source` | No download source has been able to serve this series yet |
 
-**Filters** — All, Incomplete, Unmonitored, Problems (corrupt/untagged), No CV.
+**Filters** — All, Incomplete, Followed, Monitored, Not monitored, Problems (corrupt/untagged), Unmatched.
 **Sort** — A–Z, recently added, most missing.
 **Search** — instant filter-as-you-type.
 
@@ -67,17 +67,30 @@ Edited fields are **yours**: metadata refreshes, ComicVine matching, and enrichm
 
 ## Monitoring
 
-The star on each series toggles **monitored**. Monitored series are:
+Every series has a **monitoring policy** that says what download automation should go after. Set it from the **⋯** menu on the series page (it also shows as a tag in the header), or for many series at once from the Library's bulk bar:
 
-- included in the weekly **Releases** view and its scheduled check,
-- included when scheduled searches fetch missing issues automatically.
+| Policy | What is wanted |
+|---|---|
+| **All issues** | Every missing issue — the run is kept complete. This is what a series gets when you add it. |
+| **New issues from #…** | Only issues from a number onward. Earlier gaps are left alone — handy when you started a long run late and don't want the back catalogue. Defaults to the newest issue ComicVine knows, so it reads as "everything from here on". |
+| **Off** | Nothing is fetched automatically. |
 
-Unmonitored series keep their files and stats — they're just excluded from automation.
+### Picking issues by hand
+
+On top of the policy, any issue can be **picked** or **skipped** individually — the target button on each issue row (Series page) or the target / ban buttons on the Wanted page. A pick always wins over the policy, in both directions:
+
+- On a series that is **off**, pick the one issue you want and automation searches for just that one.
+- On a series set to **all**, skip a variant cover or an issue you own in print and it stops being wanted.
+
+Only the exceptions are stored, so changing the policy later never fights a stale pick. Pressing **Download** on an issue the policy doesn't want records a pick too — if the grab fails, automation keeps after it and the Wanted page can say why it's there. Switching a series **off** asks whether to keep its picks; **Forget picked issues** in the ⋯ menu drops them all.
+
+"Wanted" and "missing" are deliberately different things: **missing** is a fact about files on disk (the Library's counts and Incomplete filter), **wanted** is your decision (the [Wanted page](downloads#the-wanted-page), the search schedules, the RSS and announce watchers). Reading lists can want every issue on them — see [Reading lists](reading).
 
 ## Bulk actions
 
 The ☑ button in the Library header switches to multi-select. Select any number of series and:
 
-- **★ Follow / ☆ Unfollow** — toggle monitoring en masse
+- **★ Follow / ☆ Unfollow** — your personal follows (the pull list), en masse
+- **Monitoring…** — set the monitoring policy for every selected series
 - **⤓ Missing** — queue every missing issue of the selected series
 - **Remove** — drop the series from the collection (files on disk are *never* touched)

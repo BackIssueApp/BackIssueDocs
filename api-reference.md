@@ -109,21 +109,24 @@ Your tracked series and their issues. Reads need `library.view`; changes need
 | GET | `/api/series` | library.view | All series (matched + catalog); `?search=` |
 | GET | `/api/series/{id}/issues` | library.view | Issues for a series |
 | GET | `/api/issue/{cvIssueId}` | library.view | One issue by ComicVine issue id |
-| POST | `/api/collection/add-cv` | library.manage | Add a series by ComicVine volume — body `{ "comicvineId": 12345 }` |
+| POST | `/api/collection/add-cv` | library.manage | Add a series by ComicVine volume — body `{ "comicvineId": 12345, "cvIssueIds"?: [ … ], "reason"?: "list:7" }` |
 | POST | `/api/collection/{id}/cv` | library.manage | Re-point a series at a different ComicVine volume |
 | POST | `/api/cv/match` | library.manage | Match an unmatched series to ComicVine |
 | POST | `/api/collection/{id}/aliases` | library.manage | Set search aliases for a series |
 | POST | `/api/collection/{id}/metadata` | library.manage | Refresh a series' metadata |
 | POST | `/api/issue/{cvId}/metadata` | library.manage | Refresh one issue's metadata |
 | POST | `/api/collection/{id}/restricted` | library.manage | Flag/unflag a series as mature/restricted |
-| POST | `/api/collection/{id}/monitor` | library.manage | Toggle automation (auto-download) for a series |
+| POST | `/api/collection/{id}/monitor` | library.manage | Monitoring policy — `{ "monitor": "all" \| "new" \| "none", "from"?: 150, "clearPicks"?: true }` (legacy `{ "monitored": bool }` = all/none) → `{ monitor, monitor_from, monitored }` |
+| POST | `/api/collection/{id}/wanted` | downloads.grab | Pick or skip issues — `{ "cvIssueIds": [ … ], "want": true \| false }` or `{ …, "clear": true }` → `{ changed, issues: [{ cv_issue_id, wanted, why, pick, reason }] }` |
 | POST | `/api/collection/{id}/follow` | library.view | Toggle your personal follow (pull list) |
-| POST | `/api/collection/bulk` | library.manage | Bulk action across selected series |
+| POST | `/api/collection/bulk` | library.manage | Bulk action across selected series — `action`: `follow`, `unfollow`, `monitor` (+ `monitor`), `move-library`, `download-missing`, `remove` |
 | POST | `/api/collection/{id}/delete` | library.manage | Untrack a series (files on disk are left alone) |
 
-**`POST /api/collection/add-cv`** — adds the volume, follows it for you, and
-(when auto-download is on and your role allows it) queues every missing
-issue:
+**`POST /api/collection/add-cv`** — adds the volume (monitoring **all** issues),
+follows it for you, and (when download-on-add is on and your role allows it)
+queues every missing issue. With **Only the issues that were asked for** on and
+`cvIssueIds` given, the series arrives with monitoring **off** and just those
+issues picked (`reason` is stored with the picks):
 
 ```bash
 curl -X POST http://backissue.local:8787/api/collection/add-cv \
@@ -179,7 +182,7 @@ grabs needs `downloads.grab`.
 |---|---|---|---|
 | GET | `/api/status` | library.view | Counts, followed count, version, and live crawl/queue state |
 | GET | `/api/queue` | library.view | The download queue and in-flight pack grabs |
-| GET | `/api/wanted` | library.view | Missing issues on followed series |
+| GET | `/api/wanted` | library.view | Wanted issues (policy + picks) — `?scope=gaps` for every missing issue, `?sort=series\|newest\|oldest\|most\|fewest`, `?followed=1`, `?hideUnreleased=1`, `?q=` |
 | GET | `/api/history` | library.view | Import history (newest first, paged) |
 | GET | `/api/history/failed` | library.view | Failed downloads |
 | GET | `/api/sources` | library.view | Enabled download sources |
@@ -188,7 +191,8 @@ grabs needs `downloads.grab`.
 | POST | `/api/collection/{id}/download` | downloads.grab | Queue CV issues of a series — `{ "cvIssueIds": [ … ] }` |
 | POST | `/api/collection/{id}/redownload` | downloads.grab | Re-grab owned issues of a series |
 | POST | `/api/redownload` | downloads.grab | Re-grab specific issues |
-| POST | `/api/wanted/download-all` | downloads.grab | Queue every wanted issue |
+| POST | `/api/wanted/download-all` | downloads.grab | Queue every issue matching the filters — `{ scope?, followed?, hideUnreleased?, q? }` (capped at 500) |
+| POST | `/api/lists/{id}/want` | library.manage | Want every issue on a reading list — series not in the library are added unmonitored with their issues picked → `{ added, picked, failed, issues }` |
 | POST | `/api/search` | downloads.grab | Search all enabled sources for an issue |
 | POST | `/api/search/grab` | downloads.grab | Grab a chosen result — `{ result, seriesId, cvIssueId }` |
 | POST | `/api/packs/search` | downloads.grab | Search sources for multi-issue packs |

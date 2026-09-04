@@ -10,8 +10,8 @@ Set it up once and BackIssue keeps your collection current on its own.
 |---|---|
 | **Releases check** | Fetches this week's releases and flags new issues of your monitored series |
 | **ComicVine match** | Runs the CV matcher over any unmatched series (useful after imports) |
-| **Watch indexer RSS** | Polls your indexers' *latest uploads* feed (usenet + torrents) and grabs anything that matches a missing issue of a monitored series — a new upload is caught within one poll instead of waiting for the next search. Each upload is considered exactly once |
-| **Search new releases** | The fast lane for this week's comics: queues missing issues of monitored series **released in the last N days** (`recentSearchDays`, default 14). Unlike the backfill, failures are **retried on every run** while the issue is inside the window — new releases reach indexers over days — then age out |
+| **Watch indexer RSS** | Polls your indexers' *latest uploads* feed (usenet + torrents) and grabs anything that matches a [wanted](collection#monitoring) issue — a new upload is caught within one poll instead of waiting for the next search. Each upload is considered exactly once |
+| **Search new releases** | The fast lane for this week's comics: queues wanted issues **released in the last N days** (`recentSearchDays`, default 14). Unlike the backfill, failures are **retried on every run** while the issue is inside the window — new releases reach indexers over days — then age out |
 | **Wanted search** | The patient backfill: works through the whole [Wanted list](downloads#the-wanted-page) in batches (`wantedSearchBatch`), skipping anything in flight or previously failed, so back-catalog gaps fill steadily without hammering sources |
 | **Zero-day pack** | Torrents only: grabs the weekly 0-day pack and imports just your gaps — see [Download sources](sources#the-weekly-0-day-pack) |
 | **Back up database** | Snapshots `catalog.db` into `backups/` (keeps the newest 5). **On by default**, weekly — cheap insurance for the database that holds your collection, accounts, and reading history |
