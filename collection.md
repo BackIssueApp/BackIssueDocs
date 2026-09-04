@@ -71,7 +71,7 @@ Every series has a **monitoring policy** that says what download automation shou
 
 | Policy | What is wanted |
 |---|---|
-| **All issues** | Every missing issue — the run is kept complete. This is what a series gets when you add it. |
+| **All issues** | Every missing issue — the run is kept complete. The default for new series (change it under **Settings → Downloading → Monitor added series**). |
 | **New issues from #…** | Only issues from a number onward. Earlier gaps are left alone — handy when you started a long run late and don't want the back catalogue. Defaults to the newest issue ComicVine knows, so it reads as "everything from here on". |
 | **Off** | Nothing is fetched automatically. |
 

@@ -47,7 +47,8 @@ Outbound channels come from the **[Notifications Hub](notifications)** plugin �
 |---|---|
 | Source priority | Drag-ordered list of enabled sources; searches try them top-to-bottom, first match wins. |
 | Download concurrency | Parallel download workers (default 4). More = faster batches, but be considerate of your sources. |
-| Download on add | When on (the default), adding a volume immediately queues its missing issues. Off = volumes are added empty and you download by hand. |
+| Download on add | When on (the default), adding a volume immediately queues what its monitoring policy wants. Off = volumes are added empty and you download by hand. |
+| Monitor added series | The [monitoring policy](collection#monitoring) a series gets when it enters the library (added by hand, Discover, Releases, reading lists, requests, import): **All issues** (default), **New issues only** (from the newest known issue onward), or **Off**. Any series can be changed later from its ⋯ menu. |
 | Only the issues that were asked for | With Download on add: when a series is added because of specific issues (a reading-list entry, a release, a CBL import), it arrives with [monitoring](collection#monitoring) off and just those issues picked, so only they are downloaded — now, and again if a grab fails. Adding from the Library or Discover still monitors the whole run. Off by default. |
 
 ## Usenet
