@@ -14,8 +14,8 @@ Anyone with the **Request volumes** permission (viewers, by default) sees a **�
 
 Users with the **Manage requests** permission (trusted and admin, by default) get a pending-count badge on the Requests entry and can, per request:
 
-- **Approve** — adds the volume to the library.
-- **Approve + download** — adds it *and* queues every missing issue.
+- **Approve** — adds the volume to the library and **picks** every missing issue for the requester, so automation keeps after them whatever the series' [monitoring policy](collection#monitoring), and the requester is notified as each one lands.
+- **Approve + download** — the same, *and* queues every missing issue right away.
 - **Decline** — with a reason, shown back to the requester.
 
 Approved requests show live **on-disk progress** (how many issues have arrived) and flip to **available** once complete. Filters let you view pending, approved, declined, or just your own.

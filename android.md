@@ -59,6 +59,8 @@ Found something you want while you're out?
 - If your account can manage the library, **add a series** straight from the app.
 - If your server runs the **Requests** plugin and your account can make requests, the add button raises a **request** for approval instead — the same flow as the web app, including western-only limits if your server enforces them.
 
+- On a series, accounts that manage the library set its [monitoring policy](collection#monitoring) — **All issues**, **New only** (from an issue number you choose), or **Off** — and anyone who can download can **want** or **skip** a single issue with the target on its row. The same controls are on iPhone and iPad (swipe an issue to want or skip it).
+
 What you can do in the app follows your account's **permissions** exactly, just like on the web.
 
 ## Activity

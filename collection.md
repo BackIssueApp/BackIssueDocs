@@ -34,7 +34,7 @@ Each series shows its cover, title, **owned/total** count, and badges:
 | `◆ CV` | Matched to ComicVine (hover for the volume name/year) |
 | `no source` | No download source has been able to serve this series yet |
 
-**Filters** — All, Incomplete, Followed, Monitored, Not monitored, Problems (corrupt/untagged), Unmatched.
+**Filters** — All, Incomplete, Followed, Monitored, Not monitored, Ongoing, Ended (publication status from enriched metadata — run **Refresh series metadata** under System → Tools to fill it in for older series), Problems (corrupt/untagged), Unmatched.
 **Sort** — A–Z, recently added, most missing.
 **Search** — instant filter-as-you-type.
 
@@ -82,7 +82,7 @@ On top of the policy, any issue can be **picked** or **skipped** individually �
 - On a series that is **off**, pick the one issue you want and automation searches for just that one.
 - On a series set to **all**, skip a variant cover or an issue you own in print and it stops being wanted.
 
-Only the exceptions are stored, so changing the policy later never fights a stale pick. Pressing **Download** on an issue the policy doesn't want records a pick too — if the grab fails, automation keeps after it and the Wanted page can say why it's there. Switching a series **off** asks whether to keep its picks; **Forget picked issues** in the ⋯ menu drops them all.
+Only the exceptions are stored, so changing the policy later never fights a stale pick. When a picked issue lands, whoever picked it gets a notification and the pick retires. Pressing **Download** on an issue the policy doesn't want records a pick too — if the grab fails, automation keeps after it and the Wanted page can say why it's there. Switching a series **off** asks whether to keep its picks; **Forget picked issues** in the ⋯ menu drops them all.
 
 "Wanted" and "missing" are deliberately different things: **missing** is a fact about files on disk (the Library's counts and Incomplete filter), **wanted** is your decision (the [Wanted page](downloads#the-wanted-page), the search schedules, the RSS and announce watchers). Reading lists can want every issue on them — see [Reading lists](reading).
 

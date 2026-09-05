@@ -98,6 +98,7 @@ Safety rules for both: only ComicVine-matched series are touched, name collision
 | **Convert all CBR → CBZ** | Repack every `.cbr` so the whole library is consistently taggable |
 | **Remove duplicate files** | Delete old/corrupt copies that a good copy of the same issue has replaced |
 | **Verify archives** | Deep-check every file for corruption; prune records for files gone from disk |
+| **Refresh series metadata** | Re-pull every matched series' volume details and issue list — picks up publication status (Ongoing / Ended), enrichment for series cached before it was on, and issues published since. One request a second; stops cleanly if the service rate-limits (run again to finish) |
 | **Re-link to ComicVine** | Re-map owned files to CV issues across the library (fixes owned/missing counts after big changes) |
 | **Download issue metadata** | Fetch ComicVine detail (descriptions, credits, dates, covers) for every issue in your collection that's missing it — already-cached issues are skipped, and it stops cleanly if ComicVine rate-limits (re-run to finish) |
 | **Rename files to pattern** | Rename every CV-linked file to your [file pattern](#naming-patterns), in place (same folder) — collisions are skipped, nothing is overwritten |
