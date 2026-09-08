@@ -329,6 +329,7 @@ you supply, so it requires `settings.manage` regardless of the resource.
 | POST | `/api/tools/{tool}` | system.jobs | Run a tool (as a background job) |
 | GET | `/api/logs` | system.logs | Application logs |
 | GET | `/api/support/package` | settings.manage | Support package zip: version, runtime, redacted settings, plugins, libraries, jobs, queue, history, logs |
+| POST | `/api/support/send` | settings.manage | Build the package and upload it to the hosted support service; body `{ note? }`, returns `{ code, expiresInDays }` |
 | POST | `/api/logs/clear` | system.logs | Clear logs |
 
 ## Health

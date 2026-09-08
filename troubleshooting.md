@@ -76,6 +76,8 @@ When something is wrong and the sections above do not cover it, attach a **suppo
 
 It never contains comic files, covers, user names, e-mail addresses or password hashes. Building it needs the *Settings & indexers* permission.
 
+**Sending it instead of attaching it.** The same card has **Send to BackIssue support**: it uploads the package to the hosted support service, using the install's own metadata key, and shows a short code such as `7K3M-9Q2X`. Quote the code in your report; only the BackIssue team can open a package, and packages are deleted after 60 days. The optional note field travels with it, so a one-line description of the problem saves a round trip.
+
 ## Recovery
 
 **Database.**
