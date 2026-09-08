@@ -328,6 +328,7 @@ you supply, so it requires `settings.manage` regardless of the resource.
 | GET | `/api/tools` | system.jobs | Available maintenance tools |
 | POST | `/api/tools/{tool}` | system.jobs | Run a tool (as a background job) |
 | GET | `/api/logs` | system.logs | Application logs |
+| GET | `/api/support/package` | settings.manage | Support package zip: version, runtime, redacted settings, plugins, libraries, jobs, queue, history, logs |
 | POST | `/api/logs/clear` | system.logs | Clear logs |
 
 ## Health

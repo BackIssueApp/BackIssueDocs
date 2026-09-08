@@ -64,6 +64,18 @@ Check their **role and permissions** on the Users page. Buttons for actions a ro
 **UI looks stale after an update.**
 Run `npm run up` (not just `npm start`) so the frontend rebuilds, then reload the browser.
 
+## Getting help
+
+When something is wrong and the sections above do not cover it, attach a **support package** to your report. **System → Tools → Getting help → Download support package** builds one zip containing:
+
+- `summary.json` — app version and build, Node and OS, whether it runs in Docker, uptime, memory, disk space for the data directory and every library folder, database size, and counts of series, issues, files and users
+- `settings.json` — every setting, with API keys, passwords and tokens replaced by `[redacted N chars]` (so "is it set" is still answerable)
+- `plugins.json`, `libraries.json`, `sources.json`, `jobs.json` — what is installed, where your files live, which sources and indexers are configured (hosts only), recent jobs and the schedule table
+- `queue.json`, `history.json` — what is queued or failed and the last 100 history rows
+- `logs.txt` — the last 2,000 log entries, with secrets inside URLs blanked
+
+It never contains comic files, covers, user names, e-mail addresses or password hashes. Building it needs the *Settings & indexers* permission.
+
 ## Recovery
 
 **Database.**
