@@ -13,7 +13,7 @@ The collection can be split into named **libraries** — say *Comics* and *Manga
 
 A library's **type** decides how its contents behave. Comics and manga follow the ComicVine flow described here; **Books** and **Audiobooks** are self-described libraries with their own scanning, metadata and reading/listening — see [Books](ebooks) and [Audiobooks](audiobooks).
 
-**Manga metadata and covers are provided by [MangaDex](https://mangadex.org).** With a manga library, the Add dialog offers a **Search manga** toggle, and imports into manga folders match against the manga catalog automatically.
+**Manga metadata and covers come from [MangaDex](https://mangadex.org), enriched by [AniList](https://anilist.co) and [MangaUpdates](https://www.mangaupdates.com).** MangaDex identifies the series and provides the cover, alternative titles, status, genres and the kind of book (manga, manhwa, manhua, webtoon); the series' own AniList and MangaUpdates ids are then followed for a curated summary, staff, end year and the publisher. Publication status and genres show on the series page and drive the Ongoing and Ended filters, as they do for comics. With a manga library, the Add dialog offers a **Search manga** toggle, and imports into manga folders match against the manga catalog automatically.
 
 ## Storage locations
 
