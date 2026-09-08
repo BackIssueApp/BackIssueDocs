@@ -23,6 +23,22 @@ BackIssue's core stays lean; extra download sources and whole features ship as p
 
 Plugins can register their own **settings** (they appear in Settings automatically) and their own **permissions** (grantable to roles on the [Users](users) page).
 
+## Download sites
+
+Sites the app downloads from are kept together in a `sources/` folder rather
+than installed one plugin at a time. They appear in their own **Download
+sites** section on the Plugins page, where each one links to its settings.
+Switch a site on in **Settings → Sources**.
+
+## Adding a download site
+
+A plugin that adds a **download site** is mostly a description of the site:
+where to search, and where a result's file or page images are. The app
+supplies the rest — HTTP with Cloudflare handling, polite request pacing,
+matching, building the file, and the settings card with its Test button. A
+straightforward site is a few dozen lines, and one plugin can carry several
+sites. See [the plugin API reference](/plugin-api#sources-from-a-site-description).
+
 ## How it works
 
 BackIssue loads external plugins from the `plugins/` directory at startup. A plugin is a folder with an `index.js` whose default export receives the plugin API:

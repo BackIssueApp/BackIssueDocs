@@ -179,6 +179,143 @@ api.registerIndexerProvider({
 - Client side, `api.onIndexersManaged(cb)` tells core to grey the manual
   indexer cards while your provider manages them.
 
+## Sources from a site description
+
+**Where a source lives.** Sites the app can download from live in its
+`sources/` folder: one folder per site, holding `index.js`, the definition, and
+its tests. They are maintained together in a single repository rather than one
+plugin each, so a site needs no `package.json`, no release of its own and no
+catalog entry, and they appear under **Download sites** on the Plugins page
+rather than in the plugin list. A site whose code has to live elsewhere is
+still an ordinary plugin under `plugins/`, registering its source exactly the
+same way. When a plugin offers a site that is already installed, the installed
+one wins and the log says which plugin was ignored.
+
+
+`registerSource` is the full contract. For a **download site** — a page you
+search, and a result whose file (or page images) you fetch — `defineSource`
+is far less work: the app supplies the parts every site needs, and the plugin
+supplies only what is specific to that site.
+
+The app provides browser-like HTTP with cookies kept across a search and its
+download, Cloudflare handling (FlareSolverr when a URL is configured, with
+each host's clearance cached and reused), per-site request pacing so no
+source can get your IP blocked, the shared release matcher, checking of the
+downloaded bytes (a challenge page is reported as one, RAR is repacked to
+CBZ), page-image assembly into a CBZ or PDF, and a settings card with a
+**Test connection** button that the Settings page renders on its own — a
+site source ships no client code.
+
+### With selectors, no code
+
+```js
+export default function register(api) {
+  api.defineSource({
+    id: 'examplecomics',
+    label: 'Example Comics',
+    description: 'Direct downloads from example.com.',
+    baseUrl: 'https://example.com',
+    cloudflare: true,               // adds the FlareSolverr field to the card
+    searchPath: '/?s={query}',
+    select: {
+      row:   'article.post',        // one search result
+      title: 'h2 a',
+      url:   'h2 a@href',
+      size:  '.meta',               // "38 MB" anywhere in the text
+      link:  'a.download@href',     // on the result's own page
+    },
+  });
+}
+```
+
+That is a complete source. Selector syntax: `.css` takes the text, `.css@attr`
+takes an attribute (`@href` and `@src` are made absolute), and a trailing
+`|regex` keeps the first capture group.
+
+### With functions, when the site needs them
+
+`search(query, ctx, kit)` returns result rows; `resolve(candidate, ctx, kit)`
+says where the file or the pages are. Either may be given instead of the
+selectors, and a function always wins.
+
+```js
+api.defineSource({
+  id: 'examplemanga',
+  label: 'Example Manga',
+  kind: 'pages',                    // a chapter is a list of page images
+  types: ['manga'],                 // only manga libraries search it
+  baseUrl: 'https://api.example.com',
+  rateMs: 250,                      // at most four requests a second
+  async search(query, ctx, kit) {
+    const j = await kit.http.json(`${kit.siteUrl}/search?q=${encodeURIComponent(query)}`);
+    return j.items.map((it) => ({ title: it.name, url: it.url, number: it.chapter }));
+  },
+  async resolve(candidate, ctx, kit) {
+    const j = await kit.http.json(`${kit.siteUrl}/chapter/${candidate.id}`);
+    return { pages: j.images, referer: candidate.url };
+  },
+});
+```
+
+### The definition
+
+| Key | Meaning |
+|---|---|
+| `id` | Unique and stable; also the prefix of every setting (`<id>Enabled`, `<id>Url`, …) |
+| `label`, `description` | Shown on the settings card and in the queue |
+| `baseUrl` | Default site URL; the user can override it in Settings |
+| `kind` | `'archive'` (default — the result is a file) or `'pages'` (page images) |
+| `types` | Library types this site serves; default `['comic', 'manga']`. A source is skipped outright for any other type, so a manga site is never searched for a western comic |
+| `rateMs` | Minimum gap between requests to the site (default 1000) |
+| `cloudflare`, `proxy` | Add the FlareSolverr / download-proxy fields to the card |
+| `settings` | Extra settings, each `{ type, label, note, default }`; they appear on the card and reach the definition as `kit.settings` |
+| `search`, `resolve` | The site's own logic (above) |
+| `find`, `manualSearch`, `queries`, `test` | Override the defaults when the site needs it |
+
+### Sites behind Cloudflare, and the browser
+
+The app ships in two builds and most people run the lean one, which has no
+browser at all. So a source takes the cheapest route that works, in this
+order: plain HTTP, then **FlareSolverr** (its own container, so the app stays
+lean), and a real browser only as a last resort.
+
+| Declaration | Meaning |
+|---|---|
+| *(nothing)* | Plain HTTP only. |
+| `cloudflare: true` | Uses the shared **FlareSolverr URL** from Settings → Downloading. The source asks for nothing itself. |
+| `browser: 'fallback'` | Normal HTTP first; the built-in browser only if the site challenges anyway **and** the running build has one. Still works on the lean build. |
+| `browser: 'required'` | Cannot work otherwise. On the lean build the source stays off and its card says why, rather than failing every download. |
+
+Prefer `cloudflare: true` with `browser: 'fallback'`. Choose `'required'` only
+when a site truly cannot be read any other way, because it forces everyone who
+wants that source onto the browser build.
+
+`kit.http.html` hides the difference: the definition asks for a page and the
+app decides how to get it. `kit.http.image(url)` reads one image through the
+browser, for hosts that serve images only to a real browser session.
+
+### The kit
+
+Every hook is handed a `kit`: `kit.http.html/json/download` (paced,
+Cloudflare-aware, cookies kept), `kit.load` (cheerio), `kit.url` to make a
+path absolute, `kit.siteUrl`, `kit.settings`, `kit.log`, `kit.match` (the
+shared matcher helpers) and `kit.issueDetail()` for the cached metadata of
+the wanted issue, which is where a chapter's site link lives.
+
+### Testing a site source
+
+`testKit` answers the definition's requests from recorded fixtures, so tests
+run with no network:
+
+```js
+import { testKit } from '../../../src/sourcekit/index.js';
+const kit = testKit(mysite, { 're:/\\?s=': SEARCH_HTML, '/post/1': POST_HTML });
+const rows = await mysite.search('saga 12', {}, kit);
+```
+
+One plugin may call `defineSource` several times, which is the tidy way to
+keep a handful of small sites together in one place.
+
 ## The source contract
 
 `registerSource(source)` takes:

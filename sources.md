@@ -48,6 +48,57 @@ Grabbed torrents are handed to qBittorrent and monitored to completion; the fini
 
 An optional torrent-only automation: each week the scene releases a "0-day" pack containing that week's comics. With the **zero-day** schedule enabled, BackIssue grabs the newest weekly pack, and when it completes, imports *only the issues you're missing* from series you track — optionally adding brand-new series it finds ([`zeroDayAddNew`](settings-reference)). It never re-grabs a week it has already processed.
 
+## MangaDex
+
+The **MangaDex plugin** downloads manga chapters: it finds the wanted chapter,
+fetches its pages and hands the app a finished file — no download client or
+indexer involved. A manga series added from the hosted metadata service
+already carries its MangaDex identity, so a chapter maps straight to the
+right upload; any other series is looked up by title and matched against its
+names and aliases.
+
+Enable it in **Settings → Sources → MangaDex**, where you can set which
+chapter languages to accept (best first), which scanlation groups to prefer
+when a chapter has several uploads, and whether to take the smaller
+data-saver images. Otherwise the newest readable upload wins. A manual search
+from an issue's ⋯ menu lists every upload with its group, language and page
+count, so you can pick a different one.
+
+## WeebCentral
+
+The **WeebCentral plugin** downloads manga chapters from the site: it finds the
+chapter, fetches its pages and hands the app a finished file. The site sits
+behind Cloudflare, so set the **FlareSolverr URL** in **Settings →
+Downloading** — one setting shared by every source that needs it — and this
+works on the standard build; on the browser build it can also fall back to the
+built-in browser.
+
+A manual search from an issue's ⋯ menu lists the matching chapter of each
+candidate series with its release date.
+
+## MangaTaro
+
+The **MangaTaro plugin** downloads manga chapters from the site. It needs
+nothing extra: ordinary requests on the standard build, no Cloudflare helper
+and no account. Enable it in **Settings → Sources → MangaTaro** and set which
+chapter languages you accept, best first.
+
+Among the uploads of a chapter, the first language you listed wins, then the
+newest. Chapters that are prose rather than scans are skipped. A manual search
+from an issue's ⋯ menu lists every upload with its language, scanlation group
+and release date.
+
+## Atsumaru
+
+The **Atsumaru plugin** downloads manga chapters from the site, needing nothing
+extra: ordinary requests on the standard build, no Cloudflare helper and no
+account. Enable it in **Settings → Sources → Atsumaru**.
+
+Series are matched against the site's own alternate titles as well as the names
+your library holds, so a series listed under a different title is still found.
+When a chapter number has been uploaded more than once, the newest wins, and a
+manual search from an issue's ⋯ menu lists every upload with its page count.
+
 ## Source priority
 
 Settings lists every enabled source in a drag-to-reorder priority list. For each issue, sources are tried **top to bottom — first match wins**, so put your fastest/cleanest source first and slower or scarcer ones lower as fallbacks.
