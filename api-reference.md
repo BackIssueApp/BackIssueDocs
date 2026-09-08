@@ -330,6 +330,7 @@ you supply, so it requires `settings.manage` regardless of the resource.
 | GET | `/api/logs` | system.logs | Application logs |
 | GET | `/api/support/package` | settings.manage | Support package zip: version, runtime, redacted settings, plugins, libraries, jobs, queue, history, logs |
 | POST | `/api/support/send` | settings.manage | Build the package and upload it to the hosted support service; body `{ note? }`, returns `{ code, expiresInDays }` |
+| POST | `/api/support/mobile` | library.view | A mobile app's diagnostics report; wrapped into a support package (full for admins, lite otherwise) and uploaded; returns `{ code, expiresInDays }` |
 | POST | `/api/logs/clear` | system.logs | Clear logs |
 
 ## Health
