@@ -88,6 +88,13 @@ or **Define** (iOS) for a dictionary card without leaving the page. And if
 another device has read further since you last opened a book here, the reader
 says so and offers to jump there rather than moving you silently.
 
+**Read aloud** (the headphones button) speaks the book with the device's own
+voice, one sentence at a time with the passage lit, turning pages as it goes —
+with previous / play / next and a speed control. The Display sheet also covers
+margins, body weight, a switch to keep the publisher's own fonts, keeping the
+screen on and locking the orientation. Tap a picture to see it full screen,
+and a **Back** pill appears after you follow a link or a search hit.
+
 ## On-demand libraries
 
 A source plugin can register an entire remote catalog as **file-less** entries:
