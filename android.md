@@ -46,6 +46,13 @@ The app carries the full reader experience:
 
 Your **reading stats** — pages read, issues finished, streak, and most-read series — travel with your account.
 
+**In the car:** the app is an Android Auto media app. Browse Continue
+listening, Recently added, Downloaded (works offline), All audiobooks and the
+chapters of the loaded book, or ask by voice ("play *title*"); everything
+resumes where you left off. A sideloaded build only appears once **Unknown
+sources** is on in Android Auto's developer settings (tap *Version* ten times
+in the Android Auto settings to reveal them).
+
 **Books** (from the Ebooks plugin) open in a reader of their own: themes and
 type choices, highlights and notes with export, search inside the book, and
 offline downloads — see [Books](/ebooks#on-your-phone-and-tablet). Audiobooks
