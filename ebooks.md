@@ -54,6 +54,31 @@ screen alongside the comic and audiobook rails. Hide either from its ×, or
 toggle them on your Profile page; the choice is saved to your account, so it
 follows you between devices.
 
+## On your phone and tablet
+
+The BackIssue apps for Android and iOS read your books too. Books sit in the
+one **Library** alongside comics and audiobooks — filter by medium, or let
+**All** group them under their own headers — and a book in progress joins
+**Reading now** on Home, with new books waiting under a **NEW BOOK** tag.
+
+The mobile reader uses the same engine as the browser, so a position saved on
+one device is the exact position on every other, down to the word. It adds:
+
+- **Display** — Ink, Sepia and Paper themes; Literata, a sans face, or
+  OpenDyslexic; text size, line spacing, justification; paginated or
+  scrolling. Saved to your device, not per book.
+- **Highlights and notes** — select a passage and pick a colour, add a note,
+  look a word up, find it elsewhere in the book, or share it. Highlights sync
+  through your account, and the **Highlights** page for a book filters by
+  colour or notes and exports everything as Markdown.
+- **Contents** — with search inside the book and a resume bar; on iPad the
+  contents open as a sidebar you can leave open while reading, and landscape
+  reads as a two-page spread on tablets.
+- **Offline** — download a book from its page and it reads with no server at
+  all; positions and highlights made offline land the next time you connect.
+
+PDFs are shown in the apps but open in the web app for now.
+
 ## On-demand libraries
 
 A source plugin can register an entire remote catalog as **file-less** entries:

@@ -46,6 +46,11 @@ The app carries the full reader experience:
 
 Your **reading stats** — pages read, issues finished, streak, and most-read series — travel with your account.
 
+**Books** (from the Ebooks plugin) open in a reader of their own: themes and
+type choices, highlights and notes with export, search inside the book, and
+offline downloads — see [Books](/ebooks#on-your-phone-and-tablet). Audiobooks
+and books share the Library with your comics rather than having tabs of their own.
+
 ## Your library, offline
 
 - Browse and **search** everything you own, filter by followed / missing / problem series, and open any series to see which issues you have.
