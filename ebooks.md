@@ -77,7 +77,16 @@ one device is the exact position on every other, down to the word. It adds:
 - **Offline** — download a book from its page and it reads with no server at
   all; positions and highlights made offline land the next time you connect.
 
-PDFs are shown in the apps but open in the web app for now.
+PDFs open in a paged viewer of their own (pinch to zoom, swipe to turn), and
+their page is saved like an EPUB position.
+
+The Display sheet also has a brightness slider, a true-black theme for OLED
+screens and a switch for page-turn animation; on Android the volume buttons
+can turn pages. Drag the progress bar to scrub through the book with the
+chapter and page under your finger. Select a word and pick **Look up** (Android)
+or **Define** (iOS) for a dictionary card without leaving the page. And if
+another device has read further since you last opened a book here, the reader
+says so and offers to jump there rather than moving you silently.
 
 ## On-demand libraries
 
