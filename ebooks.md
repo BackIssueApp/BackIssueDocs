@@ -93,7 +93,11 @@ voice, one sentence at a time with the passage lit, turning pages as it goes —
 with previous / play / next and a speed control. The Display sheet also covers
 margins, body weight, a switch to keep the publisher's own fonts, keeping the
 screen on and locking the orientation. Tap a picture to see it full screen,
-and a **Back** pill appears after you follow a link or a search hit.
+and a **Back** pill appears after you follow a link or a search hit. Footnote
+references open the note in place; search hits can be stepped through from the
+footer; the last page offers to mark the book finished or go on to the next
+volume of a set; and the footer line can show the chapter, the whole book, a
+percentage, or nothing at all.
 
 ## On-demand libraries
 
