@@ -179,6 +179,49 @@ api.registerIndexerProvider({
 - Client side, `api.onIndexersManaged(cb)` tells core to grey the manual
   indexer cards while your provider manages them.
 
+### `registerMediaHandler(handler)` — file a downloaded book or audiobook
+
+The download sources can fetch **books and audiobooks** for plugin library
+types, not just comics. The plugin that owns the type says where the file goes:
+
+```js
+api.registerMediaHandler({
+  type: 'ebook',                  // the library type you registered
+  exts: ['.epub', '.pdf'],        // what you can file, best first
+  async file({ path, files, libraryId, hint, source, log }) {
+    // path = the completed download (file or folder); files = the matching
+    // files in it, best first; hint = { title, author, year } from the asker
+    return { issueId, seriesId, path: filedTo };
+  },
+});
+```
+
+### `downloadMedia(opts)` and `onMediaDownload(fn)` — ask for a book
+
+Any plugin can ask the sources for a book (the Requests plugin does, for an
+approved request):
+
+```js
+const r = await api.downloadMedia({
+  db, type: 'ebook', libraryId, title: 'The Way of Kings', author: 'Brandon Sanderson', year: '2010',
+  ref: 'requests:12',            // anything you can recognise later
+});
+// r.status: 'grabbed' (a client has it) | 'downloading' (a site source is fetching it)
+//         | 'no-match' | 'no-sources' — plus source and release where there is one
+
+api.onMediaDownload((e) => {
+  // e.event: 'imported' (with issueId, seriesId) or 'failed' (with error); e.ref is yours
+});
+```
+
+Every enabled source that serves the type is tried in priority order: the
+built-in usenet and torrent sources always (they search the book/audiobook
+indexer categories with a matcher built for book release names), a site
+source only when its definition declares `types: ['ebook']` or
+`['audiobook']`. A deferred grab is finished by the download monitor; an
+immediate download runs in the background. Either way the outcome reaches
+`onMediaDownload`.
+
 ## Sources from a site description
 
 **Where a source lives.** Sites the app can download from live in its
@@ -265,7 +308,7 @@ api.defineSource({
 | `label`, `description` | Shown on the settings card and in the queue |
 | `baseUrl` | Default site URL; the user can override it in Settings |
 | `kind` | `'archive'` (default — the result is a file) or `'pages'` (page images) |
-| `types` | Library types this site serves; default `['comic', 'manga']`. A source is skipped outright for any other type, so a manga site is never searched for a western comic |
+| `types` | Library types this site serves; default `['comic', 'manga']`. A source is skipped outright for any other type, so a manga site is never searched for a western comic. Declare `'ebook'` or `'audiobook'` and the site is asked for [books](#downloadmedia-opts-and-onmediadownload-fn-ask-for-a-book) too: its `search()` gets author-and-title queries and the results are judged by title and author rather than issue number; the file is handed over as downloaded, not normalised into a comic archive |
 | `rateMs` | Minimum gap between requests to the site (default 1000) |
 | `cloudflare`, `proxy` | Add the FlareSolverr / download-proxy fields to the card |
 | `settings` | Extra settings, each `{ type, label, note, default }`; they appear on the card and reach the definition as `kit.settings` |
@@ -342,7 +385,7 @@ keep a handful of small sites together in one place.
 - **`immediate`** — the source downloads in-app. `fetch()` returns `{ srcPath }` (a file on disk) or `{ buffer }`, plus optional `format` (`'cbz' | 'pdf'`) and `keep: true` (copy the file in instead of moving it — e.g. to keep seeding/sharing). Core converts, tags, and files it.
 - **`deferred`** — the source hands off to an external download client. `grab()` returns `{ downloadId, client, category, title }`; a background monitor watches the client and imports the finished file.
 
-**`find(ctx)`** searches for one wanted issue and returns whatever object your `fetch`/`grab` needs (it's passed back verbatim). `ctx` carries:
+**`find(ctx)`** searches for one wanted issue and returns whatever object your `fetch`/`grab` needs (it's passed back verbatim). A source that declares `types` including `'ebook'` or `'audiobook'` is also asked for **books**: then `ctx.book` is `{ type, title, author, year }`, `ctx.issue.issue_number` is empty, and `scoreBookRelease` / `bookQueries` from `src/sources/books.js` are the matcher and queries to use. `ctx` carries:
 
 | Field | Meaning |
 |---|---|

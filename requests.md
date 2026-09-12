@@ -20,12 +20,20 @@ title is already on the shelf or already requested. Requests, votes, notes
 and withdrawal work exactly as they do for comics; the queue marks each
 request with its kind.
 
-Approving a book asks every source that can search — Book Warehouse, when it
-is configured — and shelves the hit as an on-demand entry, so the book reads or
-plays immediately. When no source has it yet, the request stays *approved* and
-the **Fill approved book requests** job (Settings → Jobs) keeps asking; a book
-that later arrives by scan or import and matches the title and author counts
-too. Either way the requester is notified when it lands.
+Approving a book asks your **download sources** for it, the same way an issue
+is fetched: usenet and torrent search the book and audiobook categories, and
+a [site source](plugin-api#sources-from-a-site-description) takes part when it
+declares that it carries books or audiobooks. The best release is grabbed and,
+when the download finishes, the Ebooks or Audiobooks plugin files it into the
+library (Author/Title) and catalogs it — the queue row shows which source is
+downloading it, or why the download failed. On-demand catalogs are not
+consulted: what they carry is on the shelf already.
+
+When no source has it yet, the request stays *approved* and the **Fill
+approved book requests** job (Settings → Jobs) keeps asking; a book that later
+arrives by scan or import and matches the title and author counts too. Either
+way the requester is notified when it lands. Book downloads need app 0.8.4 or
+later — on an older app, approving a book says so.
 
 ## Reviewing requests
 
