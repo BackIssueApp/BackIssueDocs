@@ -10,6 +10,23 @@ Anyone with the **Request volumes** permission (viewers, by default) sees a **�
 - **Duplicates become votes** — requesting something already pending *seconds* the existing request instead of creating a copy. Every request shows a vote count, and anyone can add or remove their vote to signal demand.
 - **Withdraw** your own pending request any time.
 
+## Books and audiobooks
+
+With the [Ebooks](/ebooks) or [Audiobooks](/audiobooks) plugin installed and a
+library of that type set up, **Find & request** gains a **Comics / Books /
+Audiobooks** switch. Books and audiobooks are searched by title or author
+against the metadata service, and the results say straight away whether the
+title is already on the shelf or already requested. Requests, votes, notes
+and withdrawal work exactly as they do for comics; the queue marks each
+request with its kind.
+
+Approving a book asks every source that can search — Book Warehouse, when it
+is configured — and shelves the hit as an on-demand entry, so the book reads or
+plays immediately. When no source has it yet, the request stays *approved* and
+the **Fill approved book requests** job (Settings → Jobs) keeps asking; a book
+that later arrives by scan or import and matches the title and author counts
+too. Either way the requester is notified when it lands.
+
 ## Reviewing requests
 
 Users with the **Manage requests** permission (trusted and admin, by default) get a pending-count badge on the Requests entry and can, per request:
