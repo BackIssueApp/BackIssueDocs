@@ -99,6 +99,35 @@ your library holds, so a series listed under a different title is still found.
 When a chapter number has been uploaded more than once, the newest wins, and a
 manual search from an issue's ⋯ menu lists every upload with its page count.
 
+## Anna's Archive
+
+The **Anna's Archive plugin** downloads **books** (EPUB and PDF) for Books
+libraries — an approved [book request](requests#books-and-audiobooks), for
+instance. Comic and manga libraries never search it.
+
+It works with or without a membership. **With a member account's secret
+key** (from your account page on the site; masked on the card), files come
+through the site's fast-download API — a direct link, no browser check per
+file — and the log shows how many fast downloads you have left after each
+one. **Without a key**, files come from the site's free slow partner
+servers: a browser check per file, a slower transfer, and a daily limit per
+IP; a server that asks for a wait is waited out once, one that asks for a
+captcha is skipped for the next. **Test connection** checks the key without
+spending a download, or, with no key, that the site answers.
+
+What it does need is:
+
+- **The browser build of the app** (the image tagged `-browser`). The search
+  page checks for a real browser and escalates headless browsers and
+  FlareSolverr to a manual captcha, so the app's own browser clears it; after
+  that its cookies carry ordinary requests for a while. On the standard build
+  the source stays off and the card says why.
+
+Set the **languages** you accept, best first (`en, de`; empty = any). The
+site moves between domains now and then — change the **Site URL** on the card
+when it does. Among matches, your first language wins, then EPUB over PDF,
+then the larger file.
+
 ## Source priority
 
 Settings lists every enabled source in a drag-to-reorder priority list. For each issue, sources are tried **top to bottom — first match wins**, so put your fastest/cleanest source first and slower or scarcer ones lower as fallbacks.

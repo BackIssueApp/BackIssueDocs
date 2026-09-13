@@ -32,6 +32,21 @@ offers:
 Listening progress and finished state are per account, so several people can
 work through the same title independently.
 
+## Adding audiobooks
+
+With an Audiobooks library set up, the library's **Add** button gains an
+**Audiobooks** tab. Search the catalog by title or author; each result says
+whether it is already on the shelf, or already wanted. **Add** puts it on the
+wanted list and asks your [download sources](sources) for it at once, and the
+button says what happened: downloading from which source, in the library, or
+wanted. One no source has yet stays wanted: the **Fill wanted audiobooks**
+job (Settings → Jobs) asks again on its schedule, and a scan that brings it in
+takes it off the list.
+
+`GET /api/audiobooks/wanted` lists the wanted audiobooks and
+`DELETE /api/audiobooks/wanted/<id>` drops one (the **Manage library**
+permission, like adding).
+
 ## Streaming, not downloading
 
 Audiobooks are big — often around a gigabyte — so a registered source streams

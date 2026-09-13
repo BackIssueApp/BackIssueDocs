@@ -311,9 +311,10 @@ api.defineSource({
 | `types` | Library types this site serves; default `['comic', 'manga']`. A source is skipped outright for any other type, so a manga site is never searched for a western comic. Declare `'ebook'` or `'audiobook'` and the site is asked for [books](#downloadmedia-opts-and-onmediadownload-fn-ask-for-a-book) too: its `search()` gets author-and-title queries and the results are judged by title and author rather than issue number; the file is handed over as downloaded, not normalised into a comic archive |
 | `rateMs` | Minimum gap between requests to the site (default 1000) |
 | `cloudflare`, `proxy` | Add the FlareSolverr / download-proxy fields to the card |
-| `settings` | Extra settings, each `{ type, label, note, default }`; they appear on the card and reach the definition as `kit.settings` |
+| `settings` | Extra settings, each `{ type, label, note, default, secret? }`; they appear on the card (a `secret` one masked) and reach the definition as `kit.settings` |
 | `search`, `resolve` | The site's own logic (above) |
 | `find`, `manualSearch`, `queries`, `test` | Override the defaults when the site needs it |
+| `verify(fetched, candidate, ctx, kit)` | Books only: look at the downloaded bytes before they are filed (`kit.epubInfo(buffer)` reads an EPUB's own title and language) and throw to refuse them — the app then asks `find()` for the next candidate, with `ctx.exclude` holding what was refused |
 
 ### Sites behind Cloudflare, and the browser
 
@@ -336,6 +337,12 @@ wants that source onto the browser build.
 `kit.http.html` hides the difference: the definition asks for a page and the
 app decides how to get it. `kit.http.image(url)` reads one image through the
 browser, for hosts that serve images only to a real browser session.
+
+A site behind **DDoS-Guard** is recognised the same way, but it escalates a
+headless browser — FlareSolverr included — to a manual captcha, so such a site
+declares `browser: 'required'`. The app's own browser (a real window) clears
+it, and its cookies are then reused for plain requests to that host until
+they lapse, so only the first page of a session costs a browser load.
 
 ### The kit
 
@@ -385,7 +392,7 @@ keep a handful of small sites together in one place.
 - **`immediate`** — the source downloads in-app. `fetch()` returns `{ srcPath }` (a file on disk) or `{ buffer }`, plus optional `format` (`'cbz' | 'pdf'`) and `keep: true` (copy the file in instead of moving it — e.g. to keep seeding/sharing). Core converts, tags, and files it.
 - **`deferred`** — the source hands off to an external download client. `grab()` returns `{ downloadId, client, category, title }`; a background monitor watches the client and imports the finished file.
 
-**`find(ctx)`** searches for one wanted issue and returns whatever object your `fetch`/`grab` needs (it's passed back verbatim). A source that declares `types` including `'ebook'` or `'audiobook'` is also asked for **books**: then `ctx.book` is `{ type, title, author, year }`, `ctx.issue.issue_number` is empty, and `scoreBookRelease` / `bookQueries` from `src/sources/books.js` are the matcher and queries to use. `ctx` carries:
+**`find(ctx)`** searches for one wanted issue and returns whatever object your `fetch`/`grab` needs (it's passed back verbatim). A source that declares `types` including `'ebook'` or `'audiobook'` is also asked for **books**: then `ctx.book` is `{ type, title, author, year, isbn }`, `ctx.issue.issue_number` is empty, and `scoreBookRelease` / `bookQueries` from `src/sources/books.js` are the matcher and queries to use (`bookQueries(ctx, { isbn: true })` puts the ISBN first for a catalog site; the default `find` of a site source already does). `ctx` carries:
 
 | Field | Meaning |
 |---|---|

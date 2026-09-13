@@ -23,7 +23,8 @@ request with its kind.
 Approving a book asks your **download sources** for it, the same way an issue
 is fetched: usenet and torrent search the book and audiobook categories, and
 a [site source](plugin-api#sources-from-a-site-description) takes part when it
-declares that it carries books or audiobooks. The best release is grabbed and,
+declares that it carries books or audiobooks (asked by ISBN first, when the
+catalog knows one, so the exact edition wins). The best release is grabbed and,
 when the download finishes, the Ebooks or Audiobooks plugin files it into the
 library (Author/Title) and catalogs it — the queue row shows which source is
 downloading it, or why the download failed. On-demand catalogs are not

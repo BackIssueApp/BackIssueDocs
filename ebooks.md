@@ -99,6 +99,22 @@ footer; the last page offers to mark the book finished or go on to the next
 volume of a set; and the footer line can show the chapter, the whole book, a
 percentage, or nothing at all.
 
+## Adding books
+
+With a Books library set up, the library's **Add** button gains a **Books**
+tab. Search the catalog by title, author or ISBN; each result says whether it
+is already on the shelf, or already wanted. **Add** puts the book on the
+wanted list and asks your [download sources](sources) for it at once — by
+ISBN first, where the catalog knows one — and the button says what happened:
+downloading from which source, in the library, or wanted. A book no source
+has yet stays wanted: the **Fill wanted books** job (Settings → Jobs) asks
+again on its schedule, and a scan or import that brings the book in by other
+means takes it off the list. Whoever added it is notified when it lands.
+
+`GET /api/ebooks/wanted` lists the wanted books and
+`DELETE /api/ebooks/wanted/<id>` drops one (the **Manage library** permission,
+like adding).
+
 ## On-demand libraries
 
 A source plugin can register an entire remote catalog as **file-less** entries:
@@ -110,6 +126,13 @@ A short "Opening…" pause on that first read is normal.
 On-demand entries are best kept in their own Books library so they don't swamp
 the books you own. They're never counted as missing — they're there to read,
 just not on disk yet.
+
+To take a source's entries off the shelf again — you removed its plugin, or
+you want the shelf reset — call `DELETE /api/ebooks/remote/<source id>` (the
+**Manage library** permission). Every file-less entry it added goes, with the
+series left empty; a book it had already fetched to a file stays, as an
+ordinary local book. The same for audiobooks:
+`DELETE /api/audiobooks/remote/<source id>`.
 
 ## Elsewhere in the app
 
