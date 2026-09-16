@@ -19,7 +19,6 @@ BackIssue's core stays lean; extra download sources and whole features ship as p
 | **[Migration Assistant](migrate)** | Import an existing Mylar3 or Kapowarr collection, matched by ComicVine volume id |
 | **[Prowlarr](prowlarr)** | Feed your Prowlarr indexers to the built-in Usenet and torrent sources |
 | **[SSO (OpenID Connect)](users#signing-in-with-an-identity-provider-sso)** | Sign in through an identity provider — Authentik, Keycloak, Auth0, Google, Microsoft Entra, … |
-| **[WHMCS sign-in](users#signing-in-with-an-identity-provider-sso)** | Let WHMCS clients with an active product sign in with their WHMCS email and password |
 
 Download **sites** are listed separately — see [Download sites](#download-sites) below.
 

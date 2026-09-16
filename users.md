@@ -31,11 +31,6 @@ Install the **SSO (OpenID Connect)** plugin from the Plugins page to let users s
 
 An account linked to an external service has **no local password** — it can't set one and an admin can't set one for it. Its access stays governed by the provider, so revoking access there (for example, an expired subscription with a billing integration) reliably locks the account out with no local password left behind. Such users can still create a personal **API key** for reader apps and scripts.
 
-There is a second sign-in plugin for a narrower case: **WHMCS sign-in** lets your
-WHMCS clients sign in with their WHMCS email and password, as long as they hold
-an active product you nominate. It behaves the same way — the account is governed
-by WHMCS, and ending the product ends the access.
-
 ## Roles
 
 Three roles ship built in, each a superset of the one below:
