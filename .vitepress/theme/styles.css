@@ -159,22 +159,187 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .bi-prose .custom-block.details .custom-block-title,
 .bi-prose .custom-block.details summary { color: var(--ink-soft); font-family: var(--font-display); font-weight: 800; text-transform: uppercase; letter-spacing: .05em; font-size: 11.5px; cursor: pointer; }
 
-/* ---------- restyle the built-in local search modal ---------- */
-.VPLocalSearchBox { --vp-c-bg: var(--surface); }
-.VPLocalSearchBox .backdrop { background: rgba(20, 19, 16, .55); backdrop-filter: blur(3px); }
-.VPLocalSearchBox .shell {
-  background: var(--surface); border: 2px solid var(--ink); border-radius: 14px;
-  box-shadow: 8px 8px 0 rgba(0, 0, 0, .35); color: var(--ink);
+/* ---------- the built-in local search modal ----------
+   VPLocalSearchBox is imported on its own (Layout.vue) without VitePress's
+   default theme stylesheet, so nothing here is inherited: every --vp-* token
+   the component reads, the vpi-* icon masks, and the browser defaults the
+   default theme would normally have reset all have to be supplied below.
+   The component's own scoped rules are injected after this file, so the
+   overrides double the root class to win at equal-property specificity. */
+
+.VPLocalSearchBox {
+  /* tokens the component's scoped CSS reads */
+  --vp-backdrop-bg-color: rgba(20, 19, 16, .55);
+  --vp-c-bg: var(--surface);
+  --vp-c-brand-1: var(--accent);
+  --vp-c-divider: var(--line);
+  --vp-local-search-bg: var(--surface);
+  --vp-local-search-highlight-bg: var(--accent-2);
+  --vp-local-search-highlight-text: #1B1A16;   /* accent-2 is yellow in both themes */
+  --vp-local-search-result-bg: var(--surface-2);
+  --vp-local-search-result-border: var(--line);
+  --vp-local-search-result-selected-bg: var(--surface);
+  --vp-local-search-result-selected-border: var(--accent);
+
+  font-family: var(--font-ui);
+  color: var(--ink);
 }
-.VPLocalSearchBox .search-bar { border: 2px solid var(--line); border-radius: 9px; background: var(--surface); }
-.VPLocalSearchBox .search-input { font-family: var(--font-ui); color: var(--ink); }
-.VPLocalSearchBox .search-keyboard-shortcuts kbd,
-.VPLocalSearchBox .result .title,
-.VPLocalSearchBox .result .titles { color: var(--ink); font-family: var(--font-ui); }
-.VPLocalSearchBox .result {
-  background: var(--surface-2); border: 2px solid transparent; border-radius: 9px;
+
+.VPLocalSearchBox.VPLocalSearchBox .backdrop { backdrop-filter: blur(3px); }
+
+.VPLocalSearchBox.VPLocalSearchBox .shell {
+  background: var(--surface);
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, .35);
+  color: var(--ink);
 }
-.VPLocalSearchBox .result.selected { border-color: var(--accent); }
-.VPLocalSearchBox .result mark { background: var(--accent-2); color: var(--ink); border-radius: 2px; }
-.VPLocalSearchBox .titles .title-icon,
-.VPLocalSearchBox .titles mark { color: var(--accent); }
+
+/* full-bleed on phones — a rounded, shadowed edge makes no sense there */
+@media (max-width: 767px) {
+  .VPLocalSearchBox.VPLocalSearchBox .shell {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+/* ---- the search bar ---- */
+.VPLocalSearchBox.VPLocalSearchBox .search-bar {
+  border: 2px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface);
+}
+.VPLocalSearchBox.VPLocalSearchBox .search-bar:focus-within { border-color: var(--accent); }
+
+.VPLocalSearchBox.VPLocalSearchBox .search-input {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.VPLocalSearchBox.VPLocalSearchBox .search-input::placeholder { color: var(--ink-faint); }
+.VPLocalSearchBox.VPLocalSearchBox .search-input::-webkit-search-cancel-button { display: none; }
+
+.VPLocalSearchBox.VPLocalSearchBox label { color: var(--ink-faint); display: flex; }
+
+.VPLocalSearchBox.VPLocalSearchBox .search-actions button {
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  color: var(--ink-faint);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font: inherit;
+}
+.VPLocalSearchBox.VPLocalSearchBox .search-actions button:not([disabled]):hover { color: var(--accent); }
+.VPLocalSearchBox.VPLocalSearchBox .search-actions button.clear-button:disabled { cursor: default; }
+
+/* ---- the results list ---- */
+.VPLocalSearchBox.VPLocalSearchBox .results { list-style: none; margin: 0; padding: 0; }
+.VPLocalSearchBox.VPLocalSearchBox .results li { list-style: none; }
+
+.VPLocalSearchBox.VPLocalSearchBox .result {
+  background: var(--surface-2);
+  border-radius: 9px;
+  color: var(--ink);
+  text-decoration: none;
+}
+.VPLocalSearchBox.VPLocalSearchBox .result.selected { background: var(--surface); }
+.VPLocalSearchBox.VPLocalSearchBox .result .title,
+.VPLocalSearchBox.VPLocalSearchBox .result .titles { color: var(--ink); font-family: var(--font-ui); }
+.VPLocalSearchBox.VPLocalSearchBox .result .title.main { font-weight: 700; }
+.VPLocalSearchBox.VPLocalSearchBox .titles .title-icon { color: var(--accent); }
+.VPLocalSearchBox.VPLocalSearchBox .result mark {
+  background: var(--accent-2);
+  color: #1B1A16;
+  border-radius: 2px;
+}
+
+.VPLocalSearchBox.VPLocalSearchBox .no-results { color: var(--ink-soft); font-family: var(--font-ui); }
+
+/* the excerpt is raw page HTML tagged .vp-doc — style it here, not from .bi-prose */
+.VPLocalSearchBox.VPLocalSearchBox .excerpt .vp-doc { color: var(--ink-soft); font-family: var(--font-body); }
+.VPLocalSearchBox.VPLocalSearchBox .excerpt .vp-doc > * { margin: 0 0 4px; }
+.VPLocalSearchBox.VPLocalSearchBox .excerpt .vp-doc h1,
+.VPLocalSearchBox.VPLocalSearchBox .excerpt .vp-doc h2,
+.VPLocalSearchBox.VPLocalSearchBox .excerpt .vp-doc h3 { font-family: var(--font-display); font-weight: 800; color: var(--ink); }
+.VPLocalSearchBox.VPLocalSearchBox .excerpt .vp-doc code { font-family: var(--font-mono); background: var(--surface); padding: 0 3px; border-radius: 3px; }
+.VPLocalSearchBox.VPLocalSearchBox .excerpt .vp-doc a { color: inherit; text-decoration: none; }
+.VPLocalSearchBox.VPLocalSearchBox .excerpt .vp-doc img { display: none; }
+.VPLocalSearchBox.VPLocalSearchBox .excerpt .vp-doc table { border-collapse: collapse; }
+.VPLocalSearchBox.VPLocalSearchBox .excerpt .vp-doc ul,
+.VPLocalSearchBox.VPLocalSearchBox .excerpt .vp-doc ol { padding-left: 18px; }
+.VPLocalSearchBox.VPLocalSearchBox .excerpt .vp-doc li { list-style: disc; margin: 0; }
+.VPLocalSearchBox.VPLocalSearchBox .excerpt .vp-doc ol li { list-style: decimal; }
+/* the copy button and language tag come with the rendered code block and have
+   no styles here — they'd render as a bare box and a floating word */
+.VPLocalSearchBox.VPLocalSearchBox .excerpt .vp-doc button.copy,
+.VPLocalSearchBox.VPLocalSearchBox .excerpt .vp-doc .lang { display: none; }
+.VPLocalSearchBox.VPLocalSearchBox .excerpt .vp-doc div[class*='language-'] {
+  background: var(--code-bg);
+  border-radius: 6px;
+  padding: 6px 10px;
+  overflow: hidden;
+}
+.VPLocalSearchBox.VPLocalSearchBox .excerpt .vp-doc div[class*='language-'] pre { margin: 0; }
+.VPLocalSearchBox.VPLocalSearchBox .excerpt .vp-doc div[class*='language-'] code { background: none; padding: 0; color: var(--code-ink); }
+
+/* ---- keyboard hints ---- */
+.VPLocalSearchBox.VPLocalSearchBox .search-keyboard-shortcuts {
+  color: var(--ink-soft);
+  font-family: var(--font-ui);
+}
+.VPLocalSearchBox.VPLocalSearchBox .search-keyboard-shortcuts kbd {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  box-shadow: none;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 14px;
+  padding: 3px 6px;
+}
+
+/* ---- icons ----
+   Lucide masks lifted from VitePress's own icons.css (ISC), which this theme
+   never loads. Without them every button and hint renders as an empty box. */
+.VPLocalSearchBox [class^='vpi-'] {
+  width: 1em;
+  height: 1em;
+  flex: none;
+  -webkit-mask: var(--icon) no-repeat;
+  mask: var(--icon) no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  background-color: currentColor;
+  color: inherit;
+}
+.VPLocalSearchBox .vpi-search {
+  --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E");
+}
+.VPLocalSearchBox .vpi-arrow-up,
+.VPLocalSearchBox .vpi-arrow-down,
+.VPLocalSearchBox .vpi-arrow-left {
+  --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M5 12h14M12 5l7 7-7 7'/%3E%3C/svg%3E");
+}
+.VPLocalSearchBox .vpi-chevron-right {
+  --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='m9 18 6-6-6-6'/%3E%3C/svg%3E");
+}
+.VPLocalSearchBox .vpi-layout-list {
+  --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'%3E%3Crect width='7' height='7' x='3' y='3' rx='1'/%3E%3Crect width='7' height='7' x='3' y='14' rx='1'/%3E%3Cpath d='M14 4h7M14 9h7M14 15h7M14 20h7'/%3E%3C/svg%3E");
+}
+.VPLocalSearchBox .vpi-delete {
+  --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M20 5H9l-7 7 7 7h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2ZM18 9l-6 6M12 9l6 6'/%3E%3C/svg%3E");
+}
+.VPLocalSearchBox .vpi-corner-down-left {
+  --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='m9 10-5 5 5 5'/%3E%3Cpath d='M20 4v7a4 4 0 0 1-4 4H4'/%3E%3C/svg%3E");
+}
+.VPLocalSearchBox .vpi-arrow-down { transform: rotate(90deg); }
+.VPLocalSearchBox .vpi-arrow-left { transform: rotate(180deg); }
+.VPLocalSearchBox .vpi-arrow-up   { transform: rotate(-90deg); }
