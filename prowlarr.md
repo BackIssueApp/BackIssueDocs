@@ -30,13 +30,8 @@ indexers are enabled.
 | Prowlarr | Master switch. While it's on (with a URL and key), Prowlarr owns the indexer list. |
 | Prowlarr URL | Your Prowlarr base URL, e.g. `http://prowlarr:9696`. Not an indexer's feed URL — the base. |
 | API key | From Prowlarr's **Settings → General → Security**. Used both to list indexers and to search them. |
-| Categories | The Newznab/Torznab category ids every search is limited to: `7000` (Books) and `7030` (Comics). Prowlarr fronts general-purpose indexers, so an unscoped search drowns comics in films and TV that happen to match a series title. It applies to torrent indexers as well, which BackIssue would otherwise search uncategorised. |
+| Categories | The Newznab/Torznab category ids every search is limited to. Defaults to `7000` (Books) and `7030` (Comics); blank searches with no category filter at all. Prowlarr fronts general-purpose indexers, so an unscoped search drowns comics in films and TV that happen to match a series title. It applies to torrent indexers as well, which BackIssue would otherwise search uncategorised. |
 | Indexers | The per-indexer picker. Only indexers **enabled in Prowlarr** are listed; unticking one excludes it, and the change applies to the very next search. |
-
-::: warning The Categories field doesn't stick yet
-The category filter is currently fixed at `7000,7030` — the field is in the UI,
-but the value isn't saved, so searches always use those two categories.
-:::
 
 The indexer list itself is cached for five minutes so a burst of per-issue
 searches doesn't hammer Prowlarr. Your ticks are applied *after* that cache, so
