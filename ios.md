@@ -1,3 +1,7 @@
+---
+description: "Install the iPhone and iPad app from TestFlight, sign in to your server, and read, download and request on the go."
+---
+
 # iPhone & iPad app
 
 The **BackIssue app for iPhone and iPad** is a native companion to your server — not a web page in a wrapper. It reads your library, downloads issues to your device for offline reading, and lets you add or request comics on the go. Books and audiobooks come along too.

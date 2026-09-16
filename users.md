@@ -1,3 +1,7 @@
+---
+description: "Share your server safely with accounts, roles and fine-grained permissions, including sign-in through an identity provider."
+---
+
 # Users & access
 
 BackIssue has a full multi-user system: accounts, roles, and fine-grained permissions. It's designed to run for a household or a small group where not everyone should be able to reshape the library or change settings.
@@ -45,7 +49,40 @@ New signups are viewers — safe by default: a household member can read the who
 
 ## Permissions & custom roles
 
-Under the hood, every action maps to a named **permission** (browse, download, manage the library, manage settings, manage users, and so on — plus permissions that plugins add, like *Read comics* or *OPDS catalog*). The built-in roles are just bundles of these.
+Under the hood, every action maps to a named **permission**. The built-in roles are just bundles of these.
+
+These ten ship with the app. The **tier** column is the lowest built-in role that holds the permission; the key is what the [API reference](api-reference) quotes for each endpoint.
+
+| Permission | Key | Tier |
+|---|---|---|
+| Browse the library | `library.view` | Viewer |
+| Search & download | `downloads.grab` | Trusted |
+| Manage the library | `library.manage` | Trusted |
+| View mature content | `library.restricted` | Trusted |
+| Share reading lists | `lists.share` | Trusted |
+| Settings & indexers | `settings.manage` | Admin |
+| Users & roles | `users.manage` | Admin |
+| Plugins & restart | `plugins.manage` | Admin |
+| Jobs & tools | `system.jobs` | Admin |
+| Logs | `system.logs` | Admin |
+
+Plugins add their own, and they appear in the tick-list automatically once the plugin is installed:
+
+| Permission | Key | Tier | From |
+|---|---|---|---|
+| Read comics | `reader.read` | Viewer | [Reader](reading) |
+| Edit panel layouts | `reader.panels.edit` | Admin | [Reader](guided-reading) |
+| OPDS catalog | `opds.use` | Viewer | [OPDS](opds) |
+| Books library | `ebooks.use` | Viewer | [Books](ebooks) |
+| Audiobooks | `audiobooks.use` | Viewer | [Audiobooks](audiobooks) |
+| Request volumes | `requests.create` | Viewer | [Requests](requests) |
+| Manage requests | `requests.manage` | Trusted | [Requests](requests) |
+
+::: warning Built-in roles grow; custom roles don't
+A built-in role holds every permission at or below its tier, so installing a plugin immediately gives viewers, trusted users and admins whatever it registers at their level — no editing needed. A **custom role holds only what you ticked**, so a new plugin's permission starts switched off for it and you have to grant it deliberately. That is the safe default, but it does mean a custom "kids" role won't gain *Read comics* on its own after you install the reader.
+
+Two related behaviours: an admin implicitly holds everything, including permissions that don't exist yet, and a permission whose plugin has been uninstalled is treated as admin-only rather than as open. Role edits take effect on the next request — nobody has to sign in again.
+:::
 
 On the **Users** page you can create **custom roles**: give the role a name and tick exactly the permissions it should hold. Examples:
 

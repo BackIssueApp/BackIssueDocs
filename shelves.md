@@ -1,3 +1,7 @@
+---
+description: "Browse large book and audiobook libraries by author, decade, format and status instead of scrolling one long list."
+---
+
 # Shelves
 
 The **Shelves plugin** adds faceted browsing for large book and audiobook

@@ -1,3 +1,7 @@
+---
+description: "Every setting in the app, tab by tab, with what it changes and when you would want to change it."
+---
+
 # Settings reference
 
 Everything in **Settings**, by tab. The tabs, in order, are **Overview**, **Library**, **Downloading**, **Sources**, **Metadata**, **Plugins** (only shown once an installed plugin mounts a panel there), **Sign-in** and **Notifications**. Library, Sources and Plugins use a master–detail layout: a rail of panels on the left, one panel at a time on the right. Editing anything raises a save bar at the bottom of the page — nothing is written until you press **Save changes** — except library edits, which apply immediately.
@@ -143,6 +147,24 @@ This tab appears once an installed plugin mounts a panel on it, and shows one ra
 | OPDS progress sync | On by default. Streaming a page from an OPDS app advances your resume point (forward only), and fetching the last page marks the issue read — so OPDS reading feeds Continue reading and your stats. Whole-file downloads are unaffected; a client can opt out per request with `?progress=0`. See [OPDS](opds). |
 
 Not every plugin puts its settings here: download sources appear on **Sources**, notification channels on **Notifications**, sign-in providers on **Sign-in**, and the reader's preferences on **Library**.
+
+### Where each plugin's settings are documented
+
+Plugins with more than a switch or two are written up on their own page rather than repeated here. This is the full index:
+
+| Plugin | Settings | Documented on |
+|---|---|---|
+| Gamify | Household features, notifications, the level-up overlay, quest count, and the three fair-play caps | [Gamify](gamify#settings) |
+| Discover | Feed windows and how long a built feed is cached | [Discovering comics](discover#settings) |
+| AirDC++ | Web API address and credentials, hub list, the two-path download folder, and six search-timing controls | [AirDC++](airdcpp#settings) |
+| Prowlarr | Indexer address and key, plus category and indexer exclusions | [Prowlarr indexers](prowlarr) |
+| Books | Library paths, metadata source, and the scan schedule | [Books](ebooks) |
+| Audiobooks | Library paths, metadata source, and the player's defaults | [Audiobooks](audiobooks) |
+| Shelves | Which library types get faceted browsing | [Shelves](shelves) |
+| Notifications Hub | One card per channel, each with its own filter | [Notifications](notifications) |
+| SSO | Provider address, client credentials, and the role new accounts get | [Users & access](users#signing-in-with-an-identity-provider-sso) |
+
+A few plugin settings aren't on this tab at all because they're schedules: the AirDC++ announce-bot watch is enabled and timed on **System → Jobs**, like every other job.
 
 ## Sign-in
 

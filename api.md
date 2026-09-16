@@ -1,3 +1,7 @@
+---
+description: "Build your own tools against the BackIssue HTTP API: authentication, API keys, pagination, and what to expect as the app evolves."
+---
+
 # Building on the API
 
 Everything BackIssue's web UI does goes through its HTTP API — and you can

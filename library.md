@@ -1,3 +1,7 @@
+---
+description: "Import files you already own, control scanning, tagging and naming, and use the maintenance tools that keep a library tidy."
+---
+
 # Your library
 
 ## Libraries

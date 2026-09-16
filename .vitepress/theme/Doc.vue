@@ -32,8 +32,9 @@ const flat = computed(() => {
 
 const currentIndex = computed(() => flat.value.findIndex((i) => normalize(i.link) === currentPath.value));
 const currentEntry = computed(() => (currentIndex.value >= 0 ? flat.value[currentIndex.value] : null));
-const eyebrow = computed(() => currentEntry.value?.group || '');
-const title = computed(() => page.value.title || currentEntry.value?.text || '');
+const notFound = computed(() => page.value.isNotFound === true);
+const eyebrow = computed(() => (notFound.value ? '' : currentEntry.value?.group || ''));
+const title = computed(() => (notFound.value ? '' : page.value.title || currentEntry.value?.text || ''));
 
 const prev = computed(() => (currentIndex.value > 0 ? flat.value[currentIndex.value - 1] : null));
 const next = computed(() => (currentIndex.value >= 0 && currentIndex.value < flat.value.length - 1 ? flat.value[currentIndex.value + 1] : null));
@@ -93,8 +94,8 @@ const hasOutline = computed(() => headings.value.length > 0);
 <template>
   <div class="bi-docgrid">
     <!-- SIDEBAR (desktop) -->
-    <aside class="bi-sidebar bi-scroll">
-      <nav>
+    <aside id="bi-sidebar" class="bi-sidebar bi-scroll">
+      <nav aria-label="Documentation">
         <div v-for="g in groups" :key="g.text" class="bi-navgroup">
           <div class="bi-navgroup-title">{{ g.text }}</div>
           <a
@@ -112,10 +113,10 @@ const hasOutline = computed(() => headings.value.length > 0);
     </aside>
 
     <!-- ARTICLE -->
-    <main class="bi-article">
+    <main id="bi-content" class="bi-article">
       <div class="bi-article-inner">
         <div v-if="eyebrow" class="bi-article-eyebrow">{{ eyebrow }}</div>
-        <h1 class="bi-article-title">{{ title }}</h1>
+        <h1 v-if="title" class="bi-article-title">{{ title }}</h1>
         <div class="bi-prose bi-article-body">
           <Content />
         </div>
@@ -189,7 +190,7 @@ const hasOutline = computed(() => headings.value.length > 0);
 /* ---- article ---- */
 .bi-article { min-width: 0; padding: 38px clamp(24px, 4vw, 64px) 80px; }
 .bi-article-inner { max-width: 820px; margin: 0 auto; }
-.bi-article-eyebrow { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; letter-spacing: .1em; font-size: 11.5px; color: var(--accent); margin-bottom: 12px; }
+.bi-article-eyebrow { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; letter-spacing: .1em; font-size: 11.5px; color: var(--link); margin-bottom: 12px; }
 .bi-article-title { font-family: var(--font-display); font-weight: 900; font-size: clamp(34px, 5vw, 50px); letter-spacing: -.03em; line-height: 1.02; margin: 0 0 26px; }
 .bi-article-body { min-height: 40vh; }
 
@@ -198,9 +199,9 @@ const hasOutline = computed(() => headings.value.length > 0);
 .bi-pncard:hover { border-color: var(--ink); }
 .bi-pncard-next { text-align: right; grid-column: 2; }
 .bi-pnlabel { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; font-size: 10.5px; color: var(--ink-faint); }
-.bi-pntitle { font-family: var(--font-display); font-weight: 700; font-size: 16px; color: var(--accent); margin-top: 4px; }
+.bi-pntitle { font-family: var(--font-display); font-weight: 700; font-size: 16px; color: var(--link); margin-top: 4px; }
 .bi-article-footer { margin-top: 36px; font-family: var(--font-ui); font-size: 13px; color: var(--ink-faint); }
-.bi-article-footer a { color: var(--accent); text-decoration: none; }
+.bi-article-footer a { color: var(--link); text-decoration: none; }
 
 /* ---- outline ---- */
 .bi-outline { position: sticky; top: 62px; height: calc(100vh - 62px); overflow-y: auto; padding: 38px 20px 40px; }
@@ -208,7 +209,7 @@ const hasOutline = computed(() => headings.value.length > 0);
 .bi-outlink { display: block; font-family: var(--font-ui); font-size: 13px; line-height: 1.35; padding: 4px 0 4px 11px; text-decoration: none; color: var(--ink-soft); border-left: 2px solid transparent; }
 .bi-outlink:hover { color: var(--ink); }
 .bi-outlink-sub { padding-left: 20px; }
-.bi-outlink-active { color: var(--accent); border-left-color: var(--accent); }
+.bi-outlink-active { color: var(--link); border-left-color: var(--accent); }
 
 /* ---- mobile drawer ---- */
 .bi-mobsidebar { display: none; }

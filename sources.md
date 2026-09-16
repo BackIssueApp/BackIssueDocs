@@ -1,3 +1,7 @@
+---
+description: "Set up Usenet and torrent downloading, add download sites, and control the order the app tries them in."
+---
+
 # Download sources
 
 BackIssue ships with two source families built in — **Usenet** and **torrents** — and loads more as [plugins](plugins). Enable as many as you like; every download tries them in your priority order and takes the first match.

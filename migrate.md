@@ -1,3 +1,7 @@
+---
+description: "Bring an existing Mylar3 or Kapowarr collection across, matched by ComicVine volume id so nothing is lost in translation."
+---
+
 # Migration Assistant
 
 The **Migration Assistant plugin** imports an existing collection from another

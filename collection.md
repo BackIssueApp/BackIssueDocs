@@ -1,3 +1,7 @@
+---
+description: "Add series, match them to ComicVine, set what gets monitored, and use bulk actions to reshape a large collection."
+---
+
 # Managing your collection
 
 ## Adding a series

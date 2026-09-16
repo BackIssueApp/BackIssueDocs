@@ -24,6 +24,7 @@ const themeIcon = computed(() => (isDark.value ? '☀' : '☾'));
 // search overlay (reuses VitePress's built-in local search)
 const showSearch = ref(false);
 function openSearch() { showSearch.value = true; }
+provide('biOpenSearch', openSearch);   // NotFound.vue reuses the same overlay
 function closeSearch() { showSearch.value = false; }
 
 // mobile sidebar drawer (consumed by Doc.vue)
@@ -50,6 +51,8 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown));
 
 <template>
   <div class="bi-app">
+    <a class="bi-skip" href="#bi-content">Skip to content</a>
+
     <!-- TOP NAV -->
     <header class="bi-nav">
       <div class="bi-nav-inner">
@@ -74,7 +77,13 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown));
           <span class="bi-keycap">/</span>
         </button>
         <button class="bi-iconbtn" @click="toggleTheme" aria-label="Toggle theme">{{ themeIcon }}</button>
-        <button class="bi-iconbtn bi-mobtoggle" @click="toggleMobileNav" aria-label="Menu">☰</button>
+        <button
+          class="bi-iconbtn bi-mobtoggle"
+          @click="toggleMobileNav"
+          :aria-expanded="mobileNav ? 'true' : 'false'"
+          aria-controls="bi-sidebar"
+          aria-label="Menu"
+        >☰</button>
       </div>
     </header>
 

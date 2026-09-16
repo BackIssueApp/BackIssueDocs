@@ -1,3 +1,7 @@
+---
+description: "Shelve audiobooks beside your comics, enrich them with metadata, and listen in the browser with chapters, speed and a sleep timer."
+---
+
 # Audiobooks
 
 The **Audiobooks plugin** adds an **Audiobooks** library type and an in-browser

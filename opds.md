@@ -1,3 +1,7 @@
+---
+description: "Serve your library to native reader apps over OPDS, including page streaming and reading-progress sync."
+---
+
 # OPDS catalog
 
 The **OPDS plugin** serves your library to native comic-reader apps — **Panels**, **Chunky**, **KyBook**, and anything else that speaks OPDS. Browse your series, download issues, or stream them page-by-page, all from your phone or tablet.

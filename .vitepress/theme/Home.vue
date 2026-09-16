@@ -30,7 +30,7 @@ const guideCards = [
 </script>
 
 <template>
-  <main class="bi-home">
+  <main id="bi-content" class="bi-home">
     <!-- HERO -->
     <section class="bi-hero">
       <div class="bi-halftone" aria-hidden="true"></div>
@@ -179,7 +179,7 @@ const guideCards = [
 .bi-hero { position: relative; overflow: hidden; border-bottom: 2px solid var(--ink); }
 .bi-herogrid { max-width: 1340px; margin: 0 auto; padding: 74px 22px; display: grid; grid-template-columns: 1.02fr .98fr; gap: 52px; align-items: center; position: relative; }
 .bi-herogrid > * { min-width: 0; }
-.bi-eyebrow-pill { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 800; text-transform: uppercase; letter-spacing: .14em; font-size: 11.5px; color: var(--accent); border: 2px solid var(--accent); border-radius: 100px; padding: 5px 13px; margin-bottom: 24px; }
+.bi-eyebrow-pill { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 800; text-transform: uppercase; letter-spacing: .14em; font-size: 11.5px; color: var(--link); border: 2px solid var(--accent); border-radius: 100px; padding: 5px 13px; margin-bottom: 24px; }
 .bi-hero-h1 { font-family: var(--font-display); font-weight: 900; font-size: clamp(42px, 6.2vw, 76px); line-height: .96; letter-spacing: -.03em; margin: 0 0 22px; }
 .bi-hero-sub { font-family: var(--font-body); font-size: 20px; line-height: 1.55; color: var(--ink-soft); max-width: 460px; margin: 0 0 32px; }
 .bi-btnrow { display: flex; gap: 14px; flex-wrap: wrap; }
@@ -233,7 +233,7 @@ const guideCards = [
 .bi-guidecard { display: block; text-decoration: none; background: var(--surface); border: 2px solid var(--ink); border-radius: 12px; padding: 20px; transition: background .12s ease; }
 .bi-guidecard:hover { background: var(--surface-2); }
 .bi-guidecard-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-.bi-guidenum { font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--accent); }
+.bi-guidenum { font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--link); }
 .bi-guidetitle { font-family: var(--font-display); font-weight: 800; font-size: 16.5px; color: var(--ink); }
 .bi-guidedesc { font-family: var(--font-body); font-size: 14.5px; line-height: 1.5; color: var(--ink-soft); margin: 0; }
 
@@ -255,7 +255,7 @@ const guideCards = [
 .bi-wordmark-sm { font-size: 19px; }
 .bi-worddot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); margin-left: 3px; margin-top: 1px; }
 .bi-footer-text { font-family: var(--font-ui); font-size: 13.5px; color: var(--ink-soft); }
-.bi-footer-link { color: var(--accent); text-decoration: none; font-weight: 600; }
+.bi-footer-link { color: var(--link); text-decoration: none; font-weight: 600; }
 
 /* ---- responsive ---- */
 @media (max-width: 920px) {

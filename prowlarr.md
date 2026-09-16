@@ -1,3 +1,7 @@
+---
+description: "Feed your Prowlarr indexers to the built-in Usenet and torrent sources without configuring each one by hand."
+---
+
 # Prowlarr indexers
 
 The **Prowlarr plugin** feeds BackIssue's built-in Usenet and Torrent sources

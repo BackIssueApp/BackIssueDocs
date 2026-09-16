@@ -1,3 +1,7 @@
+---
+description: "Read page by page or panel by panel, with layouts detected automatically and editable when they need a correction."
+---
+
 # Guided panel reading
 
 The reader can walk a page **panel by panel** — the view zooms to the first panel, dims everything around it, and each tap or key press moves to the next panel in reading order. On a phone or tablet, where a full page is small, it turns dense pages into something you can actually read.

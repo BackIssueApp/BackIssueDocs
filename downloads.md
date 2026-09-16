@@ -1,3 +1,7 @@
+---
+description: "How an issue goes from missing to filed: the pipeline, the queue, manual searches, blocked releases and multi-issue packs."
+---
+
 # Downloads
 
 Downloading is a **trusted-tier** capability: viewers (read-only accounts) don't see the download pages, buttons, or queue counters described here. See [Users & access](users#roles).

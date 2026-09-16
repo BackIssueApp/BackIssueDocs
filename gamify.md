@@ -1,3 +1,7 @@
+---
+description: "Turn reading into a quest with experience points, levels, streaks, achievements and a household leaderboard."
+---
+
 # Gamify
 
 The **Gamify plugin** turns reading into a quest. Earn XP for every page and

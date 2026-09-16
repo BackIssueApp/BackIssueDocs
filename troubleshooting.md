@@ -1,3 +1,7 @@
+---
+description: "Common problems and how to fix them: metadata, downloads, the library on disk, access, and how to get help."
+---
+
 # Troubleshooting
 
 **First stop for anything download-related: System → Logs.** Failures are recorded with their reason — most answers below start there.

@@ -1,3 +1,7 @@
+---
+description: "Use Direct Connect hubs as a download source through the AirDC++ Web API, including watching announce bots for new releases."
+---
+
 # AirDC++ source
 
 The **AirDC++ plugin** adds Direct Connect (DC++) as a download source. It talks to a running [AirDC++](https://airdcpp.net/) instance through its Web API — searching the hubs you're connected to, queueing the match, and importing the finished file like any other download.

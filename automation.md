@@ -1,3 +1,7 @@
+---
+description: "Schedule the work the app does for you: the jobs that ship, what each one does, and where to see history and logs."
+---
+
 # Automation
 
 Set it up once and BackIssue keeps your collection current on its own.

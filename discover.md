@@ -1,3 +1,7 @@
+---
+description: "Browse what's new, upcoming and notable in comics and add anything that catches your eye in one click."
+---
+
 # Discover
 
 The **Discovery plugin** adds a **✨ Discover** entry to the sidebar — a browsable feed of new and notable comics pulled from ComicVine, with one-click add. It's how you find series worth tracking instead of only searching for ones you already know.

@@ -1,3 +1,7 @@
+---
+description: "What BackIssue stores, what leaves your server, and what the companion apps and hosted metadata service can see."
+---
+
 # Privacy Policy
 
 _Last updated: 15 September 2026_

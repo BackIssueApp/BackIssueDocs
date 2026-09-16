@@ -1,3 +1,7 @@
+---
+description: "Write a plugin: every hook, the source contract, the client bridge, UI slots, and how to describe a download site."
+---
+
 # Plugin API reference
 
 Everything a BackIssue plugin can do, in one place. For the user-facing view (installing, enabling, the catalog) see [Plugins](plugins).

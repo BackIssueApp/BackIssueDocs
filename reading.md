@@ -1,3 +1,7 @@
+---
+description: "Read in the browser with paged, double-page and webtoon modes, resume, bookmarks, reading lists and per-user history."
+---
+
 # Reading
 
 The **Reader plugin** turns BackIssue into a full in-browser comic reader — no separate app needed. It reads your owned CBZ/CBR files directly, remembers where you left off, and keeps everyone's history separate.

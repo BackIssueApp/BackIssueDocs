@@ -1,3 +1,7 @@
+---
+description: "Let people request volumes and approve them from a queue, with votes, permissions and optional automatic approval."
+---
+
 # Requests
 
 The **Requests plugin** adds a request-and-approve workflow: household members ask for volumes, and whoever curates the library approves or declines them. It turns "can you add this?" into a tidy queue instead of a chat message.

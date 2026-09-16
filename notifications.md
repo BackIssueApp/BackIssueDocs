@@ -1,3 +1,7 @@
+---
+description: "Send events to Discord, Telegram, Pushover, ntfy or any webhook, with per-channel filters and an in-app notification centre."
+---
+
 # Notifications
 
 BackIssue records every notable event — imports, download failures, new

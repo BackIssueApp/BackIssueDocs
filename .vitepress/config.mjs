@@ -1,5 +1,7 @@
 import { defineConfig } from 'vitepress';
 
+const SITE = 'https://backissue.app';
+
 export default defineConfig({
   title: 'BackIssue',
   description: 'A comic collection manager that tracks your series, finds missing issues, and fetches them automatically.',
@@ -7,6 +9,32 @@ export default defineConfig({
   lastUpdated: false,
   ignoreDeadLinks: [/^https?:\/\/localhost/], // docs legitimately point at the local app
   srcExclude: ['README.md'], // contributor notes, not a published page
+  sitemap: { hostname: SITE },
+
+  // Per-page social cards. Without these a docs link pasted into Discord or
+  // Slack renders as a bare URL. Each page's own `description` frontmatter is
+  // what varies; the site description is only the fallback.
+  transformPageData(pageData, { siteConfig }) {
+    if (pageData.frontmatter.layout === 'home') return;
+    const title = pageData.title ? `${pageData.title} · BackIssue` : 'BackIssue documentation';
+    const description = pageData.description || pageData.frontmatter.description
+      || siteConfig.site.description;
+    const path = pageData.relativePath.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '');
+    pageData.frontmatter.head ??= [];
+    pageData.frontmatter.head.push(
+      ['meta', { property: 'og:type', content: 'article' }],
+      ['meta', { property: 'og:site_name', content: 'BackIssue' }],
+      ['meta', { property: 'og:title', content: title }],
+      ['meta', { property: 'og:description', content: description }],
+      ['meta', { property: 'og:url', content: `${SITE}/${path}` }],
+      ['meta', { property: 'og:image', content: `${SITE}/og.png` }],
+      ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+      ['meta', { name: 'twitter:title', content: title }],
+      ['meta', { name: 'twitter:description', content: description }],
+      ['meta', { name: 'twitter:image', content: `${SITE}/og.png` }],
+      ['link', { rel: 'canonical', href: `${SITE}/${path}` }],
+    );
+  },
 
   head: [
     ['link', { rel: 'icon', type: 'image/png', href: '/favicon-32.png' }],
@@ -17,6 +45,16 @@ export default defineConfig({
       href: 'https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500;700&display=swap',
     }],
     ['meta', { name: 'theme-color', content: '#ff2d6f' }],
+    // Home-page card; every other page overrides these in transformPageData.
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:site_name', content: 'BackIssue' }],
+    ['meta', { property: 'og:title', content: 'BackIssue — a comic collection manager' }],
+    ['meta', { property: 'og:url', content: SITE + '/' }],
+    ['meta', { property: 'og:image', content: SITE + '/og.png' }],
+    ['meta', { property: 'og:image:width', content: '1200' }],
+    ['meta', { property: 'og:image:height', content: '630' }],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:image', content: SITE + '/og.png' }],
   ],
 
   themeConfig: {

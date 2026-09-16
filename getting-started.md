@@ -1,3 +1,7 @@
+---
+description: "Install BackIssue with Docker or from source, walk through first-run setup, and take a tour of the app."
+---
+
 # Getting started
 
 ## Requirements

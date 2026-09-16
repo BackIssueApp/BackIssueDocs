@@ -1,3 +1,7 @@
+---
+description: "Add a Books library for EPUB and PDF, enrich it with metadata, and read in the browser with highlights, notes and synced positions."
+---
+
 # Books
 
 The **Books plugin** adds a **Books** library type for your EPUB and PDF

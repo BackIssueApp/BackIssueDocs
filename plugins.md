@@ -1,3 +1,7 @@
+---
+description: "Install plugins and download sites from the in-app catalog, see what each one registers, and manage them safely."
+---
+
 # Plugins
 
 BackIssue's core stays lean; extra download sources and whole features ship as plugins. Install them with one click from the in-app **catalog** — the first-run wizard offers them too — or drop a plugin folder into the `plugins/` directory by hand.

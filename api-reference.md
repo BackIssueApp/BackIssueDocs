@@ -1,3 +1,7 @@
+---
+description: "Every HTTP endpoint the app exposes, with the permission each one requires and the shape of what it returns."
+---
+
 # API reference
 
 The complete HTTP endpoint list. For the *why* — API keys, how access is

@@ -1,3 +1,7 @@
+---
+description: "Install the Android companion app, sign in to your server, and read, download and request comics from a phone or tablet."
+---
+
 # Android app
 
 The **BackIssue Android app** is a native companion to your server — not a web page in a wrapper. It reads your library, downloads issues to your phone for offline reading, and lets you add or request comics on the go. Built for phones and tablets alike.
