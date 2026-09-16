@@ -59,6 +59,10 @@ docker run -d -p 8787:8787 \
   ghcr.io/backissueapp/backissue:latest
 ```
 
+Those four variables are the ones almost everyone sets; the rest, including
+what to do behind a reverse proxy and how to serve on a different port, are in
+the [environment variable reference](settings-reference#environment-variables).
+
 Then open **http://localhost:8787**. Mount your comic library at `/comics` and
 point a **library** at it under **Settings → Library**; if a download client
 (SABnzbd, NZBGet, qBittorrent) runs in another container, mount its

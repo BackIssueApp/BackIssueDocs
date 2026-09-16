@@ -186,6 +186,107 @@ A few things people look for here live elsewhere:
 
 - **Schedules.** Every scheduled job — releases check, ComicVine match, RSS watch, new-release search, wanted backfill, zero-day pack, database backup — is configured on **System → Jobs**, with a cron expression, an enable toggle, its last-run result and a **Run now** button. See [Automation](automation).
 - **Accounts, roles and self-registration.** The **Users** page owns all of it, including the **Allow self-registration** switch. See [Users & access](users).
-- **Deployment options.** `DATA_DIR` and `TRUST_PROXY` are environment variables, set where you run the app, not settings.
+- **Deployment options.** A handful of things are set as environment variables where you run the app rather than in Settings, because they have to be known before the app starts. See [Environment variables](#environment-variables) below.
 
 Legacy keys from older versions (`libraryDir`, `nzbClientUrl`, hour-based schedule fields, per-source FlareSolverr URLs) are still read and migrated automatically — you never need to touch them.
+
+## Environment variables
+
+These are set where the app runs — the `environment:` block in a Compose file,
+`-e` flags on `docker run`, or your shell when running from source. Nothing here
+appears in Settings, because it has to be known before the app starts.
+
+### The usual ones
+
+Most installs set these four and nothing else. The first three are read by the
+container's startup script rather than the app itself, so they only apply to
+Docker.
+
+| Variable | Default | What it does |
+|---|---|---|
+| `PUID` | `99` | The user id the app runs as, so files it writes to your shares are owned by you rather than root. Run `id` to find yours. |
+| `PGID` | `100` | The group id, likewise. |
+| `UMASK` | `022` | Permissions on files and folders the app creates. |
+| `TZ` | UTC | Your zone, such as `Europe/Dublin`. Schedules fire at local time rather than UTC. |
+
+The defaults are Unraid's `nobody:users`. On first start, or whenever the ids
+change, the container takes ownership of the data directory before dropping to
+that user.
+
+### Paths
+
+| Variable | Default | What it does |
+|---|---|---|
+| `DATA_DIR` | `/data` in Docker, the app folder from source | Everything writable: the database, your settings, in-progress downloads, backups. Point it at a mounted volume so it survives recreating the container. |
+| `PLUGINS_DIR` | `$DATA_DIR/plugins` in Docker | Where installed plugins live. On the volume by default, so they survive an image update. |
+| `SOURCES_DIR` | `$DATA_DIR/sources` in Docker | The same, for installed [download sites](sources). |
+
+The two path overrides exist mainly so a from-source install can put plugins
+somewhere other than the app folder. In Docker they are already correct.
+
+### Behind a reverse proxy
+
+`TRUST_PROXY` is the one variable people most often need and most often get
+wrong. It decides whether the app believes the `X-Forwarded-For` header, which
+in turn decides what it thinks each client's address is.
+
+| Value | Meaning |
+|---|---|
+| unset, empty, or `false` | Trust nothing. Correct for a direct or LAN-only deployment. |
+| `1` | Trust one proxy hop. The right answer for a single nginx, Caddy, Traefik or Cloudflare Tunnel in front. |
+| `2`, `3`, … | Trust that many hops, for chained proxies. |
+| `true` | Trust whatever connected directly. |
+| `10.0.0.0/8`, `loopback`, a comma-separated list | Trust specific addresses or ranges. |
+
+Two things depend on getting this right. **Rate limiting** counts failed logins
+per client address, so with this unset behind a proxy every request looks like
+it comes from the proxy and one person's bad password locks out the household.
+And the app uses it to decide whether a request arrived over HTTPS, which
+controls whether the session cookie is marked secure.
+
+::: danger Do not set this on a directly exposed server
+If nothing is actually proxying the app, trusting the header lets anyone set
+their own apparent IP address and walk straight past rate limiting.
+:::
+
+### Occasionally useful
+
+| Variable | Default | What it does |
+|---|---|---|
+| `MAX_RAR_MB` | calculated from available memory | The size ceiling for repacking a `.cbr` into `.cbz`, in megabytes. Raise it only if large collected editions are being filed as `.cbr` and you have memory to spare — a repack peaks at several times the archive's size. See [Troubleshooting](troubleshooting#downloads). |
+| `NODE_OPTIONS` | unset | Passed to Node itself. In practice `--max-old-space-size=…` on a very large library. |
+| `BACKISSUE_WATCHDOG` | unset (on) | Set to `0` to switch off the watchdog that restarts a wedged process. Only while debugging a hang. |
+| `BACKISSUE_WATCHDOG_STALL_MS` | `120000` | How long the main thread may go silent before the watchdog acts. Lowering it risks killing a healthy process mid-task. |
+| `BACKISSUE_SUPERVISED` | unset | Tells the app something will restart it, so it exits rather than restarting itself. Docker is detected automatically; this is for systemd and similar. Set it without a supervisor and a plugin toggle will shut the app down for good. |
+| `GITHUB_TOKEN` | unset | Lifts the anonymous rate limit when browsing the community reading-list catalog. That catalog is cached for six hours, so almost nobody needs this. |
+| `CHROMIUM_EXTRA_ARGS` | preset in the browser image | Extra flags for the bundled browser, space separated. Browser image only. Do not use it to set a custom user agent — one that disagrees with the rest of the fingerprint reads as a bot and has earned address bans. |
+
+### Leave these alone
+
+`BACKISSUE_ALLOW_INTERNAL_FETCH`, `METADATA_BASE_OVERRIDE`,
+`BACKISSUE_BUILD_FILE`, `BUILD_CHANNEL`, `BUILD_SHA`, `LD_PRELOAD` and
+`MALLOC_ARENA_MAX` are development, build and memory-tuning hooks. The build
+ones are stamped into the image and only make the app misreport its own version
+if you override them; the memory ones are set by the container for good reasons
+and overriding them can break image handling.
+
+One deserves a specific warning. `BACKISSUE_ALLOW_INTERNAL_FETCH` disables the
+guard that stops download sites fetching private and internal addresses. Those
+URLs come from scraped pages and search results, so switching the guard off
+hands untrusted content a route into your own network.
+
+### There is no port variable
+
+The app always listens on **8787**. To serve it elsewhere, remap the port on the
+host rather than changing the app:
+
+```yaml
+ports:
+  - "9000:8787"   # reach it on 9000
+```
+
+::: tip Checking what is actually set
+A [support package](troubleshooting#getting-help) records the deployment
+variables the app can see, so it answers "is this actually set in the running
+container?" without guesswork.
+:::
