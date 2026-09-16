@@ -1,7 +1,7 @@
 {
   "name": "docs",
   "version": "1.0.0",
-  "description": "Documentation site for BackIssue, published with GitHub Pages (Jekyll, Cayman theme) at **[backissue.app](https://backissue.app)**.",
+  "description": "Documentation site for BackIssue, built with VitePress and published to GitHub Pages at backissue.app.",
   "scripts": {
     "dev": "vitepress dev",
     "build": "vitepress build",

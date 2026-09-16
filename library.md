@@ -23,6 +23,12 @@ Storage locations live on your **libraries** (above): each library's folder is w
 
 Coming from another collection manager, a hand-organized folder tree, or a pile of loose files? **Sidebar → Import**:
 
+::: tip Coming from Mylar3 or Kapowarr?
+The [Migration Assistant](migrate) reads their database directly and matches
+every series by its ComicVine volume id, which is exact where a folder-name
+scan can only guess. Do that first, then use Import for anything it leaves.
+:::
+
 1. Point the scan at a folder (defaults to your library folders).
 2. BackIssue walks it and proposes a **match** for each series folder against ComicVine. Tagged libraries match best: when the embedded `ComicInfo.xml` (Mylar, ComicTagger, Kapowarr) carries a ComicVine id, the volume is matched exactly — otherwise the tagged series name, start year, and publisher drive the search; untagged files are matched from their folder names.
 3. Confident matches import automatically; ambiguous ones become **candidates** you confirm or re-pick with a couple of clicks; anything unrecognizable is listed for manual handling.

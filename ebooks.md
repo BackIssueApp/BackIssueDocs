@@ -1,6 +1,6 @@
 # Books
 
-The **Ebooks plugin** adds a **Books** library type for your EPUB and PDF
+The **Books plugin** adds a **Books** library type for your EPUB and PDF
 shelves, and an in-browser reader for them. Books aren't a separate section of
 the app — they live in the normal Library grid, with series pages, filters and
 search working exactly as they do for comics.
@@ -56,7 +56,7 @@ follows you between devices.
 
 ## On your phone and tablet
 
-The BackIssue apps for Android and iOS read your books too. Books sit in the
+The BackIssue apps for [Android](android) and [iPhone and iPad](ios) read your books too. Books sit in the
 one **Library** alongside comics and audiobooks — filter by medium, or let
 **All** group them under their own headers — and a book in progress joins
 **Reading now** on Home, with new books waiting under a **NEW BOOK** tag.
@@ -107,7 +107,7 @@ is already on the shelf, or already wanted. **Add** puts the book on the
 wanted list and asks your [download sources](sources) for it at once — by
 ISBN first, where the catalog knows one — and the button says what happened:
 downloading from which source, in the library, or wanted. A book no source
-has yet stays wanted: the **Fill wanted books** job (Settings → Jobs) asks
+has yet stays wanted: the **Fill wanted books** job (System → Jobs) asks
 again on its schedule, and a scan or import that brings the book in by other
 means takes it off the list. Whoever added it is notified when it lands.
 

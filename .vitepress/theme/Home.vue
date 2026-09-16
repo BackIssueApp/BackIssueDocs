@@ -19,11 +19,13 @@ const guideCards = [
   { num: '01', title: 'Getting started', href: '/getting-started', desc: 'Install, first-run setup, and a tour of the app.' },
   { num: '02', title: 'Your collection', href: '/collection', desc: 'Adding series, ComicVine matching, monitoring, bulk actions.' },
   { num: '03', title: 'Downloads', href: '/downloads', desc: 'How issues get found and fetched; the queue; manual searches; packs.' },
-  { num: '04', title: 'Download sources', href: '/sources', desc: 'Configuring Usenet and torrents, source priority.' },
-  { num: '05', title: 'Your library', href: '/library', desc: 'Importing existing files, scanning, tagging, naming, maintenance tools.' },
+  { num: '04', title: 'Download sources', href: '/sources', desc: 'Usenet, torrents, and the download sites you can add.' },
+  { num: '05', title: 'Your library on disk', href: '/library', desc: 'Importing existing files, scanning, tagging, naming, maintenance tools.' },
   { num: '06', title: 'Reading', href: '/reading', desc: 'The in-browser reader, reading lists, and reading stats.' },
-  { num: '07', title: 'Users & access', href: '/users', desc: 'Accounts, roles, and permissions.' },
-  { num: '08', title: 'Settings reference', href: '/settings-reference', desc: 'Every setting, explained.' },
+  { num: '07', title: 'Books & audiobooks', href: '/ebooks', desc: 'EPUBs and audiobooks shelved beside your comics.' },
+  { num: '08', title: 'Phone & tablet', href: '/ios', desc: 'The Android and iPhone/iPad apps — offline reading anywhere.' },
+  { num: '09', title: 'Users & access', href: '/users', desc: 'Accounts, roles, and permissions.' },
+  { num: '10', title: 'Settings reference', href: '/settings-reference', desc: 'Every setting, explained.' },
 ];
 </script>
 

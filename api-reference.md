@@ -85,7 +85,7 @@ Self-service — any signed-in user, for their own account. A few are public
   "registration": false,
   "user": {
     "id": 3,
-    "username": "darragh",
+    "username": "you",
     "role": "admin",
     "permissions": ["*"]
   }
@@ -93,8 +93,13 @@ Self-service — any signed-in user, for their own account. A few are public
 ```
 
 `permissions` is `["*"]` for admin; otherwise the explicit list your role
-resolves to. In open mode (zero accounts) `openMode` is `true` and the user
-is a synthetic local admin.
+resolves to.
+
+`openMode` is `true` only in the window **before the first account exists** —
+a brand-new install that hasn't been through first-run setup yet. The API then
+reports a synthetic local admin so the setup wizard can do its work. First-run
+setup makes you create an admin, so a configured server always has accounts and
+`openMode` is `false` from then on. See [Users & access](/users).
 
 ## Collection & series
 
@@ -202,7 +207,7 @@ grabs needs `downloads.grab`.
 | POST | `/api/queue/retry/{id}` | downloads.grab | Retry a queued/failed item |
 | POST | `/api/queue/cancel/{id}` | downloads.grab | Cancel a queued item |
 | POST | `/api/grabs/{id}/cancel` | downloads.grab | Cancel an in-flight pack grab |
-| POST | `/api/queue/pause` · `/resume` · `/clear` | library.manage | Pause, resume, or clear the queue |
+| POST | `/api/queue/pause` · `/resume` · `/clear` | downloads.grab | Pause, resume, or clear the queue |
 | POST | `/api/retry-failed` · `/api/clear-failed` | library.manage | Retry or clear all failed downloads |
 
 **`POST /api/search`** takes a series/issue and returns ranked results from
@@ -249,7 +254,7 @@ Personal curation — each user manages their own; no files are touched, so
 | Method | Endpoint | Access | Description |
 |---|---|---|---|
 | GET | `/api/notifications` | library.view | Your in-app notifications |
-| POST | `/api/notifications/read` | library.manage | Mark notifications read |
+| POST | `/api/notifications/read` | library.view | Mark your own notifications read |
 
 ## Live updates (SSE)
 
@@ -352,6 +357,7 @@ registered, and [Building on the API](/api#plugin-routes-are-part-of-the-api)
 for examples (Reader page images, OPDS, Requests).
 
 ::: tip This list tracks the app
-Endpoints evolve with the app — this reference matches the current release.
-Pin your client to what you've tested and re-check on upgrades.
+Endpoints evolve with the app — this reference tracks **0.8.4**. Pin your
+client to what you've tested and re-check against the
+[release notes](https://github.com/BackIssueApp/BackIssue/releases) on upgrades.
 :::

@@ -2,16 +2,23 @@
 
 **First stop for anything download-related: System → Logs.** Failures are recorded with their reason — most answers below start there.
 
-## ComicVine
+## Metadata
 
-**"Rate limit exceeded" / matching crawls.**
-CV enforces per-key request limits. BackIssue paces its own requests, but for heavy use point the **API base URL** (Settings → ComicVine) at a self-hosted ComicVine-compatible cache, or set a **Proxy URL** so requests exit from a fresh IP. Big first-time imports are the heaviest CV users; let the nightly CV-match schedule chew through them instead of re-running manually.
+Out of the box there is nothing to configure: series and issue data comes from the **BackIssue metadata service**, and your install registers itself with it the first time it needs to. Only if you switched **Settings → Metadata → Source** to *ComicVine directly* does the ComicVine advice further down apply.
 
-**"Invalid API key" though the key is right.**
-CV sometimes blocks datacenter/VPN IPs, which can surface as key errors. Try without VPN, or set a **Proxy URL** so CV traffic exits elsewhere.
+**Nothing comes back when you search for a series.**
+Look for a metadata error in **System → Logs**. A failed registration names the URL it tried, so the usual answer is visible at once: outbound HTTPS blocked by a firewall, a DNS problem, or a proxy in front of the container. The app retries on the next lookup, so once the network is fixed nothing else needs doing.
 
 **A series matched the wrong volume.**
 Open the series and re-pick the match. Common with same-name relaunches (*Batman* 1940 vs 2011 vs 2016) — check the start year and issue count when choosing.
+
+### If you use your own ComicVine key
+
+**"Rate limit exceeded" / matching crawls.**
+ComicVine enforces per-key limits — roughly 200 requests per resource per hour, with velocity checks on top — and BackIssue pauses when it hits them, so big imports, library scans and release matching all take much longer. It paces itself to stay under, but the cure for a first-time import is patience: let the nightly ComicVine-match schedule chew through it rather than re-running by hand. Switching **Source** back to the built-in service removes the limit entirely.
+
+**"Invalid API key" though the key is right.**
+ComicVine sometimes blocks datacentre and VPN addresses, and that surfaces as a key error rather than a block. Try without the VPN — or use the built-in metadata service, which your server reaches from the same address without a key.
 
 ## Downloads
 
@@ -28,7 +35,7 @@ The monitor can't see the finished file. Almost always the **completed-folder ma
 The file isn't a valid ZIP — usually a truncated download or a RAR-in-disguise. BackIssue sniffs real formats on import, so this typically means genuine corruption: redownload the issue.
 
 **A big collected edition imported as `.cbr` instead of `.cbz`.**
-Very large RAR-based comics (collected volumes, often hundreds of MB) can't be repacked to CBZ in memory, so BackIssue files them as-is: fully readable, just not ComicInfo-tagged. The size ceiling scales with the host's memory (roughly 1 GB on a 32 GB box, down to a 400 MB floor on smaller hosts). If you have RAM to spare and want more of these converted, raise it with the `MAX_RAR_MB` environment variable (value in megabytes).
+Very large RAR-based comics (collected volumes, often hundreds of MB) can't be repacked to CBZ in memory, so BackIssue files them as-is: fully readable, just not ComicInfo-tagged. There is no fixed ceiling to set: left alone, it scales with the container's memory limit or the host's RAM (roughly 1 GB on a 32 GB box, down to a 400 MB floor on smaller hosts). If you have RAM to spare and want more of these converted, override it with the `MAX_RAR_MB` environment variable — a number of megabytes, which replaces the calculated ceiling.
 
 **Downloads are slow in big batches.**
 Expected to a degree — workers parallelize (`downloadConcurrency`), but each source has its own pacing, and BackIssue deliberately doesn't hammer. Watch the Queue to see where time goes.
@@ -58,11 +65,14 @@ Another admin can reset it from the **Users** page. If you've locked out every a
 **"Too many attempts."**
 Login rate limiting kicked in after repeated failures — wait the short lockout out (it grows with continued failures) and try again with the right password.
 
+**Everyone gets locked out at once behind a reverse proxy.**
+Rate limiting counts per client address, and behind nginx, Caddy or a Cloudflare Tunnel every request appears to come from the proxy — so one person's bad password throttles the household. Set the `TRUST_PROXY` environment variable where you run the app (`TRUST_PROXY=1` for a single proxy hop, `true` for the immediate peer, or a subnet such as `10.0.0.0/8`) and real client addresses come through; it also lets the session cookie be marked Secure over HTTPS. Leave it unset on a direct deployment, where a forged header would otherwise be believed. See [Users & access](users).
+
 **A user can't do something they should be able to.**
 Check their **role and permissions** on the Users page. Buttons for actions a role can't perform are hidden, and the API refuses them — grant the needed permission (or a broader role) to fix it.
 
 **UI looks stale after an update.**
-Run `npm run up` (not just `npm start`) so the frontend rebuilds, then reload the browser.
+On Docker, `docker compose pull` then `docker compose up -d` — a container still running the old image is the usual cause. From source, run `npm run up` (not just `npm start`) so the frontend rebuilds. Either way, reload the browser afterwards.
 
 ## Getting help
 
@@ -87,3 +97,8 @@ It never contains comic files, covers, user names, e-mail addresses or password 
 
 **A crash mid-download.**
 On startup BackIssue reconciles: issues whose file made it to disk are marked done; interrupted ones return to pending automatically. Nothing to clean up by hand.
+
+**The server restarted itself — `watchdog: ...` in the container log.**
+That is by design. A background watcher pings the main thread every few seconds; if no ping arrives for two minutes, or memory sits above 92% of the heap limit for a minute and a half, the process is wedged and nothing above it — routes, schedules, even a shutdown signal — will ever run again. The watcher kills it outright and your restart policy (`restart: unless-stopped`, systemd) brings up a fresh one, which beats a silent hours-long outage. The line naming the reason goes to the container log rather than the in-app log; the app log gets a `memory: rss …, heap … of … limit` line every ten minutes, so a leak leaves a trail rather than a mystery.
+
+If it happens repeatedly, that is a real problem worth reporting with a support package — the restart is the symptom, not the cause. Two notes for anyone tuning it: the app must not be PID 1 for the kill to work (the official image ships an init process, and it warns at startup if it finds itself PID 1 anyway), and `BACKISSUE_WATCHDOG=0` switches the watcher off entirely while `BACKISSUE_WATCHDOG_STALL_MS` changes the two-minute threshold.

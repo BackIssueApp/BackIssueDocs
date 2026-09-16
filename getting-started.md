@@ -8,8 +8,18 @@
 ## Install with Docker (recommended)
 
 The published image is `ghcr.io/backissueapp/backissue` — `latest` tracks
-releases, version tags (e.g. `0.3.0`) pin a release, and `nightly` is the
+releases, version tags (e.g. `0.8.4`) pin a release, and `nightly` is the
 newest development build.
+
+Every one of those tags also has a **browser build**, the same tag with
+`-browser` on the end (`latest-browser`, `0.8.4-browser`,
+`nightly-browser`). It bundles a real Chromium and a virtual display, which
+makes it roughly a gigabyte larger, so run the lean image unless something
+asks you not to. What asks is a download source: a few sites escalate
+headless browsers — FlareSolverr included — to a manual captcha, and only a
+real browser window gets through. Those sources say they need the browser
+build; on the lean one they stay switched off and their card says why. See
+[Download sources](sources).
 
 With Docker Compose:
 
@@ -57,6 +67,42 @@ There's a ready-made template: in the Docker tab add
 from the **BackIssue** template — paths and permissions come pre-mapped.
 :::
 
+### An optional companion: FlareSolverr
+
+Several download sites sit behind Cloudflare, and the sources that use them
+share one setting — **FlareSolverr URL** in **Settings → Downloading**. It is
+a small service you run yourself, so if you plan to use those sources, add it
+to the same Compose file as a second service beside `backissue`:
+
+```yaml
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    ports:
+      - "8191:8191"
+    restart: unless-stopped
+```
+
+Then set the FlareSolverr URL to `http://flaresolverr:8191/v1` (the two
+containers need to share a network — Compose does that for you). Leave it
+blank if none of your sources are behind Cloudflare; see
+[Download sources](sources).
+
+### Updating
+
+Pull the newer image and recreate the container:
+
+```bash
+docker compose pull
+docker compose up -d
+```
+
+With plain `docker run`, pull, remove and start again with the same
+options — `docker pull ghcr.io/backissueapp/backissue:latest`, then
+`docker stop backissue && docker rm backissue`, then your original
+`docker run` line. Your `/data` volume carries the database, settings and
+installed plugins across, so nothing is lost.
+
 ## Install from source
 
 ```bash
@@ -82,7 +128,7 @@ The first time you open BackIssue it asks you to **create the admin account**
 the essentials:
 
 1. **Metadata** — nothing to do: series and issue data comes from the built-in BackIssue metadata service. (Prefer querying ComicVine directly? Paste your own API key here — switchable anytime in Settings → Metadata.)
-2. **Libraries** — create one or more named **libraries**, each with a type (Comics/Manga) and its own folder on disk (Docker: `/comics`). A **Comics** library is set up for you; add more, or leave a folder blank to decide later, and manage them anytime in Settings.
+2. **Libraries** — create one or more named **libraries**, each with a type — Comics and Manga are built in, and Books and Audiobooks arrive with their plugins — and its own folder on disk (Docker: `/comics`). A **Comics** library is set up for you; add more, or leave a folder blank to decide later, and manage them anytime in Settings.
 3. **A download source** — enable at least one of Usenet or torrents so BackIssue can actually fetch comics. You can skip this and set it up later — see [Download sources](sources).
 4. **Plugins** — pick optional plugins (the in-browser reader, Discover, OPDS, Requests, extra sources…); they download and activate when you finish. More can be added anytime from the Plugins page.
 
@@ -92,7 +138,7 @@ Everything the wizard sets can be changed later in **Settings**.
 
 The app is laid out with a **sidebar of sections** on the left and the content on the right:
 
-- **Library** — a poster wall (or dense list — toggle ⊞/≣) of every series you track, with owned/total counts and badges for missing, untagged, or corrupt files. Filter chips (All / Incomplete / Not followed / Problems / Unmatched), a sort dropdown, and search sit at the top. Click a series to open its issue list.
+- **Library** — a poster wall (or dense list — toggle ⊞/≣) of every series you track, with owned/total counts and badges for missing, untagged, or corrupt files. A row of filter chips, a sort dropdown, and search sit at the top — see [the Library view](collection#the-library-view) for what each chip does. Click a series to open its issue list.
 - **Series page** — the full ComicVine issue list for a series: what you own, what's missing, per-issue read/download buttons, and series-level actions (download missing, search sources, search packs, tag files, add to a reading list, and more).
 - **Sidebar sections** — Library, Wanted, Queue (live download progress), Releases (this week's issues for series you follow), Lists (reading lists), History, Stats, plus plugin entries like Discover, Requests, and reading tools. Admins also get a **System** area: Users, Plugins, a unified **System** page (Jobs, Tools and Logs on tabs), and Settings.
 - **Header** — global search, a **notification bell**, and a **?** help button that explains whatever page you're on.
@@ -113,7 +159,7 @@ Prefer to browse rather than search? The **Discover** section surfaces new and n
 | **Issue** | One issue of a series. BackIssue knows the full issue list from ComicVine. |
 | **Owned / Missing** | An issue is *owned* when a valid file for it exists in your library, otherwise *missing*. |
 | **Monitored** (★) | Monitored series are included in automatic searching and weekly-release tracking. Unmonitored series are still tracked, just left alone. |
-| **Library** | A named collection with a type (Comics/Manga) and one or more folders on disk that BackIssue scans and files comics into. You can have several. |
+| **Library** | A named collection with a type — Comics or Manga, or Books and Audiobooks once those plugins are installed — and one or more folders on disk that BackIssue scans and files comics into. You can have several. |
 | **Source** | Somewhere BackIssue can download from — Usenet, torrents, or a plugin source. |
 | **Queue** | The live pipeline of issues being searched, downloaded, and imported. |
 

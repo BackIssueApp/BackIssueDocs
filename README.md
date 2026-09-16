@@ -18,6 +18,17 @@ Pushing to `main` triggers the **Deploy docs** GitHub Actions workflow (`.github
 ## Writing
 
 - Pages are plain Markdown files at the repo root; the first `#` heading is the page title.
-- Add new pages to the sidebar in `.vitepress/config.mjs`.
-- Link between pages with absolute paths: `[Getting started](/getting-started)`.
+- **Add every new page to the sidebar** in `.vitepress/config.mjs`. The sidebar is
+  the only navigation — a page that isn't in it is unreachable, and its group name
+  also becomes the eyebrow above the page title, while the flattened order drives
+  the prev/next links at the foot of each page.
+- Link between pages with **relative** paths — `[Getting started](getting-started)`,
+  `[naming](library#naming-patterns)`. Two exceptions already in the tree: `index.md`
+  (the home page) and the two API pages use absolute `/`-prefixed links. Either
+  resolves; just be consistent within a page.
+- Dead links fail the build, so a typo in a link or an anchor is caught by CI. For a
+  heading whose text makes an awkward slug, pin one: `## Anna's Archive {#annas-archive}`.
+- The top nav in `config.mjs` is rendered by a custom theme that shows **flat links
+  only** — `items:` dropdowns will not render.
 - Search is built in (offline, client-side) — no setup needed; new content is indexed on every build.
+- This file is excluded from the built site (`srcExclude`), so it is notes for us, not a page.

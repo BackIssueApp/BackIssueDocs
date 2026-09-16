@@ -11,7 +11,7 @@ Open any issue in the reader and press **G** (or the panel-grid button in the to
 - Pages without a confident layout (splashes, covers, heavy collage art) show as a normal **full page** inside guided view — advancing just turns the page. A clean full page always beats a broken tour.
 - Turning guided view off (press **G** again) returns to normal reading instantly.
 
-Guided view is also built into the **Android and iOS apps** — tap the panel-grid button in the reader toolbar. The apps use the same panel layouts as the web reader (your server needs the reader plugin 1.6 or newer), so edits you make in the panel editor apply everywhere.
+Guided view is also built into the **[Android](android) and [iPhone and iPad](ios) apps** — tap the panel-grid button in the reader toolbar. The apps use the same panel layouts as the web reader (keep the Reader plugin up to date on the server), so edits you make in the panel editor apply everywhere.
 
 ## How panels are detected
 
@@ -21,7 +21,7 @@ Detection is deliberately conservative: when it isn't confident about a page, it
 
 ## The panel editor
 
-Users with the **Edit panel layouts** permission (admin tier by default — grant it to trusted roles in Settings → Users) get an **Edit panel layout** action on every owned issue. It opens a full-issue editor:
+Users with the **Edit panel layouts** permission (admin tier by default — grant it to trusted roles on the [Users](users) page) get an **Edit panel layout** action on every owned issue. It opens a full-issue editor:
 
 - A **thumbnail rail** shows every page with its panel count; filter chips jump to pages with **no layout**, **edited** pages, or **unreviewed** pages.
 - **Drag** a panel to move it; drag its corners to resize. **Double-tap a panel** to unlock its corners for slanted panels (double-tap again to square it back).

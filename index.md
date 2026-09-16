@@ -27,11 +27,14 @@ features:
     title: Metadata done right
     details: ComicVine metadata embedded into every file as ComicInfo.xml, CBR→CBZ conversion, and consistent library-friendly naming.
   - icon: 📖
-    title: Built-in reader
+    title: In-browser reader
     details: Read your comics in the browser — paged, double-page, or webtoon — with resume, bookmarks, per-user history, reading lists, and story-arc import. Or use a native app over OPDS.
   - icon: 📱
-    title: Android app
-    details: A native companion app for phone and tablet — sign in with your username, read with full resume and bookmarks, download issues for offline, and add or request comics on the go.
+    title: Android, iPhone & iPad
+    details: Native companion apps for phone and tablet — sign in with your account, read with full resume and bookmarks, download issues for offline, and add or request comics on the go.
+  - icon: 📚
+    title: Books & audiobooks
+    details: Shelve EPUBs and audiobooks beside your comics, each with a reader or player of its own — highlights, notes, read-aloud, chapters, and positions that follow you between devices.
   - icon: 👥
     title: Multi-user
     details: Accounts, roles, and fine-grained permissions. Household members can browse, read, and request; you control who can reshape the library or change settings.
@@ -53,13 +56,15 @@ You add a series (or import an existing library). BackIssue matches it to [Comic
 |---|---|
 | [Getting started](/getting-started) | Install, first-run setup, and a tour of the app |
 | [Managing your collection](/collection) | Adding series, ComicVine matching, monitoring, bulk actions |
-| [Downloads](/downloads) | How issues get found and fetched; the queue; manual searches; packs |
-| [Download sources](/sources) | Configuring Usenet and torrents, source priority |
-| [Your library](/library) | Importing existing files, scanning, tagging, naming, maintenance tools |
-| [Reading](/reading) | The in-browser reader, reading lists, and reading stats |
-| [Android app](/android) | Installing the native app, signing in, offline reading |
-| [Users & access](/users) | Accounts, roles, and permissions |
-| [Requests](/requests) · [Discover](/discover) · [OPDS](/opds) | Requesting volumes, discovering new comics, reading in native apps |
-| [Automation](/automation) | Scheduled jobs, notifications, history and logs |
+| [Discovering comics](/discover) | Browsing what's new, popular, and picked for you |
+| [Your library on disk](/library) | Importing existing files, scanning, tagging, naming, maintenance tools |
+| [Migrating from another app](/migrate) | Bringing a Mylar3 or Kapowarr collection across |
+| [How downloads work](/downloads) | How issues get found and fetched; the queue; manual searches; packs |
+| [Download sources](/sources) | Usenet, torrents, and the download sites you can add |
+| [The reader](/reading) · [Guided panel reading](/guided-reading) · [Gamify](/gamify) | Reading in the browser, panel by panel, and turning it into a quest |
+| [Books](/ebooks) · [Audiobooks](/audiobooks) · [Shelves](/shelves) | Shelving and reading EPUBs and audiobooks |
+| [Android app](/android) · [iPhone & iPad app](/ios) · [OPDS](/opds) | Reading on a phone, a tablet, or in someone else's app |
+| [Users & access](/users) · [Requests](/requests) · [Notifications](/notifications) | Sharing the server with other people |
+| [Automation & jobs](/automation) · [Plugins](/plugins) | Scheduled work, history and logs, and extending the app |
 | [Settings reference](/settings-reference) | Every setting, explained |
 | [Troubleshooting](/troubleshooting) | Common problems and how to fix them |

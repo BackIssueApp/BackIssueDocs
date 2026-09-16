@@ -12,7 +12,7 @@ Anyone with the **Request volumes** permission (viewers, by default) sees a **�
 
 ## Books and audiobooks
 
-With the [Ebooks](/ebooks) or [Audiobooks](/audiobooks) plugin installed and a
+With the [Books](ebooks) or [Audiobooks](audiobooks) plugin installed and a
 library of that type set up, **Find & request** gains a **Comics / Books /
 Audiobooks** switch. Books and audiobooks are searched by title or author
 against the metadata service, and the results say straight away whether the
@@ -25,13 +25,13 @@ is fetched: usenet and torrent search the book and audiobook categories, and
 a [site source](plugin-api#sources-from-a-site-description) takes part when it
 declares that it carries books or audiobooks (asked by ISBN first, when the
 catalog knows one, so the exact edition wins). The best release is grabbed and,
-when the download finishes, the Ebooks or Audiobooks plugin files it into the
+when the download finishes, the Books or Audiobooks plugin files it into the
 library (Author/Title) and catalogs it — the queue row shows which source is
 downloading it, or why the download failed. On-demand catalogs are not
 consulted: what they carry is on the shelf already.
 
 When no source has it yet, the request stays *approved* and the **Fill
-approved book requests** job (Settings → Jobs) keeps asking; a book that later
+approved book requests** job (System → Jobs) keeps asking; a book that later
 arrives by scan or import and matches the title and author counts too. Either
 way the requester is notified when it lands. Book downloads need app 0.8.4 or
 later — on an older app, approving a book says so.

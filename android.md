@@ -53,9 +53,9 @@ resumes where you left off. A sideloaded build only appears once **Unknown
 sources** is on in Android Auto's developer settings (tap *Version* ten times
 in the Android Auto settings to reveal them).
 
-**Books** (from the Ebooks plugin) open in a reader of their own: themes and
+**Books** (from the [Books](ebooks) plugin) open in a reader of their own: themes and
 type choices, highlights and notes with export, search inside the book, and
-offline downloads — see [Books](/ebooks#on-your-phone-and-tablet). Audiobooks
+offline downloads — see [Books](ebooks#on-your-phone-and-tablet). Audiobooks
 and books share the Library with your comics rather than having tabs of their own.
 
 ## Your library, offline
@@ -71,7 +71,7 @@ Found something you want while you're out?
 - If your account can manage the library, **add a series** straight from the app.
 - If your server runs the **Requests** plugin and your account can make requests, the add button raises a **request** for approval instead — the same flow as the web app, including western-only limits if your server enforces them.
 
-- On a series, accounts that manage the library set its [monitoring policy](collection#monitoring) — **All issues**, **New only** (from an issue number you choose), or **Off** — and anyone who can download can **want** or **skip** a single issue with the target on its row. The same controls are on iPhone and iPad (swipe an issue to want or skip it).
+- On a series, accounts that manage the library set its [monitoring policy](collection#monitoring) — **All issues**, **New only** (from an issue number you choose), or **Off** — and anyone who can download can **want** or **skip** a single issue with the target on its row. The [iPhone and iPad app](ios) has the same controls.
 
 What you can do in the app follows your account's **permissions** exactly, just like on the web.
 
@@ -82,5 +82,5 @@ The **Activity** view shows the live download queue and recent history from your
 ## Requirements
 
 - **Android 8.0 (Oreo) or newer.**
-- A reachable BackIssue server, and an account on it. Reading needs the **Reader** plugin enabled on the server (it is by default).
+- A reachable BackIssue server, and an account on it. Reading needs the **Reader** plugin on the server — first-run setup offers it pre-ticked, so most servers have it.
 - HTTPS is recommended so your credentials and library travel securely.

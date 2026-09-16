@@ -65,6 +65,9 @@ Your mode choices (paged/double/webtoon, RTL, fit) are remembered **per series**
 
 The sidebar's **Reading stats** shows your personal totals: pages read, issues finished, pages this month, a reading streak, a 30-day activity strip, and your most-finished series. Each account sees only its own numbers.
 
+These same numbers feed [Gamify](gamify), if you install it — levels, streaks,
+quests and a household leaderboard built on the reading you already do.
+
 ## Offline & install
 
 The reader works offline for issues you've opened (a service worker caches pages), and BackIssue is installable to a phone or tablet home screen as a full-screen app.

@@ -29,7 +29,7 @@ BackIssue serves **both** catalog formats from the same library — point your a
 
 Both offer the same shelves, search, downloads, and covers. Page-by-page **streaming (PSE)** is an OPDS 1.2 feature, so readers that stream pages should use the 1.2 URL. The two roots link to each other, so a client that prefers JSON can discover the 2.0 catalog on its own.
 
-If your reader says the credentials are wrong even though they're right, make sure you're on a current build — older versions didn't advertise the auth challenge some apps need. Over the internet (not just your LAN), put BackIssue behind HTTPS: Basic auth sends the password base64-encoded, not encrypted.
+If your reader says the credentials are wrong even though they're right, make sure the server is up to date — older versions didn't advertise the auth challenge some apps need. Over the internet (not just your LAN), put BackIssue behind HTTPS: Basic auth sends the password base64-encoded, not encrypted.
 
 ## The catalog
 
@@ -62,7 +62,12 @@ The catalog advertises OpenSearch, so your reader's **search box** works: type a
 
 Whole-file **downloads** don't sync progress — plain OPDS has no channel for it; once the file is in the app, reading happens offline.
 
-Only valid, ComicVine-matched files are served, and the best (tagged) copy of each issue is chosen automatically.
+For comics, only valid, ComicVine-matched files are served, and the best (tagged) copy of each issue is chosen automatically.
+
+**Books too.** If the [Books](ebooks) plugin is installed and your account can
+use it, the catalog gains a books tree of its own — by author, by series, by
+library, plus recently added and a search of its own — and EPUBs and PDFs
+download the same way comics do.
 
 ## Access control
 

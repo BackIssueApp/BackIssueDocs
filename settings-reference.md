@@ -1,107 +1,169 @@
 # Settings reference
 
-Everything in **Settings**, by tab. Settings opens on an **Overview** tab — health cards (sources, metadata, libraries, storage, downloading, notifications) plus a "Needs attention" list that links straight to whatever needs fixing. The other tabs are **Library**, **Downloading**, **Sources**, **Metadata**, **Plugins** (appears when an installed plugin puts its settings there), **Sign-in**, and **Notifications**; Library and Sources show a small rail on the left (their sub-panels — plugin sources appear there too) with one panel at a time on the right. Edits reveal a save bar at the bottom; library changes apply immediately. Values persist to `settings.json` next to the app. Plugins add their own panels; those are documented with each plugin.
+Everything in **Settings**, by tab. The tabs, in order, are **Overview**, **Library**, **Downloading**, **Sources**, **Metadata**, **Plugins** (only shown once an installed plugin mounts a panel there), **Sign-in** and **Notifications**. Library, Sources and Plugins use a master–detail layout: a rail of panels on the left, one panel at a time on the right. Editing anything raises a save bar at the bottom of the page — nothing is written until you press **Save changes** — except library edits, which apply immediately.
 
-## Metadata
+Saved values live in `settings.json` in the data directory, next to the database — `/data` in Docker (see [Where your data lives](getting-started#where-your-data-lives)).
 
-| Setting | Meaning |
-|---|---|
-| Source | Where series and issue data comes from. **BackIssue metadata service** (the default) works with no setup — cached data with enrichment, no rate-limit pauses, authenticated by a key your install provisions for itself. **ComicVine directly** queries the official API with your own key. |
-| ComicVine API key | Only used when the source is ComicVine (free at comicvine.gamespot.com). |
-| Proxy URL | Optional HTTP(S) forward proxy for ComicVine calls only (e.g. `http://user:pass@proxy:port`). Useful when CV is unreachable or rate-limits your IP; rotating-proxy services work well since each request may exit from a fresh IP. |
-| Service URL | Self-hosting the metadata service? Point lookups at your own instance. Blank = the built-in service. Ignored when the source is ComicVine. |
-| Use enriched metadata | When the endpoint supports it, matched series also get a **content rating**, **publication status** (Ongoing/Cancelled/Completed), and **end year** — shown on the series page. Series rated Mature/Explicit/Adult are [flagged mature](users#content-restrictions-mature-series) automatically; your manual flag choices always win. The official ComicVine API ignores this setting. |
+Plugins contribute settings of their own. Most land on the **Plugins** tab, but a plugin can also add a panel to Library, Sources, Sign-in or Notifications — so what you see depends on what you have installed.
+
+## Overview
+
+No settings here, just the state of the install: health cards for sources, metadata, libraries, storage, downloading and notifications, and a **Needs attention** list. Every card and every warning is a link straight to the tab that fixes it.
 
 ## Library
 
-| Setting | Meaning |
+Three panels: **Libraries**, **File organization** and **Maintenance**.
+
+### Libraries
+
+Named libraries — each one appears as its own entry in the sidebar. See [Libraries](library#libraries). Changes here save as you make them.
+
+| Setting | What it does |
 |---|---|
-| Libraries | Named libraries (see [Libraries](library#libraries)), each with a type, its own folders (first = where new downloads file; the rest are extra scan locations), an optional per-library folder pattern, and a Mature flag. Managed here; changes apply immediately. |
-| Folder pattern | How each series' folder is built under a root, from tokens — default `{publisher}/{series} ({year})`. See [Naming patterns](library#naming-patterns). |
-| File pattern | How issue files are named — default `{series} V{year} #{issue}`. Tokens: `{publisher}` `{series}` `{year}` `{issue}` (`{issue:2}` sets pad width) `{issueTitle}` `{date}` `{edition}`. A live example previews as you type; blank = default. |
-| Rename downloads | On (default): downloaded files are named to the file pattern. Off: completed downloads keep the source's original filename, still filed into the comic's folder. |
-| Download format | `cbz` (default, recommended — taggable) or `pdf`. |
-| Tag on download | Write ComicVine metadata for every file as it's imported (recommended: on). |
-| Tag placement | Where tags are written: `Embedded` puts ComicInfo.xml inside the archive (default); `Sidecar` puts it in a `.xml` next to the file and never modifies the archive — share/seed-safe, and `.cbr` files stay unconverted. Each library can override this. |
-| Library concurrency | Parallel workers for library scans/verification (default suits most disks; raise for fast NVMe, lower for busy NAS shares). |
+| Name | The library's display name. |
+| Type | Sets how the library's series behave — manga, for instance, gets chapter-style search and right-to-left reading. |
+| Folders | Where the library's comics live. The **first** folder is the default: new downloads for that library file there. The rest are extra scan locations. Any folder can be promoted with **Make default**; removing one leaves the files on disk. |
+| Mature | Hides the library, and everything in it, from roles without the **View mature content** permission. |
+| Folder pattern | Per-library override of the global folder pattern — e.g. `{series}` for a tree with no publisher folders. Blank = use the global pattern. |
+| Tag placement | Per-library override of the global tag placement. **Global setting** = follow the Metadata tab. |
 
-## Accounts & access
+### File organization
 
-Account and role management lives on the **Users** page, not in Settings — see [Users & access](users). The one account-related toggle in Settings is:
+How downloaded comics are named and filed. See [Naming patterns](library#naming-patterns).
 
-| Setting | Meaning |
+| Setting | What it does |
 |---|---|
-| Allow self-registration | When on, the login page offers a sign-up tab; new accounts are created as viewers. Off by default. |
+| Folder pattern | How each series' folder is built under a root. Blank uses the default, `{publisher}/{series} ({year})`. |
+| File pattern | How issue files are named. Blank uses the default, `{series} V{year} #{issue}`. Tokens: `{publisher}` `{series}` `{year}` `{issue}` (`{issue:2}` sets the pad width) `{issueTitle}` `{date}` `{edition}`. A live example previews as you type. |
+| Rename downloaded files to the file pattern | On by default. Off: completed downloads keep the source's original filename, and are still filed into the comic's folder. |
 
-There is **no** username/password field here anymore — the old single HTTP Basic login was replaced by the [user system](users). (`TRUST_PROXY` is an environment variable, not a setting; set it when running behind a reverse proxy.)
+Pattern changes affect **new** downloads. To apply them to files you already have, run **Reorganize library** on the Tools page.
 
-With the **SSO (OpenID Connect)** plugin installed, a **Sign-in** section appears here too: the provider configuration and a *Disable password login* toggle (admins keep a password fallback). See [Signing in with an identity provider](users#signing-in-with-an-identity-provider-sso).
+### Maintenance
 
-## Notifications
+| Setting | What it does |
+|---|---|
+| Downloads folder (fallback) | Only used when no library has a folder of its own — normally every download files into its library. |
+| Tool workers | How many files the library tools (convert, verify, tag) process at once. Default 4; higher overlaps I/O but holds more file data in memory. |
 
-Outbound channels come from the **[Notifications Hub](notifications)** plugin — one collapsible card per channel (Discord, Telegram, Pushover, ntfy, generic webhook), each with its own category filter and test button. Without the plugin this section only points you at it; the in-app notification bell records all events regardless.
+### Reader settings
+
+With the [reader](reading) plugin installed, three more toggles appear at the bottom of the **Libraries** panel:
+
+| Setting | What it does |
+|---|---|
+| Use the file's first page as an owned issue's cover | On by default. Off = always show ComicVine art. Affects the issue grid on a series page; your file's page can differ from ComicVine's when it's a variant or a different printing. |
+| Use the ML panel detector for guided view | On by default, and only applies when a panel model is installed on the server. Off = the built-in detector. Flipping it re-detects each issue's panel layout once, on next open. See [Guided panel reading](guided-reading). |
+| Share panel layouts with the community cache | On by default. Layouts are looked up in a shared cache before detecting locally, and your detections and hand-corrections are contributed back. Only panel rectangles and a page-content hash are sent — never image data, filenames or titles. |
 
 ## Downloading
 
-| Setting | Meaning |
+What happens when you add a series, and how downloads run.
+
+| Setting | What it does |
 |---|---|
-| Source priority | Drag-ordered list of enabled sources; searches try them top-to-bottom, first match wins. |
-| Download concurrency | Parallel download workers (default 4). More = faster batches, but be considerate of your sources. |
-| Download on add | When on (the default), adding a volume immediately queues what its monitoring policy wants. Off = volumes are added empty and you download by hand. |
-| Monitor added series | The [monitoring policy](collection#monitoring) a series gets when it enters the library (added by hand, Discover, Releases, reading lists, requests, import): **All issues** (default), **New issues only** (from the newest known issue onward), or **Off**. Any series can be changed later from its ⋯ menu. |
-| Only the issues that were asked for | With Download on add: when a series is added because of specific issues (a reading-list entry, a release, a CBL import), it arrives with [monitoring](collection#monitoring) off and just those issues picked, so only they are downloaded — now, and again if a grab fails. Adding from the Library or Discover still monitors the whole run. Off by default. |
+| Download on add | On by default: adding a series (Library, Discover, Releases, reading lists) immediately queues whatever its monitoring policy wants. Off = series are added empty and you press **Download missing** yourself. |
+| Monitor added series | The [monitoring policy](collection#monitoring) a series gets when it enters the library — added by hand, from Discover, Releases, reading lists, requests or an import. **All issues** (the default) keeps the run complete; **New issues only** wants issues from the newest one onward; **Off** fetches nothing until you monitor it or pick issues yourself. Any series can be changed later from its ⋯ menu. |
+| Only the issues that were asked for | Off by default. When a series is added because of specific issues — a reading-list entry, a release, a CBL import — it arrives with monitoring off and just those issues wanted, so only they are downloaded, now and again if a grab fails. Adding from the Library or Discover still gets the policy above. Needs **Download on add**. |
+| Download format | `CBZ` (the default, and the taggable one) or `PDF`. |
+| Simultaneous downloads | How many issues download at once. Default 4; higher is faster but likelier to trip a source's rate limits. Applies to the next download. |
+| FlareSolverr URL | Some download sites sit behind Cloudflare. FlareSolverr is a small companion service you run (`ghcr.io/flaresolverr/flaresolverr`); point this at its `/v1` endpoint, e.g. `http://flaresolverr:8191/v1`. **One setting, shared by every source that needs it** — you never configure it per source. Leave blank if none of your sources are behind Cloudflare. |
 
-## Usenet
+## Sources
 
-| Setting | Meaning |
+The rail lists **Usenet**, **Torrents**, every download source you have installed, and — once two or more are enabled — **Source priority**. Each source panel starts with its own on/off switch. See [Download sources](sources).
+
+### Usenet
+
+| Setting | What it does |
 |---|---|
-| Enable Usenet | Master toggle for the source. |
-| Newznab indexers | One or more indexer entries (URL + API key). |
-| Client | `sabnzbd` or `nzbget`. |
-| Client host / port / SSL | Where the client's API lives. |
-| URL base | Path prefix when a proxy serves the client under a subpath — e.g. `/sabnzbd` gives `http://host:port/sabnzbd/api`. Blank for a direct install. |
-| API key (SAB) / Username & password (NZBGet) | Client credentials. |
-| Category | Download category for BackIssue's NZBs (e.g. `backissue`). |
-| Completed folder (client's view / BackIssue's view) | The finished-downloads folder as each side sees it — set both when they run on different machines or in Docker. |
-| Poll seconds / Timeout minutes | How often the monitor checks the client, and when to give up on a stuck download. |
+| Enable Usenet | Master switch for the source. |
+| Indexers | One or more Newznab indexer entries (name, URL, API key), searched in order with the results merged. An indexer plugin, if you run one, takes over and these manual entries are ignored. |
+| Client | `SABnzbd` or `NZBGet`. |
+| Host / Port / Use HTTPS | Where the client's API lives. |
+| URL base | Path prefix when a proxy serves the client under a subpath — `/sabnzbd` gives `http://host:port/sabnzbd/api`. Blank for a direct install. |
+| API key (SABnzbd) / Username and password (NZBGet) | Client credentials. **Test connection** checks them. |
+| Category | The category NZBs are handed to the client under. Default `backissue`. |
+| Folder (this app's view) / Folder (client's view) | The finished-downloads folder as each side sees it. Only needed when the client runs on another machine — leave both blank when they share a path. |
+| Poll every (s) / Give up after (min) | How often the monitor checks the client (default 15s), and when to abandon a stuck download (default 60 min). |
 
-## Torrents
+### Torrents
 
-| Setting | Meaning |
+| Setting | What it does |
 |---|---|
-| Enable torrents | Master toggle. |
-| Torznab indexers | One or more entries (URL + API key) — Prowlarr/Jackett provide these. |
-| Client | qBittorrent. |
-| qB host / port / SSL / username / password | qBittorrent Web UI connection. |
-| URL base | Path prefix when a proxy serves the client under a subpath — e.g. `/qbittorrent` gives `http://host:port/qbittorrent/api/…`. Blank for a direct install. Available for Transmission and Deluge too. |
-| Category | qBittorrent category for BackIssue's torrents. |
-| Completed folder (client's view / BackIssue's view) | Same two-path mapping as Usenet. |
-| Poll seconds / Timeout minutes | Monitor cadence and give-up threshold. |
-| 0-day query | Search phrase for the weekly pack (a sensible default is provided). |
-| 0-day: add new series | When importing a weekly pack, also add series you don't track yet (default: only fill gaps in series you already track). |
+| Enable torrents | Master switch. |
+| Indexers (Torznab) | One or more Torznab entries — Jackett or Prowlarr provide these. Results are merged and ranked by seeders. |
+| Client | qBittorrent, Transmission or Deluge. |
+| Host / Port / URL base / Use HTTPS / Username / Password | The client's web or RPC endpoint. Deluge takes a password only. **Test connection** checks them. |
+| Category | The category torrents are added under. Default `backissue`. |
+| Folder (this app's view) / Folder (client's view) | The same two-path mapping as Usenet. |
+| Poll every (s) / Give up after (min) | Monitor cadence (default 20s) and give-up threshold (default 120 min — torrents can be slow to find peers). |
+| Search phrase (weekly 0-Day pack) | What the 0-day job searches for. Default `0-Day Week`. |
+| Add new series I don't follow | Off by default: a weekly pack fills gaps only in series you already track. On, it also adds new series, on confident ComicVine matches only. |
 
-## Schedules
+After import, torrents are **left seeding** — manage ratio and removal in the client.
 
-Each scheduled job has a **cron expression** and an **enable** toggle — see [Automation](automation):
+### Other sources
 
-| Job | Settings |
+Every source you install from the catalogue, and every source a plugin provides, gets its own rail entry with its own switch and fields (credentials, language preferences, and so on). A source that sits behind Cloudflare says so and uses the shared **FlareSolverr URL** from the Downloading tab rather than asking for one itself.
+
+### Source priority
+
+Appears once two or more sources are enabled. When more than one source can serve an issue they are tried top to bottom, and the first with a match wins. Reorder with the arrows.
+
+## Metadata
+
+Where series and issue data comes from, and how it is written into your files.
+
+| Setting | What it does |
 |---|---|
-| Releases check | `releaseCheckCron` / `releaseCheckEnabled` |
-| ComicVine match | `cvMatchCron` / `cvMatchEnabled` |
-| Watch indexer RSS | `rssWatchCron` / `rssWatchEnabled` (default every 15 minutes, off) |
-| Search new releases | `recentSearchCron` / `recentSearchEnabled` (default every 6 hours, off), plus `recentSearchDays` (how recent counts as "new", 1–90, default 14) |
-| Wanted search | `wantedSearchCron` / `wantedSearchEnabled`, plus `wantedSearchBatch` (issues per run, 1–200) |
-| Zero-day pack | `zeroDayCron` / `zeroDayEnabled` |
-| Back up database | `backupCron` / `backupEnabled` (default weekly Monday 05:00, **on**) |
+| Source | **BackIssue metadata service** (the default) works with no setup — cached ComicVine data with enrichment and no rate-limit pauses, authenticated by a key this install provisions for itself. **ComicVine directly** queries the official API with your own key; it is rate-limited (roughly 200 requests per resource per hour), so big imports, scans and release matching will pause. **Test service** checks the connection. |
+| ComicVine API key | Shown when the source is ComicVine. Free at comicvine.gamespot.com. **Test key** checks it. |
+| Tag on download | Off by default. On, ComicVine metadata is written for every file as it is imported. |
+| Tag placement | **Embedded** (the default) writes ComicInfo.xml inside the archive, converting `.cbr` downloads to `.cbz` so they can be tagged. **Sidecar** writes the same metadata to a `.xml` next to the file and never touches the archive — byte-identical files for seeding and file-share hashing, and `.cbr` files stay `.cbr`. Each library can override this. |
+| Enrich metadata | Off by default. When the metadata server supports it, adds content ratings, series status and end year, and per-issue extras like price, UPC and story titles. A series that comes back rated mature is [flagged mature](users#content-restrictions-mature-series) automatically on that transition — a manual unflag sticks. The official ComicVine API ignores the request, so it is safe either way. |
+| Content rating ceiling | How far manga search reaches into MangaDex's content ratings; each level includes the ones below it. Default **Up to Erotica**. Applies to the Add dialog's manga lane and manga-library imports. |
+| Release provider URL | Where "This week's releases" is fetched from. Leave at the default unless you host an alternative. |
 
-Plugins register schedules of their own (e.g. the AirDC++ [announce watch](airdcpp#watching-announce-bots)) — they appear under **System → Jobs** alongside these.
+There is no field for pointing the app at a different metadata service. An old
+`cvBaseUrl` setting still exists in saved configuration but is deliberately
+ignored — stale or malformed values in it used to surface as puzzling auth
+failures. If you want to stay off the hosted service entirely, set **Source** to
+ComicVine and supply your own key.
 
-## Advanced
+## Plugins
 
-| Setting | Meaning |
+This tab appears once an installed plugin mounts a panel on it, and shows one rail entry per plugin — so its contents depend entirely on what you have installed. Each plugin's own page documents its settings; these are the ones other pages send you here for:
+
+| Setting | What it does |
 |---|---|
-| Release provider URL | Where the weekly-releases list is fetched from. Leave at default unless you host an alternative. |
-| Window mode | For sources that drive a real browser: `visible`, `hidden`, or `headless`. Some sites block headless browsers — `hidden` is the safe default. |
-| Action delay (ms) | Politeness pause between actions against external sites (default 500). Raising it is kinder to sources; lowering it risks blocks. |
+| Requests: auto-approve | Every volume request is approved and added instantly — no review queue. Off = roles with **Manage requests** approve or decline each one. With **Download on add** also on, auto-approved requests download their missing issues automatically. See [Requests](requests). |
+| Requests: Western comics only | Only volumes from Western (US/UK) publishers can be searched and requested; manga and foreign-language titles are hidden. |
+| Requests: no collections | Blocks collected editions — trade paperbacks, hardcovers, omnibuses — so only single-issue series can be requested. Detected heuristically from the volume's title and description. |
+| OPDS progress sync | On by default. Streaming a page from an OPDS app advances your resume point (forward only), and fetching the last page marks the issue read — so OPDS reading feeds Continue reading and your stats. Whole-file downloads are unaffected; a client can opt out per request with `?progress=0`. See [OPDS](opds). |
 
-Legacy keys from older versions (`libraryDir`, `nzbClientUrl`, hour-based schedule fields, ComicTagger paths) are still read and migrated automatically — you don't need to touch them.
+Not every plugin puts its settings here: download sources appear on **Sources**, notification channels on **Notifications**, sign-in providers on **Sign-in**, and the reader's preferences on **Library**.
+
+## Sign-in
+
+How people sign in. Password login always works for admins, whatever else is configured.
+
+| Setting | What it does |
+|---|---|
+| Disable password login | Hides the password form so everyone signs in through your identity provider. Admins keep a password fallback, so a broken provider cannot lock everyone out. |
+
+Install a sign-in provider (OIDC, for example) from the Plugins page and its configuration appears on this tab. See [Signing in with an identity provider](users#signing-in-with-an-identity-provider-sso).
+
+## Notifications
+
+Outbound channels come from the **[Notifications Hub](notifications)** plugin — one collapsible card per channel (Discord, Telegram, Pushover, ntfy, generic webhook), each with its own category filter and test button. Without the plugin the tab just points you at it. The in-app notification bell records every event regardless.
+
+## Not in Settings
+
+A few things people look for here live elsewhere:
+
+- **Schedules.** Every scheduled job — releases check, ComicVine match, RSS watch, new-release search, wanted backfill, zero-day pack, database backup — is configured on **System → Jobs**, with a cron expression, an enable toggle, its last-run result and a **Run now** button. See [Automation](automation).
+- **Accounts, roles and self-registration.** The **Users** page owns all of it, including the **Allow self-registration** switch. See [Users & access](users).
+- **Deployment options.** `DATA_DIR` and `TRUST_PROXY` are environment variables, set where you run the app, not settings.
+
+Legacy keys from older versions (`libraryDir`, `nzbClientUrl`, hour-based schedule fields, per-source FlareSolverr URLs) are still read and migrated automatically — you never need to touch them.

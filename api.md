@@ -77,7 +77,7 @@ is that anything its UI can do, a key with the right permissions can do.
 - Keys don't expire; rotate by regenerating (old key dies instantly).
 - The API is the same one the UI uses, so endpoints can evolve between
   versions — pin your client to what you've tested and check the
-  [changelog](https://github.com/BackIssueApp) on upgrades.
+  [release notes](https://github.com/BackIssueApp/BackIssue/releases) on upgrades.
 - Server-side and native apps work out of the box. Browser-based apps served
   from another origin will hit CORS — front BackIssue with a proxy that adds
   the headers you need, or serve your app from the same origin.

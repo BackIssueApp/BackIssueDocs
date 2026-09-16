@@ -99,7 +99,7 @@ your library holds, so a series listed under a different title is still found.
 When a chapter number has been uploaded more than once, the newest wins, and a
 manual search from an issue's ⋯ menu lists every upload with its page count.
 
-## Anna's Archive
+## Anna's Archive {#annas-archive}
 
 The **Anna's Archive plugin** downloads **books** (EPUB and PDF) for Books
 libraries — an approved [book request](requests#books-and-audiobooks), for

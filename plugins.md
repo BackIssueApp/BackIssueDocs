@@ -15,7 +15,13 @@ BackIssue's core stays lean; extra download sources and whole features ship as p
 | **[Discover](discover)** | A browsable feed of new & notable comics to add |
 | **[AirDC++](airdcpp)** | Direct Connect (DC++) as a download source, with [announce-bot watching](airdcpp#watching-announce-bots) |
 | **[Notifications Hub](notifications)** | Send alerts to Discord, Telegram, Pushover, ntfy, or any webhook — with per-channel category filters |
+| **[Gamify](gamify)** | Reading as a quest — XP, levels, streaks, achievements, and a household leaderboard |
+| **[Migration Assistant](migrate)** | Import an existing Mylar3 or Kapowarr collection, matched by ComicVine volume id |
+| **[Prowlarr](prowlarr)** | Feed your Prowlarr indexers to the built-in Usenet and torrent sources |
 | **[SSO (OpenID Connect)](users#signing-in-with-an-identity-provider-sso)** | Sign in through an identity provider — Authentik, Keycloak, Auth0, Google, Microsoft Entra, … |
+| **[WHMCS sign-in](users#signing-in-with-an-identity-provider-sso)** | Let WHMCS clients with an active product sign in with their WHMCS email and password |
+
+Download **sites** are listed separately — see [Download sites](#download-sites) below.
 
 ## Managing plugins
 
@@ -25,10 +31,20 @@ Plugins can register their own **settings** (they appear in Settings automatical
 
 ## Download sites
 
-Sites the app downloads from are kept together in a `sources/` folder rather
-than installed one plugin at a time. They appear in their own **Download
-sites** section on the Plugins page, where each one links to its settings.
-Switch a site on in **Settings → Sources**.
+Sites the app downloads from are maintained together in one repository and
+installed individually, rather than one plugin per site. They appear in their
+own **Download sites** section on the Plugins page, where each one links to its
+settings. Switch a site on in **Settings → Sources**.
+
+| Site | What it carries | Needs |
+|---|---|---|
+| **[MangaDex](sources#mangadex)** | Manga chapters, with language and scanlation-group preferences | Nothing |
+| **[WeebCentral](sources#weebcentral)** | Manga chapters | [FlareSolverr](sources#weebcentral) |
+| **[MangaTaro](sources#mangataro)** | Manga chapters | Nothing |
+| **[Atsumaru](sources#atsumaru)** | Manga chapters | Nothing |
+| **[Anna's Archive](sources#annas-archive)** | Books (EPUB and PDF) for a Books library | The browser build; a member key is optional |
+
+Each one is described in full on the [Download sources](sources) page.
 
 ## Adding a download site
 
@@ -41,7 +57,7 @@ sites. See [the plugin API reference](/plugin-api#sources-from-a-site-descriptio
 
 ## How it works
 
-BackIssue loads external plugins from the `plugins/` directory at startup. A plugin is a folder with an `index.js` whose default export receives the plugin API:
+BackIssue loads external plugins from its **plugins directory** at startup — `/data/plugins` in Docker, so an installed plugin survives an image update. A plugin is a folder with an `index.js` whose default export receives the plugin API:
 
 ```js
 export default function register(api) {
@@ -54,8 +70,18 @@ export default function register(api) {
 }
 ```
 
-Sources implement: `{ id, label, kind: 'immediate' | 'deferred', isEnabled(config), find(ctx), fetch(candidate, ctx, onProgress), manualSearch(ctx)?, fetchPack(candidate, ctx, onProgress)? }`.
+Sources implement `{ id, label, kind, isEnabled(config), find(ctx), … }`, where an
+`immediate` source downloads in-app with `fetch()` and a `deferred` one hands off
+to a download client with `grab()`. The full contract is in the
+[Plugin API reference](plugin-api#the-source-contract).
 
-The core application ships with no plugins; each plugin lives in its own repository.
+**Where the code lives.** The app image ships with no plugins installed — you
+choose them, and they're kept in your data directory rather than baked into the
+image. Each feature plugin has its own repository; the download **sites** are the
+exception, maintained together in one repository and installed individually.
+
+**What a normal install ends up with.** First-run setup pre-ticks the **Reader**,
+so most servers have the in-browser reader from day one. Everything else is
+opt-in.
 
 **Writing a plugin?** The complete hook, source-contract, client-bridge, and slot documentation lives in the [Plugin API reference](plugin-api).

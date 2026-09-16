@@ -40,7 +40,7 @@ whether it is already on the shelf, or already wanted. **Add** puts it on the
 wanted list and asks your [download sources](sources) for it at once, and the
 button says what happened: downloading from which source, in the library, or
 wanted. One no source has yet stays wanted: the **Fill wanted audiobooks**
-job (Settings → Jobs) asks again on its schedule, and a scan that brings it in
+job (System → Jobs) asks again on its schedule, and a scan that brings it in
 takes it off the list.
 
 `GET /api/audiobooks/wanted` lists the wanted audiobooks and
@@ -61,7 +61,7 @@ they're there to listen to, just not on disk.
 
 ## Mobile
 
-Audiobooks are fully supported in the Android and iOS apps, with offline
+Audiobooks are fully supported in the [Android](android) and [iPhone and iPad](ios) apps, with offline
 downloads, a lock-screen player, chapter navigation, sleep timer and bookmarks.
 Progress syncs with the web player through your account, so you can start on
 your phone and finish in a browser.

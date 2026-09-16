@@ -196,7 +196,7 @@ api.registerMediaHandler({
 });
 ```
 
-### `downloadMedia(opts)` and `onMediaDownload(fn)` — ask for a book
+### `downloadMedia(opts)` and `onMediaDownload(fn)` — ask for a book {#downloadmedia}
 
 Any plugin can ask the sources for a book (the Requests plugin does, for an
 approved request):
@@ -308,7 +308,7 @@ api.defineSource({
 | `label`, `description` | Shown on the settings card and in the queue |
 | `baseUrl` | Default site URL; the user can override it in Settings |
 | `kind` | `'archive'` (default — the result is a file) or `'pages'` (page images) |
-| `types` | Library types this site serves; default `['comic', 'manga']`. A source is skipped outright for any other type, so a manga site is never searched for a western comic. Declare `'ebook'` or `'audiobook'` and the site is asked for [books](#downloadmedia-opts-and-onmediadownload-fn-ask-for-a-book) too: its `search()` gets author-and-title queries and the results are judged by title and author rather than issue number; the file is handed over as downloaded, not normalised into a comic archive |
+| `types` | Library types this site serves; default `['comic', 'manga']`. A source is skipped outright for any other type, so a manga site is never searched for a western comic. Declare `'ebook'` or `'audiobook'` and the site is asked for [books](#downloadmedia) too: its `search()` gets author-and-title queries and the results are judged by title and author rather than issue number; the file is handed over as downloaded, not normalised into a comic archive |
 | `rateMs` | Minimum gap between requests to the site (default 1000) |
 | `cloudflare`, `proxy` | Add the FlareSolverr / download-proxy fields to the card |
 | `settings` | Extra settings, each `{ type, label, note, default, secret? }`; they appear on the card (a `secret` one masked) and reach the definition as `kit.settings` |

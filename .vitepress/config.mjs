@@ -6,6 +6,7 @@ export default defineConfig({
   cleanUrls: true,          // /getting-started instead of /getting-started.html
   lastUpdated: false,
   ignoreDeadLinks: [/^https?:\/\/localhost/], // docs legitimately point at the local app
+  srcExclude: ['README.md'], // contributor notes, not a published page
 
   head: [
     ['link', { rel: 'icon', type: 'image/png', href: '/favicon-32.png' }],
@@ -19,53 +20,91 @@ export default defineConfig({
   ],
 
   themeConfig: {
+    // The custom theme renders these as flat links (no dropdowns) — keep the
+    // list short and let the sidebar carry the structure.
     nav: [
-      { text: 'Docs', link: '/getting-started' },
+      { text: 'Guide', link: '/getting-started' },
+      { text: 'Reference', link: '/settings-reference' },
       { text: 'Discord', link: 'https://discord.gg/T6GTgzz8t2' },
       { text: 'GitHub', link: 'https://github.com/BackIssueApp' },
     ],
 
+    // Grouped by what someone is trying to DO, in the order they usually do it.
+    // Every group name also shows as the eyebrow above the page title, and the
+    // flattened order drives prev/next — so this doubles as the reading order.
     sidebar: [
       {
-        text: 'Guide',
+        text: 'Start here',
         items: [
           { text: 'Getting started', link: '/getting-started' },
-          { text: 'Managing your collection', link: '/collection' },
-          { text: 'Downloads', link: '/downloads' },
-          { text: 'Download sources', link: '/sources' },
-          { text: 'Your library', link: '/library' },
-          { text: 'Automation', link: '/automation' },
-          { text: 'Users & access', link: '/users' },
         ],
       },
       {
-        text: 'Reading & features',
+        text: 'Your collection',
         items: [
-          { text: 'Reading', link: '/reading' },
+          { text: 'Managing your collection', link: '/collection' },
+          { text: 'Discovering comics', link: '/discover' },
+          { text: 'Your library on disk', link: '/library' },
+          { text: 'Migrating from another app', link: '/migrate' },
+        ],
+      },
+      {
+        text: 'Downloading',
+        items: [
+          { text: 'How downloads work', link: '/downloads' },
+          { text: 'Download sources', link: '/sources' },
+          { text: 'AirDC++', link: '/airdcpp' },
+          { text: 'Prowlarr indexers', link: '/prowlarr' },
+        ],
+      },
+      {
+        text: 'Reading',
+        items: [
+          { text: 'The reader', link: '/reading' },
+          { text: 'Guided panel reading', link: '/guided-reading' },
+          { text: 'Gamify', link: '/gamify' },
+        ],
+      },
+      {
+        text: 'Books & audiobooks',
+        items: [
           { text: 'Books', link: '/ebooks' },
           { text: 'Audiobooks', link: '/audiobooks' },
           { text: 'Shelves', link: '/shelves' },
-          { text: 'Guided panel reading', link: '/guided-reading' },
-          { text: 'Gamify', link: '/gamify' },
+        ],
+      },
+      {
+        text: 'Apps',
+        items: [
           { text: 'Android app', link: '/android' },
-          { text: 'Discover', link: '/discover' },
+          { text: 'iPhone & iPad app', link: '/ios' },
+          { text: 'OPDS catalog', link: '/opds' },
+        ],
+      },
+      {
+        text: 'Sharing your server',
+        items: [
+          { text: 'Users & access', link: '/users' },
           { text: 'Requests', link: '/requests' },
           { text: 'Notifications', link: '/notifications' },
-          { text: 'OPDS catalog', link: '/opds' },
-          { text: 'AirDC++ source', link: '/airdcpp' },
-          { text: 'Prowlarr indexers', link: '/prowlarr' },
-          { text: 'Migration Assistant', link: '/migrate' },
+        ],
+      },
+      {
+        text: 'Running your server',
+        items: [
+          { text: 'Automation & jobs', link: '/automation' },
           { text: 'Plugins', link: '/plugins' },
+          { text: 'Troubleshooting', link: '/troubleshooting' },
         ],
       },
       {
         text: 'Reference',
         items: [
           { text: 'Settings reference', link: '/settings-reference' },
-          { text: 'Building on the API', link: '/api' },
           { text: 'API reference', link: '/api-reference' },
+          { text: 'Building on the API', link: '/api' },
           { text: 'Plugin API', link: '/plugin-api' },
-          { text: 'Troubleshooting', link: '/troubleshooting' },
+          { text: 'Privacy policy', link: '/privacy' },
         ],
       },
     ],
