@@ -29,7 +29,7 @@ ComicVine sometimes blocks datacentre and VPN addresses, and that surfaces as a 
 **Where do I see why something failed?**
 Failed items show their reason directly on the **Queue** row (with a per-row retry button), and **History → Failed** keeps a durable record of failed downloads even after the queue is cleared. **Logs** (filterable, with day separators) has the full detail.
 
-**Issue fails with "No enabled source had a match".**
+**Issue fails with "No enabled source had a match for this issue".**
 No source could find that exact series + number. Check the series' **aliases** (indexers often use variant names — add them in the series page), try **Search sources** to see what each source actually returns, and re-queue later — availability changes weekly.
 
 **Grabbed, but never imports (stuck at "grabbed").**
@@ -77,6 +77,110 @@ Check their **role and permissions** on the Users page. Buttons for actions a ro
 
 **UI looks stale after an update.**
 On Docker, `docker compose pull` then `docker compose up -d` — a container still running the old image is the usual cause. From source, run `npm run up` (not just `npm start`) so the frontend rebuilds. Either way, reload the browser afterwards.
+
+## Message index
+
+If you have an exact message from a toast, a queue row or the log, find it here.
+Wording is quoted as the app writes it; anything in braces is filled in at the
+time.
+
+### Signing in and access
+
+| Message | What it means |
+|---|---|
+| `Wrong username or password.` | The only rejection the login page gives. It never says which of the two was wrong, deliberately. |
+| `too many attempts — try again in {n}s` | Brute-force lockout, counted per client address and username. Behind a reverse proxy, set `TRUST_PROXY` or one person's typo locks the household out. |
+| `registration is disabled — ask an admin for an account` | Self-registration is off on the Users page. |
+| `password login is disabled — sign in with SSO` | An admin turned off password login. Admins keep a password fallback, so a broken provider cannot lock everyone out. |
+| `your role doesn't include the permission: {name}` | Exactly what it says. Grant that permission, or a role that holds it, on the Users page. |
+| `this account signs in through an external service — its password is managed there` | The account is linked to an identity provider and has no local password. It cannot be given one. Use an API key for reader apps and scripts. |
+| `sign in with a real account first` | Open mode is active (no accounts exist) and something account-specific was attempted. Create an account. |
+| `cross-origin request refused` | A request arrived from an origin the app does not trust. Usually a reverse proxy rewriting headers. |
+| `there must always be at least one active admin` | A guard rail. You cannot demote, disable or delete the last admin, or your own account. |
+
+A series you lack *View mature content* for reports itself as **not found**
+rather than refused, so its existence is not leaked. That is why a series a
+housemate can see may appear simply not to exist for you.
+
+### Metadata
+
+| Message | What it means |
+|---|---|
+| `metadata service registration failed (HTTP {status} from {url})` | Your install could not register with the metadata service. The URL is in the message on purpose: a trailing slash or the wrong capitalisation answers 401 and reads like an auth problem when it is really a typo. |
+| `metadata service registration returned no key` | Registration was accepted but no key came back. Retry; if it persists it is a service-side problem. |
+| `ComicVine rate limit exceeded (107)` or `ComicVine HTTP 429 (rate limited)` | Only with your own ComicVine key. The app backs off rather than hammering, and batches stop early instead of failing. Run the job again later. |
+| `issue #{n} isn't listed on ComicVine yet — try again in a day or two` | The issue exists in the wild before its metadata does. Normal for brand-new releases. |
+| `series not matched to ComicVine` | The action needs a matched series. Match it on the series page first. |
+| `that arc has no issues on ComicVine` | The story arc is empty upstream, so there is nothing to import. |
+
+### Download clients
+
+| Message | What it means |
+|---|---|
+| `Response was not JSON — is this the {client} URL?` | Almost always the wrong URL: a web interface landing page or a proxy error page instead of the API. |
+| `SABnzbd rejected the request (check the API key).` | Wrong or missing API key. Use the full API key, not the NZB key. |
+| `403 on login — the Web UI blocked the request.` | qBittorrent host-header validation. Turn off *Enable Host header validation* in its Web UI options, or whitelist your domain. |
+| `Login was redirected to {url}, which drops the session cookie.` | qBittorrent is answering on a different scheme or port than you configured. Set the host to the final URL, usually by enabling HTTPS. |
+| `Logged in, but no session cookie came back` | A reverse proxy is stripping the cookie header, or login was redirected. Check the proxy config. |
+| `409 without a session id — is this the Transmission RPC URL?` | The path is wrong. The RPC endpoint is not the web root. |
+| `Logged in, but the web UI has no Deluge daemon connected` | The Deluge web interface is up but the daemon is not attached. Attach it in Connection Manager. |
+| `{client} host is not configured` | A grab was attempted before that client was set up. |
+
+### Downloads
+
+These appear on the failed queue row and again in the log as
+`Download failed: {title} — {reason}`.
+
+| Message | What it means |
+|---|---|
+| `No download sources are enabled` | Nothing is configured to search. Set up a source first. |
+| `No enabled source had a match for this issue` | Every source was searched and nothing passed the series-and-number gate. The commonest failure by far. Add an [alias](collection) if the indexers name the series differently, or use **Search sources** to see what is really out there. |
+| `usenet: download disappeared from the client` | The download was handed over but never showed up, for longer than the timeout. Check the client took it and that the category matches. |
+| `{source}: download client unreachable` | The client has been unreachable past the timeout, so everything waiting on it failed together. |
+| `usenet: failed par2 repair` | The release is genuinely broken. It is added to the blocklist so a retry picks a different one. |
+| `can't read completed download {path} for "{name}"` | The app cannot see where the client put the file. This is the completed-folder path mapping, and it is the single most common setup mistake. |
+| `no comic archive or page images found in {path}` | The download completed but holds nothing importable. |
+| `this link redirects to {host}, which BackIssue cannot download from directly — try another release` | The release points at a host the app cannot fetch from. Pick a different one. |
+| `no confident ComicVine volume to add for "{name}"` | From a pack: a file whose series is not in your collection and could not be placed unambiguously. It is reported rather than guessed at. |
+| `already owned` | From a pack: you already have that issue, so it was skipped. Packs only fill gaps. |
+
+### Indexers
+
+| Message | What it means |
+|---|---|
+| `Indexer error: {text}` | The indexer's own words. `Incorrect user credentials` is the usual one and means the API key is wrong. |
+| `Response was not a Newznab feed — is this the Newznab API URL?` | You gave a browser URL rather than the API endpoint. |
+| `Connected — API key valid, but the test search found no comics.` | Not an error. The indexer works; it just has nothing for the test query. |
+
+### The library and files
+
+| Message | What it means |
+|---|---|
+| `folder not found: {dir}` | A configured folder is missing or the share is down. Scans skip it and **prune nothing**, so an offline drive never empties your catalog. |
+| `Verify: {n} file(s) were unreachable (share down?) — their rows were kept, not pruned.` | The same protection during verification. |
+| `pack folder not readable: {dir} — check the completed-content path mapping` | The classic path-mapping mistake. The client's view and the app's view of the completed folder must both be set. |
+| `Pack "{title}" contained no comic files at all — wrong path mapping, or a bogus release?` | The clearest symptom of the same problem. |
+| `downloaded file is not a comic archive (corrupt or bogus source copy)` | The bytes are not an archive. Usually a truncated download, or an error page saved as a file. |
+| `too large to convert safely ({n}MB > {cap}MB ceiling — raise it with MAX_RAR_MB)` | A very large RAR could not be repacked in memory. It is filed as `.cbr` and reads perfectly, it is just untagged. |
+| `match this series to ComicVine first — its files can't be organized` | Renaming needs publisher, title and year, which come from the match. |
+| `a reorganize is already running` | One at a time. Wait for the first to finish. |
+
+### Plugins
+
+| Message | What it means |
+|---|---|
+| `checksum mismatch — refusing to install` | The downloaded bundle did not match its published checksum, so the install was refused rather than trusted. |
+| `installed, but dependency install failed: {message}` | The plugin is on disk but cannot run. Usually no outbound network during install. |
+| `this source needs the browser image (the lean image ships no browser)` | Switch to the browser image tag, or turn that source off. See [Getting started](getting-started#install-with-docker-recommended). |
+| `Server error (HTTP {status})` or `Bad response from the server` | Generic fallbacks shown when a reply was not JSON. The real cause is in the log. |
+
+### Things that look alarming and are not
+
+- `Previous session did not shut down cleanly`, with a crash report written alongside. Expected after a force-kill or a power cut. Repeated occurrences are worth reporting.
+- `Scheduled task "{label}" has been running for over {n}h — it may be stuck.` A warning first, then the app releases the lock itself so the schedule keeps running.
+- `Migrated {n} series into the "{name}" library` and similar lines at boot. Idempotent upgrade steps, nothing to do.
+- `Library reconcile: attributed {n}, pruned {n} untracked file rows.` Routine startup bookkeeping.
+- Legacy settings being migrated. Old keys are read and converted on load, so you never need to touch them.
 
 ## Getting help
 
