@@ -4,19 +4,21 @@ The **BackIssue app for iPhone and iPad** is a native companion to your server �
 
 <div class="tip custom-block" style="padding-top: 8px">
 
-**[Join the beta](https://testflight.backissue.app)** · iPhone and iPad · iOS 17 or newer
+**[Join the beta](https://testflight.apple.com/join/fNktfmjJ)** · iPhone and iPad · iOS 17 or newer
 
 </div>
 
 ## Installing
 
-The app is in **TestFlight**, Apple's beta programme, rather than the App Store:
+The app is in **TestFlight**, Apple's beta programme, rather than the App Store. There's nothing to apply for — the invitation is open:
 
-1. Open **[testflight.backissue.app](https://testflight.backissue.app)** and enter your email address.
-2. Wait for approval. When it comes, **Apple** emails you a TestFlight invitation — the address you gave is used for that and nothing else.
-3. Install Apple's free **TestFlight** app from the App Store if you don't have it, open the invitation, and tap **Install**.
+1. Install Apple's free **[TestFlight](https://apps.apple.com/app/testflight/id899247664)** app from the App Store.
+2. On the same device, open **[the join link](https://testflight.apple.com/join/fNktfmjJ)**.
+3. Tap **Accept**, then **Install**.
 
-TestFlight tells you when a new build is ready and can install updates automatically (**TestFlight → BackIssue → Automatic Updates**). Your servers, sign-ins, downloads and settings all survive an update.
+Open the link on the iPhone or iPad itself — on a desktop browser it can only show you these instructions.
+
+TestFlight tells you when a new build is ready, and can install them for you if you turn on **Automatic Updates** for BackIssue inside TestFlight. Your servers, sign-ins, downloads and settings all survive an update.
 
 ## Signing in
 
