@@ -31,4 +31,12 @@ Pushing to `main` triggers the **Deploy docs** GitHub Actions workflow (`.github
 - The top nav in `config.mjs` is rendered by a custom theme that shows **flat links
   only** — `items:` dropdowns will not render.
 - Search is built in (offline, client-side) — no setup needed; new content is indexed on every build.
+- Every page carries a `description` in frontmatter. It is the meta description and
+  the social-card text, so write one for any new page — without it the page falls
+  back to the site-wide string and its search snippet reads like every other page's.
+- `releases.md` is **generated**. After tagging a release, run
+  `node tools/sync-changelog.mjs` (it reads `../app/CHANGELOG.md` by default, or
+  take a path argument) and commit the result. Hand edits are overwritten.
+- A page can narrow its own right-hand outline with `outline: 2` in frontmatter,
+  which is what keeps the release notes rail to a version list.
 - This file is excluded from the built site (`srcExclude`), so it is notes for us, not a page.
