@@ -83,7 +83,7 @@ It has three views:
 
 ## Stats
 
-**Sidebar → Stats** — totals for series/issues/files, library size on disk, per-status issue counts, tagged/untagged and CBR/CBZ breakdowns — a quick health check of the whole collection.
+**Sidebar → Stats** is the read-only health check for the whole collection — size on disk, file and format counts, completion, metadata health and download activity. It is described in full under [Stats](library#stats).
 
 ## Live updates
 
