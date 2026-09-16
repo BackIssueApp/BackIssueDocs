@@ -178,6 +178,7 @@ const guideCards = [
 /* ---- hero ---- */
 .bi-hero { position: relative; overflow: hidden; border-bottom: 2px solid var(--ink); }
 .bi-herogrid { max-width: 1340px; margin: 0 auto; padding: 74px 22px; display: grid; grid-template-columns: 1.02fr .98fr; gap: 52px; align-items: center; position: relative; }
+.bi-herogrid > * { min-width: 0; }
 .bi-eyebrow-pill { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 800; text-transform: uppercase; letter-spacing: .14em; font-size: 11.5px; color: var(--accent); border: 2px solid var(--accent); border-radius: 100px; padding: 5px 13px; margin-bottom: 24px; }
 .bi-hero-h1 { font-family: var(--font-display); font-weight: 900; font-size: clamp(42px, 6.2vw, 76px); line-height: .96; letter-spacing: -.03em; margin: 0 0 22px; }
 .bi-hero-sub { font-family: var(--font-body); font-size: 20px; line-height: 1.55; color: var(--ink-soft); max-width: 460px; margin: 0 0 32px; }
@@ -185,7 +186,7 @@ const guideCards = [
 
 /* ---- hero queue mock ---- */
 .bi-heroqueue { position: relative; }
-.bi-queuetag { position: absolute; top: -14px; right: -10px; z-index: 2; background: var(--accent-2); border: 2px solid var(--ink); border-radius: 9px; padding: 6px 12px; font-family: var(--font-display); font-weight: 800; text-transform: uppercase; letter-spacing: .05em; font-size: 11px; color: var(--ink); box-shadow: var(--card-shadow); transform: rotate(-2.5deg); }
+.bi-queuetag { position: absolute; top: -30px; right: -8px; z-index: 2; background: var(--accent-2); border: 2px solid var(--ink); border-radius: 9px; padding: 6px 12px; font-family: var(--font-display); font-weight: 800; text-transform: uppercase; letter-spacing: .05em; font-size: 11px; color: var(--ink); box-shadow: var(--card-shadow); transform: rotate(-2.5deg); }
 .bi-queuecard { background: var(--surface); border: 2px solid var(--ink); border-radius: 16px; box-shadow: var(--card-shadow); overflow: hidden; }
 .bi-queuehead { display: flex; align-items: center; gap: 9px; padding: 14px 16px; border-bottom: 2px solid var(--line); }
 .bi-queuehead-label { display: flex; align-items: center; gap: 7px; font-family: var(--font-display); font-weight: 800; text-transform: uppercase; letter-spacing: .05em; font-size: 12px; }
@@ -196,8 +197,8 @@ const guideCards = [
 .bi-cover { width: 34px; height: 46px; border-radius: 4px; border: 1.5px solid var(--ink); flex: none; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; }
 .bi-cover-num { font-family: var(--font-mono); font-size: 9px; color: rgba(255,255,255,.9); padding-bottom: 2px; }
 .bi-queuerow-mid { flex: 1; min-width: 0; }
-.bi-queuerow-titlerow { display: flex; align-items: center; gap: 7px; }
-.bi-queuerow-title { font-family: var(--font-ui); font-weight: 700; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bi-queuerow-titlerow { display: flex; align-items: center; gap: 7px; min-width: 0; }
+.bi-queuerow-title { min-width: 0; font-family: var(--font-ui); font-weight: 700; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .bi-srcbadge { flex: none; font-family: var(--font-mono); font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; padding: 1px 6px; border-radius: 20px; border: 1px solid currentColor; }
 .bi-track { margin-top: 6px; height: 6px; border-radius: 20px; background: var(--surface-2); overflow: hidden; }
 .bi-fill { height: 100%; border-radius: 20px; }
@@ -264,5 +265,22 @@ const guideCards = [
 }
 @media (max-width: 720px) {
   .bi-featgrid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .bi-herogrid { padding: 46px 18px 54px; gap: 38px; }
+  .bi-eyebrow-pill { font-size: 10.5px; letter-spacing: .1em; margin-bottom: 18px; }
+  .bi-hero-h1 { font-size: clamp(34px, 10.6vw, 46px); margin-bottom: 18px; }
+  .bi-hero-sub { font-size: 17px; margin-bottom: 26px; }
+  .bi-btnrow { flex-direction: column; align-items: stretch; gap: 12px; }
+  .bi-btn { justify-content: center; }
+  .bi-queuerow { gap: 10px; padding: 12px 13px; }
+  .bi-queuehead { padding: 13px; }
+  .bi-queuehead-stat { font-size: 10.5px; }
+  .bi-phase { width: 62px; font-size: 10px; }
+  .bi-features { padding: 54px 18px 18px; }
+  .bi-howwrap { padding: 44px 18px; }
+  .bi-findway { padding: 18px 18px 56px; }
+  .bi-ctagrid { padding: 52px 18px; gap: 34px; }
+  .bi-footer-inner { padding: 28px 18px; }
 }
 </style>
