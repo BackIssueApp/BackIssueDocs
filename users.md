@@ -27,6 +27,7 @@ Click your username in the sidebar → **Profile**. Everyone gets one:
 
 - **Account** — set your **email** (used to link external sign-ins to your account), see when you joined and last signed in, **change your password**, **sign out other devices** (ends every session except the one you're on — for a lost or shared device), and sign out.
 - **API key** — generate your personal key for apps and scripts that talk to your BackIssue install. It can do exactly what your account can do; see [Building on the API](api).
+- **Content** — **Hide mature content**, your own switch for hiding flagged series from your library, search and reader. See [Content restrictions](#hiding-it-from-yourself).
 - **Per-user options from plugins** — the reader adds its [reading shelves](reading#reading-shelves) toggles and [reading defaults](reading#reading-defaults) here; the OPDS plugin shows your [catalog address](opds).
 
 ## Signing in with an identity provider (SSO)
@@ -99,6 +100,25 @@ You can flag any volume as **mature**, hiding it from roles that don't hold the 
 With **Use enriched metadata** enabled (Settings → Metadata), series with a Mature/Explicit/Adult content rating are **flagged automatically** when they’re matched or refreshed. The auto-flag fires once per series — if you unflag something manually, later refreshes respect your decision.
 
 A flagged series becomes invisible to roles without the permission — not just dimmed. They won't see it in the library, its issues, wanted, or new-release notifications; they can't open it in the reader or reach it through the [OPDS](opds) catalog. Every surface that lists or serves a series enforces the same rule, so there's no back door.
+
+### Hiding it from yourself
+
+The permission decides what an account is *allowed* to see. Separately, each
+person can narrow their own view: **Profile → Content → Hide mature content**
+hides flagged series from your library, search and reader even though your role
+is allowed to see them. Nothing is deleted, and turning it back off restores
+everything immediately.
+
+It is a preference, not a permission, so it only ever narrows. An account whose
+role lacks *View mature content* sees nothing flagged either way, and switching
+this off cannot widen that.
+
+::: warning It does not reach OPDS
+This preference filters the web app and the API. It does **not** filter the
+[OPDS catalog](opds#access-control), so a reader app signed in as an account
+that holds the permission still lists flagged series. Where it matters, use the
+role permission rather than the switch.
+:::
 
 **View mature content** is a *trusted*-tier permission, so it's included in the built-in Trusted and Admin roles by default. To gate mature content:
 

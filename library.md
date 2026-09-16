@@ -117,6 +117,33 @@ Safety rules for both: only ComicVine-matched series are touched, name collision
 
 **Restoring a backup:** stop the app, copy the snapshot over `catalog.db`, start again.
 
+## Stats
+
+**Sidebar → Stats** is the read-only overview of what you actually have. Anyone
+who can browse the library can open it, and it answers in one page the questions
+that otherwise need a lot of clicking:
+
+- **What it weighs.** Total size on disk, how many files are indexed, how many
+  are valid versus corrupt, and how many carry embedded tags.
+- **Format mix.** The split between CBZ, CBR, PDF and everything else — the
+  quickest way to see whether a conversion pass is worth running.
+- **By publisher.** Series, issues, files and size per publisher, largest first.
+- **Completion.** How many series are complete, how many have holes, and how
+  many issues are missing overall. **Biggest gaps** names the dozen series
+  missing the most, which is usually where a backfill should start.
+- **Metadata health.** How many series are matched, how many files are linked to
+  an issue, and how deep the metadata cache runs. Unmatched or unlinked counts
+  climbing is the early warning that a scan or re-link is due.
+- **Downloads.** What is in progress, imported and failed, activity over the
+  last fortnight, and the most recent imports.
+
+Figures are cached for a minute, so the page is cheap to leave open.
+
+One thing to know before you reconcile numbers: for a role that cannot see
+mature series, those series are left out of **Biggest gaps** and the recent
+imports, but the headline totals are not filtered. The totals can therefore
+exceed what that account is able to browse.
+
 ## Corrupt files
 
 Verification flags unreadable archives as **corrupt** (visible as a series badge and under the Problems filter). Redownloading an issue replaces the bad file; the duplicate-removal tool cleans up superseded bad copies afterwards.

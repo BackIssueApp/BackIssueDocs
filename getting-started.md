@@ -149,7 +149,7 @@ The app is laid out with a **sidebar of sections** on the left and the content o
 
 - **Library** — a poster wall (or dense list — toggle ⊞/≣) of every series you track, with owned/total counts and badges for missing, untagged, or corrupt files. A row of filter chips, a sort dropdown, and search sit at the top — see [the Library view](collection#the-library-view) for what each chip does. Click a series to open its issue list.
 - **Series page** — the full ComicVine issue list for a series: what you own, what's missing, per-issue read/download buttons, and series-level actions (download missing, search sources, search packs, tag files, add to a reading list, and more).
-- **Sidebar sections** — Library, Wanted, Queue (live download progress), Releases (this week's issues for series you follow), Lists (reading lists), History, Stats, plus plugin entries like Discover, Requests, and reading tools. Admins also get a **System** area: Users, Plugins, a unified **System** page (Jobs, Tools and Logs on tabs), and Settings.
+- **Sidebar sections** — Library, [Collections](collection#collections) (multi-volume book and audiobook series), Wanted, Queue (live download progress), Releases (this week's issues for series you follow), Lists (reading lists), History, [Stats](library#stats), plus plugin entries like Discover, Requests, and reading tools. Admins also get a **System** area: Users, Plugins, a unified **System** page (Jobs, Tools and Logs on tabs), and Settings.
 - **Header** — global search, a **notification bell**, and a **?** help button that explains whatever page you're on.
 
 Every filter and view is reflected in the URL, so you can bookmark or share any view. Buttons you don't have permission for simply don't appear.

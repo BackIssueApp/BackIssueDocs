@@ -44,6 +44,22 @@ Each series shows its cover, title, **owned/total** count, and badges:
 
 Filters, search, and sort are all kept in the URL, and they stay put while you open series or other sections.
 
+## Collections
+
+**Sidebar → Collections** shows the same library grid narrowed to **multi-volume
+book and audiobook series** — box sets, numbered series, anything holding two or
+more entries. Standalone titles are left out, so a shelf of hundreds of
+individual books collapses to the handful of series worth browsing as a set.
+
+It carries the same search, filters, sorting and view options as the Library
+view, so it behaves like a saved perspective on the collection rather than a
+separate screen.
+
+The view only has something to narrow once you run a [Books](ebooks) or
+[Audiobooks](audiobooks) library; with neither installed it simply shows
+everything. For picking through a large book library by author, decade or
+format instead, see [Shelves](shelves).
+
 ## The series page
 
 Opening a series shows its full ComicVine issue list with ownership state per issue:
