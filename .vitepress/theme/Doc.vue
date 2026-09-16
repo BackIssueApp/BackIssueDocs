@@ -2,7 +2,7 @@
 import { computed, ref, shallowRef, onMounted, onBeforeUnmount, inject, nextTick } from 'vue';
 import { useData, useRoute, Content, onContentUpdated } from 'vitepress';
 
-const { theme, page } = useData();
+const { theme, page, frontmatter } = useData();
 const route = useRoute();
 
 // Mobile sidebar drawer state shared with the Layout's ☰ button.
@@ -47,10 +47,24 @@ function isActive(link) {
 const headings = shallowRef([]);
 const activeId = ref('');
 
+// A page can narrow its own rail with `outline: 2` in frontmatter — the
+// release notes would otherwise list every heading of every version.
+const outlineSelector = computed(() => {
+  const o = frontmatter.value.outline ?? theme.value.outline?.level ?? [2, 3];
+  if (o === 'deep' || o === false) return o === false ? '' : 'h2, h3, h4, h5, h6';
+  const levels = Array.isArray(o) ? o : [2, o];
+  const lo = Math.max(2, Math.min(...levels));
+  const hi = Math.min(6, Math.max(...levels));
+  const out = [];
+  for (let i = lo; i <= hi; i++) out.push('h' + i);
+  return out.join(', ');
+});
+
 function buildOutline() {
   const article = document.querySelector('.bi-article-body');
-  if (!article) { headings.value = []; return; }
-  const els = Array.from(article.querySelectorAll('h2, h3'));
+  const sel = outlineSelector.value;
+  if (!article || !sel) { headings.value = []; return; }
+  const els = Array.from(article.querySelectorAll(sel));
   headings.value = els
     .filter((el) => el.id)
     .map((el) => {

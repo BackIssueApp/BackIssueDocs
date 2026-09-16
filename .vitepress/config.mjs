@@ -139,6 +139,7 @@ export default defineConfig({
         text: 'Reference',
         items: [
           { text: 'Settings reference', link: '/settings-reference' },
+          { text: 'Release notes', link: '/releases' },
           { text: 'API reference', link: '/api-reference' },
           { text: 'Building on the API', link: '/api' },
           { text: 'Plugin API', link: '/plugin-api' },

@@ -67,4 +67,5 @@ You add a series (or import an existing library). BackIssue matches it to [Comic
 | [Users & access](/users) · [Requests](/requests) · [Notifications](/notifications) | Sharing the server with other people |
 | [Automation & jobs](/automation) · [Plugins](/plugins) | Scheduled work, history and logs, and extending the app |
 | [Settings reference](/settings-reference) | Every setting, explained |
+| [Release notes](/releases) | What changed in each version |
 | [Troubleshooting](/troubleshooting) | Common problems and how to fix them |
