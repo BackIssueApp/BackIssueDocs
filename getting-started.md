@@ -60,12 +60,17 @@ point a **library** at it under **Settings → Library**; if a download client
 (SABnzbd, NZBGet, qBittorrent) runs in another container, mount its
 completed-downloads folder too so BackIssue can import finished downloads.
 
-::: tip Unraid
-There's a ready-made template: in the Docker tab add
-`https://backissue.app/unraid/backissue.xml` as a template URL (or copy it into
-`/boot/config/plugins/dockerMan/templates-user/`), then create the container
-from the **BackIssue** template — paths and permissions come pre-mapped.
-:::
+### Unraid
+
+BackIssue is in **Community Applications**, so there's nothing to write by hand:
+open the **Apps** tab, search for *BackIssue*, and click **Install**. The template
+arrives with ports, paths and permissions already mapped — point the comics volume
+at your share, and the appdata volume takes care of itself.
+
+Without Community Applications, add `https://backissue.app/unraid/backissue.xml`
+as a template URL on the **Docker** tab (or copy it into
+`/boot/config/plugins/dockerMan/templates-user/`), then create the container from
+the **BackIssue** template.
 
 ### An optional companion: FlareSolverr
 
