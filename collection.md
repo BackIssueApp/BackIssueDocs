@@ -38,7 +38,14 @@ Each series shows its cover, title, **owned/total** count, and badges:
 | `◆ CV` | Matched to ComicVine (hover for the volume name/year) |
 | `no source` | No download source has been able to serve this series yet |
 
-**Right-click a series** for its common actions without opening it: open, follow or unfollow, download its missing issues, set its [monitoring policy](#monitoring), and remove it from the library. On a touch screen, press and hold instead. The menu only offers what your role can actually do.
+**Each card has an actions menu**, reached three ways: the **⋯ button** that appears when you hover it, a **right-click** anywhere on the card, or a **long press** on a touch screen. All three open the same menu, so you never have to open a series just to act on it:
+
+- Open it, follow or unfollow, and download its missing issues.
+- **Scan folder**, **Edit metadata**, **Rename files** and **Fix match** — the library-management actions that otherwise live on the series page.
+- Its [monitoring policy](#monitoring), with the current one ticked.
+- Remove it from the library.
+
+The menu only offers what your role can actually do, and it leaves out what would not apply: an unmatched series offers **Match to ComicVine** rather than Fix match, and has no metadata to edit until it is matched.
 
 **Filters** — All, Incomplete, Followed, Monitored, Not monitored, Ongoing, Ended (publication status from enriched metadata — run **Refresh series metadata** under System → Tools to fill it in for older series), Problems (corrupt/untagged), Unmatched.
 **Sort** — A–Z, recently added, most missing.
