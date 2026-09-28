@@ -78,10 +78,45 @@ Existing files you imported keep their names until you opt into renaming (below)
 | `{year}` | The volume's start year |
 | `{issue}` | Issue number, zero-padded to 3 — `{issue:2}` sets the width |
 | `{issueTitle}` | The issue's title |
-| `{date}` | Cover date as "Month YYYY" |
+| `{date}` | Cover date as "November 2011" — see the formats below |
 | `{edition}` | Detected special editions (Annual, TPB, …) |
 
+### Date formats
+
+`{date}` writes the cover date as "November 2011". A modifier gives you the
+parts on their own, for libraries that file by number:
+
+| Token | Renders |
+|---|---|
+| `{date}` | November 2011 |
+| `{date:m}` | `11` — month number, always two digits |
+| `{date:y}` | `2011` |
+| `{date:mon}` | Nov |
+
+Combine them with whatever separator you use. `{series} V{year} #{issue} ({date:m}-{date:y})` gives:
+
+```
+Batman V2011 #001 (11-2011).cbz
+```
+
+and `({date:y}-{date:m})` gives `(2011-11)`, `({date:mon} {date:y})` gives
+`(Nov 2011)`. The month keeps its leading zero, so March files as `03`, not `3`,
+and sorts correctly beside the rest of the year.
+
+A modifier the app doesn't recognise falls back to the full "November 2011"
+form rather than rendering nothing, so a typo cannot quietly strip the date out
+of every filename.
+
+### When a token is empty
+
 A token with no value simply drops out and the spacing tidies itself — `{series} V{year}` with no known year renders as just the series. Blank patterns use the defaults.
+
+This extends to the punctuation around it. An issue with no cover date renders
+`({date:m}-{date:y})` as nothing at all, rather than leaving an orphaned `(-)`
+in the filename. Downloads often have no cover date at the moment they are
+filed, which is why the default file pattern carries no date token at all — a
+freshly downloaded issue and the same issue after a re-file would otherwise
+disagree, and the reorganizer would churn.
 
 Two things to know:
 
