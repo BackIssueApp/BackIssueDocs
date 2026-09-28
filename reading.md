@@ -49,6 +49,22 @@ Press **G** in the reader to read panel by panel — the view zooms each panel i
 - **Continue on a series** — a series page shows a "Continue #N (x/y read)" banner that opens the next issue to read.
 - **Bookmarks** — mark any page and jump between marks.
 - **Mark read / unread** — set an issue's state by hand (handy for backfilling series you read years ago).
+- **Read later** — pin an issue to your own saved-for-later shelf.
+
+### Acting on a whole series
+
+The series header carries the bulk versions of these, next to each other:
+**Mark read**, **Mark unread** and **Read later**.
+
+Each one works the same way. **Tick some issues and it acts on exactly those.**
+Tick nothing and it acts on the series, with one sensible difference: Read
+later takes only the issues you own and have not finished, because pinning
+what you have already read just clutters the shelf you are building. The
+button says how many it will take, and the count follows your ticks.
+
+Once everything in scope is pinned, the action becomes **Remove from Read
+later**, which is also how you clear a series off the shelf once you are done
+with it.
 
 ## Per-series reading profiles
 
