@@ -89,9 +89,10 @@ The list toggles between a **cover grid** and a detailed row list; the list view
 
 ### Right-click an issue
 
-Every issue, in both the poster grid and the list, has a right-click menu (press
-and hold on a touch screen) carrying the actions that otherwise live as small
-buttons on the row:
+Every issue, in both the poster grid and the list, has an actions menu. Reach it
+from the **⋯ button** (top-right of a poster card, or at the end of a list row),
+a **right-click** anywhere on the issue, or a **long press** on a touch screen.
+It carries the actions that otherwise live as small buttons on the row:
 
 - Whatever the plugins you have installed contribute, first. With the
   [Reader](reading) installed that is **Read**, **Mark as read** or **Mark as
