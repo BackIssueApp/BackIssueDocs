@@ -38,6 +38,8 @@ Each series shows its cover, title, **owned/total** count, and badges:
 | `◆ CV` | Matched to ComicVine (hover for the volume name/year) |
 | `no source` | No download source has been able to serve this series yet |
 
+**Right-click a series** for its common actions without opening it: open, follow or unfollow, download its missing issues, set its [monitoring policy](#monitoring), and remove it from the library. On a touch screen, press and hold instead. The menu only offers what your role can actually do.
+
 **Filters** — All, Incomplete, Followed, Monitored, Not monitored, Ongoing, Ended (publication status from enriched metadata — run **Refresh series metadata** under System → Tools to fill it in for older series), Problems (corrupt/untagged), Unmatched.
 **Sort** — A–Z, recently added, most missing.
 **Search** — instant filter-as-you-type.
@@ -77,6 +79,25 @@ Files in the series folder that the app could not match to an issue are listed u
 Download and management buttons only appear for roles holding those permissions — a viewer sees the read buttons and nothing else ([Users & access](users#roles)).
 
 The list toggles between a **cover grid** and a detailed row list; the list view shows each issue's cover date, page count, file size, and format at a glance.
+
+### Right-click an issue
+
+Every issue, in both the poster grid and the list, has a right-click menu (press
+and hold on a touch screen) carrying the actions that otherwise live as small
+buttons on the row:
+
+- Whatever the plugins you have installed contribute, first. With the
+  [Reader](reading) installed that is **Read**, **Mark as read** or **Mark as
+  unread**, and **Read later**.
+- **Issue details** for the full record and its files.
+- **Download this issue**, or **Download again** for one you already own, or
+  **Re-download** when the file is corrupt.
+- **Want** or **Don't want**, for an issue you are missing.
+
+The menu is built when you open it, so it always reflects that issue as it
+stands: an issue you just marked read offers to mark it unread. Right-clicking
+does not change which issues are selected, so a selection you are part-way
+through building survives.
 
 ## Editing metadata
 
