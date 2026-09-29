@@ -47,7 +47,9 @@ Each series shows its cover, title, **owned/total** count, and badges:
 
 The menu only offers what your role can actually do, and it leaves out what would not apply: an unmatched series offers **Match to ComicVine** rather than Fix match, and has no metadata to edit until it is matched.
 
-**Filters** — All, Incomplete, Followed, Monitored, Not monitored, Ongoing, Ended (publication status from enriched metadata — run **Refresh series metadata** under System → Tools to fill it in for older series), Problems (corrupt/untagged), Unmatched.
+**Filters** — All, Incomplete, Followed, Monitored, Not monitored, Ongoing, Ended (publication status from enriched metadata — run **Refresh series metadata** under System → Tools to fill it in for older series), Problems (corrupt/untagged), **Nothing downloaded**, Unmatched.
+
+**Nothing downloaded** lists series with no file at all. That is what a bulk add leaves behind when the downloads fail, so it is the quick way to find and clear them: filter, **Select**, **Select all**, **Remove**. Removing takes them out of the collection and leaves any files on disk alone. A series whose only file is corrupt is not in this list — that one is under **Problems**, because it did download something.
 **Sort** — A–Z, recently added, most missing.
 **Search** — instant filter-as-you-type.
 
