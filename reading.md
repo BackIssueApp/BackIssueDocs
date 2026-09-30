@@ -125,11 +125,15 @@ eye.
   a read count, or *Done*. Above them, **Continue** pins the run you read most
   recently that still has somewhere to go, with the next issue named.
 
-When you finish an issue you opened from a list, the reader offers the *next
-issue in that run* rather than the next issue of its series, with the run's
-progress under it: **Read now**, **Later**, or **Back to arc**. Crossovers
-therefore carry on across titles the way the list orders them. Open the same
-issue from anywhere else and the reader behaves normally.
+When you read an issue you opened from a list, the reader follows the *run*
+rather than the series. The last page carries a **Next in arc** button where an
+ordinary read would offer the next issue of the series, and finishing the issue
+brings up a card with the run's progress, the next issue named, and **Read
+now**, **Later** or **Back to arc**. Crossovers therefore carry on across titles
+the way the list orders them. **Later** dismisses the card for that issue only
+and leaves the button behind, so you are not asked twice and not left without a
+way onward. Open the same issue from anywhere else and the reader behaves
+normally.
 
 Read state comes from the reader. Without it installed, a list still shows
 ownership and its issues in order, and simply doesn't claim to know what you've
