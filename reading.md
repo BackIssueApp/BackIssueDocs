@@ -102,6 +102,39 @@ The reader works offline for issues you've opened (a service worker caches pages
 - Items you don't own show a **download** button; items whose volume isn't in your library yet show **"+ Add series"** to add it. A list tracks how many of its issues you own.
 - **Want all** makes every issue on the list wanted instead of queueing it right away: series already in the library get those issues picked, series that aren't are added with [monitoring](collection#monitoring) off and just those issues picked — so automation fetches the list and nothing else, and keeps trying if a source doesn't have an issue yet.
 
+### Reading a list as a run
+
+A list isn't a folder of issues, it's a run you read through, and the list page
+is built around where you are in it. The issues sit on a single spine: the rail
+is filled up to the point you've reached and grey after it, each issue carries a
+node, and read issues are ticked off and dimmed so the unread ones carry your
+eye.
+
+- **One "Read next"** — the first issue you haven't read is promoted: a bigger
+  cover, a highlighted node, and its own **Read** button. There is exactly one,
+  so there is never a question of where to pick up.
+- **Continue** at the top of the list opens that issue straight into the reader.
+- **Gaps are shown as gaps.** An issue you don't own is drawn as an outline, not
+  a broken cover, labelled with its position in the run. The spine stops at a
+  gap rather than filling through it, because reading past a hole isn't reading
+  the arc. Continue still skips ahead to the next issue you can actually read.
+- **The header counts reads, not files** — "12 of 33 read", plus how many are in
+  progress and how many are missing. Ownership is a separate number and is
+  labelled as one.
+- **The index** shows every list with a tick per issue and a status: *New*,
+  a read count, or *Done*. Above them, **Continue** pins the run you read most
+  recently that still has somewhere to go, with the next issue named.
+
+When you finish an issue you opened from a list, the reader offers the *next
+issue in that run* rather than the next issue of its series, with the run's
+progress under it: **Read now**, **Later**, or **Back to arc**. Crossovers
+therefore carry on across titles the way the list orders them. Open the same
+issue from anywhere else and the reader behaves normally.
+
+Read state comes from the reader. Without it installed, a list still shows
+ownership and its issues in order, and simply doesn't claim to know what you've
+read.
+
 ### Sharing a list
 
 A list is private by default. With the **Share reading lists** permission you can publish one from its **Share** button, and every user then sees it alongside their own — a house reading order, a curated run, or an imported crossover everyone can follow. Sharing changes who can *see* a list, never who can change it: only the owner can rename, reorder, add, remove or delete it, and a shared list never reveals mature content to accounts that can't otherwise see it.
