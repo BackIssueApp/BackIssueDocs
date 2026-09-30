@@ -146,4 +146,5 @@ The ☑ button in the Library header switches to multi-select. Select any number
 - **★ Follow / ☆ Unfollow** — your personal follows (the pull list), en masse
 - **Monitoring…** — set the monitoring policy for every selected series
 - **⤓ Missing** — queue every missing issue of the selected series
+- **☰ Add to list** — put every issue of the selected series on a [reading list](reading#reading-lists), in the order the Library is showing them
 - **Remove** — drop the series from the collection (files on disk are *never* touched)
