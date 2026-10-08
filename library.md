@@ -141,6 +141,7 @@ Safety rules for both: only ComicVine-matched series are touched, name collision
 | **Scan entire library** | Re-walk every library folder: index new files, drop records of deleted ones |
 | **Tag all untagged files** | Embed ComicVine metadata into every owned file that lacks it (converts CBR as needed) |
 | **Convert all CBR → CBZ** | Repack every `.cbr` so the whole library is consistently taggable |
+| **Unwrap nested archives** | Fix comics packaged as a `.cbz` that holds a `.cbr` instead of pages: lifts the inner archive's pages to the top level, in place, keeping the ComicInfo. Anything it cannot prove is left untouched |
 | **Remove duplicate files** | Delete old/corrupt copies that a good copy of the same issue has replaced |
 | **Verify archives** | Deep-check every file for corruption; prune records for files gone from disk |
 | **Refresh series metadata** | Re-pull every matched series' volume details and issue list — picks up publication status (Ongoing / Ended), enrichment for series cached before it was on, and issues published since. One request a second; stops cleanly if the service rate-limits (run again to finish) |

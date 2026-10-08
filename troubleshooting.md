@@ -53,6 +53,12 @@ The file isn't linked to the CV issue — odd filename, or metadata pointing els
 Some readers tolerate damage that strict verification doesn't. **Redownload** for a clean copy, then **Remove duplicate files** to clear the bad one. If many files flag at once on a network share, check the share mount first — unreadable ≠ corrupt.
 
 **Untagged count won't drop.**
+### An issue reads as owned but the reader shows nothing
+
+Some releases ship a `.cbz` that contains a `.cbr` rather than pages. The file opens, its ComicInfo reads fine and the library counts it as owned, but there is nothing in it to read. These now show under **Problems** with "no pages — contains another archive"; **Tools → Unwrap nested archives** lifts the inner pages out, in place, and keeps the metadata. A file it cannot unwrap unambiguously is left alone for you to look at.
+
+The same filter now also catches empty or truncated archives — anything with no pages at all, whatever the extension says.
+
 Tagging needs a CV match and a CBZ. Run **Convert all CBR → CBZ**, then **Tag all untagged files**; stragglers are unmatched files (see the No CV filter and Import candidates).
 
 ## Access
