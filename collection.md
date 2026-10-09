@@ -99,7 +99,15 @@ It carries the actions that otherwise live as small buttons on the row:
 - Whatever the plugins you have installed contribute, first. With the
   [Reader](reading) installed that is **Read**, **Mark as read** or **Mark as
   unread**, and **Read later**.
-- **Issue details** for the full record and its files.
+- **Issue details** for the full record and its files. The cover and every
+  action sit on the left; the rest is four tabs — Overview, Credits, Appearing
+  and Files — with counts, and arrows in the header step through the run
+  without going back to the series. **Credited names, characters and teams are
+  links**: click one for every other issue in your collection that credits that
+  person or features that character, owned copies first. Credits exist for any
+  issue whose metadata has been downloaded; character listings are sparser,
+  because the metadata sources record them for a minority of issues and mostly
+  recent ones.
 - **Download this issue**, or **Download again** for one you already own, or
   **Re-download** when the file is corrupt.
 - **Want** or **Don't want**, for an issue you are missing.
