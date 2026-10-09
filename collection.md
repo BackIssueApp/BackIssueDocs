@@ -104,8 +104,13 @@ It carries the actions that otherwise live as small buttons on the row:
   and Files — with counts, and arrows in the header step through the run
   without going back to the series. **Credited names, characters and teams are
   links**: click one for every other issue in your collection that credits that
-  person or features that character, owned copies first. Credits exist for any
-  issue whose metadata has been downloaded; character listings are sparser,
+  person or features that character. The results group by series, each heading
+  carrying the years it spans and how much of that series you own, and a series
+  with more than two dozen hits stays collapsed behind a summary of its runs
+  ("130 issues · #208-250, #400-443") until you open it into a grid of issue
+  numbers. A filter, an owned-only toggle, a sort and a cover view sit above
+  them, and a creator's roles become chips you can narrow by. Credits exist for
+  any issue whose metadata has been downloaded; character listings are sparser,
   because the metadata sources record them for a minority of issues and mostly
   recent ones.
 - **Download this issue**, or **Download again** for one you already own, or
