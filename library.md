@@ -15,6 +15,63 @@ The collection can be split into named **libraries** — say *Comics* and *Manga
 - Deleting a library keeps all its series (they return to the default library) — nothing is removed from disk.
 - With no libraries defined, the sidebar shows per-type entries automatically once a second type (e.g. manga) appears in the collection — explicit libraries simply take over when you create them.
 
+<figure class="bi-ex" v-pre>
+  <div class="bi-ex__frame" role="img" aria-label="Settings, Library, Libraries panel: a Comics library card with name, type, Mature checkbox, series count, two folders with the first marked Default, a per-library folder pattern and tag placement; below it a Manga library card">
+    <h3 class="x-title">Libraries</h3>
+    <p class="x-sub">Split the collection into named libraries — each shows as its own entry in the sidebar. A library's <b>type</b> sets how its series behave (manga = chapter-style search, right-to-left reading); its folders are where its comics are filed and scanned. Move series from a volume's ⋯ menu.</p>
+    <div class="x-a-libcard">
+      <div class="x-a-libcard__head">
+        <span class="x-a-libcard__icon"><svg class="x-a-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></span>
+        <span class="x-a-libcard__name">Comics</span>
+        <span class="x-a-ctl x-a-select">Comics<svg class="x-a-ico" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+        <span class="x-a-libcard__mature"><span class="x-a-cb"></span><span>Mature</span></span>
+        <span class="x-a-libcard__count">412 series</span>
+        <span class="x-a-x"><svg class="x-a-ico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M10 11v6M14 11v6"/></svg></span>
+      </div>
+      <div class="x-a-rootlist">
+        <div class="x-a-rootrow">
+          <span class="x-a-ctl x-a-rootrow__path">/comics</span>
+          <span class="x-a-rootrow__badge">Default</span>
+          <span class="x-a-x"><svg class="x-a-ico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+        </div>
+        <div class="x-a-rootrow">
+          <span class="x-a-ctl x-a-rootrow__path">\\NAS\comics-archive</span>
+          <span class="x-a-linkbtn">Make default</span>
+          <span class="x-a-x"><svg class="x-a-ico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+        </div>
+        <span class="x-a-linkbtn"><svg class="x-a-ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> Add folder</span>
+      </div>
+      <div class="x-a-libcard__extras">
+        <div class="x-field"><span class="x-label">Folder pattern</span><div class="x-input"><span class="x-a-placeholder">blank = global pattern</span></div></div>
+        <div class="x-field"><span class="x-label">Tag placement</span><span class="x-a-ctl x-a-select">Global setting<svg class="x-a-ico" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span></div>
+      </div>
+    </div>
+    <div class="x-a-libcard">
+      <div class="x-a-libcard__head">
+        <span class="x-a-libcard__icon"><svg class="x-a-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></span>
+        <span class="x-a-libcard__name">Manga</span>
+        <span class="x-a-ctl x-a-select">Manga<svg class="x-a-ico" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+        <span class="x-a-libcard__mature"><span class="x-a-cb"></span><span>Mature</span></span>
+        <span class="x-a-libcard__count">38 series</span>
+        <span class="x-a-x"><svg class="x-a-ico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M10 11v6M14 11v6"/></svg></span>
+      </div>
+      <div class="x-a-rootlist">
+        <div class="x-a-rootrow">
+          <span class="x-a-ctl x-a-rootrow__path">/manga</span>
+          <span class="x-a-rootrow__badge">Default</span>
+        </div>
+      </div>
+      <div class="x-a-libcard__extras">
+        <div class="x-field"><span class="x-label">Folder pattern</span><div class="x-input">{series}</div></div>
+      </div>
+    </div>
+  </div>
+  <figcaption>
+    Each library card holds its name, type, <b>Mature</b> flag and folders — the first folder is the <b>Default</b> where new downloads land.
+    The Manga library here uses its own <code>{series}</code> folder pattern; Comics leaves it blank and follows the global one.
+  </figcaption>
+</figure>
+
 A library's **type** decides how its contents behave. Comics and manga follow the ComicVine flow described here; **Books** and **Audiobooks** are self-described libraries with their own scanning, metadata and reading/listening — see [Books](ebooks) and [Audiobooks](audiobooks).
 
 **Manga metadata and covers come from [MangaDex](https://mangadex.org), enriched by [AniList](https://anilist.co) and [MangaUpdates](https://www.mangaupdates.com).** MangaDex identifies the series and provides the cover, alternative titles, status, genres and the kind of book (manga, manhwa, manhua, webtoon); the series' own AniList and MangaUpdates ids are then followed for a curated summary, staff, end year and the publisher. Publication status and genres show on the series page and drive the Ongoing and Ended filters, as they do for comics. With a manga library, the Add dialog offers a **Search manga** toggle, and imports into manga folders match against the manga catalog automatically.
@@ -37,6 +94,72 @@ scan can only guess. Do that first, then use Import for anything it leaves.
 2. BackIssue walks it and proposes a **match** for each series folder against ComicVine. Tagged libraries match best: when the embedded `ComicInfo.xml` (Mylar, ComicTagger, Kapowarr) carries a ComicVine id, the volume is matched exactly — otherwise the tagged series name, start year, and publisher drive the search; untagged files are matched from their folder names.
 3. Confident matches import automatically; ambiguous ones become **candidates** you confirm or re-pick with a couple of clicks; anything unrecognizable is listed for manual handling.
 4. Imported files are indexed as owned — the series' missing counts update immediately.
+
+<figure class="bi-ex" v-pre>
+  <div class="bi-ex__frame" role="img" aria-label="The Import library page after a scan: a summary of what was found, Needs review / Ready filters, and candidate rows with a strong match ready to import, a likely and a low-confidence match to confirm, and a folder with no ComicVine match">
+    <div class="x-a-imp">
+      <div class="x-a-imp__bar">
+        <span class="x-a-btn x-a-btn--ghost"><svg class="x-a-ico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Back</span>
+        <span class="x-a-imp__title">Import library</span>
+        <span class="x-a-imp__summary">46 found · 3 to review · 43 ready</span>
+        <span class="x-a-btn x-a-btn--ghost"><svg class="x-a-ico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg> Scan for new</span>
+        <span class="x-a-btn x-a-btn--ghost">Full rescan</span>
+        <span class="x-a-btn x-a-btn--primary">Import 43</span>
+      </div>
+      <div class="x-a-imp__scroll">
+        <p class="x-a-imp__intro">Scan your root folders for series not yet in the collection. Each is matched to ComicVine — confirm or fix the matches, then import. Files stay where they are.</p>
+        <div><div class="x-a-filter">
+          <span class="x-a-filter__btn x-a-filter__btn--on">All</span>
+          <span class="x-a-filter__btn">Needs review</span>
+          <span class="x-a-filter__btn">Ready</span>
+          <span class="x-a-filter__btn">Skipped</span>
+        </div></div>
+        <div class="x-a-imp__list">
+        <div class="x-a-irow x-a-irow--ready">
+          <div class="x-a-cover">Pa</div>
+          <div class="x-a-irow__info">
+            <div class="x-a-irow__folder">Paper Girls <span class="x-a-muted">(2015)</span> <span class="x-a-muted">· 30 files</span></div>
+            <div class="x-a-irow__match"><b>Paper Girls</b> <span class="x-a-muted">(2015)</span> <span class="x-a-conf x-a-conf--high">strong match</span></div>
+            <div class="x-a-irow__path">/comics/Image/Paper Girls (2015)</div>
+          </div>
+          <div class="x-a-irow__actions"><span class="x-a-btn x-a-btn--sm x-a-btn--ghost">Change match</span><span class="x-a-btn x-a-btn--sm x-a-btn--ghost">Skip</span></div>
+        </div>
+        <div class="x-a-irow x-a-irow--review">
+          <div class="x-a-cover">Ma</div>
+          <div class="x-a-irow__info">
+            <div class="x-a-irow__folder">Moon Knight <span class="x-a-muted">(2016)</span> <span class="x-a-muted">· 14 files</span></div>
+            <div class="x-a-irow__match"><b>Moon Knight</b> <span class="x-a-muted">(2016)</span> <span class="x-a-conf x-a-conf--med">likely</span></div>
+            <div class="x-a-irow__path">/comics/Marvel/Moon Knight/v2016</div>
+          </div>
+          <div class="x-a-irow__actions"><span class="x-a-btn x-a-btn--sm x-a-btn--primary">Confirm</span><span class="x-a-btn x-a-btn--sm x-a-btn--ghost">Change match</span><span class="x-a-btn x-a-btn--sm x-a-btn--ghost">Skip</span></div>
+        </div>
+        <div class="x-a-irow x-a-irow--review">
+          <div class="x-a-cover">Th</div>
+          <div class="x-a-irow__info">
+            <div class="x-a-irow__folder">The Walking Dead <span class="x-a-muted">· 193 files</span></div>
+            <div class="x-a-irow__match"><b>The Walking Dead Deluxe</b> <span class="x-a-muted">(2020)</span> <span class="x-a-conf x-a-conf--low">low confidence</span></div>
+            <div class="x-a-irow__path">/comics/Walking Dead</div>
+          </div>
+          <div class="x-a-irow__actions"><span class="x-a-btn x-a-btn--sm x-a-btn--primary">Confirm</span><span class="x-a-btn x-a-btn--sm x-a-btn--ghost">Change match</span><span class="x-a-btn x-a-btn--sm x-a-btn--ghost">Skip</span></div>
+        </div>
+        <div class="x-a-irow x-a-irow--review">
+          <div class="x-a-irow__none">?</div>
+          <div class="x-a-irow__info">
+            <div class="x-a-irow__folder">Scans misc <span class="x-a-muted">· 7 files</span></div>
+            <div class="x-a-irow__match x-a-irow__match--none">No ComicVine match <span class="x-a-conf x-a-conf--none">will import unmatched</span></div>
+            <div class="x-a-irow__path">/comics/Scans misc</div>
+          </div>
+          <div class="x-a-irow__actions"><span class="x-a-btn x-a-btn--sm x-a-btn--primary">Confirm</span><span class="x-a-btn x-a-btn--sm x-a-btn--ghost">Change match</span><span class="x-a-btn x-a-btn--sm x-a-btn--ghost">Skip</span></div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <figcaption>
+    A <b>strong match</b> is ready to import as is; <b>likely</b> and <b>low confidence</b> matches wait for <b>Confirm</b> or <b>Change match</b>,
+    and a folder with no match can still come in unmatched. <b>Import</b> takes everything ready in one go.
+  </figcaption>
+</figure>
 
 Import never moves or renames your files unless you later run the rename tool.
 
@@ -70,6 +193,34 @@ Existing files you imported keep their names until you opt into renaming (below)
 
 - **Folder pattern** — the series folder under a root. Default: `{publisher}/{series} ({year})`. Use `/` for sub-folders.
 - **File pattern** — the issue filename. Default: `{series} V{year} #{issue}`.
+
+<figure class="bi-ex" v-pre>
+  <div class="bi-ex__frame" role="img" aria-label="Settings, Library, File organization panel with a custom file pattern and its live example path">
+    <h3 class="x-title">File organization</h3>
+    <p class="x-sub">How downloaded comics are named and filed.</p>
+    <div class="x-card">
+      <div class="x-field">
+        <span class="x-label">Folder pattern</span>
+        <div class="x-input">{publisher}/{series} ({year})</div>
+      </div>
+      <div class="x-field">
+        <span class="x-label">File pattern <span class="x-pin">1</span></span>
+        <div class="x-input x-input--focus">{series} V{year} #{issue} ({date:m}-{date:y})</div>
+      </div>
+      <p class="x-preview">DC Comics/Batman (2011)/Batman V2011 #001 (11-2011).cbz <span class="x-pin">2</span></p>
+      <div class="x-check">
+        <span class="x-switch" aria-hidden="true"></span>
+        <span>Rename downloaded files to the file pattern (off = keep the source's original filename)</span>
+      </div>
+      <p class="x-note">Changing these affects <b>new</b> downloads — for existing files use <b>Reorganize library</b> on the Tools page.</p>
+    </div>
+  </div>
+  <figcaption>
+    <span class="x-pin">1</span> A custom file pattern that appends the cover date.
+    <span class="x-pin">2</span> The live example updates as you type — it always renders
+    <b>Batman (2011) #1</b>, cover-dated November 2011, so you can compare patterns like for like.
+  </figcaption>
+</figure>
 
 | Token | Fills with |
 |---|---|

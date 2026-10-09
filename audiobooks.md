@@ -47,6 +47,53 @@ wanted. One no source has yet stays wanted: the **Fill wanted audiobooks**
 job (System → Jobs) asks again on its schedule, and a scan that brings it in
 takes it off the list.
 
+<figure class="bi-ex" v-pre>
+  <div class="bi-ex__frame" role="img" aria-label="The Add dialog on its Audiobooks tab, searching for andy weir: Project Hail Mary is already in the library, The Martian is wanted, and Artemis still has its Add button">
+    <div class="x-c-add">
+      <div class="x-c-add-head">
+        <div class="x-c-add-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></div>
+        <div class="x-c-add-titles">
+          <div class="x-c-add-title">Add an audiobook</div>
+          <div class="x-c-add-sub">Search the audiobooks catalog and get it from your download sources</div>
+        </div>
+        <span class="x-c-add-x"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+      </div>
+      <div class="x-c-add-switchrow"><div class="x-c-add-switch"><span class="x-c-add-seg"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg> Comics</span><span class="x-c-add-seg"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg> Manga</span><span class="x-c-add-seg"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg> Books</span><span class="x-c-add-seg x-c-add-seg--on"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg> Audiobooks</span></div></div>
+      <div class="x-c-add-search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg><div class="x-c-add-input">andy weir</div></div>
+      <div class="x-c-add-results">
+        <div class="x-c-add-row x-c-add-row--dim">
+          <div class="x-c-cover">PH</div>
+          <div class="x-c-add-info">
+            <div class="x-c-add-name">Project Hail Mary <span class="x-c-add-year">(2021)</span></div>
+            <div class="x-c-add-meta">Andy Weir · Audible Studios · 16h · read by Ray Porter</div>
+          </div>
+          <span class="x-c-add-btn x-c-add-btn--ghost">In library</span>
+        </div>
+        <div class="x-c-add-row">
+          <div class="x-c-cover">TM</div>
+          <div class="x-c-add-info">
+            <div class="x-c-add-name">The Martian <span class="x-c-add-year">(2014)</span></div>
+            <div class="x-c-add-meta">Andy Weir · Podium Publishing · 11h · read by R.C. Bray</div>
+          </div>
+          <span class="x-c-add-btn x-c-add-btn--done">Wanted</span>
+        </div>
+        <div class="x-c-add-row">
+          <div class="x-c-cover">A</div>
+          <div class="x-c-add-info">
+            <div class="x-c-add-name">Artemis <span class="x-c-add-year">(2017)</span></div>
+            <div class="x-c-add-meta">Andy Weir · Audible Studios · 9h · read by Rosario Dawson</div>
+          </div>
+          <span class="x-c-add-btn x-c-add-btn--add">Add</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <figcaption>
+    Results carry the length and narrator. A title already on the shelf offers <b>In library</b>;
+    one nobody has yet stays <b>Wanted</b> after you add it.
+  </figcaption>
+</figure>
+
 `GET /api/audiobooks/wanted` lists the wanted audiobooks and
 `DELETE /api/audiobooks/wanted/<id>` drops one (the **Manage library**
 permission, like adding).

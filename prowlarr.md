@@ -47,6 +47,37 @@ While Prowlarr is enabled, the manually entered Newznab/Torznab indexer lists
 on the Usenet and Torrents panels are **ignored** — they grey out with a
 "managed" note. Turn Prowlarr off to fall back to them.
 
+<figure class="bi-ex" v-pre>
+  <div class="bi-ex__frame" role="img" aria-label="Usenet Indexers card while Prowlarr is enabled: a managed notice, the manual indexer list greyed out and the Add indexer button disabled">
+    <div class="x-b-detail">
+      <div class="x-b-scard">
+        <h3 class="x-b-scard__head">Indexers</h3>
+        <p class="x-b-managed"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>Managed by an indexer plugin — these manual indexers are ignored while it's enabled.</p>
+        <div class="x-b-ixlist x-b-ixlist--managed">
+          <div class="x-b-ixrow">
+            <div class="x-b-ixrow__info"><b>My indexer</b><span>https://indexer.example.com</span></div>
+            <span class="x-b-linkbtn">Test</span>
+            <span class="x-b-linkbtn">Edit</span>
+            <span class="x-b-ixrow__x"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+          </div>
+          <div class="x-b-ixrow">
+            <div class="x-b-ixrow__info"><b>Backup indexer</b><span>https://nzb.example.org</span></div>
+            <span class="x-b-linkbtn">Test</span>
+            <span class="x-b-linkbtn">Edit</span>
+            <span class="x-b-ixrow__x"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+          </div>
+        </div>
+        <span class="x-b-btn x-b-btn--disabled">+ Add indexer</span>
+        <p class="x-note">Newznab (the standard indexer API — e.g. NZBgeek) indexers, searched in order; results are merged.</p>
+      </div>
+    </div>
+  </div>
+  <figcaption>
+    <b>Settings → Sources → Usenet</b> with Prowlarr on. The manual list is kept, just ignored,
+    so turning Prowlarr off brings it straight back.
+  </figcaption>
+</figure>
+
 Search behaviour is otherwise identical to hand-configured indexers: results
 merge across every indexer, the strict series-and-number matcher filters them,
 and grabs ride your source priority and download clients.

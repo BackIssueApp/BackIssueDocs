@@ -6,6 +6,82 @@ description: "Every setting in the app, tab by tab, with what it changes and whe
 
 Everything in **Settings**, by tab. The tabs, in order, are **Overview**, **Library**, **Downloading**, **Sources**, **Metadata**, **Plugins** (only shown once an installed plugin mounts a panel there), **Sign-in** and **Notifications**. Library, Sources and Plugins use a master–detail layout: a rail of panels on the left, one panel at a time on the right. Editing anything raises a save bar at the bottom of the page — nothing is written until you press **Save changes** — except library edits, which apply immediately.
 
+<figure class="bi-ex" v-pre>
+  <div class="bi-ex__frame" role="img" aria-label="Settings page on the Sources tab: header with search and Save, the tab row, a rail of source panels beside the Usenet panel, and the unsaved-changes bar at the bottom">
+    <div class="x-b-shell">
+      <div class="x-b-shead">
+        <span class="x-b-btn x-b-btn--sm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Back</span>
+        <span class="x-b-shead__title">Settings</span>
+        <span class="x-b-ssearch"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>Search settings…</span>
+        <span class="x-b-btn x-b-btn--sm">Setup wizard</span>
+        <span class="x-b-btn x-b-btn--primary">Save</span>
+      </div>
+      <div class="x-b-tabs">
+        <span class="x-b-tab"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>Overview</span>
+        <span class="x-b-tab"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Library</span>
+        <span class="x-b-tab"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Downloading</span>
+        <span class="x-b-tab x-b-tab--on"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>Sources<span class="x-b-tab__dot"></span></span>
+        <span class="x-b-tab"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41 12 22l-9-9V3h10l7.59 7.59a2 2 0 0 1 0 2.82z"/><path d="M7.5 7.5h.01"/></svg>Metadata</span>
+        <span class="x-b-tab"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Sign-in</span>
+        <span class="x-b-tab"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Notifications</span>
+      </div>
+      <div class="x-b-sbody">
+        <div class="x-b-split">
+          <div class="x-b-rail">
+          <div class="x-b-rail__item x-b-rail__item--on">
+            <span class="x-b-rail__icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg></span>
+            <span class="x-b-rail__text"><b>Usenet</b><span>Newznab + SABnzbd/NZBGet</span></span>
+            <span class="x-b-dot x-b-dot--green"></span>
+          </div>
+          <div class="x-b-rail__item">
+            <span class="x-b-rail__icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg></span>
+            <span class="x-b-rail__text"><b>Torrents</b><span>Torznab + torrent client</span></span>
+            <span class="x-b-dot x-b-dot--green"></span>
+          </div>
+          <div class="x-b-rail__item">
+            <span class="x-b-rail__icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v18M4 7l4-4 4 4M16 21V3M20 17l-4 4-4-4"/></svg></span>
+            <span class="x-b-rail__text"><b>Source priority</b><span>Which source tries first</span></span>
+            <span class="x-b-dot x-b-dot--green"></span>
+          </div>
+          </div>
+          <div class="x-b-detail">
+            <div class="x-b-scard x-b-srchead">
+              <span class="x-switch" aria-hidden="true"></span>
+              <div class="x-b-srchead__text">
+                <b>Usenet</b>
+                <span>Search Newznab indexers and download via SABnzbd or NZBGet.</span>
+              </div>
+              <span class="x-b-dot x-b-dot--green"></span>
+            </div>
+            <div class="x-b-scard">
+              <h3 class="x-b-scard__head">Indexers</h3>
+              <div class="x-b-ixlist">
+                <div class="x-b-ixrow">
+                  <div class="x-b-ixrow__info"><b>My indexer</b><span>https://indexer.example.com</span></div>
+                  <span class="x-b-linkbtn">Test</span>
+                  <span class="x-b-linkbtn">Edit</span>
+                  <span class="x-b-ixrow__x"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+                </div>
+              </div>
+              <span class="x-b-btn">+ Add indexer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="x-b-savebar">
+        <span class="x-b-savebar__dot"></span>
+        <span class="x-b-savebar__text">You have unsaved changes.</span>
+        <span class="x-b-btn x-b-btn--sm">Discard</span>
+        <span class="x-b-btn x-b-btn--sm x-b-btn--primary">Save changes</span>
+      </div>
+    </div>
+  </div>
+  <figcaption>
+    The Sources tab's rail on the left, one panel at a time on the right. The dot on the tab marks
+    unsaved edits, and nothing is written until <b>Save changes</b>.
+  </figcaption>
+</figure>
+
 Saved values live in `settings.json` in the data directory, next to the database — `/data` in Docker (see [Where your data lives](getting-started#where-your-data-lives)).
 
 Plugins contribute settings of their own. Most land on the **Plugins** tab, but a plugin can also add a panel to Library, Sources, Sign-in or Notifications — so what you see depends on what you have installed.

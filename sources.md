@@ -27,12 +27,80 @@ Both major clients are supported:
 
 Plus a **category** (e.g. `backissue`) so comic downloads stay separate in your client, and a poll interval / timeout for the monitor that watches for finished downloads.
 
+<figure class="bi-ex" v-pre>
+  <div class="bi-ex__frame" role="img" aria-label="Settings, Sources, Usenet panel: the source switched on, two Newznab indexers that tested OK, and the SABnzbd download client fields">
+    <div class="x-b-detail">
+      <div class="x-b-scard x-b-srchead">
+        <span class="x-switch" aria-hidden="true"></span>
+        <div class="x-b-srchead__text">
+          <b>Usenet</b>
+          <span>Search Newznab indexers and download via SABnzbd or NZBGet.</span>
+        </div>
+        <span class="x-b-dot x-b-dot--green"></span>
+      </div>
+      <div class="x-b-scard">
+        <h3 class="x-b-scard__head">Indexers <span class="x-pin">1</span></h3>
+        <div class="x-b-ixlist">
+          <div class="x-b-ixrow">
+            <div class="x-b-ixrow__info"><b>My indexer</b><span>https://indexer.example.com</span></div>
+            <span class="x-b-ixrow__ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> OK</span>
+            <span class="x-b-linkbtn">Test</span>
+            <span class="x-b-linkbtn">Edit</span>
+            <span class="x-b-ixrow__x"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+          </div>
+          <div class="x-b-ixrow">
+            <div class="x-b-ixrow__info"><b>Backup indexer</b><span>https://nzb.example.org</span></div>
+            <span class="x-b-ixrow__ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> OK</span>
+            <span class="x-b-linkbtn">Test</span>
+            <span class="x-b-linkbtn">Edit</span>
+            <span class="x-b-ixrow__x"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+          </div>
+        </div>
+        <span class="x-b-btn">+ Add indexer</span>
+        <p class="x-note">Newznab (the standard indexer API — e.g. NZBgeek) indexers, searched in order; results are merged.</p>
+      </div>
+      <div class="x-b-scard">
+        <h3 class="x-b-scard__head">Download client <span class="x-pin">2</span></h3>
+        <div class="x-field"><span class="x-label">Client</span><div class="x-input x-b-select">SABnzbd<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></div></div>
+        <div class="x-field"><span class="x-label">Host</span><div class="x-input">192.168.1.10</div></div>
+        <div class="x-field"><span class="x-label">Port</span><div class="x-input">8080</div></div>
+        <div class="x-field"><span class="x-label">URL base</span><div class="x-input x-b-ph">blank, or e.g. /sabnzbd</div></div>
+        <div class="x-check"><span class="x-b-cbox"></span><span>Use HTTPS</span></div>
+        <div class="x-field"><span class="x-label">API key</span><div class="x-input">••••••••••••••••</div></div>
+        <div class="x-field"><span class="x-label">Category</span><div class="x-input x-b-plain">backissue</div></div>
+        <div class="x-b-test"><span class="x-b-btn">Test connection</span></div>
+      </div>
+    </div>
+  </div>
+  <figcaption>
+    <span class="x-pin">1</span> Each indexer has its own <b>Test</b>; every one listed is searched and the results merged.
+    <span class="x-pin">2</span> The client card swaps the API key for username and password when you pick NZBGet.
+  </figcaption>
+</figure>
+
 ### Completed-download paths
 
 If BackIssue and your Usenet client run on **different machines** (or one is in Docker), the client's "completed downloads" folder has two names — the path *the client* sees and the path *BackIssue* sees. Set both:
 
 - **Completed folder (client's view)** — e.g. `/downloads/complete/backissue`
 - **Completed folder (BackIssue's view)** — e.g. `\\NAS\downloads\complete\backissue`
+
+<figure class="bi-ex" v-pre>
+  <div class="bi-ex__frame" role="img" aria-label="Completed downloads card with the folder as this app sees it and as the download client sees it">
+    <div class="x-b-detail">
+      <div class="x-b-scard">
+        <h3 class="x-b-scard__head">Completed downloads</h3>
+        <div class="x-field"><span class="x-label">Folder (this app's view)</span><div class="x-input">\\NAS\downloads\complete\backissue</div></div>
+        <div class="x-field"><span class="x-label">Folder (client's view)</span><div class="x-input">/downloads/complete/backissue</div></div>
+        <p class="x-note">Only needed if the client runs on another machine. Map the folder it writes finished downloads to (client's view) onto the path this app reads it at over the network. <code>.cbr</code> releases are converted to <code>.cbz</code> so they can be tagged.</p>
+      </div>
+    </div>
+  </div>
+  <figcaption>
+    In the app the two fields are labelled <b>this app's view</b> (BackIssue's) and <b>client's view</b>.
+    Both point at the same folder.
+  </figcaption>
+</figure>
 
 If both run on the same machine with the same paths, set just one (or neither, if the client reports absolute paths BackIssue can read).
 
@@ -135,6 +203,41 @@ then the larger file.
 ## Source priority
 
 Settings lists every enabled source in a drag-to-reorder priority list. For each issue, sources are tried **top to bottom — first match wins**, so put your fastest/cleanest source first and slower or scarcer ones lower as fallbacks.
+
+<figure class="bi-ex" v-pre>
+  <div class="bi-ex__frame" role="img" aria-label="Source priority panel listing four enabled sources in order, each with move-up and move-down buttons">
+    <div class="x-b-detail">
+      <h3 class="x-title">Source priority</h3>
+      <p class="x-sub">When more than one source can serve an issue, they're tried top-to-bottom — the first with a match wins.</p>
+      <div class="x-b-scard">
+      <div class="x-b-pri">
+        <span class="x-b-pri__rank">1</span><span class="x-b-pri__name">Usenet</span>
+        <span class="x-b-pri__btn x-b-pri__btn--off"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>
+        <span class="x-b-pri__btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span>
+      </div>
+      <div class="x-b-pri">
+        <span class="x-b-pri__rank">2</span><span class="x-b-pri__name">Torrent</span>
+        <span class="x-b-pri__btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>
+        <span class="x-b-pri__btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span>
+      </div>
+      <div class="x-b-pri">
+        <span class="x-b-pri__rank">3</span><span class="x-b-pri__name">AirDC++</span>
+        <span class="x-b-pri__btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>
+        <span class="x-b-pri__btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span>
+      </div>
+      <div class="x-b-pri">
+        <span class="x-b-pri__rank">4</span><span class="x-b-pri__name">MangaDex</span>
+        <span class="x-b-pri__btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>
+        <span class="x-b-pri__btn x-b-pri__btn--off"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span>
+      </div>
+      </div>
+    </div>
+  </div>
+  <figcaption>
+    The arrows move a source up or down; the top source is asked first. The panel appears in the
+    Sources rail once two or more sources are enabled.
+  </figcaption>
+</figure>
 
 Priority also shapes *manual* search result ranking and pack searches.
 

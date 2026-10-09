@@ -67,6 +67,77 @@ decide for yourself.
 | **done** | Downloaded, tagged, and filed — you own it |
 | **failed** | Every source came up empty or errored (the reason is recorded; see Logs) |
 
+<figure class="bi-ex" v-pre>
+  <div class="bi-ex__frame" role="img" aria-label="Six issue rows on a series page, each with its status badge: saved, sent, saving, queued, failed and new">
+    <div class="x-b-issues">
+      <div class="x-b-issue x-b-issue--owned">
+        <span class="x-b-check"></span>
+        <span class="x-b-inum">49</span>
+        <span class="x-b-ititle">Chapter Forty-Nine</span>
+        <span class="x-b-icol x-b-icol--date">2018-02-01</span>
+        <span class="x-b-icol x-b-icol--pages">22p</span>
+        <span class="x-b-icol x-b-icol--size">41.6 MB</span>
+        <span class="x-b-ifmt">CBZ</span>
+        <span class="x-b-ibadge"><span class="x-badge x-b-badge--done">saved</span></span>
+      </div>
+      <div class="x-b-issue">
+        <span class="x-b-check"></span>
+        <span class="x-b-inum">50</span>
+        <span class="x-b-ititle">Chapter Fifty</span>
+        <span class="x-b-icol x-b-icol--date">2018-03-01</span>
+        <span class="x-b-icol x-b-icol--pages"></span>
+        <span class="x-b-icol x-b-icol--size"></span>
+        <span class="x-b-ifmt x-b-ifmt--none"></span>
+        <span class="x-b-ibadge"><span class="x-badge x-badge--queued">sent</span></span>
+      </div>
+      <div class="x-b-issue">
+        <span class="x-b-check"></span>
+        <span class="x-b-inum">51</span>
+        <span class="x-b-ititle">Chapter Fifty-One</span>
+        <span class="x-b-icol x-b-icol--date">2018-04-01</span>
+        <span class="x-b-icol x-b-icol--pages"></span>
+        <span class="x-b-icol x-b-icol--size"></span>
+        <span class="x-b-ifmt x-b-ifmt--none"></span>
+        <span class="x-b-ibadge"><span class="x-badge x-badge--downloading">saving</span></span>
+      </div>
+      <div class="x-b-issue">
+        <span class="x-b-check"></span>
+        <span class="x-b-inum">52</span>
+        <span class="x-b-ititle">Chapter Fifty-Two</span>
+        <span class="x-b-icol x-b-icol--date">2018-05-01</span>
+        <span class="x-b-icol x-b-icol--pages"></span>
+        <span class="x-b-icol x-b-icol--size"></span>
+        <span class="x-b-ifmt x-b-ifmt--none"></span>
+        <span class="x-b-ibadge"><span class="x-badge x-badge--queued">queued</span></span>
+      </div>
+      <div class="x-b-issue">
+        <span class="x-b-check"></span>
+        <span class="x-b-inum">53</span>
+        <span class="x-b-ititle">Chapter Fifty-Three</span>
+        <span class="x-b-icol x-b-icol--date">2018-06-01</span>
+        <span class="x-b-icol x-b-icol--pages"></span>
+        <span class="x-b-icol x-b-icol--size"></span>
+        <span class="x-b-ifmt x-b-ifmt--none"></span>
+        <span class="x-b-ibadge"><span class="x-badge x-badge--failed">failed</span></span>
+      </div>
+      <div class="x-b-issue">
+        <span class="x-b-check"></span>
+        <span class="x-b-inum">54</span>
+        <span class="x-b-ititle">Chapter Fifty-Four</span>
+        <span class="x-b-icol x-b-icol--date">2018-07-01</span>
+        <span class="x-b-icol x-b-icol--pages"></span>
+        <span class="x-b-icol x-b-icol--size"></span>
+        <span class="x-b-ifmt x-b-ifmt--none"></span>
+        <span class="x-b-ibadge"><span class="x-badge">new</span></span>
+      </div>
+    </div>
+  </div>
+  <figcaption>
+    On a series page the badges use shorter words: <b>pending</b> shows as <i>new</i>,
+    <b>downloading</b> as <i>saving</i>, <b>grabbed</b> as <i>sent</i> and <b>done</b> as <i>saved</i>.
+  </figcaption>
+</figure>
+
 Failed issues can be re-queued any time — sources change constantly, so a miss today often succeeds next week.
 
 ### What happens after a failure
@@ -102,6 +173,81 @@ The **Queue** section shows the whole pipeline live. Every downloading item has 
 - **Downloading** — with page/byte progress and speed, or a percentage and seeders for torrents.
 - **Importing / Tagging** — converting, embedding metadata, and filing.
 
+<figure class="bi-ex" v-pre>
+  <div class="bi-ex__frame" role="img" aria-label="Four rows of the download queue: one searching, one downloading over Usenet, one torrent with seeders, one tagging, and one failed with its reason">
+    <div class="x-qrow">
+      <div class="x-cover">#12</div>
+      <div class="x-main">
+        <div class="x-series">The Department of Truth</div>
+        <div class="x-release">The Department of Truth #012</div>
+        <div class="x-live">
+          <div class="x-track"><div class="x-fill x-fill--indet"></div></div>
+          <span class="x-meta"><b>Searching</b> · looking for a source…</span>
+        </div>
+      </div>
+      <div class="x-end"><span class="x-badge x-badge--queued">queued</span></div>
+    </div>
+    <div class="x-qrow">
+      <div class="x-cover">#54</div>
+      <div class="x-main">
+        <div class="x-series">Saga</div>
+        <div class="x-release">Saga 054 (2018) (Digital) (Zone-Empire).cbz</div>
+        <div class="x-live">
+          <div class="x-track"><div class="x-fill" style="width:62%"></div></div>
+          <span class="x-meta"><span class="x-src x-src--usenet">usenet</span><b>Downloading</b> · 31.2 MB / 50.4 MB · 4.1 MB/s · 62%</span>
+        </div>
+      </div>
+      <div class="x-end">
+        <span class="x-badge x-badge--downloading">saving</span>
+        <span class="x-act" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+      </div>
+    </div>
+    <div class="x-qrow">
+      <div class="x-cover">#88</div>
+      <div class="x-main">
+        <div class="x-series">Nightwing</div>
+        <div class="x-release">Nightwing 088 (2022) (Webrip) (The Last Kryptonian-DCP).cbr</div>
+        <div class="x-live">
+          <div class="x-track"><div class="x-fill" style="width:34%"></div></div>
+          <span class="x-meta"><span class="x-src x-src--torrent">torrent</span><b>Downloading</b> · 34% · 21 seeders</span>
+        </div>
+      </div>
+      <div class="x-end">
+        <span class="x-badge x-badge--downloading">saving</span>
+        <span class="x-act" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+      </div>
+    </div>
+    <div class="x-qrow">
+      <div class="x-cover">#1</div>
+      <div class="x-main">
+        <div class="x-series">Immortal Hulk</div>
+        <div class="x-release">Immortal Hulk 001 (2018) (Digital) (Zone-Empire).cbz</div>
+        <div class="x-live">
+          <div class="x-track"><div class="x-fill x-fill--green" style="width:100%"></div></div>
+          <span class="x-meta"><b>Tagging</b> · 100%</span>
+        </div>
+      </div>
+      <div class="x-end"><span class="x-badge x-badge--tagging">tagging</span></div>
+    </div>
+    <div class="x-qrow x-qrow--failed">
+      <div class="x-cover">#7</div>
+      <div class="x-main">
+        <div class="x-series">Something is Killing the Children</div>
+        <div class="x-release">Something is Killing the Children #007</div>
+        <div class="x-err">No enabled source had a match for this issue</div>
+      </div>
+      <div class="x-end">
+        <span class="x-badge x-badge--failed">failed</span>
+        <span class="x-act" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></span>
+      </div>
+    </div>
+  </div>
+  <figcaption>
+    Each row carries its own bar and phase. A <b>failed</b> row says why on the row itself,
+    and its ↻ button re-queues just that issue.
+  </figcaption>
+</figure>
+
 You can **pause and resume** the whole queue, **retry** or **clear** failed items, and **cancel** individual downloads. If the app restarts mid-download, the queue resumes on its own.
 
 **Books and audiobooks queue here too.** A book being searched for, downloaded
@@ -130,6 +276,72 @@ unfixed.
 - **History → Blocklist** lists blocked releases with the reason they failed. Remove one to allow it to be auto-grabbed again, or clear the whole list. A **manual** [source search](#manual-searches) is never filtered — if you deliberately pick a blocked release, that choice stands.
 - Blocks do not expire. A release stays blocked until you remove it.
 
+<figure class="bi-ex" v-pre>
+  <div class="bi-ex__frame" role="img" aria-label="History page on the Blocklist filter: three blocked Usenet releases, each with the release name, the failure reason, a Remove button and a source badge">
+    <div class="x-b-page">
+      <div class="x-b-head">
+        <span class="x-b-iconbtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span>
+        <span class="x-b-ptitle">History</span>
+        <span class="x-b-summary">3 blocked releases</span>
+        <div class="x-b-right">
+          <span class="x-b-find"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>Filter…</span>
+          <span class="x-b-clear">Clear all <span class="x-pin">2</span></span>
+        </div>
+      </div>
+      <div class="x-b-stats">
+        <div class="x-b-stat">
+          <div class="x-b-stat__lbl"><span class="x-b-stat__dot" style="background:var(--x-amber)"></span>Blocked</div>
+          <div class="x-b-stat__val">3</div>
+        </div>
+      </div>
+      <div class="x-b-chips">
+        <span class="x-b-chip">All</span>
+        <span class="x-b-chip"><span class="x-b-chip__dot" style="background:var(--x-green)"></span>Usenet</span>
+        <span class="x-b-chip"><span class="x-b-chip__dot" style="background:var(--x-cyan)"></span>Torrent</span>
+        <span class="x-b-chipsep"></span>
+        <span class="x-b-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>Failed</span>
+        <span class="x-b-chip x-b-chip--block"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M5.64 5.64l12.72 12.72"/></svg>Blocklist</span>
+      </div>
+      <div class="x-b-hday">Today</div>
+      <div class="x-b-hrow x-b-hrow--hover">
+        <span class="x-b-hico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M5.64 5.64l12.72 12.72"/></svg></span>
+        <div class="x-b-hmain">
+          <div class="x-b-hline"><b>Saga</b><span class="x-b-hnum"> #54</span> <span class="x-pin">1</span></div>
+          <div class="x-b-hdetail">Saga 054 (2018) (Zone-Empire) · failed par2 repair</div>
+        </div>
+        <span class="x-b-htime">14:02</span>
+        <span class="x-b-hremove">Remove</span>
+        <span class="x-b-srcb x-b-srcb--usenet">usenet</span>
+      </div>
+      <div class="x-b-hrow">
+        <span class="x-b-hico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M5.64 5.64l12.72 12.72"/></svg></span>
+        <div class="x-b-hmain">
+          <div class="x-b-hline"><b>Nightwing</b><span class="x-b-hnum"> #88</span></div>
+          <div class="x-b-hdetail">Nightwing 088 (2022) (Webrip-DCP) · missing articles</div>
+        </div>
+        <span class="x-b-htime">09:41</span>
+        <span class="x-b-hremove">Remove</span>
+        <span class="x-b-srcb x-b-srcb--usenet">usenet</span>
+      </div>
+      <div class="x-b-hday">Yesterday</div>
+      <div class="x-b-hrow">
+        <span class="x-b-hico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M5.64 5.64l12.72 12.72"/></svg></span>
+        <div class="x-b-hmain">
+          <div class="x-b-hline"><b>Immortal Hulk</b><span class="x-b-hnum"> #12</span></div>
+          <div class="x-b-hdetail">Immortal Hulk 012 (2019) (Digital) · damaged archive</div>
+        </div>
+        <span class="x-b-htime">22:17</span>
+        <span class="x-b-hremove">Remove</span>
+        <span class="x-b-srcb x-b-srcb--usenet">usenet</span>
+      </div>
+    </div>
+  </div>
+  <figcaption>
+    <span class="x-pin">1</span> Each blocked release shows its exact name and why it failed; <b>Remove</b> makes
+    that one eligible for auto-grab again. <span class="x-pin">2</span> <b>Clear all</b> empties the list.
+  </figcaption>
+</figure>
+
 This applies to Usenet only; torrents are never blocked automatically, and their seeding and removal are managed in your torrent client.
 
 ## Manual searches
@@ -138,6 +350,68 @@ Sometimes you want to pick the exact release yourself:
 
 - **Search sources** (on any issue) queries *every* enabled source at once and shows a single ranked list — release name, size, source badge, and quality signals. Pick one and it downloads through the normal pipeline, bypassing automatic selection.
 - Your pick is **pinned** to that issue: the queue uses your chosen release rather than re-searching.
+
+<figure class="bi-ex" v-pre>
+  <div class="bi-ex__frame" role="img" aria-label="Search sources dialog for Saga #54: a search box, the queries that were searched, and five releases from Usenet, torrent and AirDC++ sources, each with a Download button">
+    <div class="x-b-srch">
+      <div class="x-b-srch__head">
+        <div class="x-b-srch__icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg></div>
+        <div class="x-b-srch__titles">
+          <div class="x-b-srch__title">Search sources</div>
+          <div class="x-b-srch__sub">Saga #54</div>
+        </div>
+        <span class="x-b-srch__x"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+      </div>
+      <div class="x-b-srch__searchrow">
+        <div class="x-b-srch__field"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>Series and issue, or any query…</div>
+        <span class="x-b-srch__go">Search</span>
+      </div>
+      <div class="x-b-srch__searched"><span class="x-b-srch__slabel">Searched</span><span class="x-b-srch__chip">Saga 054</span><span class="x-b-srch__chip">Saga 54</span></div>
+      <div class="x-b-srch__results">
+        <div class="x-b-srch__row x-b-srch__row--hover">
+          <div class="x-b-srch__info">
+            <div class="x-b-srch__toprow"><span class="x-b-srcb x-b-srcb--usenet">usenet</span><span class="x-b-srch__rtitle">Saga 054 (2018) (Digital) (Zone-Empire)</span></div>
+            <div class="x-b-srch__rmeta"><span>48.2 MB</span></div>
+          </div>
+          <span class="x-b-srch__grab">Download</span>
+        </div>
+        <div class="x-b-srch__row">
+          <div class="x-b-srch__info">
+            <div class="x-b-srch__toprow"><span class="x-b-srcb x-b-srcb--torrent">torrent</span><span class="x-b-srch__rtitle">Saga 054 (2018) (digital) (Son of Ultron-Empire).cbr</span></div>
+            <div class="x-b-srch__rmeta"><span>52.9 MB</span><span style="color:var(--x-green)">▲ 143</span></div>
+          </div>
+          <span class="x-b-srch__grab">Download</span>
+        </div>
+        <div class="x-b-srch__row">
+          <div class="x-b-srch__info">
+            <div class="x-b-srch__toprow"><span class="x-b-srcb x-b-srcb--other">airdcpp</span><span class="x-b-srch__rtitle">Saga 054 (2018) (Digital) (Zone-Empire).cbz</span></div>
+            <div class="x-b-srch__rmeta"><span>48.2 MB</span></div>
+          </div>
+          <span class="x-b-srch__grab">Download</span>
+        </div>
+        <div class="x-b-srch__row">
+          <div class="x-b-srch__info">
+            <div class="x-b-srch__toprow"><span class="x-b-srcb x-b-srcb--usenet">usenet</span><span class="x-b-srch__rtitle">Saga 054 (2018) (Webrip) (The Last Kryptonian-DCP)</span></div>
+            <div class="x-b-srch__rmeta"><span>36.1 MB</span></div>
+          </div>
+          <span class="x-b-srch__grab">Download</span>
+        </div>
+        <div class="x-b-srch__row">
+          <div class="x-b-srch__info">
+            <div class="x-b-srch__toprow"><span class="x-b-srcb x-b-srcb--torrent">torrent</span><span class="x-b-srch__pack">Pack</span><span class="x-b-srch__rtitle">Saga (2012) 001-054 (Digital) (Zone-Empire)</span></div>
+            <div class="x-b-srch__rmeta"><span>2.4 GB</span><span style="color:var(--x-faint)">▲ 12</span></div>
+          </div>
+          <span class="x-b-srch__grab">Download</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <figcaption>
+    Every enabled source answers in one ranked list. The search runs as soon as the dialog opens;
+    type your own query to override it. A <b>Pack</b> tag marks a multi-issue release, and seeders
+    are coloured by health.
+  </figcaption>
+</figure>
 
 ## Packs
 
@@ -160,6 +434,105 @@ Multi-issue collections ("packs") are the fastest way to fill a mostly-empty ser
 **Sidebar → Wanted** lists every issue automation is going after — each series' [monitoring policy](collection#monitoring) plus the issues you picked by hand. Rows say why they're there (*picked* when you asked for one yourself), and each series shows its policy. The [wanted-search schedule](automation) works through this list automatically on a timer, in batches, so long backfills happen gradually without flooding your sources.
 
 Switch the **All gaps** chip on to see every missing issue of every series, wanted or not — the honest "what don't I have" view — and want any of them with one click. Sort by series, newest or oldest release, or the series with the most (or fewest) wanted issues. Tick rows (shift-click selects a range) for the bulk bar: **Want**, **Don't want**, **Download selected**. Skipping a queued or failed issue takes it out of the queue.
+
+<figure class="bi-ex" v-pre>
+  <div class="bi-ex__frame" role="img" aria-label="Wanted page: totals, the Wanted and All gaps chips, a bulk bar for two selected issues, a monitored series with three wanted issues and an unmonitored series with one picked issue">
+    <div class="x-b-page">
+      <div class="x-b-head">
+        <span class="x-b-iconbtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span>
+        <span class="x-b-ptitle">Wanted</span>
+        <span class="x-b-summary">41 wanted issues</span>
+        <div class="x-b-right">
+          <span class="x-b-find"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>Filter series…</span>
+          <span class="x-b-dlall"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Download shown</span>
+        </div>
+      </div>
+      <div class="x-b-stats">
+        <div class="x-b-stat"><div class="x-b-stat__lbl"><span class="x-b-stat__dot" style="background:var(--x-amber)"></span>Wanted</div><div class="x-b-stat__val" style="color:var(--x-amber)">41</div></div>
+        <div class="x-b-stat"><div class="x-b-stat__lbl"><span class="x-b-stat__dot" style="background:var(--x-cyan)"></span>In flight</div><div class="x-b-stat__val" style="color:var(--x-cyan)">1</div></div>
+        <div class="x-b-stat"><div class="x-b-stat__lbl"><span class="x-b-stat__dot" style="background:var(--x-red)"></span>Failed</div><div class="x-b-stat__val" style="color:var(--x-red)">1</div></div>
+        <div class="x-b-stat"><div class="x-b-stat__lbl"><span class="x-b-stat__dot" style="background:var(--x-muted)"></span>Series</div><div class="x-b-stat__val" style="color:var(--x-muted)">7</div></div>
+      </div>
+      <div class="x-b-chips">
+        <span class="x-b-chip x-b-chip--on">Wanted</span>
+        <span class="x-b-chip">All gaps <span class="x-pin">1</span></span>
+        <span class="x-b-chipsep"></span>
+        <span class="x-b-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01z"/></svg>Following</span>
+        <span class="x-b-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.53 13.53 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><path d="m2 2 20 20"/></svg>Hide unreleased</span>
+        <span class="x-b-sort"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v18M4 7l4-4 4 4M16 21V3M20 17l-4 4-4-4"/></svg><span class="x-b-sort__sel">Series A–Z<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span></span>
+      </div>
+      <div class="x-b-bulk">
+        <span class="x-b-bulk__count">2 selected <span class="x-pin">2</span></span>
+        <span class="x-b-bulk__btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>Want</span>
+        <span class="x-b-bulk__btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M5.64 5.64l12.72 12.72"/></svg>Don't want</span>
+        <span class="x-b-bulk__btn x-b-bulk__btn--primary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Download selected</span>
+        <span class="x-b-bulk__btn x-b-bulk__btn--ghost">Clear</span>
+      </div>
+      <div class="x-b-wcard">
+        <div class="x-b-wseries">
+          <span class="x-b-check"></span>
+          <span class="x-b-wcover">DoT</span>
+          <div class="x-b-wmain">
+            <div class="x-b-wtitle">The Department of Truth<span class="x-b-wstar"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01z"/></svg></span><span class="x-b-mon x-b-mon--all">monitored</span></div>
+            <div class="x-b-wprog"><span class="x-b-wtrack"><span class="x-b-wfill" style="width:89%"></span></span><span class="x-b-wnum">25/28</span></div>
+          </div>
+          <span class="x-b-misspill">3 wanted</span>
+          <span class="x-b-chev x-b-chev--open"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span>
+        </div>
+        <div class="x-b-wissues">
+          <div class="x-b-wrow x-b-wrow--sel">
+            <span class="x-b-check x-b-check--on"></span>
+            <span class="x-b-wnumc">#26</span>
+            <span class="x-b-wname">—</span>
+            <span class="x-b-wdl"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Download</span>
+            <span class="x-b-wwant"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M5.64 5.64l12.72 12.72"/></svg></span>
+          </div>
+          <div class="x-b-wrow x-b-wrow--sel">
+            <span class="x-b-check x-b-check--on"></span>
+            <span class="x-b-wnumc">#27</span>
+            <span class="x-b-wname">—</span>
+            <span class="x-b-wretry"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>Retry</span>
+            <span class="x-b-wwant"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M5.64 5.64l12.72 12.72"/></svg></span>
+          </div>
+          <div class="x-b-wrow">
+            <span class="x-b-check"></span>
+            <span class="x-b-wnumc">#28</span>
+            <span class="x-b-wname">—</span>
+            <span class="x-badge x-badge--queued">queued</span>
+            <span class="x-b-wwant"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M5.64 5.64l12.72 12.72"/></svg></span>
+          </div>
+        </div>
+      </div>
+      <div class="x-b-wcard">
+        <div class="x-b-wseries">
+          <span class="x-b-check"></span>
+          <span class="x-b-wcover">B</span>
+          <div class="x-b-wmain">
+            <div class="x-b-wtitle">Batman<span class="x-b-mon">not monitored</span></div>
+            <div class="x-b-wprog"><span class="x-b-wtrack"><span class="x-b-wfill" style="width:12%"></span></span><span class="x-b-wnum">19/158</span></div>
+          </div>
+          <span class="x-b-misspill">1 wanted</span>
+          <span class="x-b-chev x-b-chev--open"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span>
+        </div>
+        <div class="x-b-wissues">
+          <div class="x-b-wrow">
+            <span class="x-b-check"></span>
+            <span class="x-b-wnumc">#1</span>
+            <span class="x-b-wname">I Am Gotham, Part One</span>
+            <span class="x-b-why">picked</span>
+            <span class="x-b-wdl"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Download</span>
+            <span class="x-b-wwant"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M5.64 5.64l12.72 12.72"/></svg></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <figcaption>
+    Each series shows its policy (<i>monitored</i>, <i>new from #N</i> or <i>not monitored</i>) and a
+    <i>picked</i> tag marks an issue you asked for yourself. <span class="x-pin">1</span> <b>All gaps</b> widens
+    the list to every missing issue. <span class="x-pin">2</span> Ticking rows brings up the bulk bar.
+  </figcaption>
+</figure>
 
 ## Weekly releases
 

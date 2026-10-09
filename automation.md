@@ -10,6 +10,55 @@ Set it up once and BackIssue keeps your collection current on its own.
 
 **System → Jobs** shows every schedule with its cron expression, an enable toggle, last-run result, and a **Run now** button.
 
+<figure class="bi-ex" v-pre>
+  <div class="bi-ex__frame" role="img" aria-label="System, Jobs tab, Scheduled tasks: five schedules with enable toggles, cron patterns, next-run times and Run now buttons; one is running and three are off">
+    <h3 class="x-d-h">Scheduled tasks</h3>
+    <p class="x-d-note">Toggle a task on and set when it runs with a cron pattern — <code>min hour day month weekday</code>. Examples: <code>0 9 * * 3</code> = Wednesdays 9am · <code>0 */12 * * *</code> = every 12 hours. A run missed while the app was off catches up once at the next start.</p>
+    <div class="x-d-scheds">
+      <div class="x-d-sched x-d-sched--run">
+        <span class="x-d-sw x-d-sw--on" aria-hidden="true"></span>
+        <div class="x-d-schedid"><div class="x-d-schedlabel">Check this week's releases <span class="x-pin">1</span></div><div class="x-d-schedlast">last run 3m ago</div></div>
+        <span class="x-d-cron">0 */12 * * *</span>
+        <span class="x-d-next x-d-next--run">running 3m</span>
+        <span class="x-d-ghost x-d-ghost--sched x-d-ghost--off">Running…</span>
+      </div>
+      <div class="x-d-sched x-d-sched--off">
+        <span class="x-d-sw" aria-hidden="true"></span>
+        <div class="x-d-schedid"><div class="x-d-schedlabel">Grab weekly 0-Day pack (torrent)</div><div class="x-d-schedlast">last run 214h ago</div></div>
+        <span class="x-d-cron">0 9 * * 3</span>
+        <span class="x-d-next x-d-next--off">off</span>
+        <span class="x-d-ghost x-d-ghost--sched">Run now</span>
+      </div>
+      <div class="x-d-sched x-d-sched--off">
+        <span class="x-d-sw" aria-hidden="true"></span>
+        <div class="x-d-schedid"><div class="x-d-schedlabel">Search wanted issues (backfill)</div><div class="x-d-schedlast">last run 214h ago</div></div>
+        <span class="x-d-cron">0 2 * * *</span>
+        <span class="x-d-next x-d-next--off">off</span>
+        <span class="x-d-ghost x-d-ghost--sched">Run now</span>
+      </div>
+      <div class="x-d-sched x-d-sched--off">
+        <span class="x-d-sw" aria-hidden="true"></span>
+        <div class="x-d-schedid"><div class="x-d-schedlabel">Watch indexer RSS for releases</div><div class="x-d-schedlast">last run 214h ago</div></div>
+        <span class="x-d-cron">*/15 * * * *</span>
+        <span class="x-d-next x-d-next--off">off <span class="x-pin">2</span></span>
+        <span class="x-d-ghost x-d-ghost--sched">Run now</span>
+      </div>
+      <div class="x-d-sched">
+        <span class="x-d-sw x-d-sw--on" aria-hidden="true"></span>
+        <div class="x-d-schedid"><div class="x-d-schedlabel">Back up database</div><div class="x-d-schedlast">last run 52h ago</div></div>
+        <span class="x-d-cron">0 5 * * 1</span>
+        <span class="x-d-next">in 115h 52m</span>
+        <span class="x-d-ghost x-d-ghost--sched">Run now</span>
+      </div>
+    </div>
+  </div>
+  <figcaption>
+    The top of <b>System → Jobs</b>. Each row is one schedule: toggle, cron pattern, when it runs next, and <b>Run now</b>.
+    <span class="x-pin">1</span> A job runs one instance at a time, so a running one can't be started again.
+    <span class="x-pin">2</span> Shipped-off lanes already carry a cron — flick the toggle and they start.
+  </figcaption>
+</figure>
+
 | Job | What it does | Ships |
 |---|---|---|
 | **Releases check** | Fetches this week's releases and flags new issues of your monitored series | **On**, twice daily |
@@ -76,6 +125,62 @@ It has three views:
 - **Blocklist** — releases that failed badly enough to be barred from automatic
   grabs, with why. Remove one to let it be grabbed again, or clear the lot. A
   [manual source search](downloads#manual-searches) is never filtered by it.
+
+<figure class="bi-ex" v-pre>
+  <div class="bi-ex__frame" role="img" aria-label="History page showing imports grouped by day, with import counts per source, source filter chips, and the Failed and Blocklist views">
+    <div class="x-d-head" style="border-bottom:0;padding-bottom:0">
+      <span class="x-d-iconbtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span>
+      <h3 class="x-d-h2">History</h3>
+      <span class="x-d-summary">1,284 imports</span>
+      <div class="x-d-find x-d-push"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg><span class="x-d-findbox">Filter…</span></div>
+    </div>
+    <div class="x-d-stats">
+      <div class="x-d-stat"><div class="x-d-statlbl"><span class="x-d-dot7" style="background:var(--x-green)"></span>Imports</div><div class="x-d-statval">1,284</div></div>
+      <div class="x-d-stat"><div class="x-d-statlbl"><span class="x-d-dot7" style="background:var(--x-green)"></span>usenet</div><div class="x-d-statval">131</div></div>
+      <div class="x-d-stat"><div class="x-d-statlbl"><span class="x-d-dot7" style="background:var(--x-cyan)"></span>torrent</div><div class="x-d-statval">54</div></div>
+      <div class="x-d-stat"><div class="x-d-statlbl"><span class="x-d-dot7" style="background:var(--x-accent)"></span>web</div><div class="x-d-statval">15</div></div>
+    </div>
+    <div class="x-d-hchips">
+      <span class="x-d-hchip x-d-hchip--on">All</span>
+      <span class="x-d-hchip"><span class="x-d-dot7" style="background:var(--x-green)"></span>usenet</span>
+      <span class="x-d-hchip"><span class="x-d-dot7" style="background:var(--x-cyan)"></span>torrent</span>
+      <span class="x-d-hchip"><span class="x-d-dot7" style="background:var(--x-accent)"></span>web</span>
+      <span class="x-d-divider"></span>
+      <span class="x-d-hchip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg> Failed</span>
+      <span class="x-d-hchip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M5.64 5.64l12.72 12.72"/></svg> Blocklist</span>
+    </div>
+    <div class="x-d-day">Today</div>
+    <div class="x-d-hrow">
+      <span class="x-d-hico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+      <div class="x-d-hmain"><div class="x-d-hline">Saga<span class="x-d-hnum"> #54</span></div></div>
+      <span class="x-d-htime">09:41</span>
+      <span class="x-d-hsrc x-d-hsrc--usenet">usenet</span>
+    </div>
+    <div class="x-d-hrow">
+      <span class="x-d-hico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+      <div class="x-d-hmain"><div class="x-d-hline">Nightwing<span class="x-d-hnum"> #88</span></div></div>
+      <span class="x-d-htime">08:17</span>
+      <span class="x-d-hsrc x-d-hsrc--torrent">torrent</span>
+    </div>
+    <div class="x-d-hrow">
+      <span class="x-d-hico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+      <div class="x-d-hmain"><div class="x-d-hline">Immortal Hulk<span class="x-d-hnum"> #1</span></div></div>
+      <span class="x-d-htime">02:05</span>
+      <span class="x-d-hsrc x-d-hsrc--web">web</span>
+    </div>
+    <div class="x-d-day">Yesterday</div>
+    <div class="x-d-hrow">
+      <span class="x-d-hico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+      <div class="x-d-hmain"><div class="x-d-hline">The Department of Truth<span class="x-d-hnum"> #11</span></div></div>
+      <span class="x-d-htime">21:33</span>
+      <span class="x-d-hsrc x-d-hsrc--usenet">usenet</span>
+    </div>
+  </div>
+  <figcaption>
+    <b>History</b> in its default view: imports grouped by day, each tagged with the source that served it — hover a row in the app for where the file went.
+    The <b>Failed</b> and <b>Blocklist</b> chips switch to the other two views.
+  </figcaption>
+</figure>
 
 ## Logs
 

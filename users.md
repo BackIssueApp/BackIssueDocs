@@ -21,6 +21,64 @@ A fresh install **asks you to create the admin account before anything else** �
 
 Guard rails prevent lock-out: you can't demote, disable, or delete your own account, and there must always be at least one active admin.
 
+<figure class="bi-ex" v-pre>
+  <div class="bi-ex__frame" role="img" aria-label="Users page, Accounts tab: four accounts with their role, last sign-in, an SSO badge, one disabled account, and no actions on your own row">
+    <div class="x-d-head">
+      <span class="x-d-iconbtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span>
+      <h3 class="x-d-h2">Users</h3>
+      <span class="x-d-summary">4 accounts</span>
+      <span class="x-d-reg x-d-push"><span class="x-d-sw" aria-hidden="true"></span>Allow self-registration <span class="x-d-regnote">(new accounts start as viewers)</span></span>
+    </div>
+    <div class="x-d-tabs">
+      <span class="x-d-tab x-d-tab--on"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Accounts<span class="x-d-tabcount">4</span></span>
+      <span class="x-d-tab"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Roles<span class="x-d-tabcount">4</span></span>
+    </div>
+    <div class="x-d-table">
+      <div class="x-d-thead"><span>Account</span><span>Last seen</span><span>Role</span><span class="x-d-r">Actions</span></div>
+      <div class="x-d-urow">
+        <div class="x-d-acct">
+          <span class="x-d-avatar" style="background:var(--x-accent)">D</span>
+          <div><div class="x-d-accttop"><span class="x-d-uname">darragh</span><span class="x-d-you">You</span> <span class="x-pin">1</span></div></div>
+        </div>
+        <span class="x-d-seen">seen 10/9/2026</span>
+        <span class="x-d-rolesel x-d-rolesel--off">Admin</span>
+        <div class="x-d-uactions"></div>
+      </div>
+      <div class="x-d-urow">
+        <div class="x-d-acct">
+          <span class="x-d-avatar" style="background:var(--x-cyan)">J</span>
+          <div><div class="x-d-accttop"><span class="x-d-uname">jamie</span></div><div class="x-d-acctsub"><span class="x-d-provider">SSO</span> <span class="x-pin">2</span></div></div>
+        </div>
+        <span class="x-d-seen">seen 10/7/2026</span>
+        <span class="x-d-rolesel">Trusted</span>
+        <div class="x-d-uactions"><span class="x-d-ghost">Disable</span><span class="x-d-del"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M10 11v6M14 11v6"/></svg></span></div>
+      </div>
+      <div class="x-d-urow">
+        <div class="x-d-acct">
+          <span class="x-d-avatar" style="background:#a78bfa">K</span>
+          <div><div class="x-d-accttop"><span class="x-d-uname">kids</span></div></div>
+        </div>
+        <span class="x-d-seen">seen 10/8/2026</span>
+        <span class="x-d-rolesel">Kids</span>
+        <div class="x-d-uactions"><span class="x-d-ghost">Disable</span><span class="x-d-del"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M10 11v6M14 11v6"/></svg></span></div>
+      </div>
+      <div class="x-d-urow x-d-urow--off">
+        <div class="x-d-acct">
+          <span class="x-d-avatar" style="background:var(--x-green)">G</span>
+          <div><div class="x-d-accttop"><span class="x-d-uname">guest</span></div><div class="x-d-acctsub"><span class="x-d-disabled">Disabled</span></div></div>
+        </div>
+        <span class="x-d-seen">never signed in</span>
+        <span class="x-d-rolesel">Viewer</span>
+        <div class="x-d-uactions"><span class="x-d-ghost">Enable</span><span class="x-d-del"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M10 11v6M14 11v6"/></svg></span></div>
+      </div>
+    </div>
+  </div>
+  <figcaption>
+    <span class="x-pin">1</span> Your own row has no actions and its role can't be changed — that is the lock-out guard rail.
+    <span class="x-pin">2</span> An account linked to an external sign-in carries a badge. A disabled account is dimmed and keeps its data.
+  </figcaption>
+</figure>
+
 ## Your profile
 
 Click your username in the sidebar → **Profile**. Everyone gets one:
@@ -90,6 +148,52 @@ On the **Users** page you can create **custom roles**: give the role a name and 
 - A **"downloader"** role that can browse and download but not edit the library.
 - A **"kids"** role that can read comics but not download or manage anything.
 - A **"curator"** role that can publish [reading lists](reading#sharing-a-list) for everyone (*Share reading lists*) without any library-management rights.
+
+<figure class="bi-ex" v-pre>
+  <div class="bi-ex__frame" role="img" aria-label="Users page, Roles tab: the three built-in roles with their permissions, and a custom Kids role holding only Browse the library and Read comics">
+    <div class="x-d-tabs" style="padding-top:0">
+      <span class="x-d-tab"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Accounts<span class="x-d-tabcount">4</span></span>
+      <span class="x-d-tab x-d-tab--on"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Roles<span class="x-d-tabcount">4</span></span>
+    </div>
+    <div class="x-d-roleshead">
+      <p class="x-d-rolesintro">Roles bundle permissions. Built-in roles are fixed; create custom roles from the permission catalog.</p>
+      <span class="x-d-primary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> New role</span>
+    </div>
+    <div class="x-d-role">
+      <div class="x-d-rolehead">
+        <span class="x-d-roleico" style="background:color-mix(in srgb, var(--x-accent) 12%, transparent);color:var(--x-accent)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01z"/></svg></span>
+        <span class="x-d-rolename">Admin</span><span class="x-d-builtin">Built-in</span><span class="x-d-roleusers">1 account</span>
+      </div>
+      <div class="x-d-chips"><span class="x-d-chip x-d-chip--all">Everything</span></div>
+    </div>
+    <div class="x-d-role">
+      <div class="x-d-rolehead">
+        <span class="x-d-roleico" style="background:color-mix(in srgb, var(--x-cyan) 12%, transparent);color:var(--x-cyan)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        <span class="x-d-rolename">Trusted</span><span class="x-d-builtin">Built-in</span><span class="x-d-roleusers">1 account</span>
+      </div>
+      <div class="x-d-chips"><span class="x-d-chip">Browse the library</span><span class="x-d-chip">Search &amp; download</span><span class="x-d-chip">Manage the library</span><span class="x-d-chip">View mature content</span><span class="x-d-chip">Share reading lists</span><span class="x-d-chip">Read comics</span></div>
+    </div>
+    <div class="x-d-role">
+      <div class="x-d-rolehead">
+        <span class="x-d-roleico" style="background:color-mix(in srgb, var(--x-green) 12%, transparent);color:var(--x-green)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span>
+        <span class="x-d-rolename">Viewer</span><span class="x-d-builtin">Built-in</span><span class="x-d-roleusers">1 account</span>
+      </div>
+      <div class="x-d-chips"><span class="x-d-chip">Browse the library</span><span class="x-d-chip">Read comics</span></div>
+    </div>
+    <div class="x-d-role">
+      <div class="x-d-rolehead">
+        <span class="x-d-roleico" style="background:color-mix(in srgb, #a78bfa 12%, transparent);color:#a78bfa"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        <span class="x-d-rolename">Kids</span><span class="x-d-roleusers">1 account</span> <span class="x-pin">1</span>
+        <div class="x-d-roleacts"><span class="x-d-ghost">Edit</span><span class="x-d-del"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M10 11v6M14 11v6"/></svg></span></div>
+      </div>
+      <div class="x-d-chips"><span class="x-d-chip">Browse the library</span><span class="x-d-chip">Read comics</span></div>
+    </div>
+  </div>
+  <figcaption>
+    The <b>Roles</b> tab on the Users page, with the Reader plugin installed. Built-in roles can't be edited.
+    <span class="x-pin">1</span> A custom <b>Kids</b> role holds exactly what was ticked — it reads, but has no <i>View mature content</i>, so flagged series never reach it. <b>Edit</b> reopens the permission tick-list.
+  </figcaption>
+</figure>
 
 Custom roles pick up plugin permissions automatically, so you can grant or withhold reading, OPDS access, or request approval per role.
 
