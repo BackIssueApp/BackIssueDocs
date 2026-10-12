@@ -91,6 +91,8 @@ Everything in BackIssue hangs off a series' link to its ComicVine volume — the
 
 The **Library** section lists every series you track. Toggle between a **poster grid** (⊞) and a **dense list** (≣) at the top right — the list adds publisher, year, download activity, the latest issue's date, and size on disk per row.
 
+With the collection sorted **A-Z**, a letter rail runs down the right edge. Click a letter to jump straight to the series starting with it — the view loads what it needs to get there — and the letter you're in is highlighted as you scroll. It shows only under the A-Z sort, and works in both the grid and the list.
+
 Each series shows its cover, title, **owned/total** count, and badges:
 
 | Badge | Meaning |
