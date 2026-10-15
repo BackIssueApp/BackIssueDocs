@@ -75,9 +75,10 @@ device showing it — the web app asks for those images with no referrer, so the
 image host is not told which page wanted one.
 
 **If you'd rather not use it.** In **Settings → Metadata**, set **Source** to
-**ComicVine directly** and paste your own ComicVine API key: the same lookups
-then go to ComicVine under their policy, and the BackIssue service is not
-contacted at all. See the [settings reference](settings-reference).
+**ComicVine directly** with your own ComicVine API key, or **Metron directly**
+with your own Metron account: the same lookups then go to that database under
+its policy, and the BackIssue service is not contacted at all. See the
+[settings reference](settings-reference).
 
 ## The community panel cache
 

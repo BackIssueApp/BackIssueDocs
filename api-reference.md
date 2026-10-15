@@ -380,6 +380,8 @@ you add `X-Api-Key`.
 | POST | `/api/torrent-client/test` | settings.manage | Test a torrent client |
 | POST | `/api/cv/test` | settings.manage | Test the ComicVine connection |
 | POST | `/api/metadata/test` | settings.manage | Register with, and prove, the built-in metadata service → `{ ok, registered, message }` |
+| GET | `/api/metadata/providers` | settings.manage | The metadata providers (built-in and plugin-added): `[{ id, label, note, fields, configured, active, selected }]`, never their values |
+| POST | `/api/metadata/providers/test` | settings.manage | Prove a provider with unsaved form values: `{ provider, values }` → `{ ok, message }` |
 
 **`POST /api/metadata/test`** does more than probe: on a server that has never
 registered, it provisions the instance key and then proves it with a live
