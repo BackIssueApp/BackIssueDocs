@@ -8,7 +8,7 @@ description: "Common problems and how to fix them: metadata, downloads, the libr
 
 ## Metadata
 
-Out of the box there is nothing to configure: series and issue data comes from the **BackIssue metadata service**, and your install registers itself with it the first time it needs to. Only if you switched **Settings → Metadata → Source** to *ComicVine directly* does the ComicVine advice further down apply.
+Out of the box there is nothing to configure: series and issue data comes from the **BackIssue metadata service**, and your install registers itself with it the first time it needs to. Only if you turned on *ComicVine directly* under **Settings → Metadata** does the ComicVine advice further down apply.
 
 **Nothing comes back when you search for a series.**
 Look for a metadata error in **System → Logs**. A failed registration names the URL it tried, so the usual answer is visible at once: outbound HTTPS blocked by a firewall, a DNS problem, or a proxy in front of the container. The app retries on the next lookup, so once the network is fixed nothing else needs doing.

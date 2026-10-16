@@ -74,11 +74,11 @@ Cover art is fetched from whatever address the metadata gives for it, by the
 device showing it — the web app asks for those images with no referrer, so the
 image host is not told which page wanted one.
 
-**If you'd rather not use it.** In **Settings → Metadata**, set **Source** to
-**ComicVine directly** with your own ComicVine API key, or **Metron directly**
-with your own Metron account: the same lookups then go to that database under
-its policy, and the BackIssue service is not contacted at all. See the
-[settings reference](settings-reference).
+**If you'd rather not use it.** In **Settings → Metadata**, turn the built-in
+service off and turn on **ComicVine directly** with your own ComicVine API
+key, or **Metron directly** with your own Metron account: the same lookups
+then go to that database under its policy, and the BackIssue service is not
+contacted at all. See the [settings reference](settings-reference).
 
 ## The community panel cache
 

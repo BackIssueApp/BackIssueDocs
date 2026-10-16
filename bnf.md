@@ -13,15 +13,17 @@ complete here. It needs no account and no key.
 ## Setup
 
 Install the plugin from **Sidebar → Plugins**, then open **Settings →
-Metadata** and set **Source** to the French editions provider. **Test source**
-confirms the catalogue answers. Save, and from then on every lookup BackIssue
-makes goes to the catalogue: searching for and adding a series, refreshing it,
-matching files on a scan, writing tags and importing reading lists. The
-built-in service is not contacted while this source is selected.
+Metadata** and turn on the French editions source. **Test source** confirms
+the catalogue answers. Save, and searches now ask the catalogue as well as
+every other source you have on, showing the answers together, best first. Move
+the French editions source to the top to prefer its editions when two sources
+know the same series, or turn the others off to use the catalogue alone.
 
-Switch the source back whenever you like. Series added through this provider
-keep everything they have and refresh again the next time it is selected; see
-[Metadata](settings-reference#metadata) for how sources coexist.
+A series you add from the catalogue keeps coming from it: refreshing it,
+opening its issues, matching files on a scan, writing tags and importing
+reading lists all go to the catalogue. Turn the source off whenever you like;
+those series keep everything they have and refresh again once it is back on.
+See [Metadata](settings-reference#metadata) for how sources combine.
 
 ## What you get
 

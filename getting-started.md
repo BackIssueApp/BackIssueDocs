@@ -140,7 +140,7 @@ The first time you open BackIssue it asks you to **create the admin account**
 (a fresh install never runs unsecured), then a short wizard walks you through
 the essentials:
 
-1. **Metadata** — nothing to do: series and issue data comes from the built-in BackIssue metadata service. (Prefer querying ComicVine or Metron directly? Enter your own API key or account here — switchable anytime in Settings → Metadata.)
+1. **Metadata** — nothing to do: series and issue data comes from the built-in BackIssue metadata service. (Prefer querying ComicVine or Metron directly, or alongside it? Enter your own API key or account here — Settings → Metadata keeps an ordered list of sources you can change anytime.)
 2. **Libraries** — create one or more named **libraries**, each with a type — Comics and Manga are built in, and Books and Audiobooks arrive with their plugins — and its own folder on disk (Docker: `/comics`). A **Comics** library is set up for you; add more, or leave a folder blank to decide later, and manage them anytime in Settings.
 3. **A download source** — enable at least one of Usenet or torrents so BackIssue can actually fetch comics. You can skip this and set it up later — see [Download sources](sources).
 4. **Plugins** — pick optional plugins (the in-browser reader, Discover, OPDS, Requests, extra sources…); they download and activate when you finish. More can be added anytime from the Plugins page.
