@@ -82,6 +82,7 @@ export default defineConfig({
         items: [
           { text: 'Managing your collection', link: '/collection' },
           { text: 'Discovering comics', link: '/discover' },
+          { text: 'French editions (BnF)', link: '/bnf' },
           { text: 'Your library on disk', link: '/library' },
           { text: 'Migrating from another app', link: '/migrate' },
         ],

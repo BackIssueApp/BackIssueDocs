@@ -21,6 +21,7 @@ BackIssue's core stays lean; extra download sources and whole features ship as p
 | **[Notifications Hub](notifications)** | Send alerts to Discord, Telegram, Pushover, ntfy, or any webhook — with per-channel category filters |
 | **[Gamify](gamify)** | Reading as a quest — XP, levels, streaks, achievements, and a household leaderboard |
 | **[Migration Assistant](migrate)** | Import an existing Mylar3 or Kapowarr collection, matched by ComicVine volume id |
+| **[French editions (BnF)](bnf)** | A metadata source for French-language comics from the national library's catalogue — albums, numbering, ISBNs, credits and release dates, no account needed |
 | **[Prowlarr](prowlarr)** | Feed your Prowlarr indexers to the built-in Usenet and torrent sources |
 | **[SSO (OpenID Connect)](users#signing-in-with-an-identity-provider-sso)** | Sign in through an identity provider — Authentik, Keycloak, Auth0, Google, Microsoft Entra, … |
 

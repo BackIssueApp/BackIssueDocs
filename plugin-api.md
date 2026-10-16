@@ -183,6 +183,42 @@ api.registerIndexerProvider({
 - Client side, `api.onIndexersManaged(cb)` tells core to grey the manual
   indexer cards while your provider manages them.
 
+### `registerMetadataProvider(provider)` — another source of comic metadata
+
+Offer a database other than the built-in service as the place series and
+issue data come from. It appears under **Settings → Metadata → Source** with
+the fields you declare and a Test button, and once selected, every lookup the
+app makes (search, add, refresh, scans, tagging, reading lists) goes through
+the client you return:
+
+```js
+api.registerMetadataProvider({
+  id: 'mydb',
+  label: 'My database (your own key)',
+  note: 'Shown under the fields: limits, what the source lacks, …',
+  fields: [{ key: 'mydbKey', label: 'API key', type: 'password', placeholder: '' }],
+  isConfigured: (config) => !!config.mydbKey,     // falls back to the built-in service until true
+  makeClient: (config, opts) => makeMyClient(config, opts),
+  test: async (config) => ({ ok: true, message: 'Signed in.' }),   // optional
+});
+```
+
+- The client returns the same shapes the app's own clients do: `search(q)` →
+  series candidates (`id, name, publisher, start_year, count_of_issues,
+  image_url, site_detail_url`); `volume(id)` → the series with `issues` stubs
+  (`id, number, name`); `issue(id)` → the issue with `credits`, dates,
+  `description`, `image_url`; plus `issuesByIds(ids)`, `findIssue(volumeId,
+  number)`, `searchArcs(q)` and `storyArcIssues(arcId)`. A `metron` object on
+  a series or issue carries the extras the issue panel shows (price, ISBN,
+  UPC, page count, per-role credits, characters, arcs, status, genres).
+- **Ids are integers** and must never collide with another provider's: mint
+  yours into a range of your own above 1 000 000 000 and below 2³¹.
+- Declared fields are saved as settings; the app never lists their values.
+  `test` receives the unsaved values so the button proves them before saving.
+- Discover reads feeds the built-in service and ComicVine provide; a provider
+  without them is told apart by the absence of `list()`.
+- The **French editions** plugin is the reference implementation.
+
 ### `registerMediaHandler(handler)` — file a downloaded book or audiobook
 
 The download sources can fetch **books and audiobooks** for plugin library
