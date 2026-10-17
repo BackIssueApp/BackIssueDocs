@@ -16,8 +16,9 @@ A signed-in account keeps the choice on every device it signs in from, and
 the page arrives already translated rather than switching after it loads. In
 open mode (no accounts yet) the choice is remembered in the browser.
 
-Languages shipped today: English, Dutch, French, German, Italian, Portuguese
-and Spanish. The list in the picker is always what your server actually has.
+Languages shipped today: English, Chinese (Simplified), Dutch, French, German,
+Italian, Japanese, Polish, Portuguese (Portugal and Brazil) and Spanish. The
+list in the picker is always what your server actually has.
 
 ## What is translated, and what is not
 
@@ -62,7 +63,7 @@ JSON and that no language has keys English lacks.
 
 ## Adding a language
 
-Create a folder named after the language's code (`pl`, `sv`, `pt-br`) under
+Create a folder named after the language's code in lowercase (`sv`, `ko`, `zh-hant`) under
 `frontend/src/locales/`, copy the English files into it and translate. A
 partial translation is fine: any key you leave out falls back to English, so
 you can start with the screens people see most. The language appears in the
