@@ -251,7 +251,9 @@ api.registerMetadataProvider({
   note: 'Shown under the fields: limits, what the source lacks, …',
   fields: [{ key: 'mydbKey', label: 'API key', type: 'password', placeholder: '' }],
   isConfigured: (config) => !!config.mydbKey,     // skipped until true
-  idRange: [1_300_000_000, 1_400_000_000],        // the ids you mint (see below)
+  catalog: 'mydb',                                // where your records live (see below)
+  idRange: [1_300_000_000, 1_400_000_000],        // the ids you mint into
+  refOf: (catalog, id) => String(id - 1_300_000_000), // your database's own id, kept with the record
   makeClient: (config, opts) => makeMyClient(config, opts),
   test: async (config) => ({ ok: true, message: 'Signed in.' }),   // optional
 });
@@ -265,13 +267,21 @@ api.registerMetadataProvider({
   number)`, `searchArcs(q)` and `storyArcIssues(arcId)`. A `metron` object on
   a series or issue carries the extras the issue panel shows (price, ISBN,
   UPC, page count, per-role credits, characters, arcs, status, genres).
-- **Ids are integers** and must never collide with another provider's: mint
-  yours into a range of your own above 1 000 000 000 and below 2³¹, and declare
-  it as `idRange: [low, high)` (or an `owns(id)` predicate). With several
-  sources on, a lookup for an id goes to the provider that owns it; a provider
-  that declares nothing is handed whatever id no declared provider claims. An
-  optional `resolves(id)` says you can also answer for a foreign id you know
-  about (Metron does this for ComicVine ids), tried when its owner is off.
+- **Catalogs.** Every series and issue the library caches records the
+  *catalog* it came from (ComicVine, MangaDex, Metron, or yours) and that
+  catalog's own id for it. Lookups go by the recorded catalog: to the first
+  enabled source, in the user's order, that serves it natively (`serves`,
+  default `[catalog]`), then to one that serves it through a cross-reference
+  (`alsoServes`, the way Metron answers for ComicVine records). `volume`,
+  `issue` and `findIssue` receive a last argument `{ catalog }` naming the
+  record's catalog. `refOf(catalog, id, record)` returns your database's own
+  identifier, which is stored with the record.
+- **Ids are integers** and only a key. Mint yours into a block of your own
+  above 1 000 000 000 and below 2³¹ and declare it as `idRange: [low, high)`
+  (or an `owns(id)` predicate), so keys never collide; the block only
+  classifies a record the library has not stored yet. A provider that declares
+  no block also answers for records whose catalog nothing enabled serves, so a
+  plugin written before catalogs existed keeps working.
 - **Searches merge.** With several sources on, every one is asked and the
   answers are listed best source first; a series with the same id, or the same
   title and start year, as one already listed is dropped. A source that throws
