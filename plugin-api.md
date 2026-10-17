@@ -114,6 +114,41 @@ Front-end files, served at `/plugins/<name>/<path>` and injected into the app sh
 api.registerClientAsset({ js: 'client/ui.js', css: 'client/ui.css' });
 ```
 
+### Translations {#translations}
+
+Core shows its interface in the language each account picks ([Languages](translations)); a plugin joins in by shipping its strings as catalogs and reading them through the bridge. The simplest form is one JSON file per language next to `index.js`:
+
+```
+plugins/myplugin/
+  index.js
+  locales/en.json     { "title": "My plugin", "saved": "Saved {count} items" }
+  locales/fr.json     { "title": "Mon extension" }
+```
+
+Core picks these up at load time under your plugin's name as namespace, so the client reads `api.t('myplugin.title')`. English is the fallback for any key a language lacks, so a partial translation is fine. The same data can be registered in code with `api.registerMessages({ en: { myplugin: {…} }, fr: {…} })`.
+
+Messages take named parameters (`{count}`, `{name}`) and plural forms picked by the language's rules on `count`:
+
+```json
+{ "nItems": { "one": "{count} item", "other": "{count} items" } }
+```
+
+Settings labels you declare in `registerSettings` may be a key instead of a literal: core shows the translation when the key exists and the literal otherwise, so older plugins keep working unchanged.
+
+**Older hosts.** `api.t` arrived after 0.9.0. A plugin that must keep running on earlier BackIssue builds keeps its English inline and asks the host only when it can:
+
+```js
+const fill = (s, p) => (p ? String(s).replace(/\{(\w+)\}/g, (m, k) => (p[k] == null ? m : String(p[k]))) : String(s));
+const tr = (key, en, params) => {
+  if (typeof api.t !== 'function') return fill(en, params);
+  const v = api.t('myplugin.' + key, params);
+  return v === 'myplugin.' + key ? fill(en, params) : v;   // key unknown → English
+};
+el.textContent = tr('rail.title', 'Continue reading');
+```
+
+The same key and English text live in `locales/en.json`, which is what the other languages are translated from. Once your plugin requires a host with `api.t`, drop the inline English and call `api.t` directly.
+
 ### `registerStartup(fn)`
 
 An async task run once at boot, after the database and settings are ready. May return a handle the plugin keeps.
@@ -485,6 +520,10 @@ window.BackIssue.registerClient((api) => {
 | `can(perm)` | Does the signed-in user hold a permission — hide affordances the server would 403 |
 | `icon(name, opts?)` | Core's inline-SVG icon set as a string — matches the app's UI on every device |
 | `toast(msg, type)` | Host toast: `'info' | 'ok' | 'error'` |
+| `t(key, params?)` | A translated string from core's catalogs plus your own (see [Translations](#translations)); `params.count` picks the plural form, every param is available as `{name}` |
+| `th(key, params?)` | The same for `innerHTML`: params are escaped and only `<b> <i> <em> <strong> <code> <br>` pass through |
+| `lang()` | The active language code (`'en'`, `'fr'`, …), for your own date or number formatting |
+| `registerMessages(catalogs)` | Add strings at runtime, `{ lang: { namespace: { key: message } } }`; prefer `locales/<lang>.json` files, which core loads for you |
 | `escapeHtml(s)` / `fmt(n)` / `safeUrl(u)` | Escaping, number formatting, and URL sanitizing (route any user/remote `href` through `safeUrl`) |
 | `addMenuAction(label, onClick, icon?, { section }?)` | A sidebar menu entry, grouped under an optional section header |
 | `registerIssueAction({ id, icon, title, when(issue), run(issue, series) })` | A button on matching issue rows (and the issue info panel). `icon`/`title` may be functions of the issue |

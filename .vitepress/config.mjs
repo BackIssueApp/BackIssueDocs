@@ -133,6 +133,7 @@ export default defineConfig({
         items: [
           { text: 'Automation & jobs', link: '/automation' },
           { text: 'Plugins', link: '/plugins' },
+          { text: 'Languages', link: '/translations' },
           { text: 'Troubleshooting', link: '/troubleshooting' },
         ],
       },

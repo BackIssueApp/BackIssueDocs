@@ -85,6 +85,7 @@ Click your username in the sidebar → **Profile**. Everyone gets one:
 
 - **Account** — set your **email** (used to link external sign-ins to your account), see when you joined and last signed in, **change your password**, **sign out other devices** (ends every session except the one you're on — for a lost or shared device), and sign out.
 - **API key** — generate your personal key for apps and scripts that talk to your BackIssue install. It can do exactly what your account can do; see [Building on the API](api).
+- **Language** — show BackIssue in your language, or leave it on **Match the browser**. The choice follows your account to every device. See [Languages](translations).
 - **Content** — **Hide mature content**, your own switch for hiding flagged series from your library, search and reader. See [Content restrictions](#hiding-it-from-yourself).
 - **Per-user options from plugins** — the reader adds its [reading shelves](reading#reading-shelves) toggles and [reading defaults](reading#reading-defaults) here; the OPDS plugin shows your [catalog address](opds).
 
