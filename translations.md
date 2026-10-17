@@ -27,6 +27,8 @@ and Spanish. The list in the picker is always what your server actually has.
   translation for your language shows English for its own screens and your
   language everywhere else.
 - Numbers and dates follow the chosen language.
+- Labels the server defines, such as job and tool names, permission names and
+  error messages, are translated when the catalog knows their English.
 
 Not translated: data from metadata sources, file names, log lines on the
 System page, and this documentation.

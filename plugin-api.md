@@ -135,6 +135,23 @@ Messages take named parameters (`{count}`, `{name}`) and plural forms picked by 
 
 Settings labels you declare in `registerSettings` may be a key instead of a literal: core shows the translation when the key exists and the literal otherwise, so older plugins keep working unchanged.
 
+**Labels the host shows for you.** Permission names, job and schedule labels, a library type's name, your plugin's description and the titles of notifications you emit are registered server-side in English and rendered by core's own screens. Put their translations under a `_shared` block; core merges those namespaces into its catalog and matches by key (library types, notifications) or by the English text (everything else), so the server code needs no change:
+
+```json
+{
+  "title": "My plugin",
+  "_shared": {
+    "plugins": { "myplugin": { "description": "What the Plugins page shows" } },
+    "permissions": { "myplugin": { "use": { "label": "Use my plugin", "description": "…" } } },
+    "jobs": { "myplugin-sync": { "label": "Sync my plugin" } },
+    "libraryTypes": { "mytype": "My things" },
+    "notifications": { "mypluginDone": { "title": "Done", "body": "{count} items" } }
+  }
+}
+```
+
+Notification entries are looked up by the event type in lowerCamel (`myplugin.done` → `mypluginDone`) and filled from the `params` object you pass to `notify()`; without a matching entry the stored English title and body show.
+
 **Older hosts.** `api.t` arrived after 0.9.0. A plugin that must keep running on earlier BackIssue builds keeps its English inline and asks the host only when it can:
 
 ```js
