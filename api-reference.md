@@ -546,13 +546,13 @@ so; a transient failure answers `502` and leaves it retryable.
 
 | Method | Endpoint | Access | Description |
 |---|---|---|---|
-| GET | `/api/audiobooks/issue/{id}/stream` | audiobooks.use | The audio, with range requests honoured |
-| GET | `/api/audiobooks/issue/{id}/chapters` | audiobooks.use | `{ chapters, duration }`, fetched on first call and cached |
+| GET | `/api/audiobooks/issue/{id}/stream` | audiobooks.use | The audio, with range requests honoured. A multi-file book serves one file per `?part=n` (from 1); without it, the first |
+| GET | `/api/audiobooks/issue/{id}/chapters` | audiobooks.use | `{ chapters, duration, parts? }` in book time. `parts` lists each file of a multi-file book as `{ part, start, duration, name }`; a chapter with no title of its own carries `part` instead. A streamed book's chapters are fetched on first call and cached |
 | GET | `/api/audiobooks/issue/{id}/cover` | audiobooks.use | Cover image — `?w=` for a width hint |
 | GET · POST | `/api/audiobooks/issue/{id}/progress` | audiobooks.use | Playback position — post `{ position, duration }` |
 | GET · POST | `/api/audiobooks/issue/{id}/bookmarks` | audiobooks.use | Bookmarks — post `{ position, note }` |
 | DELETE | `/api/audiobooks/bookmarks/{bookmarkId}` | audiobooks.use | Remove one |
-| GET | `/api/audiobooks/info` | audiobooks.use | Records for specific ids — `?issues=1,2,3` |
+| GET | `/api/audiobooks/info` | audiobooks.use | Records for specific ids — `?issues=1,2,3`; `duration` is the whole book, and a multi-file book adds `parts: [{ part, start, duration }]` |
 | GET | `/api/audiobooks/stats` | audiobooks.use | Your listening statistics |
 
 Streaming is built for real players: `Range` is passed through to the source,

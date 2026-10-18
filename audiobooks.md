@@ -11,10 +11,15 @@ their own series pages — there's no separate section to learn.
 ## Setting up a shelf
 
 Create a library of type **Audiobooks** (Settings → Library) and give it a
-folder of `.m4b`, `.m4a` or `.mp3` files. The scan catalogs each one, taking
+folder of `.m4b`, `.m4a` or `.mp3` files. The scan catalogs each book, taking
 the title and author from the usual `Author/Title` folder layout, then fills in
-covers, narrators, series, publisher and durations from the hosted metadata
-service. Matching is best-effort — a title that doesn't match still plays, it
+covers, narrators, series and publisher from the hosted metadata service.
+Each file's length and chapter marks are read from the file itself.
+
+A book split over several files (`Author/Title/Part 1.mp3`, `Part 2.mp3`, …)
+is one book: its files play one after another in filename order, with
+"Part 2" before "Part 10", on a single timeline. Seeking, the remaining time,
+bookmarks and your saved place all count from the start of the book. Matching is best-effort — a title that doesn't match still plays, it
 just keeps what the filenames gave it.
 
 Scans are incremental and self-pruning, and run from the schedulable **Scan
@@ -26,7 +31,9 @@ than appearing as separate entries.
 Open an audiobook and press play. The player takes over the series page and
 offers:
 
-- **Chapters** — jump between chapters, when the source provides them.
+- **Chapters** — jump between chapters: the marks embedded in the file
+  (M4B and MP3 chapters), or the source's for a streamed book. A part of a
+  multi-file book with no marks of its own appears as one chapter, **Part n**.
 - **Playback speed**, and skip forward / back.
 - **Sleep timer** — for listening at bedtime.
 - **Bookmarks** — save a moment with an optional note and return to it later.
