@@ -37,8 +37,10 @@ exactly as described in [Your library on disk](library).
 The file is recognised by its **tables**, not its name — a Mylar3 database is
 the one with a `comics` table carrying a `ComicID` column, Kapowarr's has a
 `volumes` table with `comicvine_id` — so a copy you renamed still works. The
-upload accepts `.db`, `.sqlite` and `.sqlite3`, up to 512 MB; the uploaded copy
-is deleted as soon as the import finishes.
+upload accepts `.db`, `.sqlite` and `.sqlite3`, up to 512 MB. The uploaded copy
+is kept at `<data dir>/migrate-upload.db` and deleted when an import finishes;
+an upload you only preview stays there until an import runs or another upload
+replaces it, and you can delete that file by hand.
 
 If the other app runs on the same host, the tidiest route is a **read-only bind
 mount** so BackIssue can read the database in place and can never write to it:
@@ -61,7 +63,8 @@ other app first**, or copy the file somewhere and upload the copy.
 - **The series itself**, by its ComicVine volume id — an exact match, never a
   guess. Title and year are shown in the preview so you can recognise rows.
 - **Monitored or paused**, as a [monitoring policy](collection#monitoring): a
-  monitored series arrives set to **All issues**, a paused one to **Off**.
+  paused series arrives set to **Off**; a monitored one gets your **Monitor
+  added series** setting (**All issues** by default).
 - **The library you choose** in the preview (or your default one).
 
 **Left behind — these have no equivalent in the source database, or aren't read

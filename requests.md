@@ -52,7 +52,9 @@ Approved requests show live **on-disk progress** (how many issues have arrived) 
 
 ## Auto-approve
 
-Admins can turn on **auto-approve** (Settings): every request is added to the library instantly, no review step — turning the queue into a self-serve "add it now" for trusted groups.
+Admins can turn on **Requests: auto-approve** (Settings): every request is added to the library instantly, no review step — turning the queue into a self-serve "add it now" for trusted groups.
+
+Auto-approve can start downloads too. An auto-approved comic request queues the volume's missing issues straight away when the requester's role may download, or for every requester when **Download on add** (in the Downloading settings) is on. An auto-approved book or audiobook is sent to your download sources at once, just as an approval would.
 
 ## Limiting what can be requested
 
@@ -65,7 +67,12 @@ Two settings narrow what shows up in request search (and are re-checked when a r
 
 Requests are gated by two grantable permissions — **Request volumes** and **Manage requests** — so you can, for example, let a role request but not approve, or vice versa. See [Users & access](users).
 
-Crucially, downloads triggered by an approval run under the **acting user's own download permission**. A curator who can approve but isn't allowed to download can add the volume, but the download button only appears for those who may download — approving never escalates anyone's rights.
+For comics, the download that follows a manual approval runs under the **approver's own download permission**: a curator who can approve but isn't allowed to download can add the volume, but **Approve + download** is unavailable to them. Two cases don't depend on who acted:
+
+- **Auto-approve with Download on add** — as above, an auto-approved comic request queues its missing issues regardless of the requester's permission.
+- **Books and audiobooks** — approving one, by hand or by auto-approve, always asks your download sources for it, whatever the approver's or requester's download permission.
+
+If a role shouldn't be able to cause downloads, keep auto-approve off, and grant **Manage requests** only to people you'd trust to start book downloads.
 
 ## Notifications
 

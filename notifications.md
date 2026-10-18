@@ -81,6 +81,6 @@ everything ntfy topic is perfectly fine; each channel filters independently.
 
 ## Access
 
-Notification settings live with the rest of Settings (admins /
-*Manage settings*). What each **user** sees in the in-app bell is governed by
+Notification settings live with the rest of Settings (admins, or anyone
+with **Settings & indexers**). What each **user** sees in the in-app bell is governed by
 their own permissions — see [Users & access](users).

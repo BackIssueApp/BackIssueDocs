@@ -8,7 +8,11 @@ BackIssue has a full multi-user system: accounts, roles, and fine-grained permis
 
 ## The first account
 
-A fresh install **asks you to create the admin account before anything else** — BackIssue never runs open and unsecured. That first account is automatically an **admin**; every request after that needs a login.
+A fresh install **asks you to create the admin account before anything else** — the web UI shows only the setup screen until one exists. That first account is automatically an **admin**; every request after that needs a login.
+
+::: warning Create the first account before exposing the server
+Until the first account exists, the server runs in open single-user mode: every request to its API — what the web UI, the apps, OPDS readers and scripts all use — is treated as an admin's, with no sign-in. Only the web UI insists on the setup screen. Create the account before you make the server reachable from outside your own network.
+:::
 
 ## Accounts
 
@@ -236,9 +240,14 @@ the OPDS and Reader plugins, or rely on the role permission instead.
 
 Because it's an ordinary permission, it composes with the rest: a "kids" role can read comics but never see a mature-flagged volume, while a "downloader" role could download but be blind to restricted series too.
 
-## Requests without escalation
+## Requests and download permission
 
-When a plugin like [Requests](requests) queues a download on a user's behalf, it runs under **that user's own download permission** — approving or requesting never grants someone rights they don't already have.
+When [Requests](requests) queues comic downloads for a manual approval, it does so under **the approver's own download permission**: a curator who can approve but may not download can add the volume, but not download it. Two cases don't depend on who acted:
+
+- **Auto-approve with Download on add.** When **Requests: auto-approve** and **Download on add** are both on, an auto-approved comic request queues the volume's missing issues regardless of the requester's permission — it's treated as a server-wide automation. With **Download on add** off, an auto-approved request downloads only when the requester's own role may download.
+- **Books and audiobooks.** Approving a book or audiobook request — by hand or by auto-approve — always asks your download sources for it, whatever the approver's or requester's download permission.
+
+So if a role shouldn't be able to cause downloads, keep auto-approve off, and grant **Manage requests** only to people you'd trust to start book downloads.
 
 ## Sessions & login security
 
