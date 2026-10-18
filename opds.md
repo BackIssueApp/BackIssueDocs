@@ -16,7 +16,7 @@ http(s)://<your-backissue-host>/api/opds
 
 Sign in with your BackIssue **username and password** — OPDS uses HTTP Basic auth against your account, so access follows your role and permissions like everything else.
 
-If your account signs in through an external login backend (e.g. a billing or directory integration that checks a username and password), those same credentials work for OPDS too. Accounts that only sign in through an external button — with no BackIssue password of their own — should instead generate an **API key** on their Profile and use that with a reader that supports header or key auth.
+If your account signs in through an external login backend (e.g. a billing or directory integration that checks a username and password), those same credentials work for OPDS too. Accounts that only sign in through an external button, with no BackIssue password of their own, should instead generate an **API key** on their Profile. On BackIssue 0.9.2 and newer, enter that key as the password in any reader app, with your username or a blank username. The same applies when an admin has turned off password login: only admins can still use a password there.
 
 Your personal catalog address (with a copy button) is also shown on your **Profile** page, under *Connect a reader app*.
 
@@ -127,7 +127,8 @@ download the same way comics do.
 
 **The app says the credentials are wrong, but they work in the browser.**
 Two usual causes. An account that signs in through an identity provider has no
-password of its own — generate an **API key** on your Profile and use that.
+password of its own, and with password login turned off only admins can use a
+password. Generate an **API key** on your Profile and enter it as the password.
 Otherwise the reader may need the auth challenge older versions didn't send;
 update the server.
 

@@ -256,7 +256,7 @@ How people sign in. Password login always works for admins, whatever else is con
 
 | Setting | What it does |
 |---|---|
-| Disable password login | Hides the password form so everyone signs in through your identity provider. Admins keep a password fallback, so a broken provider cannot lock everyone out. |
+| Disable password login | Hides the password form so everyone signs in through your identity provider. Admins keep a password fallback, so a broken provider cannot lock everyone out. Apps that send a username and password directly, such as OPDS readers, follow the same rule: other users enter their Profile API key as the password instead. |
 
 Install a sign-in provider (OIDC, for example) from the Plugins page and its configuration appears on this tab. See [Signing in with an identity provider](users#signing-in-with-an-identity-provider-sso).
 
