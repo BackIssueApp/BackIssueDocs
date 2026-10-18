@@ -19,7 +19,9 @@ Each file's length and chapter marks are read from the file itself.
 A book split over several files (`Author/Title/Part 1.mp3`, `Part 2.mp3`, …)
 is one book: its files play one after another in filename order, with
 "Part 2" before "Part 10", on a single timeline. Seeking, the remaining time,
-bookmarks and your saved place all count from the start of the book. Matching is best-effort — a title that doesn't match still plays, it
+bookmarks and your saved place all count from the start of the book, in the
+web player and in the Android and iOS apps alike (offline downloads fetch every
+part). Matching is best-effort — a title that doesn't match still plays, it
 just keeps what the filenames gave it.
 
 Scans are incremental and self-pruning, and run from the schedulable **Scan
