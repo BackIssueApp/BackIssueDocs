@@ -59,7 +59,8 @@ have plural forms:
 Use the forms your language needs (English has `one` and `other`; Polish
 also uses `few` and `many`; Japanese only `other`). To fix a sentence, edit
 it and open a pull request. The test suite checks that every file is valid
-JSON and that no language has keys English lacks.
+JSON, that no language has keys English lacks, and that every translation
+keeps the English placeholders and inline tags.
 
 ## Adding a language
 
@@ -68,18 +69,6 @@ Create a folder named after the language's code in lowercase (`sv`, `ko`, `zh-ha
 partial translation is fine: any key you leave out falls back to English, so
 you can start with the screens people see most. The language appears in the
 picker as soon as its folder exists.
-
-Maintainers can draft a whole language in one go:
-
-```
-cd frontend
-ANTHROPIC_API_KEY=… node scripts/i18n-translate.mjs pl
-```
-
-The script fills only keys the language is missing, so it never overwrites a
-correction, and it keeps the English for any draft that lost a placeholder.
-`node scripts/i18n-translate.mjs --check` lists what is missing without
-calling anything.
 
 ## For plugin authors
 
