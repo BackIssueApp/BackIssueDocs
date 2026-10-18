@@ -565,15 +565,16 @@ noted.
 
 | Method | Endpoint | Access | Description |
 |---|---|---|---|
-| GET | `/api/shelves/status` | library.view | Whether the index is built and usable |
-| GET | `/api/shelves/items` | library.view | A page of results — `?page=` (from 0), `?limit=` (default 60, max 120), `?sort=`, plus the current selection |
+| GET | `/api/shelves/status` | library.view | `{ enabled, types, size, rebuild }`: whether Shelves is on, which library types it indexes, and how far the index is built |
+| GET | `/api/shelves/items` | library.view | A page of results — `?page=` (from 0), `?limit=` (default 60, max 120), `?sort=` (`author`, `title`, `year`, `added`), plus the current selection: `?library=` or `?type=`, `?q=`, `?authors=`, `?decades=`, `?formats=` (comma lists), `?status=` |
 | GET | `/api/shelves/authors` | library.view | Authors — `?type=`, `?library=`, `?letter=`, `?q=` |
 | GET | `/api/shelves/facets` | library.view | Counts for every facet given the current selection |
 | POST | `/api/shelves/rebuild` | library.manage | Rebuild the index → `{ started, state }`, or `409` if one is already running |
 | GET | `/api/shelves/rebuild/status` | library.view | Progress of a running rebuild |
 
 A `size` of zero on the status route means the index has never been built, and
-every other route will come back empty until it is.
+every other route will come back empty until it is. With Shelves switched off,
+the facets, items and authors routes answer `{ disabled: true }`.
 
 ### Gamify
 

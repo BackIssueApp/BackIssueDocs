@@ -244,7 +244,7 @@ Plugins with more than a switch or two are written up on their own page rather t
 | Prowlarr | Indexer address and key, plus category and indexer exclusions | [Prowlarr indexers](prowlarr) |
 | Books | Library paths, metadata source, and the scan schedule | [Books](ebooks) |
 | Audiobooks | Library paths, metadata source, and the player's defaults | [Audiobooks](audiobooks) |
-| Shelves | Which library types get faceted browsing | [Shelves](shelves) |
+| Shelves | On/off switch, which library types get faceted browsing, and an index rebuild | [Shelves](shelves#settings) |
 | Notifications Hub | One card per channel, each with its own filter | [Notifications](notifications) |
 | SSO | Provider address, client credentials, and the role new accounts get | [Users & access](users#signing-in-with-an-identity-provider-sso) |
 
