@@ -44,15 +44,15 @@ changing the selection never means waiting for it to expire.
 ## Managed indexers
 
 While Prowlarr is enabled, the manually entered Newznab/Torznab indexer lists
-on the Usenet and Torrents panels are **ignored** for searches — they grey out
-with a "managed" note. Turn Prowlarr off to fall back to them.
+on the Usenet and Torrents panels are **ignored** — they grey out with a
+"managed" note. Searches, **Watch indexer RSS for releases** and **Grab weekly
+0-Day pack (torrent)** all use Prowlarr's indexers instead. Turn Prowlarr off
+to fall back to the manual lists.
 
-Two jobs are the exception. **Watch indexer RSS for releases** and **Grab
-weekly 0-Day pack (torrent)** read only the manual lists, never Prowlarr's
-indexers. With Prowlarr on and the manual lists empty, the RSS watch has no
-feeds to poll and the 0-Day job has no indexer to search. To keep either job
-working, leave the indexers it needs in the manual list as well — they stay
-there, greyed out, while Prowlarr is enabled.
+::: tip Older versions
+Before BackIssue 0.9.2 the RSS watch and the 0-Day job read only the manual
+lists, so with Prowlarr on and those lists empty they had nothing to search.
+:::
 
 <figure class="bi-ex" v-pre>
   <div class="bi-ex__frame" role="img" aria-label="Usenet Indexers card while Prowlarr is enabled: a managed notice, the manual indexer list greyed out and the Add indexer button disabled">
