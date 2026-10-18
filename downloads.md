@@ -43,18 +43,19 @@ not a guess — it is a gate, and then a very small score.
 factor: a release whose year matches the volume year gains points, and one
 whose year differs loses a smaller number. Year never rejects a candidate,
 because long runs are tagged with cover years that drift from the volume year.
-Ties break on seeders, then size, for torrents, and otherwise on the order the
-indexer returned.
+Ties break on seeders, then size, for torrents, and on size for Usenet, so the
+larger file wins.
 
 So: **series and number decide whether a release is eligible, and year decides
 which eligible release wins.** Quality tags, release groups and scene naming
 carry no weight at all.
 
-**Manual search ignores all of this.** [Search sources](#manual-searches) lists
-everything, including candidates the gate would have rejected, ranked by the
-same score with unscored entries last. That is the point of it: when the
+**Manual search ignores almost all of this.** [Search sources](#manual-searches)
+lists everything, including candidates the gate would have rejected, ranked by
+the same score with unscored entries last. That is the point of it: when the
 automatic matcher finds nothing, you can see what is actually out there and
-decide for yourself.
+decide for yourself. The one check it keeps is size: Usenet and torrent
+results under a megabyte are still dropped as fakes.
 
 ## Issue statuses
 
@@ -268,10 +269,15 @@ Three things block a release, all of them evidence that the release itself is ba
 3. The completed download cannot be read as a comic at all.
 
 Everything else is treated as your problem rather than the release's, and
-**does not** block: a timeout, an unreachable client, a permissions error, or a
-wrong completed-folder mapping. None of those mean the release is bad, and
-blocking on them would burn through good releases while the real fault went
-unfixed.
+**does not** block: a timeout, an unreachable client, or a permissions error.
+None of those mean the release is bad, and blocking on them would burn through
+good releases while the real fault went unfixed.
+
+One setup fault does block, because it looks the same as case 3: a wrong
+completed-folder mapping. If BackIssue can't see the folder the client says it
+finished in, the import fails with `can't read completed download …` and the
+release is blocked. Fix the mapping, then remove the release from **History →
+Blocklist** so it can be grabbed again.
 - Releases are matched by both their indexer id and a normalized title, so the same broken post is caught even if it reappears under a new id or on another indexer.
 - **History → Blocklist** lists blocked releases with the reason they failed. Remove one to allow it to be auto-grabbed again, or clear the whole list. A **manual** [source search](#manual-searches) is never filtered — if you deliberately pick a blocked release, that choice stands.
 - Blocks do not expire. A release stays blocked until you remove it.

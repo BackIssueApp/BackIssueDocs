@@ -47,7 +47,7 @@ Expected to a degree — workers parallelize (`downloadConcurrency`), but each s
 ## Library
 
 **Owned issues show as missing.**
-The file isn't linked to the CV issue — odd filename, or metadata pointing elsewhere. Run **System → Tools → Re-link to ComicVine**, then **Scan entire library** if files were added outside BackIssue.
+The file isn't linked to the CV issue — odd filename, or metadata pointing elsewhere. Run **System → Tools → Re-link files to metadata**, then **Scan entire library** if files were added outside BackIssue.
 
 **Files flagged corrupt that open fine elsewhere.**
 Some readers tolerate damage that strict verification doesn't. **Redownload** for a clean copy, then **Remove duplicate files** to clear the bad one. If many files flag at once on a network share, check the share mount first — unreadable ≠ corrupt.
@@ -59,7 +59,7 @@ Some releases ship a `.cbz` that contains a `.cbr` rather than pages. The file o
 
 The same filter now also catches empty or truncated archives — anything with no pages at all, whatever the extension says.
 
-Tagging needs a CV match and a CBZ. Run **Convert all CBR → CBZ**, then **Tag all untagged files**; stragglers are unmatched files (see the No CV filter and Import candidates).
+Tagging needs a CV match and a CBZ. Run **Convert all CBR → CBZ**, then **Tag all untagged files**; stragglers are unmatched files (see the **Unmatched** filter and Import candidates).
 
 ## Access
 
@@ -114,10 +114,10 @@ housemate can see may appear simply not to exist for you.
 |---|---|
 | `metadata service registration failed (HTTP {status} from {url})` | Your install could not register with the metadata service. The URL is in the message on purpose: a trailing slash or the wrong capitalisation answers 401 and reads like an auth problem when it is really a typo. |
 | `metadata service registration returned no key` | Registration was accepted but no key came back. Retry; if it persists it is a service-side problem. |
-| `ComicVine rate limit exceeded (107)` or `ComicVine HTTP 429 (rate limited)` | Only with your own ComicVine key. The app backs off rather than hammering, and batches stop early instead of failing. Run the job again later. |
-| `issue #{n} isn't listed on ComicVine yet — try again in a day or two` | The issue exists in the wild before its metadata does. Normal for brand-new releases. |
-| `series not matched to ComicVine` | The action needs a matched series. Match it on the series page first. |
-| `that arc has no issues on ComicVine` | The story arc is empty upstream, so there is nothing to import. |
+| `metadata service rate limit exceeded (107)` or `metadata service HTTP {status} (rate limited)` | The metadata service is throttling requests (the HTTP form covers 420, 429 and 503). The app backs off rather than hammering, and batches stop early instead of failing. Run the job again later. |
+| `this issue isn't listed at the metadata source yet — try again in a day or two (#{n})` | The issue exists in the wild before its metadata does. Normal for brand-new releases. |
+| `series not matched to a metadata record` | The action needs a matched series. Match it on the series page first. |
+| `that arc has no issues at the metadata source` | The story arc is empty upstream, so there is nothing to import. |
 
 ### Download clients
 
@@ -143,8 +143,8 @@ These appear on the failed queue row and again in the log as
 | `No enabled source had a match for this issue` | Every source was searched and nothing passed the series-and-number gate. The commonest failure by far. Add an [alias](collection) if the indexers name the series differently, or use **Search sources** to see what is really out there. |
 | `usenet: download disappeared from the client` | The download was handed over but never showed up, for longer than the timeout. Check the client took it and that the category matches. |
 | `{source}: download client unreachable` | The client has been unreachable past the timeout, so everything waiting on it failed together. |
-| `usenet: failed par2 repair` | The release is genuinely broken. It is added to the blocklist so a retry picks a different one. |
-| `can't read completed download {path} for "{name}"` | The app cannot see where the client put the file. This is the completed-folder path mapping, and it is the single most common setup mistake. |
+| `usenet: {the client's failure message}` | The download client reported the download failed — a broken PAR2 repair or missing articles. The release is genuinely broken. It is added to the blocklist so a retry picks a different one. |
+| `can't read completed download {path} for "{name}"` | The app cannot see where the client put the file. This is the completed-folder path mapping, and it is the single most common setup mistake. A Usenet release is also added to the blocklist, so after fixing the mapping remove it from **History → Blocklist** to let it be grabbed again. |
 | `no comic archive or page images found in {path}` | The download completed but holds nothing importable. |
 | `this link redirects to {host}, which BackIssue cannot download from directly — try another release` | The release points at a host the app cannot fetch from. Pick a different one. |
 | `no confident ComicVine volume to add for "{name}"` | From a pack: a file whose series is not in your collection and could not be placed unambiguously. It is reported rather than guessed at. |
@@ -168,7 +168,7 @@ These appear on the failed queue row and again in the log as
 | `Pack "{title}" contained no comic files at all — wrong path mapping, or a bogus release?` | The clearest symptom of the same problem. |
 | `downloaded file is not a comic archive (corrupt or bogus source copy)` | The bytes are not an archive. Usually a truncated download, or an error page saved as a file. |
 | `too large to convert safely ({n}MB > {cap}MB ceiling — raise it with MAX_RAR_MB)` | A very large RAR could not be repacked in memory. It is filed as `.cbr` and reads perfectly, it is just untagged. |
-| `match this series to ComicVine first — its files can't be organized` | Renaming needs publisher, title and year, which come from the match. |
+| `match this series to a metadata record first — its files can’t be organized without publisher/title/year` | Renaming needs publisher, title and year, which come from the match. |
 | `a reorganize is already running` | One at a time. Wait for the first to finish. |
 
 ### Plugins
@@ -210,7 +210,7 @@ It never contains comic files, covers, user names, e-mail addresses or password 
 `catalog.db` is everything. **System → Tools → Back up database** snapshots it (newest 5 kept). Restore: stop the app, copy the snapshot over `catalog.db`, start. Your comics are untouched either way — worst case, a fresh library scan rebuilds the index from disk.
 
 **A crash mid-download.**
-On startup BackIssue reconciles: issues whose file made it to disk are marked done; interrupted ones return to pending automatically. Nothing to clean up by hand.
+On startup BackIssue reconciles: issues whose file made it to disk are marked done; interrupted ones return to **queued** automatically. Nothing to clean up by hand.
 
 **The server restarted itself — `watchdog: ...` in the container log.**
 That is by design. A background watcher pings the main thread every few seconds; if no ping arrives for two minutes, or memory sits above 92% of the heap limit for a minute and a half, the process is wedged and nothing above it — routes, schedules, even a shutdown signal — will ever run again. The watcher kills it outright and your restart policy (`restart: unless-stopped`, systemd) brings up a fresh one, which beats a silent hours-long outage. The line naming the reason goes to the container log rather than the in-app log; the app log gets a `memory: rss …, heap … of … limit` line every ten minutes, so a leak leaves a trail rather than a mystery.

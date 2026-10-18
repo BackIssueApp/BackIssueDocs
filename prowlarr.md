@@ -44,8 +44,15 @@ changing the selection never means waiting for it to expire.
 ## Managed indexers
 
 While Prowlarr is enabled, the manually entered Newznab/Torznab indexer lists
-on the Usenet and Torrents panels are **ignored** — they grey out with a
-"managed" note. Turn Prowlarr off to fall back to them.
+on the Usenet and Torrents panels are **ignored** for searches — they grey out
+with a "managed" note. Turn Prowlarr off to fall back to them.
+
+Two jobs are the exception. **Watch indexer RSS for releases** and **Grab
+weekly 0-Day pack (torrent)** read only the manual lists, never Prowlarr's
+indexers. With Prowlarr on and the manual lists empty, the RSS watch has no
+feeds to poll and the 0-Day job has no indexer to search. To keep either job
+working, leave the indexers it needs in the manual list as well — they stay
+there, greyed out, while Prowlarr is enabled.
 
 <figure class="bi-ex" v-pre>
   <div class="bi-ex__frame" role="img" aria-label="Usenet Indexers card while Prowlarr is enabled: a managed notice, the manual indexer list greyed out and the Add indexer button disabled">
@@ -92,12 +99,13 @@ in Prowlarr to be preferred here.
 What actually decides what you get:
 
 1. **[Source priority](sources#source-priority)** picks the *source* — Usenet
-   before Torrents, or whatever order you dragged them into. Prowlarr isn't a
+   before Torrents, or whatever order you set with the arrows. Prowlarr isn't a
    source of its own; it only supplies indexers to those two.
 2. Within a source, every selected indexer is searched and the results pooled
    and de-duplicated.
 3. The pooled releases are ranked by **how well they match** the series and
-   issue number, and larger files win ties.
+   issue number. On a tie the larger file wins for Usenet; torrents break ties
+   on seeders, then size.
 
 If you want one indexer preferred over another, the lever is the tick box, not
 Prowlarr's priority: untick the ones you'd rather not pull from.

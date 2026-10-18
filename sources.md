@@ -106,15 +106,17 @@ If both run on the same machine with the same paths, set just one (or neither, i
 
 ## Torrents
 
-Same shape as Usenet: **Torznab indexers** (via Prowlarr or Jackett) plus **qBittorrent** as the download client.
+Same shape as Usenet: **Torznab indexers** (via Prowlarr or Jackett) plus a download client — **qBittorrent**, **Transmission** or **Deluge**, picked under **Client**.
 
 - **Torznab indexers** — one or more URL + API key entries. Prowlarr gives you a Torznab URL per indexer it manages.
-- **qBittorrent** — host, port, username/password, optional SSL.
-- **URL base** — set this when a reverse proxy serves the client under a subpath rather than at the root, so its API lives at `http://host:port/qbittorrent/api/…`. Blank for a normal install. (Seedbox providers commonly do this; it's the same field the *arr apps call "URL Base".) Transmission and Deluge have the same option.
-- **Category** — keeps BackIssue's torrents grouped in qBittorrent.
+- **qBittorrent** — **Host**, **Port** (default 8080), **Use HTTPS**, **Username** and **Password** for the Web UI.
+- **Transmission** — the same fields for its RPC interface (default port 9091).
+- **Deluge** — **Host**, **Port** (default 8112), **Use HTTPS** and the Web UI **Password**; Deluge has no username.
+- **URL base** — set this when a reverse proxy serves the client under a subpath rather than at the root, so its API lives at `http://host:port/qbittorrent/api/…`. Blank for a normal install. (Seedbox providers commonly do this; it's the same field the *arr apps call "URL Base".) All three clients have it.
+- **Category** — keeps BackIssue's torrents grouped: a category in qBittorrent, a label in Transmission (4.x and later) or in Deluge (needs Deluge's Label plugin; the label is lowercased). Older Transmission versions and Deluge without the plugin still work — the torrents just aren't labelled.
 - **Completed-folder mapping** — same two-path idea as Usenet, for remote/Docker setups.
 
-Grabbed torrents are handed to qBittorrent and monitored to completion; the finished file is then imported, tagged, and filed like any other download. Seeding continues per your qBittorrent rules — BackIssue copies files in rather than moving them.
+Grabbed torrents are handed to the client and monitored to completion; the finished file is then imported, tagged, and filed like any other download. Seeding continues per your client's rules — BackIssue copies files in rather than moving them.
 
 ### The weekly 0-day pack
 
@@ -202,7 +204,7 @@ then the larger file.
 
 ## Source priority
 
-Settings lists every enabled source in a drag-to-reorder priority list. For each issue, sources are tried **top to bottom — first match wins**, so put your fastest/cleanest source first and slower or scarcer ones lower as fallbacks.
+Settings lists every enabled source in a priority list; the up and down arrows on each row move it. For each issue, sources are tried **top to bottom — first match wins**, so put your fastest/cleanest source first and slower or scarcer ones lower as fallbacks.
 
 <figure class="bi-ex" v-pre>
   <div class="bi-ex__frame" role="img" aria-label="Source priority panel listing four enabled sources in order, each with move-up and move-down buttons">
@@ -239,7 +241,7 @@ Settings lists every enabled source in a drag-to-reorder priority list. For each
   </figcaption>
 </figure>
 
-Priority also shapes *manual* search result ranking and pack searches.
+Priority only applies to automatic grabs. A *manual* search asks every source at once and ranks the merged results by score, then seeders, then size; a pack search ranks by seeders, then score, then size.
 
 ## Which should I use?
 

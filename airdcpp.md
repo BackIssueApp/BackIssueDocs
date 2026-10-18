@@ -34,6 +34,12 @@ BackIssue **copies** the finished file in rather than moving it, so AirDC++ keep
 - **Adaptive polling.** DC results arrive from peers over several seconds; BackIssue polls and returns as soon as a confident match arrives.
 - **Corruption guard.** DC verifies a transfer matches the *peer's* bytes, not that the file is a valid archive. BackIssue sniffs each finished file and, if it isn't a real comic archive, deletes it and blacklists that copy for the run so a retry picks a different peer.
 
+## Search packs
+
+AirDC++ also answers **Search packs** on a series page. DC hubs rarely answer folder searches, so BackIssue builds folder packs from the ordinary file hits instead: every hit names the peer and the folder it lives in, so hits are grouped by peer and folder, and the folders with the most matching files are offered (up to 15). Each row names the folder, the peer, and how many hits it holds; several peers often share same-named folders with different contents.
+
+Grabbing one opens that folder in the peer's **filelist** (a direct browse of their share, no hub search) — stepping into a subfolder named after the series when the run lives one level deeper — and queues only the issues the series is missing, one copy per issue. The files download like any other AirDC++ download and are imported as a pack; AirDC++ keeps them and shares them onward. If nothing is missing from the series, the grab is refused.
+
 ## Search limitations
 
 DC is not an indexed API — it's a live query across peers — so searches behave differently from Usenet/torrent indexers:
