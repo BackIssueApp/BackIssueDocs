@@ -117,7 +117,7 @@ How downloaded comics are named and filed. See [Naming patterns](library#naming-
 | Setting | What it does |
 |---|---|
 | Folder pattern | How each series' folder is built under a root. Blank uses the default, `{publisher}/{series} ({year})`. |
-| File pattern | How issue files are named. Blank uses the default, `{series} V{year} #{issue}`. Tokens: `{publisher}` `{series}` `{year}` `{issue}` (`{issue:2}` sets the pad width) `{issueTitle}` `{date}` (`{date:m}` `{date:y}` `{date:mon}` give its parts) `{edition}`. A live example previews as you type. See [Naming patterns](library#date-formats). |
+| File pattern | How issue files are named. Blank uses the default, `{series} V{year} {edition} #{issue}`; `{edition}` drops out when the issue has no edition. Tokens: `{publisher}` `{series}` `{year}` `{issue}` (`{issue:2}` sets the pad width) `{issueTitle}` `{date}` (`{date:m}` `{date:y}` `{date:mon}` give its parts) `{edition}`. A live example previews as you type. See [Naming patterns](library#date-formats). |
 | Rename downloaded files to the file pattern | On by default. Off: completed downloads keep the source's original filename, and are still filed into the comic's folder. |
 
 Pattern changes affect **new** downloads. To apply them to files you already have, run **Reorganize library** on the Tools page.
@@ -206,14 +206,15 @@ Where series and issue data comes from, and how it is written into your files.
 | Metron username / password | Shown when Metron is on. The account you use on metron.cloud. **Test sign-in** checks it. |
 | Tag on download | Off by default. On, the series and issue metadata is written for every file as it is imported, using whichever metadata sources the library uses. No ComicVine key is needed. |
 | Tag placement | **Embedded** (the default) writes ComicInfo.xml inside the archive, converting `.cbr` downloads to `.cbz` so they can be tagged. **Sidecar** writes the same metadata to a `.xml` next to the file and never touches the archive — byte-identical files for seeding and file-share hashing, and `.cbr` files stay `.cbr`. Each library can override this. |
-| Enrich metadata | Off by default. When the metadata server supports it, adds content ratings, series status and end year, and per-issue extras like price, UPC and story titles. A series that comes back rated mature is [flagged mature](users#content-restrictions-mature-series) automatically on that transition — a manual unflag sticks. The official ComicVine API ignores the request, so it is safe either way. |
+| Enrich metadata (characters, story arcs, ratings, issue extras) | On by default (existing installs are switched on once; turning it off afterwards sticks). When the metadata source supports it, adds characters, teams and story arcs — which the base record has for only a small share of issues — plus per-role credits, content ratings, series status and end year, and per-issue extras like price, UPC and story titles. Characters and arcs are written into `ComicInfo.xml`, so turning this off leaves those fields out of your files. A series that comes back rated mature is [flagged mature](users#content-restrictions-mature-series) automatically on that transition — a manual unflag sticks. The official ComicVine API ignores the request, so it is safe either way. |
 | Content rating ceiling | How far manga search reaches into MangaDex's content ratings; each level includes the ones below it. Default **Up to Erotica**. Applies to the Add dialog's manga lane and manga-library imports. |
 | Release provider URL | Where "This week's releases" is fetched from. Leave at the default unless you host an alternative. |
 
 There is no field for pointing the app at a different metadata service. An old
 `cvBaseUrl` setting still exists in saved configuration but is deliberately
-ignored — stale or malformed values in it used to surface as puzzling auth
-failures. To keep comic lookups off the hosted service, turn the built-in
+ignored for metadata lookups — stale or malformed values in it used to surface
+as puzzling auth failures. The reader plugin still uses it, when set, as the
+address of the community panel cache. To keep comic lookups off the hosted service, turn the built-in
 service off and turn on ComicVine or Metron with your own key or account (or
 do it per library under **Library → Libraries**). That covers comic metadata
 only: manga comes solely through the built-in service, the Books and
@@ -244,13 +245,13 @@ Plugins with more than a switch or two are written up on their own page rather t
 | Discover | Feed windows and how long a built feed is cached | [Discovering comics](discover#settings) |
 | AirDC++ | Web API address and credentials, hub list, the two-path download folder, and six search-timing controls | [AirDC++](airdcpp#settings) |
 | Prowlarr | Indexer address and key, plus category and indexer exclusions | [Prowlarr indexers](prowlarr) |
-| Books | Library paths, metadata source, and the scan schedule | [Books](ebooks) |
-| Audiobooks | Library paths, metadata source, and the player's defaults | [Audiobooks](audiobooks) |
+| Books | None on this tab: book folders are libraries (**Settings → Library**), and the scans are jobs (**System → Jobs**) | [Books](ebooks) |
+| Audiobooks | None on this tab: audiobook folders are libraries (**Settings → Library**), and the scan and catalog sync are jobs (**System → Jobs**) | [Audiobooks](audiobooks) |
 | Shelves | On/off switch, which library types get faceted browsing, and an index rebuild | [Shelves](shelves#settings) |
 | Notifications Hub | One card per channel, each with its own filter | [Notifications](notifications) |
 | SSO | Provider address, client credentials, and the role new accounts get | [Users & access](users#signing-in-with-an-identity-provider-sso) |
 
-A few plugin settings aren't on this tab at all because they're schedules: the AirDC++ announce-bot watch is enabled and timed on **System → Jobs**, like every other job.
+A few plugin settings aren't on this tab at all because they're schedules: the AirDC++ announce-bot watch and the Books and Audiobooks scans are enabled and timed on **System → Jobs**, like every other job.
 
 ## Sign-in
 

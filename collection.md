@@ -83,8 +83,8 @@ You can also add series from the **Discover** feed or the **Requests** queue —
 Everything in BackIssue hangs off a series' link to its ComicVine volume — the issue list, cover art, publisher, and metadata for tagging.
 
 - Series you add by search are matched from the start.
-- Series discovered by [importing an existing library](library) need matching: the **◆ Match CV** button runs the matcher across every unmatched series. Confident matches link automatically; ambiguous ones wait for you to pick from candidates.
-- A series with no match shows a **needs ComicVine match** badge and the **No CV** filter collects them.
+- Series discovered by [importing an existing library](library) need matching: the **Match series** button runs the matcher across every unmatched series. Confident matches link automatically; ambiguous ones wait for you to pick from candidates.
+- A series with no match shows a **needs match** badge in the list view (**match…** on its cover in the grid), and the **Unmatched** filter collects them.
 - Matched the wrong volume? Open the series and re-pick — the matcher can be overridden manually per series.
 
 ## The Library view
@@ -97,12 +97,17 @@ Each series shows its cover, title, **owned/total** count, and badges:
 
 | Badge | Meaning |
 |---|---|
+| `N downloading` | Issues of this series in the download queue right now |
 | `N missing` | Issues you don't own yet |
+| `N available` | Nothing is missing, but issues can be fetched on demand from a remote source |
 | `complete` | You own every issue |
-| `N untagged` | Owned files without embedded ComicVine metadata |
+| `N untagged` | Owned files without embedded metadata |
+| `completed`, `cancelled` | Publication status from enriched metadata, shown when the series is no longer ongoing |
+| `new from #N` | The series is monitored for new issues only, from issue N onward |
+| `not monitored` | Issues are missing but nothing is fetched automatically for this series |
 | `N corrupt` | Files that failed archive verification |
-| `◆ CV` | Matched to ComicVine (hover for the volume name/year) |
-| `no source` | No download source has been able to serve this series yet |
+| `mature` | Flagged mature — hidden from roles without **View mature content** |
+| `needs match` | Not matched yet; a file count shows instead of progress |
 
 <figure class="bi-ex" v-pre>
   <div class="bi-ex__frame" role="img" aria-label="The Library in list view: five series rows with publisher, missing, complete, downloading, untagged, corrupt and needs-match badges, owned over total, latest issue date and size on disk">
@@ -191,7 +196,7 @@ Each series shows its cover, title, **owned/total** count, and badges:
 - Its [monitoring policy](#monitoring), with the current one ticked.
 - Remove it from the library.
 
-The menu only offers what your role can actually do, and it leaves out what would not apply: an unmatched series offers **Match to ComicVine** rather than Fix match, and has no metadata to edit until it is matched.
+The menu only offers what your role can actually do, and it leaves out what would not apply: an unmatched series offers **Match series…** rather than Fix match, and has no metadata to edit until it is matched.
 
 **Filters** — All, Incomplete, Followed, Monitored, Not monitored, Ongoing, Ended (publication status from enriched metadata — run **Refresh series metadata** under System → Tools to fill it in for older series), Problems (corrupt/untagged), **Nothing downloaded**, Unmatched.
 
@@ -468,10 +473,11 @@ Only the exceptions are stored, so changing the policy later never fights a stal
 
 ## Bulk actions
 
-The ☑ button in the Library header switches to multi-select. Select any number of series and:
+The **Select** button in the Library header switches to multi-select. Pick series one by one, or use **Select all** (**Select N loaded** when only part of the collection has loaded yet; press it again to **Clear**), then:
 
 - **★ Follow / ☆ Unfollow** — your personal follows (the pull list), en masse
 - **Monitoring…** — set the monitoring policy for every selected series
-- **⤓ Missing** — queue every missing issue of the selected series
+- **Download missing** — queue every missing issue of the selected series
 - **☰ Add to list** — put every issue of the selected series on a [reading list](reading#reading-lists), in the order the Library is showing them
+- **Move to…** — move the selected series into another library (shown when you have libraries)
 - **Remove** — drop the series from the collection (files on disk are *never* touched)

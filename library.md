@@ -76,7 +76,7 @@ The collection can be split into named **libraries** — say *Comics* and *Manga
 
 A library's **type** decides how its contents behave. Comics and manga follow the ComicVine flow described here; **Books** and **Audiobooks** are self-described libraries with their own scanning, metadata and reading/listening — see [Books](ebooks) and [Audiobooks](audiobooks).
 
-**Manga metadata and covers come from [MangaDex](https://mangadex.org), enriched by [AniList](https://anilist.co) and [MangaUpdates](https://www.mangaupdates.com).** MangaDex identifies the series and provides the cover, alternative titles, status, genres and the kind of book (manga, manhwa, manhua, webtoon); the series' own AniList and MangaUpdates ids are then followed for a curated summary, staff, end year and the publisher. Publication status and genres show on the series page and drive the Ongoing and Ended filters, as they do for comics. With a manga library, the Add dialog offers a **Search manga** toggle, and imports into manga folders match against the manga catalog automatically.
+**Manga metadata and covers come from [MangaDex](https://mangadex.org), enriched by [AniList](https://anilist.co) and [MangaUpdates](https://www.mangaupdates.com).** MangaDex identifies the series and provides the cover, alternative titles, status, genres and the kind of book (manga, manhwa, manhua, webtoon); the series' own AniList and MangaUpdates ids are then followed for a curated summary, staff, end year and the publisher. Publication status and genres show on the series page and drive the Ongoing and Ended filters, as they do for comics. The Add dialog always has **Comics** and **Manga** tabs; if you have no Manga library yet, one is created on the first manga add. Imports into manga folders match against the manga catalog automatically.
 
 ## Storage locations
 
@@ -92,9 +92,9 @@ every series by its ComicVine volume id, which is exact where a folder-name
 scan can only guess. Do that first, then use Import for anything it leaves.
 :::
 
-1. Point the scan at a folder (defaults to your library folders).
+1. Press **Scan for new** to walk your library folders for series not yet in the collection (it keeps your review work), or **Full rescan** to clear the list and start over.
 2. BackIssue walks it and proposes a **match** for each series folder against ComicVine. Tagged libraries match best: when the embedded `ComicInfo.xml` (Mylar, ComicTagger, Kapowarr) carries a ComicVine id, the volume is matched exactly — otherwise the tagged series name, start year, and publisher drive the search; untagged files are matched from their folder names.
-3. Confident matches import automatically; ambiguous ones become **candidates** you confirm or re-pick with a couple of clicks; anything unrecognizable is listed for manual handling.
+3. Strong matches are marked **Ready**; ambiguous ones become **candidates** under **Needs review** that you confirm or re-pick with a couple of clicks; anything unrecognizable is listed for manual handling. Nothing is imported until you press **Import**.
 4. Imported files are indexed as owned — the series' missing counts update immediately.
 
 <figure class="bi-ex" v-pre>
@@ -109,7 +109,7 @@ scan can only guess. Do that first, then use Import for anything it leaves.
         <span class="x-a-btn x-a-btn--primary">Import 43</span>
       </div>
       <div class="x-a-imp__scroll">
-        <p class="x-a-imp__intro">Scan your root folders for series not yet in the collection. Each is matched to ComicVine — confirm or fix the matches, then import. Files stay where they are.</p>
+        <p class="x-a-imp__intro">Scan your root folders for series not yet in the collection. Each is matched against the metadata source — confirm or fix the matches, then import. Files stay where they are.</p>
         <div><div class="x-a-filter">
           <span class="x-a-filter__btn x-a-filter__btn--on">All</span>
           <span class="x-a-filter__btn">Needs review</span>
@@ -182,7 +182,7 @@ The scanner reads real file contents, not just names:
 
 ## Tagging and naming
 
-- Every downloaded issue gets **ComicVine metadata** as `ComicInfo.xml` (series, number, title, date, summary, creators, characters, teams, locations, story arc and page count) — the standard read by comic readers and library servers. Characters and arcs come from ComicVine where it has them and from Metron otherwise, which for anything published before about 1980 is nearly always.
+- With **Tag on download** on (Settings → Metadata; off by default), every downloaded issue gets **ComicVine metadata** as `ComicInfo.xml` (series, number, title, date, summary, creators, characters, teams, locations, story arc and page count) — the standard read by comic readers and library servers. Characters and arcs come from ComicVine where it has them and from Metron otherwise, which for anything published before about 1980 is nearly always.
 - **Tag placement** decides where that XML lives. *Embedded* (the default) writes it into the archive. *Sidecar* writes it to a `.xml` file next to the archive — the archive itself is never modified, so its bytes stay identical for torrent seeding and file-share hashing, and `.cbr` files stay `.cbr`. Set it globally in Settings → Metadata, or per library (a seeding library can use sidecars while the rest embed). When a file has both, the sidecar wins.
 - Folder layout and filenames follow your **naming patterns** (below). The defaults — `Publisher/Series (Year)` folders and `Series VYYYY #NNN` filenames — are unambiguous, sortable, and parseable by other library managers. Sidecar files are renamed, moved, and deleted together with their archive.
 - With embedded placement, CBRs are converted to CBZ on the way in (solid-archive-safe, pages stored without recompression), because CBZ is what embedding and readers handle best. Sidecar placement skips the conversion — originals are left untouched.
@@ -194,7 +194,7 @@ Existing files you imported keep their names until you opt into renaming (below)
 **Settings → Library → File organization** — you decide how comics are organized on disk, with two token patterns and a live example that updates as you type:
 
 - **Folder pattern** — the series folder under a root. Default: `{publisher}/{series} ({year})`. Use `/` for sub-folders.
-- **File pattern** — the issue filename. Default: `{series} V{year} #{issue}`.
+- **File pattern** — the issue filename. Default: `{series} V{year} {edition} #{issue}` — `{edition}` drops out when the issue has no edition.
 
 <figure class="bi-ex" v-pre>
   <div class="bi-ex__frame" role="img" aria-label="Settings, Library, File organization panel with a custom file pattern and its live example path">
@@ -292,17 +292,21 @@ Safety rules for both: only ComicVine-matched series are touched, name collision
 | Tool | What it does |
 |---|---|
 | **Scan entire library** | Re-walk every library folder: index new files, drop records of deleted ones |
+| **Re-index series folders** | For every matched series, re-index its own folder and attribute the files there — without fuzzy matching. Fixes files attached to the wrong same-named series (finding brand-new comics is still **Scan entire library**) |
 | **Tag all untagged files** | Embed ComicVine metadata into every owned file that lacks it (converts CBR as needed) |
 | **Convert all CBR → CBZ** | Repack every `.cbr` so the whole library is consistently taggable |
 | **Unwrap nested archives** | Fix comics packaged as a `.cbz` that holds a `.cbr` instead of pages: lifts the inner archive's pages to the top level, in place, keeping the ComicInfo. Anything it cannot prove is left untouched |
-| **Remove duplicate files** | Delete old/corrupt copies that a good copy of the same issue has replaced |
+| **Remove duplicate files** | Delete corrupt copies that a good copy of the same issue has replaced. Where two good copies exist, the best is kept — tagged first, then the most pages, then the largest — and the other removed; that part only previews (see Logs → tools for the list) unless you tick the box |
 | **Verify archives** | Deep-check every file for corruption; prune records for files gone from disk |
 | **Refresh series metadata** | Re-pull every matched series' volume details and issue list — picks up publication status (Ongoing / Ended), enrichment for series cached before it was on, and issues published since. One request a second; stops cleanly if the service rate-limits (run again to finish) |
-| **Re-link to ComicVine** | Re-map owned files to CV issues across the library (fixes owned/missing counts after big changes) |
+| **Re-link files to metadata** | Re-map owned files to the metadata source's issues across the library (fixes owned/missing counts after big changes) |
+| **Merge duplicate series** | Fold together series rows that point at the same volume. The folder-backed row is kept; the other's files, wanted issues and follows move over, and any duplicate copies that surface are cleared with **Remove duplicate files** |
+| **Re-check mismatched volumes** | Find series whose files go beyond their matched volume's last issue — the sign a same-name mini or one-shot was matched instead of the real run — and re-match them. A clear winner is applied and its files re-linked; anything unclear is left for **Fix match** on the series page |
 | **Download issue metadata** | Fetch ComicVine detail (descriptions, credits, dates, covers) for every issue in your collection that's missing it — already-cached issues are skipped, and it stops cleanly if ComicVine rate-limits (re-run to finish) |
 | **Rename files to pattern** | Rename every CV-linked file to your [file pattern](#naming-patterns), in place (same folder) — collisions are skipped, nothing is overwritten |
 | **Reorganize library** | Move **and** rename every matched series' files to your folder + file patterns — dry-run preview first, then a background job with progress. See [Applying patterns to existing files](#applying-patterns-to-existing-files) |
 | **Back up database** | Snapshot `catalog.db` into `backups/` (keeps the newest 5); safe while the app runs |
+| **Remove ghost series** | Find leftover series with no match and no files on disk, whose wanted issues clutter the Wanted page but can never download. Only previews (see Logs → tools for the list) unless you tick the box |
 
 **Restoring a backup:** stop the app, copy the snapshot over `catalog.db`, start again.
 
