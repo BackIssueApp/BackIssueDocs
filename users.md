@@ -16,6 +16,7 @@ A fresh install **asks you to create the admin account before anything else** â€
 
 - **Create** accounts with a username, password, and role.
 - **Change a role**, **disable** an account (blocks login without deleting its data), or **delete** it.
+- **Set password** for someone who is locked out. The box comes filled with a generated password you can copy or replace (at least 8 characters). Pass it on privately: the account is signed out everywhere and uses it from the next sign-in. Accounts linked to an external sign-in have no local password, so they have no Set password button.
 - **Allow self-registration** â€” a toggle. When on, a sign-up tab appears on the login page and new accounts are created as **viewers**. Off by default; when off, only admins create accounts.
 - Each row shows when the account **last signed in**, and a badge when it's linked to an external sign-in (SSO).
 
