@@ -12,6 +12,8 @@ The collection can be split into named **libraries** — say *Comics* and *Manga
 - **Import** scans each library's folder too, and anything found under one joins that library automatically, typed correctly.
 - A library can have its own **folder pattern** (e.g. just `{series}` for a manga tree without publisher folders) — blank uses the global pattern.
 - Mark a library **Mature** to hide it — name, entry, and every series in it — from roles without the "View mature content" permission (e.g. a kids' account). Series moved in inherit the flag; moved out, they shed it.
+- The arrows on each library set the **order** they appear in the sidebar.
+- One comic or manga library is the **default**: series you add without choosing a library, and series matched from an import outside every library folder, land there. Pick it with **Make default**; until you do, it's the first comic library in the list.
 - Deleting a library keeps all its series (they return to the default library) — nothing is removed from disk.
 - With no libraries defined, the sidebar shows per-type entries automatically once a second type (e.g. manga) appears in the collection — explicit libraries simply take over when you create them.
 

@@ -100,6 +100,8 @@ Named libraries — each one appears as its own entry in the sidebar. See [Libra
 
 | Setting | What it does |
 |---|---|
+| Order | The arrows move a library up or down; the sidebar lists libraries in this order. |
+| Default | The comic or manga library that new comic series go to when you don't pick one. **Make default** chooses it; with none chosen it's the first comic library. |
 | Name | The library's display name. |
 | Type | Sets how the library's series behave — manga, for instance, gets chapter-style search and right-to-left reading. |
 | Folders | Where the library's comics live. The **first** folder is the default: new downloads for that library file there. The rest are extra scan locations. Any folder can be promoted with **Make default**; removing one leaves the files on disk. |

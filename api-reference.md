@@ -174,14 +174,16 @@ volume drops it.
 
 Libraries are the named root folders your series live in, each with a type that
 decides how its files are read. Reading the list needs `library.view`; changing
-one needs `library.manage`.
+anything needs `settings.manage`, since a library decides folders on disk.
 
 | Method | Endpoint | Access | Description |
 |---|---|---|---|
-| GET | `/api/libraries` | library.view | `{ libraries, types }` — every library plus the assignable types |
-| POST | `/api/libraries` | library.manage | Create one — `{ "name": "Comics", "type": "comic", "rootFolder": "/comics" }` → `{ id, libraries }` |
-| POST | `/api/libraries/{id}` | library.manage | Update one — any of `name`, `type`, `rootFolder`, `folderPattern`, `restricted`, `sortOrder`, `tagPlacement` → `{ libraries }` |
-| DELETE | `/api/libraries/{id}` | library.manage | Remove one — `{ removed, libraries }` |
+| GET | `/api/libraries` | library.view | `{ libraries, types, defaultId }` — every library in display order, the assignable types, and the library new comic series land in |
+| POST | `/api/libraries` | settings.manage | Create one — `{ "name": "Comics", "type": "comic", "rootFolder": "/comics" }` → `{ id, libraries }` |
+| POST | `/api/libraries/order` | settings.manage | Reorder — `{ "ids": [3, 1] }`; ids not listed keep their order after these → `{ libraries, defaultId }` |
+| POST | `/api/libraries/{id}` | settings.manage | Update one — any of `name`, `type`, `rootFolder`, `folderPattern`, `restricted`, `sortOrder`, `tagPlacement`, `metadataSources` → `{ libraries }` |
+| POST | `/api/libraries/{id}/default` | settings.manage | Make a comic or manga library the default → `{ libraries, defaultId }`; `400` for other types |
+| DELETE | `/api/libraries/{id}` | settings.manage | Remove one — `{ removed, libraries }` |
 
 Three things are worth knowing before you automate against this:
 
