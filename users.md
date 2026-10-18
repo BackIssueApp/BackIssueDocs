@@ -219,11 +219,14 @@ It is a preference, not a permission, so it only ever narrows. An account whose
 role lacks *View mature content* sees nothing flagged either way, and switching
 this off cannot widen that.
 
-::: warning It does not reach OPDS
-This preference filters the web app and the API. It does **not** filter the
-[OPDS catalog](opds#access-control), so a reader app signed in as an account
-that holds the permission still lists flagged series. Where it matters, use the
-role permission rather than the switch.
+It reaches everything the account signs in to: the web app, the API, the
+[OPDS catalog](opds#access-control) and reader apps, the in-browser reader and
+[Shelves](shelves). A reader app picks up a change on its next request.
+
+::: tip Older versions
+Before BackIssue 0.9.2 the switch didn't reach OPDS, so a reader app signed in
+with a username and password still listed flagged series. Update the server and
+the OPDS and Reader plugins, or rely on the role permission instead.
 :::
 
 **View mature content** is a *trusted*-tier permission, so it's included in the built-in Trusted and Admin roles by default. To gate mature content:

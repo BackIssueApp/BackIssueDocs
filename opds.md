@@ -163,7 +163,7 @@ page of *All series* will take a while. Browse by publisher instead.
 
 OPDS access is its own grantable permission (**OPDS catalog**), so you can allow or withhold external-app access per role — independent of in-browser reading. Books need the separate **Books library** permission on top.
 
-Series flagged **mature** are hidden from the catalog for roles without *View mature content*, the same rule the web app enforces: they are absent from every list, and their files and pages report themselves as missing rather than refused, so their existence isn't leaked either. See [Users & access](users).
+Series flagged **mature** are hidden from the catalog for roles without *View mature content*, and for accounts that switched on [Hide mature content](users#hiding-it-from-yourself) (BackIssue 0.9.2 or newer), the same rule the web app enforces: they are absent from every list, and their files and pages report themselves as missing rather than refused, so their existence isn't leaked either. See [Users & access](users).
 
 ::: warning The per-user mature toggle does not reach OPDS
 *Hide mature content* on your Profile is a personal preference for the web app.
