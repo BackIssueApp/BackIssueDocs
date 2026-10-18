@@ -228,7 +228,7 @@ This tab appears once an installed plugin mounts a panel on it, and shows one ra
 
 | Setting | What it does |
 |---|---|
-| Requests: auto-approve | Every volume request is approved and added instantly — no review queue. Off = roles with **Manage requests** approve or decline each one. With **Download on add** also on, auto-approved requests download their missing issues automatically. See [Requests](requests). |
+| Requests: auto-approve | Every request is approved, added and downloaded instantly, whoever requested it — no review queue. Off = roles with **Manage requests** approve or decline each one, and an approval downloads only when the approver has **Search & download**. See [Requests](requests). |
 | Requests: Western comics only | Only volumes from Western (US/UK) publishers can be searched and requested; manga and foreign-language titles are hidden. |
 | Requests: no collections | Blocks collected editions — trade paperbacks, hardcovers, omnibuses — so only single-issue series can be requested. Detected heuristically from the volume's title and description. |
 | OPDS progress sync | On by default. Streaming a page from an OPDS app advances your resume point (forward only), and fetching the last page marks the issue read — so OPDS reading feeds Continue reading and your stats. Whole-file downloads are unaffected; a client can opt out per request with `?progress=0`. See [OPDS](opds). |

@@ -24,8 +24,8 @@ title is already on the shelf or already requested. Requests, votes, notes
 and withdrawal work exactly as they do for comics; the queue marks each
 request with its kind.
 
-Approving a book asks your **download sources** for it, the same way an issue
-is fetched: usenet and torrent search the book and audiobook categories, and
+Approving a book asks your **download sources** for it (when the approver may
+download, see [Permissions & fairness](#permissions-fairness)), the same way an issue is fetched: usenet and torrent search the book and audiobook categories, and
 a [site source](plugin-api#sources-from-a-site-description) takes part when it
 declares that it carries books or audiobooks (asked by ISBN first, when the
 catalog knows one, so the exact edition wins). The best release is grabbed and,
@@ -54,7 +54,7 @@ Approved requests show live **on-disk progress** (how many issues have arrived) 
 
 Admins can turn on **Requests: auto-approve** (Settings): every request is added to the library instantly, no review step — turning the queue into a self-serve "add it now" for trusted groups.
 
-Auto-approve can start downloads too. An auto-approved comic request queues the volume's missing issues straight away when the requester's role may download, or for every requester when **Download on add** (in the Downloading settings) is on. An auto-approved book or audiobook is sent to your download sources at once, just as an approval would.
+Auto-approve also downloads, whoever filed the request: an auto-approved comic request queues the volume's missing issues straight away, and an auto-approved book or audiobook is sent to your download sources at once.
 
 ## Limiting what can be requested
 
@@ -67,12 +67,9 @@ Two settings narrow what shows up in request search (and are re-checked when a r
 
 Requests are gated by two grantable permissions — **Request volumes** and **Manage requests** — so you can, for example, let a role request but not approve, or vice versa. See [Users & access](users).
 
-For comics, the download that follows a manual approval runs under the **approver's own download permission**: a curator who can approve but isn't allowed to download can add the volume, but **Approve + download** is unavailable to them. Two cases don't depend on who acted:
+A manual approval downloads only when the **approver** has **Search & download**. A curator who can approve but isn't allowed to download can add a volume, but **Approve + download** is unavailable to them; approving a book or audiobook marks it approved without asking the download sources, and neither does the **Fill approved book requests** job later. It counts as available once a scan or import brings it in.
 
-- **Auto-approve with Download on add** — as above, an auto-approved comic request queues its missing issues regardless of the requester's permission.
-- **Books and audiobooks** — approving one, by hand or by auto-approve, always asks your download sources for it, whatever the approver's or requester's download permission.
-
-If a role shouldn't be able to cause downloads, keep auto-approve off, and grant **Manage requests** only to people you'd trust to start book downloads.
+Auto-approve is the exception: it downloads whatever the requester's permission, so if a role shouldn't be able to cause downloads, keep auto-approve off.
 
 ## Notifications
 

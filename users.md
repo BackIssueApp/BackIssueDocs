@@ -244,12 +244,9 @@ Because it's an ordinary permission, it composes with the rest: a "kids" role ca
 
 ## Requests and download permission
 
-When [Requests](requests) queues comic downloads for a manual approval, it does so under **the approver's own download permission**: a curator who can approve but may not download can add the volume, but not download it. Two cases don't depend on who acted:
+A manual approval in [Requests](requests) downloads only when **the approver** has **Search & download**. A curator who can approve but may not download can add a volume, book or audiobook to the library, but nothing is fetched for it.
 
-- **Auto-approve with Download on add.** When **Requests: auto-approve** and **Download on add** are both on, an auto-approved comic request queues the volume's missing issues regardless of the requester's permission — it's treated as a server-wide automation. With **Download on add** off, an auto-approved request downloads only when the requester's own role may download.
-- **Books and audiobooks.** Approving a book or audiobook request — by hand or by auto-approve — always asks your download sources for it, whatever the approver's or requester's download permission.
-
-So if a role shouldn't be able to cause downloads, keep auto-approve off, and grant **Manage requests** only to people you'd trust to start book downloads.
+**Requests: auto-approve** is the exception: an auto-approved request downloads whoever filed it, since turning it on is the admin's decision. So if a role shouldn't be able to cause downloads, keep auto-approve off.
 
 ## Sessions & login security
 
