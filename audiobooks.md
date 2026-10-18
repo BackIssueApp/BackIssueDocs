@@ -96,9 +96,15 @@ takes it off the list.
   </figcaption>
 </figure>
 
-`GET /api/audiobooks/wanted` lists the wanted audiobooks and
-`DELETE /api/audiobooks/wanted/<id>` drops one (the **Manage library**
-permission, like adding).
+Everything wanted is listed on the **Wanted** page, on its **Audiobooks** tab
+(BackIssue 0.9.2 or newer): each title with when it was added and how its last
+search went. **Search now** asks the sources again straight away instead of
+waiting for the **Fill wanted audiobooks** job, and **Cancel** stops wanting it. Both need
+the **Manage library** permission, like adding.
+
+Over the API, `GET /api/audiobooks/wanted` lists the wanted audiobooks,
+`POST /api/audiobooks/wanted/<id>/retry` searches for one now, and
+`DELETE /api/audiobooks/wanted/<id>` drops one.
 
 ## Streaming, not downloading
 

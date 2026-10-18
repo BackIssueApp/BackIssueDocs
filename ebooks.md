@@ -170,9 +170,15 @@ means takes it off the list. Whoever added it is notified when it lands.
   </figcaption>
 </figure>
 
-`GET /api/ebooks/wanted` lists the wanted books and
-`DELETE /api/ebooks/wanted/<id>` drops one (the **Manage library** permission,
-like adding).
+Everything wanted is listed on the **Wanted** page, on its **Books** tab
+(BackIssue 0.9.2 or newer): each title with when it was added and how its last
+search went. **Search now** asks the sources again straight away instead of
+waiting for the **Fill wanted books** job, and **Cancel** stops wanting it. Both need
+the **Manage library** permission, like adding.
+
+Over the API, `GET /api/ebooks/wanted` lists the wanted books,
+`POST /api/ebooks/wanted/<id>/retry` searches for one now, and
+`DELETE /api/ebooks/wanted/<id>` drops one.
 
 ## On-demand libraries
 

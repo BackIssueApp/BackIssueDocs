@@ -560,6 +560,9 @@ window.BackIssue.registerClient((api) => {
 | `registerIssueAction({ id, icon, title, when(issue), run(issue, series) })` | A button on matching issue rows (and the issue info panel). `icon`/`title` may be functions of the issue |
 | `registerSeriesAction({ id, label, title?, when(series, issues), run(series, issues) })` | A button in the series header |
 | `registerIssueCover(fn)` | Provide cover URLs: `fn(issue) → url | null`; first non-null provider wins |
+| `registerSeriesView({ type, render(container, ctx) })` | Own the issue area of series pages for a library type your plugin registered; the header stays core's. `render` is called again on every refresh, into a cleared container. `ctx = { series, issues, refresh(), can, icon, get, post }` |
+| `registerLibraryFilters({ types, groups(selection, ctx) })` | Facet groups for core's Library **Filters** button on those library types; `groups` resolves to `[{ key, label, multi, search?, options: [{ value, label, count }] }]`. Pair it with the server's `registerCollectionFilter`, which turns the selection into series ids |
+| `registerWantedTab({ id, label, render(container, ctx) })` | A tab on the **Wanted** page beside Comics, for a list your plugin keeps (BackIssue 0.9.2+). `label` may be a function so it follows the language; `render` draws into a cleared container each time the tab opens. `ctx = { get, post, del, can, icon, toast, openSeries }` |
 | `refreshIssueActions()` | Re-render issue/series action buttons after your state changes |
 | `onStatus(cb)` | Called with each status poll (progress bars etc.) |
 | `onSettingsLoad(cb)` | Called when the Settings page opens, with the current settings |
