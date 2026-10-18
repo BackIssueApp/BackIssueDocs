@@ -92,7 +92,7 @@ Click your username in the sidebar → **Profile**. Everyone gets one:
 
 ## Signing in with an identity provider (SSO)
 
-Install the **SSO (OpenID Connect)** plugin from the Plugins page to let users sign in through an identity provider — Authentik, Keycloak, Auth0, Google, Microsoft Entra, and the like. The login page gains a "Sign in with…" button; a first-time sign-in links to an existing account by email or creates a new one (as a viewer, configurable). Admins can also **disable password login** for an SSO-only setup — admins keep a password fallback so a broken provider can't lock everyone out.
+Install the **SSO (OpenID Connect)** plugin from the Plugins page to let users sign in through an identity provider — Authentik, Keycloak, Auth0, Google, Microsoft Entra, and the like. The login page gains a "Sign in with…" button once an issuer and client ID are set; a first-time sign-in links to an existing account by email or creates a new one (as a viewer, configurable). Only an email the provider marks as verified links an account or passes the allowed-domains check. For a provider that checks addresses but doesn't send that flag, such as Microsoft Entra, turn on **Trust email addresses from this provider**. Admins can also **disable password login** for an SSO-only setup — admins keep a password fallback so a broken provider can't lock everyone out.
 
 An account linked to an external service has **no local password** — it can't set one and an admin can't set one for it. Its access stays governed by the provider, so revoking access there (for example, an expired subscription with a billing integration) reliably locks the account out with no local password left behind. Such users can still create a personal **API key** for reader apps and scripts.
 

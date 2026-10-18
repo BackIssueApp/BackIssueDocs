@@ -180,6 +180,10 @@ api.registerAuthProvider({ id: 'myidp', label: 'MyIdP', loginPath: '/api/myidp/l
 
 `loginPath` must be a **public** plugin route that starts the provider's flow; the callback route verifies the provider's response and calls `req.app.locals.issueSession(...)`.
 
+Two optional functions, read on each request: `isEnabled()` hides the button until the provider is set up, and `getLabel()` returns the current label, so renaming the button needs no restart.
+
+`issueSession` links an identity to an existing account when the emails match, so pass an `email` only when the provider has verified it.
+
 ### `registerCredentialProvider(fn)` — external password backends
 
 Lets the standard login form authenticate against a remote system (LDAP-style). Core tries these **only after** local password auth fails:
