@@ -72,7 +72,7 @@ api.registerRoute('get', '/api/myplugin/things', (req, res) => { ... }, { access
 - `req.user` carries the authenticated user (`{ id, username, role }`).
 - Core services are on `req.app.locals`:
   - `startDownloads()` — kick the download queue.
-  - `notify(event)` — emit a notification (bell + registered notifier channels): `{ type, category, level, title, body, url?, userId?, seriesId? }`.
+  - `notify(event)` — emit a notification (bell + registered notifier channels): `{ type, category, level, title, body, url?, userId?, seriesId?, params? }`. `params` holds the facts behind the title and body (`{ title, count, … }`); it is stored with the notification, used to translate it, and passed on to notifier channels.
   - `issueSession(req, res, identity)` — sign in an **already-verified** external identity `{ provider, subject, email?, name?, defaultRole? }`; links or provisions the account and sets the session cookie. For SSO plugins' callback routes.
 
 ### `registerJob(job)`
@@ -203,13 +203,14 @@ Called (fire-and-forget) with **every** event the notification centre records; t
 
 ```js
 api.registerNotifier(async (event, { fetchImpl }) => {
-  // event: { type, category, level, title, body, url, userId, seriesId }
+  // event: { type, category, level, title, body, url, userId, seriesId, params? }
   if (!myUrl) return;
   await fetchImpl(myUrl, { method: 'POST', body: JSON.stringify(event) });
 });
 ```
 
 - `category` is one of `import | failure | release | request | system`; `level` is `info | success | warn | error`.
+- `params` is present only when the emitter passed one, so a channel written against the older shape sees no new key.
 - A thrown error is logged and never breaks the caller or other channels — but still filter/no-op cheaply when unconfigured.
 - Use the passed `fetchImpl` (tests inject it); it defaults to global `fetch`.
 - The **Notifications Hub** plugin is the reference implementation (Discord, Telegram, Pushover, ntfy, generic webhook).
@@ -296,6 +297,132 @@ api.registerMetadataProvider({
   without them is told apart by the absence of `list()`.
 - The **French editions** plugin is the reference implementation.
 
+### `registerLibraryType(type)` — a new kind of library
+
+Adds a library type beyond the built-in comic and manga ones:
+
+```js
+api.registerLibraryType({ id: 'ebook', label: 'Books', selfDescribed: true });
+```
+
+- The id is lower-cased and stripped to `a-z 0-9 _ -`. Registering it lets a
+  series take that type and adds a Library filter lane (`?filter=<id>`); it
+  then shows up in `types` from `GET /api/libraries`.
+- Core only tracks and filters the type. Your plugin owns its behaviour: how
+  files are read, where items come from, which sources serve it.
+- `selfDescribed: true` says series of this type carry their own metadata on
+  the series row (title, publisher, year, cover, description) and list their
+  own issue rows. Core renders them from those columns and keeps the comic
+  matching machinery (the match sweep, the Unmatched lane) away from them.
+- Translate the label under `_shared.libraryTypes` (see [Translations](#translations)).
+
+### `registerLibraryScanner({ type, scan })` — index a library of your type
+
+```js
+api.registerLibraryScanner({ type: 'ebook', scan: ({ libraryId }) => runScan(libraryId) });
+```
+
+Core calls `scan({ libraryId })` without waiting for it whenever a library of
+that type is created or edited, and from the System scan tools, so your
+libraries index through the same actions as comic ones. One scanner per type;
+a second registration for the same type is ignored.
+
+### `registerImportHandler(handler)` — files for the Import tool
+
+Lets the Import tool pick up file types other than comics:
+
+```js
+api.registerImportHandler({
+  id: 'ebooks',
+  async scan({ db, config, roots, skip, log }) {
+    // walk roots for your own files; return nothing for keys in skip
+    return [{ key: '/books/dune.epub', name: 'Dune', year: '1965', confidence: 'high', seriesType: 'ebook' }];
+  },
+  async import(candidate, { db, config, log }) {
+    // file it into its library and catalog it; throw to mark it failed
+  },
+});
+```
+
+- A candidate is `{ key, name, year?, publisher?, fileCount?, matchName?,
+  matchYear?, matchImage?, confidence, seriesType?, libraryId? }`, with
+  `confidence` one of `high | medium | low | none`.
+- `key` must be unique and stable; a file path works. `skip` is the set of
+  keys whose review state core is already keeping.
+- Confirmed candidates come back through `import()`.
+
+### `registerCollectionFilter({ id, resolve })` — faceted Library filters
+
+The server half of the client's `registerLibraryFilters`: turns the selection
+the Filters dialog produced into the series it matches.
+
+```js
+api.registerCollectionFilter({
+  id: 'shelves',
+  resolve(selection, { db, userId, includeRestricted, library }) {
+    return matchingSeriesIds(selection);   // or null for no restriction
+  },
+});
+```
+
+The selection arrives as the `?facet=` parameter of `/api/collection`,
+`/counts` and `/jump`. Core narrows the grid to the ids you return. Return
+`null` when the selection is empty or not yours, so another filter can answer;
+an empty array means nothing matches. A filter that throws is skipped.
+
+### `registerBookMetadataSource(source)` — book matching data
+
+A place the Books plugin looks up book metadata when it matches files:
+
+```js
+api.registerBookMetadataSource({
+  id: 'mybooks',
+  priority: 50,                              // lower is tried first; default 100
+  makeClient: (config) => ({
+    available: () => !!config.mybooksKey,
+    async search(q, limit) { return [ /* results */ ]; },
+  }),
+});
+```
+
+- `search` returns results shaped `{ id, title, subtitle, authors[],
+  description, publisher, published_date, isbn_10, isbn_13, page_count,
+  categories[], language, thumbnail }`.
+- Registered sources are tried in ascending `priority`, before the built-in
+  service.
+
+### `registerRemoteMediaSource(source)` — an on-demand catalog
+
+A remote catalog that fills a library with file-less entries. Metadata and
+covers arrive up front; each item's content is fetched the first time someone
+opens it. One hook covers every media kind, named by `mediaType`:
+
+```js
+api.registerRemoteMediaSource({
+  id: 'mycatalog',
+  mediaType: 'audiobook',                     // 'ebook', 'audiobook', …
+  async listPage(config, page) {
+    return { items: [{ remote_id, title, author, coverUrl }], page, totalPages, total };
+  },
+  // at least one of:
+  async materialize(config, remoteId, { libraryId, dbPath }) { return { path }; },
+  async openStream(config, remoteId, { range }) { return { status, headers, body }; },
+});
+```
+
+- `materialize` downloads the whole file, cached on first read; it suits small
+  files such as EPUBs. `openStream` serves byte ranges as they are played, for
+  large audio files, and keeps credentials on the server.
+- `cover(config, remoteId)` and `chapters(config, remoteId)` are optional.
+  `coverUrl` should point at a session-authenticated route of your own.
+- The source reads its own settings, so callers pass `null` for `config`.
+- A source needs `id`, `mediaType`, `listPage` and one of the two fetch
+  methods, or it is ignored. A new media kind needs only a new `mediaType`
+  string.
+- `registerRemoteBookSource(source)` is the older book-only form: the same
+  object without `mediaType` (it is set to `'ebook'`), and it requires
+  `materialize`.
+
 ### `registerMediaHandler(handler)` — file a downloaded book or audiobook
 
 The download sources can fetch **books and audiobooks** for plugin library
@@ -323,8 +450,9 @@ const r = await api.downloadMedia({
   db, type: 'ebook', libraryId, title: 'The Way of Kings', author: 'Brandon Sanderson', year: '2010',
   ref: 'requests:12',            // anything you can recognise later
 });
-// r.status: 'grabbed' (a client has it) | 'downloading' (a site source is fetching it)
-//         | 'no-match' | 'no-sources' — plus source and release where there is one
+// r.status: 'grabbed' (a client has it, with grabId) | 'downloading' (a site source is fetching it)
+//         | 'no-match' (with searched: the source ids asked) | 'no-sources'
+//         | 'error' (with error and searched) — plus source and release where there is one
 
 api.onMediaDownload((e) => {
   // e.event: 'imported' (with issueId, seriesId) or 'failed' (with error); e.ref is yours
@@ -547,12 +675,12 @@ window.BackIssue.registerClient((api) => {
 |---|---|
 | `slot(id)` | A mount-point element (see [Slots](#slots)) — append to it, never replace its contents |
 | `get(path)` / `post(path, body)` | Authenticated fetch helpers returning JSON |
-| `me()` | The resolved session: `{ openMode, user: { id, username, role, permissions } }` |
+| `me()` | The resolved session: `{ openMode, user: { id, username, role, permissions, hideMature, lang } }` |
 | `can(perm)` | Does the signed-in user hold a permission — hide affordances the server would 403 |
 | `icon(name, opts?)` | Core's inline-SVG icon set as a string — matches the app's UI on every device |
 | `toast(msg, type)` | Host toast: `'info' | 'ok' | 'warn' | 'error'` |
 | `t(key, params?)` | A translated string from core's catalogs plus your own (see [Translations](#translations)); `params.count` picks the plural form, every param is available as `{name}` |
-| `th(key, params?)` | The same for `innerHTML`: params are escaped and only `<b> <i> <em> <strong> <code> <br>` pass through |
+| `th(key, params?)` | The same for `innerHTML`: params are escaped and only `<b> <i> <em> <strong> <code> <br> <kbd>` pass through |
 | `lang()` | The active language code (`'en'`, `'fr'`, …), for your own date or number formatting |
 | `registerMessages(catalogs)` | Add strings at runtime, `{ lang: { namespace: { key: message } } }`; prefer `locales/<lang>.json` files, which core loads for you |
 | `escapeHtml(s)` / `fmt(n)` / `safeUrl(u)` | Escaping, number formatting, and URL sanitizing (route any user/remote `href` through `safeUrl`) |
@@ -564,9 +692,14 @@ window.BackIssue.registerClient((api) => {
 | `registerLibraryFilters({ types, groups(selection, ctx) })` | Facet groups for core's Library **Filters** button on those library types; `groups` resolves to `[{ key, label, multi, search?, options: [{ value, label, count }] }]`. Pair it with the server's `registerCollectionFilter`, which turns the selection into series ids |
 | `registerWantedTab({ id, label, render(container, ctx) })` | A tab on the **Wanted** page beside Comics, for a list your plugin keeps (BackIssue 0.9.2+). `label` may be a function so it follows the language; `render` draws into a cleared container each time the tab opens. `ctx = { get, post, del, can, icon, toast, openSeries }` |
 | `refreshIssueActions()` | Re-render issue/series action buttons after your state changes |
+| `selectedIssues()` | The issue ids currently checked on the open series page (empty when none), so a series action can work on the selection |
+| `openSeries(id)` | Open a series page, the same route a library card uses |
+| `navigate(path)` | Go to any in-app route; internal paths (starting with `/`) only, anything else is ignored |
+| `libraries()` | Core's already-fetched library list, which spares a `/api/status` call; may be empty for a moment at startup |
 | `onStatus(cb)` | Called with each status poll (progress bars etc.) |
 | `onSettingsLoad(cb)` | Called when the Settings page opens, with the current settings |
 | `onSourcesSync(cb)` | Called on every source-UI sync; return whether your source is enabled (feeds the "no sources" warning). Update your own settings block here |
+| `onIndexersManaged(cb)` | Called on every source-UI sync; return `true` while your indexer provider (`registerIndexerProvider`) manages the indexer lists, and core greys the manually entered ones |
 | `refreshSourceUI()` | Ask the Settings page to re-run the source sync (call from your enable toggle) |
 
 ### Slots

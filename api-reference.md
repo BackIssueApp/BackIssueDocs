@@ -20,8 +20,10 @@ screen in the app is a live example of these endpoints in action.
   user). See [Building on the API](/api#api-keys).
 - **Request bodies** — JSON, with `Content-Type: application/json`. Query
   strings are used for filters on `GET` endpoints.
-- **Responses** — JSON. Lists return a JSON array; single resources return an
-  object.
+- **Responses** — JSON. Single resources return an object. Most lists come
+  back wrapped in an object rather than as a bare array — `{ lists }`,
+  `{ sources, cards }`, or a page with its `total` — so check each endpoint's
+  shape below.
 - **Errors** — `{ "error": "…" }` with a meaningful status: `400` (bad
   input), `401` (missing/invalid key), `403` (your role lacks the
   permission), `404` (not found or hidden from your role), `502` (an upstream
@@ -50,6 +52,7 @@ allows. The core permissions:
 | `downloads.grab` | Search sources, queue downloads, cancel queued items | trusted |
 | `library.manage` | Add/remove volumes and issues, scan, tag, import, fix matches | trusted |
 | `library.restricted` | See and read series flagged mature/restricted | trusted |
+| `lists.share` | Share reading lists with every user | trusted |
 | `settings.manage` | Change settings and indexers, run connection tests | admin |
 | `users.manage` | Manage accounts, roles, and permissions | admin |
 | `plugins.manage` | Enable/disable plugins, restart the app | admin |
@@ -78,6 +81,7 @@ Self-service — any signed-in user, for their own account. A few are public
 | POST | `/api/auth/password` | authed | Change password |
 | POST | `/api/auth/email` | authed | Set the account's email |
 | POST | `/api/auth/hide-mature` | authed | Personal mature-content preference — `{ "hide": true \| false }` → `{ "hideMature": bool }` |
+| POST | `/api/auth/lang` | authed | Personal interface language — `{ "lang": "fr" }` → `{ lang }`; `null` or `""` follows the browser |
 | GET | `/api/auth/apikey` | authed | Whether a key exists (never returns the key itself) |
 | POST | `/api/auth/apikey` | authed | Generate/replace the key — returns it **once** |
 | DELETE | `/api/auth/apikey` | authed | Revoke the key immediately |
@@ -92,13 +96,16 @@ Self-service — any signed-in user, for their own account. A few are public
     "id": 3,
     "username": "you",
     "role": "admin",
-    "permissions": ["*"]
+    "permissions": ["*"],
+    "hideMature": false,
+    "lang": null
   }
 }
 ```
 
 `permissions` is `["*"]` for admin; otherwise the explicit list your role
-resolves to. `hideMature` reports the account's own preference.
+resolves to. `hideMature` reports the account's own preference, and `lang` the
+interface language it picked (`null` follows the browser).
 
 **`POST /api/auth/hide-mature`** narrows what this account sees, on top of what
 its role allows. It cannot widen anything: an account whose role lacks
@@ -121,30 +128,38 @@ Your tracked series and their issues. Reads need `library.view`; changes need
 
 | Method | Endpoint | Access | Description |
 |---|---|---|---|
-| GET | `/api/collection` | library.view | Tracked series; `?filter=`, `?search=`, `?sort=` |
+| GET | `/api/collection` | library.view | Tracked series; `?filter=`, `?search=`, `?sort=`, `?library=`, `?collections=1`, `?facet=`. Add `?limit=`/`?offset=` for a page → `{ rows, counts, total }` |
 | GET | `/api/collection/{id}` | library.view | One series with issues, owned/missing counts, folder location |
 | GET | `/api/collection/counts` | library.view | Counts for each collection chip — same `?search=`, `?library=`, `?collections=1` and `?facet=` filters as `/api/collection` |
+| GET | `/api/collection/jump` | library.view | A-Z quick jump, same filters as `/api/collection` — `?letter=S` → `{ offset }`, or every letter's offset at once without it |
+| GET | `/api/issues/featuring` | library.view | Every issue in the collection crediting a person or featuring a character or team — `?kind=creator\|character\|team&name=` → `{ kind, name, issues }` |
 | GET | `/api/series` | library.view | All series (matched + catalog); `?search=` |
 | GET | `/api/series/{id}/issues` | library.view | Issues for a series |
 | GET | `/api/issue/{cvIssueId}` | library.view | One issue by ComicVine issue id |
-| POST | `/api/collection/add-cv` | library.manage | Add a series by ComicVine volume — body `{ "comicvineId": 12345, "cvIssueIds"?: [ … ], "reason"?: "list:7" }` |
+| POST | `/api/collection/add-cv` | library.manage | Add a series by ComicVine volume — body `{ "comicvineId": 12345, "cvIssueIds"?: [ … ], "reason"?: "list:7", "libraryId"?: 3, "manga"?: true }` |
 | POST | `/api/collection/{id}/cv` | library.manage | Re-point a series at a different ComicVine volume |
-| POST | `/api/cv/match` | library.manage | Match an unmatched series to ComicVine |
+| POST | `/api/cv/match` | library.manage | Start the library-wide match job (no body) → `{ started: true }`; follow its progress on `GET /api/cv` |
 | POST | `/api/collection/{id}/aliases` | library.manage | Set search aliases for a series |
-| POST | `/api/collection/{id}/metadata` | library.manage | Refresh a series' metadata |
-| POST | `/api/issue/{cvId}/metadata` | library.manage | Refresh one issue's metadata |
+| POST | `/api/collection/{id}/metadata` | library.manage | Edit a series' metadata — `{ "fields": { … } }` writes those values and locks them against refreshes; `{ "reset": true }` drops the locks |
+| POST | `/api/issue/{cvId}/metadata` | library.manage | Edit one issue's metadata — same `{ fields }` or `{ "reset": true }` body |
 | POST | `/api/collection/{id}/restricted` | library.manage | Flag/unflag a series as mature/restricted |
 | POST | `/api/collection/{id}/monitor` | library.manage | Monitoring policy — `{ "monitor": "all" \| "new" \| "none", "from"?: 150, "clearPicks"?: true }` (legacy `{ "monitored": bool }` = all/none) → `{ monitor, monitor_from, monitored }` |
 | POST | `/api/collection/{id}/wanted` | downloads.grab | Pick or skip issues — `{ "cvIssueIds": [ … ], "want": true \| false }` or `{ …, "clear": true }` → `{ changed, issues: [{ cv_issue_id, wanted, why, pick, reason }] }` |
-| POST | `/api/collection/{id}/follow` | library.view | Toggle your personal follow (pull list) |
+| POST | `/api/collection/{id}/follow` | library.view | Follow or unfollow for yourself (pull list) — `{ "follow": true \| false }` → `{ followed }` |
 | POST | `/api/collection/bulk` | library.manage | Bulk action across selected series — `action`: `follow`, `unfollow`, `monitor` (+ `monitor`), `move-library`, `download-missing`, `remove` |
 | POST | `/api/collection/{id}/library` | library.manage | Move a series into a library — `{ "libraryId": 3 }`, or `null` for the default |
 | POST | `/api/collection/{id}/type` | library.manage | Change a series' type — `{ "type": "comic" \| "manga" \| … }` → `{ type }` |
 | POST | `/api/collection/{id}/assign-file` | library.manage | Pin a file to an issue by hand — `{ "path": "…", "cvIssueId": 987654 }`, or `null` to forget it → `{ ok, cvIssueId }` |
-| POST | `/api/collection/{id}/delete` | library.manage | Untrack a series (files on disk are left alone) |
+| POST | `/api/collection/{id}/delete` | library.manage | Untrack a series; files on disk are left alone unless you send `{ "deleteFiles": true }` |
 
-**`POST /api/collection/add-cv`** — adds the volume (monitoring **all** issues),
-follows it for you, and (when download-on-add is on and your role allows it)
+**`GET /api/collection`** with `?limit=` or `?offset=` returns one page,
+`{ rows, counts, total }` (`limit` up to 500, default 200); add `?counts=0` to
+skip the chip counts. With no parameters at all it returns a bare array of
+every series, leaving out book and audiobook series.
+
+**`POST /api/collection/add-cv`** — adds the volume with the monitoring policy
+from the **Monitor added series** setting (all issues by default), follows it
+for you, and (when download-on-add is on and your role allows it)
 queues every missing issue. With **Only the issues that were asked for** on and
 `cvIssueIds` given, the series arrives with monitoring **off** and just those
 issues picked (`reason` is stored with the picks):
@@ -156,9 +171,12 @@ curl -X POST http://backissue.local:8787/api/collection/add-cv \
 # → { "seriesId": 42, "cvId": 18166, "queued": 12 }
 ```
 
+`libraryId` files the new series in that library. `manga: true` files it in
+the first manga library instead, creating one called Manga if none exists.
+
 **`GET /api/collection/counts`** returns a flat map — `all`, `incomplete`,
 `followed`, `monitored`, `unmonitored`, `ongoing`, `ended`, `problems`,
-`unmatched` and `manga` — so a client can label its filter chips without
+`empty`, `unmatched` and `manga` — so a client can label its filter chips without
 fetching each filtered list. It always answers, falling back to a slower
 synchronous count if the cached one isn't ready.
 
@@ -216,7 +234,7 @@ library-wide tools are gated tighter than ordinary edits.
 
 | Method | Endpoint | Access | Description |
 |---|---|---|---|
-| GET | `/api/scan-folder` | library.view | Preview the files in a folder |
+| GET | `/api/scan-folder` | library.manage | State of the running per-series folder scan — `{ running, seriesId, dir, done, total }` |
 | GET | `/api/tag-files` | library.view | State of a running tag-files pass |
 | POST | `/api/collection/{id}/scan` | library.manage | Index a series' own folder and attribute its files |
 | POST | `/api/collection/{id}/path` | library.manage | Pin the folder for a series |
@@ -330,6 +348,7 @@ because it can add series.
 | PATCH | `/api/lists/{id}` | library.view | Rename/reorder a list |
 | DELETE | `/api/lists/{id}` | library.view | Delete a list |
 | POST | `/api/lists/{id}/items` | library.view | Add an issue to a list |
+| POST | `/api/lists/{id}/series` | library.view | Add every issue of whole series, in order — `{ "seriesIds": [ … ] }` → `{ added, series, skipped }` (unmatched series are skipped) |
 | DELETE | `/api/lists/{id}/items/{cvIssueId}` | library.view | Remove an issue from a list |
 | POST | `/api/lists/{id}/public` | lists.share | Share a list with everyone, or unshare it — `{ "public": true }` → `{ public }` |
 | POST | `/api/lists/import-arc` | library.view | Create a list from a ComicVine story arc |
@@ -373,7 +392,7 @@ you add `X-Api-Key`.
 |---|---|---|---|
 | GET | `/api/settings` | settings.manage | All settings |
 | POST | `/api/settings` | settings.manage | Update settings |
-| POST | `/api/indexers/test` | settings.manage | Test a Newznab/Torznab indexer |
+| POST | `/api/indexers/test` | settings.manage | Test a Newznab indexer (Torznab has its own route below) |
 | POST | `/api/clients/test` | settings.manage | Test a download client |
 | POST | `/api/torznab/test` | settings.manage | Test a Torznab source |
 | POST | `/api/torrent-client/test` | settings.manage | Test a torrent client |
@@ -416,6 +435,7 @@ you supply, so it requires `settings.manage` regardless of the resource.
 | POST | `/api/plugins/uninstall` | plugins.manage | Uninstall a plugin |
 | POST | `/api/plugins/{name}/enabled` | plugins.manage | Enable/disable a plugin |
 | GET | `/api/plugins/client` | library.view | Client assets plugins inject into the UI |
+| GET | `/api/i18n/plugins` | library.view | Installed plugins' translation catalogs — `?lang=fr` → English plus that language, keyed by language code |
 | POST | `/api/restart` | plugins.manage | Restart the app |
 | GET | `/api/sources/catalog` | plugins.manage | Installable download sites → `{ sources }` |
 | POST | `/api/sources/install` | plugins.manage | Install a site — `{ "id": "annas" }` → `{ installed, version, restartRequired }` |
@@ -482,7 +502,19 @@ Reading, progress and page images. Everything needs `reader.read` unless noted.
 | GET | `/api/reader/bookmarks` | reader.read | Every bookmark you hold, library-wide |
 | GET | `/api/reader/continue` · `/next-up` · `/new-in-library` · `/recently-finished` · `/start-new` | reader.read | The reading shelves → `{ items }` |
 | GET | `/api/reader/later` · POST `/api/reader/later/{cvIssueId}` | reader.read | Your read-later shelf — post `{ "on": true }` |
+| POST | `/api/reader/later-bulk` | reader.read | Add or remove many at once — `{ "ids": [ … ], "on": true }` → `{ done, on }` |
 | GET | `/api/reader/stats` | reader.read | Your reading statistics |
+| GET | `/api/reader/state` | reader.read | The read state of every issue you have opened → `{ states }` |
+| GET | `/api/reader/lists-progress` | reader.read | How far through each reading list you are, and the issue to open next → `{ lists }` |
+| GET | `/api/reader/prefs` | reader.read | Server-side reader preferences → `{ fileCovers }` (whether grid covers come from the files) |
+| GET · POST | `/api/reader/home-prefs` | reader.read | Which reading shelves your home page shows — post the flags to change |
+| GET · POST | `/api/reader/series/{id}/prefs` | reader.read | A series' own reading profile (direction, layout) — GET → `{ prefs }` |
+| GET | `/api/reader/issue/{cvIssueId}/panels` | reader.read | Panel layout per page → `{ ready: true, rtl, pages }`, or `{ ready: false, pending: true }` while detection runs; `?rtl=1` orders right to left |
+| GET | `/api/reader/can-edit-panels` | reader.panels.edit | Answers `200` only for accounts that may edit layouts |
+| PUT · DELETE | `/api/reader/issue/{cvIssueId}/panels/page/{page}` | reader.panels.edit | Save a hand-edited layout for one page — `{ "panels": [{ x, y, w, h, poly? }] }`, `[]` for page mode — or revert it to the detected one |
+| POST | `/api/reader/issue/{cvIssueId}/panels/redetect` | reader.panels.edit | Drop the cached detection so it runs again; `?edits=clear` drops hand edits too |
+| PUT · DELETE | `/api/reader/issue/{cvIssueId}/panels/reviewed/{page}` | reader.panels.edit | Mark a page's layout as reviewed, or take the mark back |
+| GET | `/api/reader/panels/db` | reader.panels.edit | Every stored page layout — `?filter=all\|ml\|classical\|edited\|reviewed\|pagemode`, `?q=`, `?offset=`, `?limit=` → `{ total, counts, rows }` |
 
 Page images are cached hard and revalidate with an `ETag`, so a client that
 sends `If-None-Match` gets `304` and pays nothing. Ask for a width and the
@@ -528,6 +560,20 @@ requester's.
 | GET | `/api/ebooks/state` | ebooks.use | Every reading position you hold, keyed by issue id |
 | GET | `/api/ebooks/books` | ebooks.use | Book records for specific ids — `?issues=1,2,3` |
 | GET | `/api/ebooks/stats` | ebooks.use | Your reading statistics |
+| GET · POST | `/api/ebooks/home-prefs` | ebooks.use | Which book rails your home page shows |
+| GET | `/api/ebooks/issue/{id}/details` | ebooks.use | `{ details: { language, isbn, added, format, size, pages, chapters } }` |
+| GET | `/api/ebooks/catalog/search` | ebooks.use | Search the book catalog — `?q=` → `{ results }`, each marked `inLibrary` and `wanted` |
+| POST | `/api/ebooks/catalog/add` | library.manage | Want a catalog book and ask the sources now — `{ "id": "…" }` → the download outcome with `wantedId` and a `note`, or `status: "on-shelf"` |
+| GET | `/api/ebooks/wanted` | ebooks.use | Books still wanted → `{ wanted }` |
+| POST | `/api/ebooks/wanted/{wantedId}/retry` | library.manage | Search again now for one wanted book |
+| DELETE | `/api/ebooks/wanted/{wantedId}` | library.manage | Stop wanting one |
+| POST | `/api/ebooks/issue/{id}/rematch` | library.manage | Match one book's metadata again → `{ matched }` |
+| POST | `/api/ebooks/scan` | library.manage | Scan the Books libraries now → `{ started: true }` |
+| GET | `/api/ebooks/scan/status` | ebooks.use | Progress of a running scan |
+| POST | `/api/ebooks/remote-sync/start` | library.manage | Fill a Books library from a remote catalog — `{ sourceId?, libraryId?, maxBooks?, resetCursor? }` → `{ started, state }`; `409` while one runs |
+| POST | `/api/ebooks/remote-sync/stop` | library.manage | Stop the running sync |
+| GET | `/api/ebooks/remote-sync/status` | library.manage | Sync progress, plus the available `sources` and `hasLibrary` |
+| DELETE | `/api/ebooks/remote/{source}` | library.manage | Remove every on-demand entry a source added; books already fetched stay → `{ source, removed }` |
 
 The file and cover routes accept **HTTP Basic** as well as a key, because OPDS
 download managers need a challenge before they will send credentials. A book
@@ -550,6 +596,19 @@ so; a transient failure answers `502` and leaves it retryable.
 | DELETE | `/api/audiobooks/bookmarks/{bookmarkId}` | audiobooks.use | Remove one |
 | GET | `/api/audiobooks/info` | audiobooks.use | Records for specific ids — `?issues=1,2,3`; `duration` is the whole book, and a multi-file book adds `parts: [{ part, start, duration }]` |
 | GET | `/api/audiobooks/stats` | audiobooks.use | Your listening statistics |
+| POST | `/api/audiobooks/series/{id}/reset-progress` | audiobooks.use | Clear your position on every book in a series → `{ reset }` |
+| GET · POST | `/api/audiobooks/home-prefs` | audiobooks.use | Which audiobook rails your home page shows |
+| GET | `/api/audiobooks/catalog/search` | audiobooks.use | Search the audiobook catalog — `?q=` → `{ results }`, each marked `inLibrary` and `wanted` |
+| POST | `/api/audiobooks/catalog/add` | library.manage | Want a catalog audiobook and ask the sources now — `{ "id": "…" }` → the download outcome with `wantedId` and a `note`, or `status: "on-shelf"` |
+| GET | `/api/audiobooks/wanted` | audiobooks.use | Audiobooks still wanted → `{ wanted }` |
+| POST | `/api/audiobooks/wanted/{wantedId}/retry` | library.manage | Search again now for one wanted audiobook |
+| DELETE | `/api/audiobooks/wanted/{wantedId}` | library.manage | Stop wanting one |
+| POST | `/api/audiobooks/scan` | library.manage | Scan the Audiobooks libraries now → `{ started, state }`; `409` while one runs |
+| GET | `/api/audiobooks/scan/status` | audiobooks.use | Progress of a running scan |
+| POST | `/api/audiobooks/remote-sync/start` | library.manage | Fill an Audiobooks library from a remote catalog — `{ sourceId?, libraryId?, maxBooks?, resetCursor? }` → `{ started, state }`; `409` while one runs |
+| POST | `/api/audiobooks/remote-sync/stop` | library.manage | Stop the running sync |
+| GET | `/api/audiobooks/remote-sync/status` | library.manage | Sync progress, plus `hasSource` |
+| DELETE | `/api/audiobooks/remote/{source}` | library.manage | Remove every on-demand entry a source added → `{ source, removed }` |
 
 Streaming is built for real players: `Range` is passed through to the source,
 `Accept-Ranges` is always set, and a strong validator is synthesised when the
@@ -589,6 +648,55 @@ All `library.view`, and all scoped to the calling account.
 When the feature is switched off, or the Reader plugin that records reading is
 missing, `/me` answers `200` with `ready: false` and a reason rather than an
 error. Handle that before reading any other field.
+
+### Discover
+
+| Method | Endpoint | Access | Description |
+|---|---|---|---|
+| GET | `/api/discovery/feed` | library.view | One feed — `?tab=new\|latest\|foryou\|popular` (default `new`) → `{ tab, items }`, each item marked `owned` |
+
+With the feature switched off the route answers `{ items: [], disabled: true }`,
+and a failed lookup answers `200` with `{ items: [], error }` rather than an
+error status.
+
+### Notifications Hub
+
+| Method | Endpoint | Access | Description |
+|---|---|---|---|
+| POST | `/api/notifyhub/test` | settings.manage | Send a test through one channel using unsaved form values — `{ "channel": "discord", …the channel's fields }` → `{ ok, error? }` |
+
+### AirDC++
+
+| Method | Endpoint | Access | Description |
+|---|---|---|---|
+| POST | `/api/airdcpp/test` | settings.manage | Check the Web API address and credentials — `{ airdcppHost, airdcppUser, airdcppPass }` (saved values fill any left out) → `{ ok, message }` |
+
+### Prowlarr
+
+| Method | Endpoint | Access | Description |
+|---|---|---|---|
+| POST | `/api/prowlarr/test` | settings.manage | Probe a Prowlarr server without saving — `{ url, apiKey }` → `{ ok, message }` |
+| POST | `/api/prowlarr/indexers` | library.manage | Its enabled indexers, for the picker — `{ url, apiKey }` → `{ indexers }` |
+
+### SSO (OpenID Connect)
+
+Both routes are public, since the browser reaches them while signed out.
+
+| Method | Endpoint | Access | Description |
+|---|---|---|---|
+| GET | `/api/oidc/login` | public | Start sign-in at the identity provider |
+| GET | `/api/oidc/callback` | public | Where the provider sends the browser back; verifies the response and starts a session |
+
+### Migration Assistant
+
+All `plugins.manage`.
+
+| Method | Endpoint | Access | Description |
+|---|---|---|---|
+| POST | `/api/migrate/upload` | plugins.manage | Upload the other app's database as the raw request body (up to 512 MB) → `{ app, series }`, each series marked `existing` if already in your library |
+| POST | `/api/migrate/preview` | plugins.manage | The same preview for a database at a path on the server — `{ "path": "…" }` |
+| POST | `/api/migrate/run` | plugins.manage | Start the import — `{ "series": [{ cvId, title?, monitored? }], "libraryId"?: 3 }` → `{ started, total }`; `409` while one runs |
+| GET | `/api/migrate/progress` | plugins.manage | `{ running, done, total, current, added, existed, failed, finishedAt }` |
 
 ### OPDS
 
