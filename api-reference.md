@@ -25,7 +25,8 @@ screen in the app is a live example of these endpoints in action.
   `{ sources, cards }`, or a page with its `total` — so check each endpoint's
   shape below.
 - **Errors** — `{ "error": "…" }` with a meaningful status: `400` (bad
-  input), `401` (missing/invalid key), `403` (your role lacks the
+  input), `401` (missing/invalid key, or no account exists yet — then the
+  body also carries `"setupRequired": true`), `403` (your role lacks the
   permission), `404` (not found or hidden from your role), `502` (an upstream
   like ComicVine or an indexer failed).
 

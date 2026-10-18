@@ -10,8 +10,10 @@ BackIssue has a full multi-user system: accounts, roles, and fine-grained permis
 
 A fresh install **asks you to create the admin account before anything else** — the web UI shows only the setup screen until one exists. That first account is automatically an **admin**; every request after that needs a login.
 
-::: warning Create the first account before exposing the server
-Until the first account exists, the server runs in open single-user mode: every request to its API — what the web UI, the apps, OPDS readers and scripts all use — is treated as an admin's, with no sign-in. Only the web UI insists on the setup screen. Create the account before you make the server reachable from outside your own network.
+Until that account exists, the server answers nothing but the setup screen: every other API request — from the web UI, the apps, OPDS readers or scripts — is refused with `401` and `"setupRequired": true`. Whoever reaches a fresh server first can still create its admin account, so finish setup before you make it reachable from outside your own network.
+
+::: tip Older versions
+Before BackIssue 0.9.2 a server with no accounts accepted every API request as an admin's, and only the web UI insisted on the setup screen.
 :::
 
 ## Accounts
