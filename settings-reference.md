@@ -211,8 +211,13 @@ Where series and issue data comes from, and how it is written into your files.
 There is no field for pointing the app at a different metadata service. An old
 `cvBaseUrl` setting still exists in saved configuration but is deliberately
 ignored — stale or malformed values in it used to surface as puzzling auth
-failures. If you want to stay off the hosted service entirely, turn the built-in
-service off and turn on ComicVine or Metron with your own key or account.
+failures. To keep comic lookups off the hosted service, turn the built-in
+service off and turn on ComicVine or Metron with your own key or account (or
+do it per library under **Library → Libraries**). That covers comic metadata
+only: manga comes solely through the built-in service, the Books and
+Audiobooks plugins always use it, and the release list, the plugin catalog and
+the community panel cache reach it on their own terms. The
+[privacy policy](privacy#metadata-lookups) lists each one and how to turn it off.
 
 ## Plugins
 

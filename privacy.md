@@ -17,11 +17,13 @@ your own server sends out on your behalf.
 advertising, and no third-party SDKs. Nothing reports what you own, what you
 read, or who you are. The apps talk only to the server address you enter.
 
-Your server does reach out in three places, and each has its own section
-below: it **looks up metadata** for the comics and books you search for, it
-can **share panel layouts** with a community cache, and it can **send a
-support package** when you ask it to. None of the three carries your files,
-your library listing, your reading history, or your account details.
+Your server does reach out, and each case has its own section below: it
+**looks up metadata** for the comics, manga, books and audiobooks you search
+for, it **fetches the weekly release list** and, when you browse for plugins
+or download sites, **their catalogs**, it can **share panel layouts** with a
+community cache, and it can **send a support package** when you ask it to.
+None of these carries your files, your library listing, your reading history,
+or your account details.
 
 ## What we collect
 
@@ -74,11 +76,42 @@ Cover art is fetched from whatever address the metadata gives for it, by the
 device showing it — the web app asks for those images with no referrer, so the
 image host is not told which page wanted one.
 
-**If you'd rather not use it.** In **Settings → Metadata**, turn the built-in
-service off and turn on **ComicVine directly** with your own ComicVine API
-key, or **Metron directly** with your own Metron account: the same lookups
-then go to that database under its policy, and the BackIssue service is not
-contacted at all. See the [settings reference](settings-reference).
+**If you'd rather not use it.** What you can switch depends on the kind of
+media:
+
+- **Comics and manga.** In **Settings → Metadata**, turn the built-in service
+  off and turn on **ComicVine directly** with your own ComicVine API key,
+  **Metron directly** with your own Metron account, or a plugin source such as
+  the [French editions](bnf) catalogue. Comic lookups then go to those
+  databases under their own policies. A library can also choose its own
+  sources under **Settings → Library**, so you can do this for some libraries
+  and not others. Manga is the exception: it comes only through the built-in
+  service, so a manga series cannot be looked up or refreshed while the
+  service is off.
+- **Books and audiobooks.** The [Books](ebooks) and [Audiobooks](audiobooks)
+  plugins always use the BackIssue service for their metadata, whatever the
+  Metadata setting says. To stop those lookups, disable or uninstall the
+  plugins on the **Plugins** page.
+
+The other things below also reach the BackIssue service on their own terms,
+so turning the built-in metadata service off does not, by itself, mean your
+server never contacts it. See the [settings reference](settings-reference).
+
+## Release list and catalogs
+
+- **This week's releases.** The release check fetches the list of new comics
+  for a week, and for the week after. Each request names only the week and
+  year, plus the app version; nothing about your library is sent, and matching
+  the list against your collection happens on your server. It runs on the
+  **Check this week's releases** schedule in **System → Jobs** and when someone
+  checks for releases on the **Releases** page. Turn the schedule off and leave
+  that page alone to stop it, or point **Release provider URL** in **Settings →
+  Metadata** at another service.
+- **Plugin and download-site catalogs.** When you open the catalog on the
+  **Plugins** page or browse download sites to install, your server downloads
+  the list of what is available, and the files of anything you choose to
+  install. These requests carry only the app version. Nothing is fetched
+  unless you open those screens or install something.
 
 ## The community panel cache
 
