@@ -71,6 +71,11 @@ and books share the Library with your comics rather than having tabs of their ow
 - **Home** shows what you're **reading now**, what's **waiting for you** (ready but not started), and the arcs you're **working through**. **Customise home** picks which sections show, saved to your account.
 - **Download issues to your device** for reading with no signal — on a flight, the train, or anywhere offline. Manage what's stored, and free up space, from **Settings → Offline downloads**.
 - On a server with more than one library of a kind (say comics and manga, or two audiobook libraries), pick which one to browse under the media filter; **Add series** asks which comic library to add to.
+- **Releases** (in Home's menu) shows this week's comics — your series first, with what you own and what's missing, and a download button for a missing issue. Library managers can step to other weeks.
+- **Discover** (in Home's menu) shows the [Discovery](discover) plugin's New Series, Latest, For You and Popular lists, with one-tap **Add** (or **Request**, for accounts that request rather than add).
+- With the [Shelves](shelves) plugin, the Books and Audio grids have **Filters** for author, decade and format.
+- **Reading lists**: create a list or import a story arc with **+** on the Arcs screen; on your own lists, rename, share (with the share permission) or delete them, and long-press an issue to remove it. **Add to reading list** is on every issue's long-press sheet and on each series.
+- **Continue reading and listening**: long-press a **Reading now** card on Home to remove an abandoned comic or audiobook from it, or to save a comic for later. The audiobook player has **Mark finished**.
 - **Read later**: long-press an issue on a series to add it (or take it off), or use the **Read later** chip to queue every issue of the series you haven't finished. The list itself is in the Home menu, with **Remove** under each issue.
 
 ## Adding & requesting

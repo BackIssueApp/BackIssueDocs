@@ -72,6 +72,11 @@ If your server runs the [Books](ebooks) or [Audiobooks](audiobooks) plugin, both
 - **Home** shows what you're in the middle of, what's ready that you haven't started, and the arcs you're working through.
 - **Download issues to your device** for reading with no signal. Downloads continue in the background and can be managed from Settings.
 - On a server with more than one library of a kind (say comics and manga, or two audiobook libraries), pick which one to browse under the media filter; **Add series** asks which comic library to add to.
+- **Releases** (in Home's menu) shows this week's comics — your series first, with what you own and what's missing, and a download button for a missing issue. Library managers can step to other weeks.
+- **Discover** (in Home's menu) shows the [Discovery](discover) plugin's New Series, Latest, For You and Popular lists, with one-tap **Add** (or **Request**, for accounts that request rather than add).
+- With the [Shelves](shelves) plugin, the Books and Audio grids have **Filters** for author, decade and format.
+- **Reading lists**: create a list or import a story arc with **+** on the Arcs screen; on your own lists the **⋯** menu renames, shares (with the share permission) or deletes them, and long-pressing an issue removes it. **Add to reading list** is on each issue's long-press menu and in a series' toolbar.
+- **Continue reading and listening**: long-press a **Reading now** row on Home to remove an abandoned comic or audiobook from it, or to save a comic for later. The audiobook player has **Mark finished**.
 - **Read later**: long-press an issue to add it (or take it off), or tap the clock on a series to queue every issue you haven't finished. Swipe an issue in the Read later list to remove it.
 
 ## Adding & requesting
@@ -84,7 +89,7 @@ What you can do in the app follows your account's **permissions** exactly, just 
 
 ## Activity and notifications
 
-The **Activity** view shows the live download queue and recent history from your server. Its **Wanted** button lists every comic issue the library is waiting for, with **Download all** for accounts that may download, and tabs for books and audiobooks added from the catalog but not delivered yet — swipe one to **Retry** or **Remove** it if you manage the library. The **notifications** view carries the same in-app notification centre the web app has.
+The **Activity** view shows the live download queue and recent history from your server. Its **Wanted** button lists every comic issue the library is waiting for, with **Download all** for accounts that may download, and tabs for books and audiobooks added from the catalog but not delivered yet — swipe one to **Retry** or **Remove** it if you manage the library. The **notifications** view carries the same in-app notification centre the web app has, and the same events arrive as iPhone notifications: the app checks in the background when iOS lets it (about every 15 minutes at most, less often for an app you rarely open), after asking permission the first time you sign in.
 
 **Settings → Account** has your account's **Hide mature content** switch and your personal **API key**: see when it was made and last used, generate or replace it (it's shown once, with a Copy button), or revoke it. That key is what an [OPDS reader app](opds) signs in with. If this device itself signed in with the key, replace it from the web app instead.
 
