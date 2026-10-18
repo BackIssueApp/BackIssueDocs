@@ -546,7 +546,7 @@ window.BackIssue.registerClient((api) => {
 | `me()` | The resolved session: `{ openMode, user: { id, username, role, permissions } }` |
 | `can(perm)` | Does the signed-in user hold a permission — hide affordances the server would 403 |
 | `icon(name, opts?)` | Core's inline-SVG icon set as a string — matches the app's UI on every device |
-| `toast(msg, type)` | Host toast: `'info' | 'ok' | 'error'` |
+| `toast(msg, type)` | Host toast: `'info' | 'ok' | 'warn' | 'error'` |
 | `t(key, params?)` | A translated string from core's catalogs plus your own (see [Translations](#translations)); `params.count` picks the plural form, every param is available as `{name}` |
 | `th(key, params?)` | The same for `innerHTML`: params are escaped and only `<b> <i> <em> <strong> <code> <br>` pass through |
 | `lang()` | The active language code (`'en'`, `'fr'`, …), for your own date or number formatting |
