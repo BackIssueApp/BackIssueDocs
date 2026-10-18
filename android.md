@@ -70,6 +70,8 @@ and books share the Library with your comics rather than having tabs of their ow
 - Browse and **search** everything you own, filter by followed / missing / problem series, and open any series to see which issues you have.
 - **Home** shows what you're **reading now**, what's **waiting for you** (ready but not started), and the arcs you're **working through**. **Customise home** picks which sections show, saved to your account.
 - **Download issues to your device** for reading with no signal — on a flight, the train, or anywhere offline. Manage what's stored, and free up space, from **Settings → Offline downloads**.
+- On a server with more than one library of a kind (say comics and manga, or two audiobook libraries), pick which one to browse under the media filter; **Add series** asks which comic library to add to.
+- **Read later**: long-press an issue on a series to add it (or take it off), or use the **Read later** chip to queue every issue of the series you haven't finished. The list itself is in the Home menu, with **Remove** under each issue.
 
 ## Adding & requesting
 
@@ -84,7 +86,9 @@ What you can do in the app follows your account's **permissions** exactly, just 
 
 ## Activity and notifications
 
-The **Activity** view shows the live download queue and recent history from your server, so you can keep an eye on what's fetching without opening a browser. The **notifications** view carries the same in-app notification centre the web app has, with **Mark all read**.
+The **Activity** view shows the live download queue and recent history from your server, so you can keep an eye on what's fetching without opening a browser. Its **Wanted** button lists every comic issue the library is waiting for, with **Download all** for accounts that may download, and tabs for books and audiobooks added from the catalog but not delivered yet, which library managers can **Retry** or **Remove**. The **notifications** view carries the same in-app notification centre the web app has, with **Mark all read**.
+
+**Settings → Account** has your account's **Hide mature content** switch and your personal **API key**: see when it was made and last used, generate or replace it (it's shown once, with a Copy button), or revoke it. That key is what an [OPDS reader app](opds) signs in with. If this device itself signed in with the key, replace it from the web app instead.
 
 If something goes wrong, **Settings → Send diagnostics to support** sends a diagnostic report to your server — see [Troubleshooting](troubleshooting#getting-help).
 
