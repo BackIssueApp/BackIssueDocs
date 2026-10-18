@@ -112,8 +112,8 @@ keep one alive. All three numbers are adjustable below.
 ## On your own
 
 Household features still work for one person: the leaderboard is a board of one
-(the podium needs three), and the monthly co-op quest asks for 20 issues — it
-grows by 15 per extra reader. If that's not the game you want, turn **Household
+(the podium needs three), and the monthly co-op quest asks for 20 issues. With more
+readers it asks for 15 per active account (30 for two, 45 for three). If that's not the game you want, turn **Household
 features** off and the tab disappears.
 
 ## Settings

@@ -40,6 +40,27 @@ Right-click a cover (or long-press on a touch screen) for **Go to series**. On *
 - **Right-to-left** — for manga; page turns reverse.
 - Plus zoom/fit controls, white-border trimming for scans, and a data-saver mode that downscales pages.
 
+## Keyboard shortcuts
+
+| Key | Does |
+|---|---|
+| ← → or Page Up / Page Down | Previous / next page |
+| Space (Shift+Space) | Next (previous) page |
+| Home / End | First / last page |
+| **+** / **−** | Zoom in / out |
+| **F** | Full screen |
+| **D** | Double-page spreads on or off |
+| **O** | Shift the spread by one page, so covers sit right |
+| **W** | Webtoon (continuous scroll) |
+| **S** | Auto-scroll in webtoon mode |
+| **M** | Reading direction (left-to-right or right-to-left) |
+| **R** | Rotate the page |
+| **B** | Bookmark this page |
+| **T** | Page thumbnails |
+| **I** | Issue info |
+| **G** | Guided panel view |
+| **?** | Show all shortcuts |
+
 ## Guided panel reading
 
 Press **G** in the reader to read panel by panel — the view zooms each panel in reading order with everything else dimmed, and admins can hand-correct any page's layout in a built-in editor. See [Guided panel reading](guided-reading) for the full story, including the shared layout cache.
@@ -92,7 +113,7 @@ quests and a household leaderboard built on the reading you already do.
 
 ## Offline & install
 
-The reader works offline for issues you've opened (a service worker caches pages), and BackIssue is installable to a phone or tablet home screen as a full-screen app.
+**Download for offline** in the reader keeps an issue's pages on the device (a service worker serves them with no connection); the same button then reads **Remove offline copy**. BackIssue is also installable to a phone or tablet home screen as a full-screen app.
 
 ## Reading lists
 

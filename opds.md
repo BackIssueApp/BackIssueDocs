@@ -63,7 +63,7 @@ looks wrong. Every path is relative to your server.
 | Read later | `/api/opds/later` | `/api/opds/v2/later` |
 | An issue's file | `/api/opds/issue/:id/file` | same |
 
-List feeds take `?page=N` and serve 50 entries a page. The two roots link to
+The browse and search feeds take `?page=N` and serve 50 entries a page; Recently added and Continue reading show the newest 50, and Read later shows the whole list. The two roots link to
 each other, so a reader that prefers one format can find it from either.
 
 Entries only appear when they can: **Books** needs the Books plugin and the
@@ -165,12 +165,6 @@ OPDS access is its own grantable permission (**OPDS catalog**), so you can allow
 
 Series flagged **mature** are hidden from the catalog for roles without *View mature content*, and for accounts that switched on [Hide mature content](users#hiding-it-from-yourself) (BackIssue 0.9.2 or newer), the same rule the web app enforces: they are absent from every list, and their files and pages report themselves as missing rather than refused, so their existence isn't leaked either. See [Users & access](users).
 
-::: warning The per-user mature toggle does not reach OPDS
-*Hide mature content* on your Profile is a personal preference for the web app.
-It does not filter the OPDS catalog, so a reader app signed in as an account
-that holds *View mature content* will still list flagged series. Use the role
-permission, not the toggle, where it matters.
-:::
 
 Failed sign-ins over OPDS count towards the same lockout as the login page, so a
 reader app looping on a stale password will lock that account out for a while.

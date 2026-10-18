@@ -33,6 +33,8 @@ On first launch, point the app at your server and sign in:
 - **Server address** — the URL you use in the browser (e.g. `https://comics.example.com`).
 - **Username and password** — the same account you use on the web. No API keys to copy around.
 
+Or tap **Scan QR from the web app** and scan the pairing code on your **Profile** page in the web app, which fills both in without typing.
+
 You can add **more than one server** and switch between them at any time from **Settings → Servers** — handy if you run one at home and connect to another. Each server keeps its own sign-in and downloads.
 
 For extra privacy, turn on **Require unlock** in Settings to ask for your fingerprint or PIN every time the app opens.
@@ -42,11 +44,12 @@ For extra privacy, turn on **Require unlock** in Settings to ask for your finger
 The app carries the full reader experience:
 
 - **Paged**, **double-page**, and **webtoon** (continuous scroll) modes, plus **right-to-left** for manga.
-- Pinch to zoom, fit controls, and white-border trimming for scans.
+- **Guided panel view** walks a page panel by panel (needs Reader plugin 1.6 or newer on the server) — see [Guided panel reading](guided-reading).
+- Pinch to zoom, white-border trimming for scans, **Split wide pages** for scanned double spreads, **Auto-advance** to the next issue, and a colour filter (warm, night, e-ink, sepia).
 - **Resume** — it remembers your page and picks up where you left off, and your progress syncs with the web reader and every other device.
 - **Bookmarks** — mark pages and jump between them.
 - Layout choices are remembered **per series**, so manga stays right-to-left webtoon while your other books stay single-page.
-- A **data saver** mode downscales pages when you're on mobile data.
+- A **Data saver** setting loads pages at about half resolution.
 
 Your **reading stats** — pages read, issues finished, streak, and most-read series — travel with your account.
 
@@ -65,7 +68,7 @@ and books share the Library with your comics rather than having tabs of their ow
 ## Your library, offline
 
 - Browse and **search** everything you own, filter by followed / missing / problem series, and open any series to see which issues you have.
-- **Home shelves** (Continue reading, Next up, New in your library, and the rest) mirror the ones you've enabled on the web.
+- **Home** shows what you're **reading now**, what's **waiting for you** (ready but not started), and the arcs you're **working through**. **Customise home** picks which sections show, saved to your account.
 - **Download issues to your device** for reading with no signal — on a flight, the train, or anywhere offline. Manage what's stored, and free up space, from **Settings → Offline downloads**.
 
 ## Adding & requesting
@@ -79,9 +82,11 @@ Found something you want while you're out?
 
 What you can do in the app follows your account's **permissions** exactly, just like on the web.
 
-## Activity
+## Activity and notifications
 
-The **Activity** view shows the live download queue and recent history from your server, so you can keep an eye on what's fetching without opening a browser.
+The **Activity** view shows the live download queue and recent history from your server, so you can keep an eye on what's fetching without opening a browser. The **notifications** view carries the same in-app notification centre the web app has, with **Mark all read**.
+
+If something goes wrong, **Settings → Send diagnostics to support** sends a diagnostic report to your server — see [Troubleshooting](troubleshooting#getting-help).
 
 ## Requirements
 

@@ -41,11 +41,12 @@ For extra privacy, turn on the app lock in Settings to ask for **Face ID**, **To
 
 - **Paged** and **webtoon** (continuous scroll) modes, **double-page in landscape**, and **right-to-left** for manga.
 - **Guided view** walks a page panel by panel — useful on an iPhone screen.
-- Pinch to zoom, margin trimming for scans, a page gap, and reading backgrounds (black, grey, night, eye comfort).
+- Pinch to zoom, margin trimming for scans, a page gap, backgrounds (black, grey, white), a brightness slider, and an **eye comfort** filter (warm, night, e-ink, sepia).
+- **Split wide pages** for scanned double spreads, and **auto-advance** to the next issue at the end of one.
 - **Resume** — it remembers your page and picks up where you left off, and your progress syncs with the web reader and every other device.
 - **Bookmarks**, edge taps or swipes to turn, optional haptic page turns, and keep-the-screen-awake.
 - **Next issue** and **previous issue** without leaving the reader, and **Back to arc** when you're working through a reading list.
-- A **data saver** mode downscales pages when you're on mobile data.
+- A **Data saver** setting loads pages at about half resolution.
 
 Your **reading stats** — pages read, issues finished, streak, and most-read series — travel with your account.
 
