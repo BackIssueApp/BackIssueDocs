@@ -251,7 +251,6 @@ cannot see or steer what the household is grabbing.
 | GET | `/api/history/failed` | downloads.grab | Failed downloads |
 | GET | `/api/sources` | library.view | Enabled download sources |
 | GET | `/api/stats` | library.view | Library statistics |
-| POST | `/api/download` | downloads.grab | Queue issues by internal id — `{ "issueIds": [1,2] }` → `{ "queued": 2 }` |
 | POST | `/api/collection/{id}/download` | downloads.grab | Queue CV issues of a series — `{ "cvIssueIds": [ … ] }` |
 | POST | `/api/collection/{id}/redownload` | downloads.grab | Re-grab owned issues of a series |
 | POST | `/api/redownload` | downloads.grab | Re-grab specific issues |
@@ -261,8 +260,6 @@ cannot see or steer what the household is grabbing.
 | POST | `/api/search/grab` | downloads.grab | Grab a chosen result — `{ result, seriesId, cvIssueId }` |
 | POST | `/api/packs/search` | downloads.grab | Search sources for multi-issue packs |
 | POST | `/api/packs/grab` | downloads.grab | Grab a pack — `{ result, seriesId }` |
-| POST | `/api/usenet/search` · `/api/usenet/grab` | downloads.grab | Per-issue usenet search/grab (legacy) |
-| POST | `/api/torrent/search` · `/api/torrent/grab-pack` | downloads.grab | Per-series torrent pack search/grab (legacy) |
 | POST | `/api/queue/retry/{id}` | downloads.grab | Retry a queued/failed item |
 | POST | `/api/queue/cancel/{id}` | downloads.grab | Cancel a queued item |
 | POST | `/api/grabs/{id}/cancel` | downloads.grab | Cancel an in-flight pack grab |
@@ -380,7 +377,6 @@ you add `X-Api-Key`.
 | POST | `/api/clients/test` | settings.manage | Test a download client |
 | POST | `/api/torznab/test` | settings.manage | Test a Torznab source |
 | POST | `/api/torrent-client/test` | settings.manage | Test a torrent client |
-| POST | `/api/cv/test` | settings.manage | Test the ComicVine connection |
 | POST | `/api/metadata/test` | settings.manage | Register with, and prove, the built-in metadata service → `{ ok, registered, message }` |
 | GET | `/api/metadata/providers` | settings.manage | The metadata providers (built-in and plugin-added): `[{ id, label, note, fields, configured, active, selected }]`, never their values |
 | POST | `/api/metadata/providers/test` | settings.manage | Prove a provider with unsaved form values: `{ provider, values }` → `{ ok, message }` |

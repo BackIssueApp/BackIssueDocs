@@ -50,7 +50,7 @@ every screen is these same endpoints. Some anchors:
 | Library | `GET /api/collection`, `GET /api/collection/{id}`, `GET /api/series` |
 | Search & add | `GET /api/cv/search?q=`, `POST /api/collection/add-cv` |
 | Follow / monitor | `POST /api/collection/{id}/follow`, `POST /api/collection/{id}/monitor` |
-| Downloads | `GET /api/status`, `POST /api/download` |
+| Downloads | `GET /api/status`, `POST /api/collection/{id}/download` |
 | Releases | `GET /api/releases` |
 | Notifications | `GET /api/notifications`, `POST /api/notifications/read` |
 
