@@ -30,6 +30,8 @@ The top of the **Library** greets readers with horizontal cover shelves — pick
 
 Shelves are **per user**: hide one with its **×**, and turn any on or off under **Profile → Reading shelves**. A shelf with nothing to show simply doesn't appear.
 
+Right-click a cover (or long-press on a touch screen) for **Go to series**. On **Continue reading** the same menu has **Remove from Continue reading**, for an issue you've given up on. It goes back to not started, the same as marking it unread, so it doesn't count as read.
+
 ## Reading modes
 
 - **Paged** — one page at a time (the default).

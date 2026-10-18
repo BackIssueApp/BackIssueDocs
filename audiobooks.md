@@ -34,7 +34,9 @@ offers:
   you stopped.
 
 Listening progress and finished state are per account, so several people can
-work through the same title independently.
+work through the same title independently. A book counts as finished in its
+last two minutes, or its last 1% for a long book, and **Mark finished** in the
+player finishes it wherever you are.
 
 ## Adding audiobooks
 
@@ -121,7 +123,9 @@ your phone and finish in a browser.
 
 - Two home rails — **Continue listening** and **New audiobooks** — appear on
   your home screen. Hide either from its ×, or toggle them on your Profile
-  page; the choice is saved to your account.
+  page; the choice is saved to your account. Right-click a cover on
+  **Continue listening** (or long-press it) and choose **Remove from Continue
+  listening** to drop a book you've abandoned. It goes back to not started.
 - **[Shelves](shelves)** gives a large audiobook library faceted browsing by
   author, decade, format and listening status.
 - **Permission** — *Audiobooks* (`audiobooks.use`, viewer tier) covers browsing
