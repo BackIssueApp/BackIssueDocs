@@ -16,7 +16,7 @@ http(s)://<your-backissue-host>/api/opds
 
 Sign in with your BackIssue **username and password** — OPDS uses HTTP Basic auth against your account, so access follows your role and permissions like everything else.
 
-If your account signs in through an external login backend (e.g. a billing or directory integration that checks a username and password), those same credentials work for OPDS too. Accounts that only sign in through an external button, with no BackIssue password of their own, should instead generate an **API key** on their Profile. On BackIssue 0.9.2 and newer, enter that key as the password in any reader app, with your username or a blank username. The same applies when an admin has turned off password login: only admins can still use a password there.
+If your account signs in through an external login backend (e.g. a billing or directory integration that checks a username and password), those same credentials work for OPDS too. Accounts that only sign in through an external button, with no BackIssue password of their own, should instead generate an **API key** on their Profile. On BackIssue 0.9.2 and newer, enter that key as the password in any reader app, with your username or a blank username. The same applies when an admin has turned off password login: only admins can still use a password there, and the **Connect a reader app** card on your Profile says so.
 
 Your personal catalog address (with a copy button) is also shown on your **Profile** page, under *Connect a reader app*.
 

@@ -73,7 +73,7 @@ Self-service — any signed-in user, for their own account. A few are public
 | Method | Endpoint | Access | Description |
 |---|---|---|---|
 | GET | `/api/auth/me` | public | Current user and resolved permissions, or open-mode/login state |
-| GET | `/api/auth/providers` | public | External SSO buttons and whether password login is enabled |
+| GET | `/api/auth/providers` | public | External SSO buttons, whether password login is enabled, and `apiKeyBasic` (an API key works as the Basic password; 0.9.2+) |
 | POST | `/api/auth/register` | public | Create an account (only when registration is enabled) |
 | POST | `/api/auth/login` | public | Password sign-in; starts a session cookie |
 | POST | `/api/auth/logout` | authed | End the current session |
