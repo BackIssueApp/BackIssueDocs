@@ -37,6 +37,8 @@ You can add **more than one server** and switch between them at any time from **
 
 For extra privacy, turn on the app lock in Settings to ask for **Face ID**, **Touch ID** or your passcode every time the app opens.
 
+The app follows your iPhone's language. To use a different one, tap **Language** in Settings: it opens BackIssue's page in iPhone Settings, where the language is chosen. The web app's language is set separately.
+
 ## Reading
 
 - **Paged** and **webtoon** (continuous scroll) modes, **double-page in landscape**, and **right-to-left** for manga.

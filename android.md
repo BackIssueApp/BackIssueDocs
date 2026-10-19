@@ -39,6 +39,8 @@ You can add **more than one server** and switch between them at any time from **
 
 For extra privacy, turn on **Require unlock** in Settings to ask for your fingerprint or PIN every time the app opens.
 
+The app follows your phone's language. To use a different one, pick it under **Language** in Settings; on Android 13 and later the same choice shows in the phone's own Settings → Apps → BackIssue → Language. The web app's language is set separately.
+
 ## Reading
 
 The app carries the full reader experience:
