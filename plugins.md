@@ -29,7 +29,7 @@ Download **sites** are listed separately — see [Download sites](#download-site
 
 ## Managing plugins
 
-**Sidebar → Plugins** (admins) shows the catalog (install, update when a new version is out, remove) and lists everything installed, what each registered (sources, routes, jobs, UI, permissions), and a per-plugin **enable/disable** toggle. Install/toggle changes apply after a **restart** — the page has a "Restart now" button that restarts the app and waits for it to come back. Disabling a plugin keeps its settings; they're back when you re-enable it.
+**Sidebar → Plugins** (admins) shows the catalog (install, update when a new version is out, remove; when several installed plugins have updates, **Update all** beside the Installed heading updates them in one go) and lists everything installed, what each registered (sources, routes, jobs, UI, permissions), and a per-plugin **enable/disable** toggle. Install/toggle changes apply after a **restart** — the page has a "Restart now" button that restarts the app and waits for it to come back. Disabling a plugin keeps its settings; they're back when you re-enable it.
 
 <figure class="bi-ex" v-pre>
   <div class="bi-ex__frame" role="img" aria-label="Plugins page: a restart banner naming a just-installed plugin, and four installed plugin cards showing status, what each registered, an enable toggle, Configure and Remove">
