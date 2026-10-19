@@ -227,7 +227,7 @@ format instead, see [Shelves](shelves).
 Opening a series shows its full ComicVine issue list with ownership state per issue:
 
 - **Download** a single missing issue, or **Download missing** for the whole series.
-- **Redownload** an owned issue (deletes the current file and fetches a fresh copy — used for upgrading a bad scan).
+- **Redownload** an owned issue (fetches a fresh copy and keeps the current file until the new one has arrived and checks out, then replaces it — used for upgrading a bad scan).
 - **Search sources** on any issue for a *manual* pick: results from every enabled source in one ranked list, labelled by source — you choose exactly which release to grab. See [Downloads](downloads).
 - **Search packs** looks for multi-issue collections covering your gaps — see [Packs](downloads#packs).
 - Issue rows support **shift-click** to select ranges for bulk download.
