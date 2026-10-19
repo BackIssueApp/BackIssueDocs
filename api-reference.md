@@ -134,7 +134,7 @@ Your tracked series and their issues. Reads need `library.view`; changes need
 | GET | `/api/collection/counts` | library.view | Counts for each collection chip — same `?search=`, `?library=`, `?collections=1` and `?facet=` filters as `/api/collection` |
 | GET | `/api/collection/jump` | library.view | A-Z quick jump, same filters as `/api/collection` — `?letter=S` → `{ offset }`, or every letter's offset at once without it |
 | GET | `/api/issues/featuring` | library.view | Every issue in the collection crediting a person or featuring a character or team — `?kind=creator\|character\|team&name=` → `{ kind, name, issues }` |
-| GET | `/api/series` | library.view | All series (matched + catalog); `?search=` |
+| GET | `/api/series` | library.view | Series (matched + catalog) in title order, a page at a time: `?limit=` (default 100, max 500), `?offset=`, `?search=` |
 | GET | `/api/series/{id}/issues` | library.view | Issues for a series |
 | GET | `/api/issue/{cvIssueId}` | library.view | One issue by ComicVine issue id |
 | POST | `/api/collection/add-cv` | library.manage | Add a series by ComicVine volume — body `{ "comicvineId": 12345, "cvIssueIds"?: [ … ], "reason"?: "list:7", "libraryId"?: 3, "manga"?: true }` |
