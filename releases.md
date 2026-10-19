@@ -26,7 +26,406 @@ with its build attached.
 
 These changes are on the `dev` image and are not in a tagged release yet.
 
+## 0.9.3
+
+*Released 2026-10-19.*
+
+### Security
+
+- **Sign-in and permission checks now apply to every spelling of a path.** The server matched
+  routes without regard to letter case or a trailing slash, but its access checks did not, so
+  some requests could skip them. Update promptly.
+- **Issue descriptions keep only plain formatting.** Forms, embedded SVG and unknown attributes are
+  removed before a description is shown, so description HTML can no longer run script when clicked.
+- **Repeated failed sign-ins from one address are throttled across usernames.** After 30 failures
+  from the same address within 15 minutes, further attempts wait, whichever username they try.
+
 ### Added
+
+- **Update all plugins at once.** When installed plugins have updates, the Plugins page shows
+  **Update all** beside the Installed heading. It updates each one in turn, keeps going past a
+  failure, and the updates apply on the next restart, like a single update.
+- **Library filters can match "everything except".** A plugin's collection filter may return
+  `{ excludeIds }` when core passes `ctx.canExclude`, so "unread" in a large ebook or audiobook
+  library sends the few books you've started instead of every other book.
+
+### Changed
+
+- **Large libraries stay responsive during scans and on the Library page.**
+  - Scanned files match to their series without searching the whole catalog, so a scan no longer
+    stalls the server for a fraction of a second per file.
+  - Re-linking files to their issues after a scan or at startup now runs in short batches in the
+    background instead of freezing the server for up to tens of seconds. After a scan, only the
+    series whose files changed are re-linked.
+  - The A–Z rail is computed in the background and cached, like the filter counts, instead of
+    blocking every Library load and search for about a second.
+  - Creator, character and team pages answer from an index instead of reading every issue's
+    credits. Existing libraries build the index in the background after the update.
+  - Sorting the Library by **Missing** is about 3.5× faster on a large catalog.
+  - Looking up books by author (OPDS "by author") uses an index instead of reading every series.
+  - The Wanted page, the Stats page and the mobile apps' library list run cheaper queries and reuse
+    their last answer until the library changes.
+  - Signing in no longer pauses the server while the password is checked, and the "last seen" time
+    of a session or API key is recorded at most once a minute instead of on every request.
+  - Reading CBR archives during scans, imports and conversions happens on background threads, and
+    PDF page counts are read in pieces, so a large file no longer pauses the server. An archive
+    that crashes the reader now fails on its own instead of taking the server down with it.
+  - The live-update stream re-checks the queue, logs and import list only when something changed,
+    starting the app skips two full scans of the metadata cache, "Download missing" on a large
+    series records its issues in one step, and the database's write-ahead log no longer stays at
+    its peak size after a big job.
+- **Faster first load.** Wanted, Queue, Releases, History, Stats, Import, Plugins, Users, Lists and
+  the setup wizard now load when first opened (and are fetched in the background once the app is
+  idle), so the app downloads about a quarter less before it can show anything.
+- **`GET /api/series` is paged.** It returns up to 100 series by default (`?limit=` up to 500, plus
+  `?offset=`). It used to return the entire catalog in one response.
+
+### Fixed
+
+- **A finished download no longer deletes a different issue with the same number.** Replacing the old
+  copy of an issue matched on the issue number alone, so downloading Batman #1 could delete
+  Batman Annual #1 from the same folder. A download that fails its archive check no longer
+  replaces anything either.
+- **Removing a comic with its files deletes only folders it leaves empty.** It used to delete each
+  folder that held one of its files with everything still inside, including other series sharing it.
+- **An unreadable settings.json is kept, not silently replaced.** BackIssue starts on defaults, saves
+  the original beside it as settings.json.unreadable-<time>, and logs where; settings are now
+  written in one step so a crash mid-save can no longer leave a broken file.
+- **Re-download keeps the current copy until the new one arrives.** The old file used to be deleted
+  first, so a re-download that found nothing lost the copy you had. It is now replaced only once a
+  readable new copy is in place, which takes the old file's name. Re-downloading an issue that is
+  already downloading no longer starts a second download.
+- **Downloads are written under a temporary name and renamed when complete.** A crash mid-write no
+  longer leaves a truncated comic under the real name, and recovery after a restart now looks in the
+  comic's own folder and only counts a file that opens as finished.
+- **A library scan that can't read a folder keeps that folder's comics.** A brief share or disk error
+  on one subfolder used to drop all of its files from the library, so they showed as missing and
+  could be downloaded again.
+- **Reorganize library no longer re-downloads what it moved, and keeps the app responsive.** Moved
+  issues kept pointing at their old location, so asking for one again downloaded it again. Series in
+  a library with its own folder pattern are now laid out by that pattern, and a file that differs
+  only in letter case from the new name is no longer overwritten. Moves between drives copy to a
+  temporary file first, so an interrupted move can't leave a half-copied comic, and planning or
+  running a reorganize on network storage no longer freezes the app.
+- **Settings can't be saved over with blanks.** If Settings fail to load, the page says so and Save
+  stays off until a good load, so a save can no longer wipe your indexers and metadata sources.
+- **One failing download no longer stalls the queue.** An unexpected error while preparing or
+  recording a download now fails just that issue; before, it could leave the issue stuck as
+  downloading and stop the queue from starting again until a restart, or start the same issue twice.
+- **A download that fails after its file is saved is not downloaded again.** Retrying used to save a
+  second copy beside the first.
+- **BackIssue no longer stops itself after the computer wakes from sleep.** The freeze watchdog took
+  the time spent asleep for a hung server and shut the app down.
+- **An indexer, download client or metadata request that stops answering no longer stalls
+  downloads.** Requests now give up after 30 seconds (60 for metadata) instead of waiting up to five
+  minutes, so one unresponsive indexer or client can't hold up searches, the queue or imports.
+- **A server hiccup no longer breaks or empties pages.** When the server restarts or a proxy answers
+  with an error, Wanted, System, Stats, Queue, History, Plugins, Users, Lists and the Library keep
+  what they last showed and say the load failed, with a Retry, instead of crashing or showing an
+  empty library. Header counts and sidebar libraries no longer drop to zero on a failed poll.
+- **Plugin dependency installs can no longer hang startup or break a plugin for good.** The install
+  at startup gives up after five minutes, an install that was cut short is retried on the next
+  start, and a plugin update whose dependencies fail to install keeps the version you had.
+- **A pack download cut off by a restart no longer shows as in progress forever.** Packs a download
+  site was fetching inside BackIssue are marked failed at startup, so you can grab them again.
+- **qBittorrent downloads are imported only once they have finished moving.** A torrent still being
+  moved out of an incomplete-downloads folder, or re-checked, counted as done and the import failed.
+- **Half issues are found on usenet, torrents and RSS.** A release named like "Wizard 1/2" was read
+  as issue 2, so ½ issues never matched.
+- **The download-client folder mapping matches whole folders only.** A mapping for /data/torrents no
+  longer also rewrites paths under /data/torrents-old.
+- **A scheduled task that hits an error no longer stops the app,** and a search that fails is shown as
+  failed on the Jobs page instead of running forever.
+- **The library scan's temp-file cleanup only removes BackIssue's own files.** It used to delete any
+  .part file older than a day, including other programs' partial downloads in a shared folder.
+- **Converting CBR to CBZ keeps the .cbr unless every page made it across.**
+- **Two downloads of the same book or audiobook at once no longer overwrite each other.**
+- **Setup reports what failed.** The first-run wizard stays open and lists any library or plugin it
+  could not create, instead of saying you're all set.
+- **Restart app waits for the app to really come back**, even behind a reverse proxy.
+- **Scan, tag and match buttons no longer stick on "running"** when the server refuses to start one;
+  the button resets and the reason is shown.
+- **Downloads report what actually queued.** Downloading from Wanted and "download missing" on a
+  reading list only mark and count the issues the server accepted, and say when it refused.
+- **Fast clicking shows the right thing.** Switching series, stepping through issues, changing a
+  search or filter, or switching reading lists while an earlier request is still loading can no
+  longer show the older result.
+- **Metadata errors and links speak for BackIssue.** Error messages about the metadata service no
+  longer name an outside catalog, and the link to a record's page at its source shows only to people
+  who manage settings (and only for a safe web address).
+- **"None of the enabled metadata sources can look this up" no longer names a source.** The server
+  log still records which source a failed lookup went to.
+- Status, series type and age rating tags, log levels and cover prices now appear in your language;
+  a series with no title reads "Untitled series".
+- Icons replace the remaining text symbols (the series menu, help button, seeders, warnings), row
+  actions in History and Lists are always visible on touch screens, and dialogs, issue checkboxes
+  and the search box are better labelled for screen readers.
+- Searching the logs for "amp" or "lt" no longer garbles lines.
+
+## 0.9.2
+
+*Released 2026-10-18.*
+
+### Security
+
+- **A new server is locked until its admin account exists.** Before the first
+  account was created, every API request ran as an admin with no sign-in;
+  only the web UI insisted on the setup screen, so a server exposed before
+  setup could be driven through the API. Now only sign-up answers: the rest of
+  the API and plugin assets return `401` with `setupRequired: true` until the
+  admin account is created.
+
+### Added
+
+- **Wanted books and audiobooks on the Wanted page.** Plugins can add their
+  own tab beside Comics (`registerWantedTab`); the Books and Audiobooks
+  plugins use it to list what's wanted, search again, and cancel.
+- **Order your libraries and choose the default.** Arrows on each library
+  under Settings → Library → Libraries set the order the sidebar lists them
+  in, and **Make default** picks the comic or manga library that new series
+  go to when you don't choose one. Before, the order was fixed by when each
+  library was created, and new series always went to the first comic library.
+- **API keys work as a password for reader apps.** Apps that only send a
+  username and password, such as OPDS readers, accept your Profile API key
+  in the password box, with your username or a blank one.
+- **Set a user's password from the Users page.** Admins can give a locked-out
+  user a new password. The box comes filled with a generated one to copy or
+  replace, and the user is signed out everywhere. Accounts linked to an
+  external sign-in are left out, since they have no local password.
+- **Sign-in buttons appear only once their provider is set up.** A plugin's
+  SSO button can stay hidden until it's configured, and a renamed button shows
+  without a restart.
+- **`GET /api/auth/providers` reports `apiKeyBasic: true`**, so clients know
+  a personal API key works as the HTTP Basic password, the way in for reader
+  apps when password login is off.
+
+### Removed
+
+- **Legacy API routes.** `POST /api/download` (use
+  `/api/collection/{id}/download`), `/api/usenet/search` and `/api/usenet/grab`
+  (use `/api/search` and `/api/search/grab`), `/api/torrent/search` and
+  `/api/torrent/grab-pack` (use `/api/packs/search` and `/api/packs/grab`), and
+  `/api/cv/test` (use `/api/metadata/providers/test`). The app stopped calling
+  them long ago.
+- **Leftovers of an old folder-scan report.** Its saved per-folder matches
+  were never written by any release, so the empty table is dropped and the
+  library scan no longer looks it up. The unused webhook helper the
+  Notifications Hub replaced is gone too.
+
+### Fixed
+
+- **The RSS watch and the 0-Day pack job use Prowlarr's indexers.** Both
+  read only the manually entered indexer lists, so with Prowlarr managing
+  your indexers they had nothing to poll or search. They now use the same
+  indexers as searches.
+- **Error messages in your language.** About 160 messages the server can
+  show, from download-client and indexer failures to account and library
+  rules, were English whatever language you picked. They are now translated,
+  including the failure reasons on the Queue and History pages and on an
+  issue's files. Messages from the metadata service no longer name a
+  particular provider.
+- **Hide mature content reaches reader apps.** An account that switched it on
+  still saw flagged series when an OPDS or other reader app signed in with its
+  username and password, or through an external sign-in such as billing. The
+  switch now applies to every way an account signs in, and a change takes
+  effect on the app's next request.
+- **Turning off password login covers reader apps too.** With password login
+  off, apps that send a username and password directly no longer let
+  non-admin users in with their password. Admins keep their password
+  fallback, accounts from an external login backend are unaffected, and
+  everyone else uses their API key.
+- **Only admins can create, edit or delete libraries.** A library decides which
+  folders on disk the app scans and files into. Before, anyone allowed to
+  manage the library could point one at any folder on the server. Moving
+  series between libraries still only needs library management.
+- **Download all respects mature-content restrictions.** On the Wanted page,
+  Download all queued issues from restricted series even for people who
+  can't see them. It now queues only what that person's Wanted list shows.
+- **Plugin task schedules save.** Changing the pattern or switching a plugin's
+  task on or off under Jobs (Rebuild the browse index, Fill approved book
+  requests, Sync remote audiobook catalog and others) now sticks. Before, the
+  change was silently dropped and the task kept its old schedule.
+- **Tag on download works without a ComicVine key.** With the switch on,
+  downloads are tagged from the hosted metadata service too. Before, nothing
+  was tagged unless a ComicVine key was set.
+- **Search and add use the library's own metadata sources.** Adding a series
+  searches with the sources of the library it lands in, and matching an
+  existing series searches with the sources of its library. Before, both used
+  the app-wide list whenever a library had its own.
+- **Stats shows the metadata sources in use.** Its Metadata badge read the old
+  single-source setting, so with several sources it could say "No key" for a
+  working setup. It now reflects the ordered list and shows how many sources
+  are in use.
+
+## 0.9.1
+
+*Released 2026-10-17.*
+
+### Added
+
+- **Translations.** BackIssue can now show its interface in other languages.
+  It ships in Chinese (Simplified), Dutch, French, German, Italian, Japanese,
+  Polish, Portuguese (Portugal and Brazil) and Spanish, and so do the public
+  plugins; the Android and iOS apps follow in their own releases. Pick one
+  under Profile → Language, or leave it on "match the browser"; a signed-in
+  account keeps the choice on every device, and the page arrives
+  already translated rather than flashing English first. English is the
+  source of truth, every string a person reads comes from a catalog under
+  frontend/src/locales, and a test fails the build when a converted screen
+  still carries hardcoded text. Plugins get api.t / api.th / api.lang and
+  api.registerMessages for their own strings. Series and issue data stay in
+  the language the metadata source provides.
+  Labels the server defines (job, schedule and tool names, permission names,
+  source-card fields, plugin descriptions) are translated too, and plugins
+  can ship translations for the ones they register.
+- **Several metadata sources at once.** Settings → Metadata is now an ordered
+  list, like download sources: turn on every source you want data from and
+  move the one you trust most to the top. A search asks all of them and shows
+  the answers together, best first, dropping a series a higher source already
+  listed (same id, or same title and start year). A series keeps coming from
+  the source that found it, so refreshing it, opening its issues, matching
+  files and tagging go back there, and turning that source off leaves the
+  series as it is until it is on again. A source that is on but not set up yet
+  is skipped rather than failing lookups. Saved settings carry over: the single
+  source you had becomes a one-entry list. Plugin providers declare the id
+  range they mint (`idRange` or `owns`) so lookups route to them; one that
+  declares nothing is handed whatever id no other source claims.
+- **Metadata sources per library.** Each library can keep the default source
+  list or choose its own under Settings → Library: a manga library on the
+  built-in service alone, a library of French albums with the French editions
+  source first. A series always refreshes through its own library's list, and
+  searching for or adding a series to a library uses that library's list too;
+  automatic matching and imports follow the library each series or folder
+  belongs to. Book and audiobook libraries keep getting their data from their
+  plugins.
+- **Bring your own metadata provider.** Settings → Metadata now offers
+  **Metron directly**, signed in with your own Metron account, alongside the
+  built-in service and ComicVine. Series and issue data, covers, credits,
+  characters, story arcs and the issue extras then come straight from Metron,
+  under its own rate limits, and comic lookups no longer go to the built-in
+  service. The
+  source list is now a set of providers that plugins can extend
+  (`api.registerMetadataProvider`), each with its own fields and Test button on
+  the Metadata tab. Your existing library carries over: a series first added
+  through the built-in service or ComicVine refreshes through Metron as well,
+  keeping every issue row and file link, because Metron records the matching
+  ComicVine ids. Series added while Metron is the source keep ids of their own
+  that never collide with ComicVine's; those refresh while Metron is on.
+  Discover still needs the built-in service or ComicVine.
+- **Jump to a letter in the Library** (#10). When the Library is sorted A-Z, a
+  letter rail runs down the right edge: click a letter and the grid scrolls
+  straight to the series starting with it, loading whatever it needs to get
+  there on the way. The current letter is highlighted as you scroll. The rail
+  appears only under the A-Z sort and only once a library has more than a
+  handful of series, and it works the same in the poster grid and the list, and
+  across comic, book and audiobook libraries.
+
+### Fixed
+
+- **Comics with no pages no longer count as owned.** Archives indexed before
+  page-less files were flagged (for example a `.cbz` holding only a
+  ComicInfo.xml, left behind by a broken post-processing step) stayed marked
+  as good copies, so their issues showed as owned but could not be read or
+  re-downloaded. They are flagged on the first start, and a library scan now
+  re-checks any such file instead of trusting it. The issues show as missing
+  again; nothing is downloaded automatically.
+- **Each series remembers where its data comes from.** Every cached series and
+  issue now records its catalog (ComicVine, MangaDex, Metron or a plugin's) and
+  that catalog's own id, and lookups go by that record instead of guessing from
+  the number. Manga is no longer sent to ComicVine or Metron when the built-in
+  service is off; it now says it needs the built-in service. Tags written into
+  manga files no longer claim a ComicVine issue number, and a series page only
+  links to ComicVine for a ComicVine record. Existing libraries are filled in
+  automatically on the first start. Plugin metadata sources can declare
+  `catalog`, `serves`, `alsoServes` and `refOf`; one that declares only
+  `idRange` keeps working unchanged.
+- **A download host's challenge page is no longer saved as the comic.** Some
+  file hosts answer a download with a normal-looking web page — a challenge or
+  rate-limit notice — rather than an error, and that page was being written to
+  disk as the archive and only caught at import. It is now recognised on the
+  way in: the host is cleared through FlareSolverr where one is configured, or
+  through the browser as a last resort, and the file is fetched again; failing
+  both, the error names the page so it is clear what happened.
+- **Metron's Test sign-in no longer spins forever** when metron.cloud cannot
+  be reached. Every Metron request now gives up after 15 seconds and is
+  retried once, and the message says the host timed out and may be blocking
+  the server, so a blocked address is told apart from a wrong password.
+- **A cover price in another currency is shown as sent.** The issue panel used
+  to put a dollar sign in front of every price; a source that prices in euros
+  or francs now has its own sign or code kept.
+- **Warning toasts have their own look.** A partly failed action (such as a
+  reading-list import with some misses) shows an amber toast instead of an
+  unstyled one, and a few places that passed the wrong toast type show the
+  right one.
+
+## 0.9.0
+
+*Released 2026-10-09.*
+
+### Added
+
+- **Right-click menus on series and issues.** A series card in the Library, and
+  an issue in either the grid or the list on a series page, now open a menu on
+  right-click (press and hold on a touch screen). A series offers open, follow,
+  download missing, its monitoring policy, and remove; an issue offers whatever
+  the installed plugins contribute first (with the reader, that is Read, Mark as
+  read/unread and Read later), then issue details, download or re-download, and
+  want or skip. The menu is built when it opens, so it always reflects that row
+  as it stands, it only lists what your role can do, and right-clicking never
+  disturbs a selection you are part-way through building.
+
+  On a touch screen the same menu opens on a **long press**, with a short
+  buzz where the device supports one. Lifting your finger afterwards does not
+  also open the row, a quick tap still opens it as before, and starting to
+  scroll cancels the press rather than opening a menu you did not ask for.
+
+- **Quick actions on Library cards** (#5). Every series card and row has an
+  actions menu, reached from the **⋯ button** that appears on hover, a
+  right-click, or a long press. Issues carry the same button, on the poster
+  card and at the end of a list row. It carries the library-management actions that
+  previously meant opening the series first: **Scan folder**, **Edit
+  metadata**, **Rename files** and **Fix match** (or **Match to ComicVine** for
+  a series that has none yet).
+
+- **Characters and credited names are links.** Click a character, team or
+  creator in the issue modal for every other issue in your collection that
+  features or credits them, owned copies first, each row carrying the role it
+  was credited for. Both sources are searched — ComicVine's arrays and
+  Metron's — so an issue found only through enrichment still turns up.
+  Restricted series stay hidden unless you can see them. Credits are good
+  coverage for anything whose metadata has been downloaded; character listings
+  are thin, because the sources record them for a minority of issues and mostly
+  recent ones, so an empty result says which of the two you are looking at
+  rather than implying your collection has none. The list is complete, not
+  capped — the busiest creator here has 843 credits — and only the rows near
+  the viewport are rendered, so a long one stays quick.
+
+  Those results group by series. Each heading sticks as you scroll and carries
+  the years it spans and how much of it you own — green when the run is
+  complete, amber when it is partial. A series with more than two dozen hits
+  stays collapsed behind a summary of its consecutive runs ("130 issues ·
+  #208-250, #400-443"), so coverage reads without opening it, and expands into
+  a grid of issue numbers — one cell each, filled where you own the issue —
+  with a switch to rows or covers that pages thirty at a time. Above the
+  groups: totals for issues, series, owned and years; a chip per credited role
+  for a creator; and a filter, an owned-only toggle, a sort (biggest series or
+  most recent) and a list/cover switch that all work on what is already
+  loaded.
+
+- **Add whole series to a reading list from the Library** (#9). Select mode's
+  bulk bar gains **Add to list**, which puts every issue of every selected
+  series on a list in one step, in the order the Library is showing them and by
+  issue number within each series. A run that ComicVine splits across several
+  volumes is now a few picks rather than a trip through each series page, and
+  the list's own reordering handles the rest. The dialog says how many issues
+  that will be before you commit, and a selected series with no ComicVine
+  issues to contribute is reported rather than silently skipped.
+
+- **Find and clear failed adds** (#8). A **Nothing downloaded** filter lists
+  every series with no file to its name, which is what a mass-add leaves behind
+  when the downloads fail. The bulk bar also gains **Select all**, so clearing
+  them is filter, select, Remove. On a list longer than one page the button
+  says how many are loaded rather than pretending to select the rest.
 
 - **Assign a file to an issue by hand.** On a series page, each file the app
   could not match to an issue now has an *Assign to issue* picker: choose
@@ -38,7 +437,108 @@ These changes are on the `dev` image and are not in a tagged release yet.
   (open the issue, *Move to another issue…*), and a hand assignment undone
   there too.
 
+- **Date formats for file naming.** The `{date}` token in a file pattern still
+  writes "November 2011", but it now takes a modifier for the parts on their
+  own: `{date:m}` the two-digit month, `{date:y}` the year, `{date:mon}` the
+  short month name. So `{series} V{year} #{issue} ({date:m}-{date:y})` files as
+  `Batman V2011 #001 (11-2011).cbz`. The month keeps its leading zero, so March
+  is `03` and sorts with the rest of the year. Existing patterns are unchanged,
+  an unrecognised modifier falls back to the full form, and an issue with no
+  cover date drops the whole bracket rather than leaving `(-)` behind.
+
+- **Characters, teams, locations and story arcs are written into your files.**
+  They are standard `ComicInfo.xml` elements that every other reader and
+  library server reads, and they were never written — even though the data
+  was already cached. They are there now, along with page count. ComicVine
+  supplies them where it has them, which is about 6% of issues and almost
+  nothing before 1980 because they are hand-tagged there; Metron fills the
+  rest. Existing files need a re-tag to pick them up.
+
+- **Everything Metron publishes is kept.** Alongside the prices, barcodes and
+  ratings already stored, an issue now carries its characters, teams, arcs,
+  universes, per-role credits, description, title, page count, imprint,
+  publisher and Metron and Grand Comics Database ids.
+
+- **Unwrap nested archives** (Tools). Repairs the files the check above finds:
+  the inner archive's pages are lifted to the top level, in place, with the
+  wrapper's ComicInfo carried across when the inner one has none. It refuses
+  anything it cannot prove — more than one archive inside, or an unwrapped
+  result with no pages — and never replaces a file until the replacement has
+  been read back and found to contain pages.
+
+
+### Changed
+
+- **Reading lists are runs now.** A list's page is built around where you are
+  in it rather than what share of it you own. Its issues sit on one spine with
+  a node each: the rail is filled to the point you have reached and grey after
+  it, read issues are ticked and dimmed, and exactly one issue is promoted as
+  **Read next** with its own cover and button. **Continue** at the top opens
+  that issue. An issue you do not own is drawn as a gap, labelled with its
+  position in the run, and the spine stops at it instead of filling through it,
+  though Continue still skips ahead to the next issue you can actually read.
+  The header counts reads, in-progress issues and missing ones, keeping
+  ownership as a separate, separately labelled number. The index gives every
+  list a tick per issue and a status (New, a read count, or Done), and pins a
+  **Continue** card for the run you read most recently that still has somewhere
+  to go. Without the reader installed a list shows ownership and order exactly
+  as before, and makes no claim about what has been read.
+
+- **The issue details modal is two columns.** It was one long scroll: cover,
+  dates, two rows of buttons, then five stacked sections of dot-joined text.
+  Now the cover carries a status chip and every action stacks beneath it, so
+  the actions never scroll away, and the content is four tabs with counts —
+  Overview, Credits, Appearing, Files — where the count tells you whether a
+  tab is worth opening. The primary action follows the state: Read for an
+  owned issue, **Replace corrupt file** in red for a damaged one, Download
+  when there is nothing on disk. Credits group by role rather than listing a
+  row per person, characters and teams and arcs are chips with a working
+  "+N more" instead of a dead-end count, and each file gets a card with its
+  folder, one state flag and the move-to-issue control inside it. Previous
+  and next issue buttons in the header step through the run without going
+  back to the series page, keeping the tab you were reading. Editing keeps
+  the same layout, and every edited field now shows the amber "edited" mark,
+  not just the three that used to.
+
+- **Enrichment is on by default.** It was an opt-in toggle, so most libraries
+  were getting no Metron data at all — and since characters and story arcs
+  now go into `ComicInfo.xml`, that meant files written without fields every
+  other reader expects. Existing installs are switched on once; turn it off
+  again and it stays off. The hosted service caches the enrichment, so it
+  costs no extra upstream call, and the official ComicVine API ignores the
+  request.
+
+
 ### Fixed
+
+- **A very long reading list no longer bogs the page down.** Lists can now be
+  built in a couple of clicks, and a single series can carry thousands of
+  issues, so the list page renders only the rows near the viewport past 200
+  items, the way a long series page already did. A 4,239-issue list went from
+  134,000 elements on the page to 3,000, first paint from 2.5s to 1s, and
+  scrolling about five times quicker.
+
+- **A comic with nothing in it to read is a problem now.** Some releases ship a
+  `.cbz` that holds a `.cbr` instead of pages. It is a perfectly good zip, its
+  ComicInfo reads, and it counted as owned, tagged and healthy — because
+  nothing ever asked whether there was anything to read. Any comic archive with
+  no pages is now flagged, naming what is inside when the cause is a nested
+  archive, so it turns up under Problems instead of sitting in the library
+  looking fine. Empty and truncated archives are caught by the same check.
+  Books are unaffected: an EPUB with no image in it is still a good EPUB.
+
+- **A download that is a wrapper is straightened out on the way in.** The import
+  step sniffed the magic bytes, saw a zip and filed it — so a release packaged
+  as a `.cbz` around a `.cbr` was written to the library exactly as the source
+  shipped it. It is now unwrapped before anything reaches disk, and a zip with
+  no pages that cannot be unwrapped is refused outright, the way an
+  unrecognisable container already was.
+
+- **AVIF pages count as pages.** The reader renders them; core's page test did
+  not list them, so an AVIF comic would have been called pageless by the check
+  above. The two tests now agree. macOS resource forks (`__MACOSX`, `._*`) no
+  longer count as pages either, so an archive of nothing but junk reads as
+  empty rather than full.
 
 - Files named "Series (Year) Volume 01 Issue 002" read the volume number as
   the issue number, so every file in the folder landed as issue 1 and the
@@ -46,6 +546,43 @@ These changes are on the `dev` image and are not in a tagged release yet.
   "Issue #3") now names the issue outright, and a volume marker ("Volume
   01", "Vol. 3", "v2") is never mistaken for one — unless it is the only
   number in the name, as on a trade.
+
+- **Adding a series now takes you to it** (#4). After a successful add the
+  button showed the outcome ("Added — 12 queued") but was dead, leaving no way
+  to reach the new series without closing the dialog and hunting for it. It now
+  opens the series, keeping the outcome as its label. The neighbouring **"In
+  library" button was broken too**, in a worse way: it pointed at a path that
+  has never been a route, so the one button meant to work landed on Page not
+  found. Both now go to the same place.
+
+- The Library's **sort is remembered** (#6). It was carried in the URL, so it
+  survived Back, a reload and the series page's Library button, but any trip
+  through the sidebar built a fresh URL and dropped it, putting you back at
+  A–Z. The choice is now kept as a preference and reapplied whenever you arrive
+  without one, including from a sidebar library and in a new session. A sort
+  named in the URL still wins, so a shared or bookmarked link is unchanged.
+
+- **Add to reading list was unusable with more than a few lists.** The choices
+  were laid out as one unwrapping row of footer buttons inside a 440px dialog,
+  so with a dozen lists most of them sat off the side of the screen, with
+  nothing to scroll and no way to reach them. A long set of choices now stacks
+  into a scrollable list. Dialogs are also capped at the height of the screen
+  and scroll their body, so no dialog can run off the edge again.
+
+- **A metadata server without enrichment is no longer asked on every access.**
+  Enrichment was re-requested whenever an issue had detail but no recorded
+  answer — and a server that does not support it (the official ComicVine API
+  ignores the parameter) never sends one, so the issue's detail was re-fetched
+  on every single access, forever, against the user's own rate limit. Asking
+  and getting nothing is now recorded as the miss it is.
+
+- An issue poster card with several plugin actions pushed the last of its hover
+  buttons outside the card, where they could not be clicked. The row of buttons
+  now wraps.
+
+- A matched series' row carried no file count internally, unlike every other
+  kind of row. Nothing user-visible depended on it until now, but any check for
+  "does this series have files" read it as none.
 
 ## 0.8.4
 
