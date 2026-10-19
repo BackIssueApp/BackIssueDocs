@@ -370,6 +370,19 @@ The selection arrives as the `?facet=` parameter of `/api/collection`,
 `null` when the selection is empty or not yours, so another filter can answer;
 an empty array means nothing matches. A filter that throws is skipped.
 
+When the matches are most of a library (an "unread" filter, say), list what
+**doesn't** match instead: return `{ excludeIds: [...] }` and core shows
+everything in scope except those series. Core sets `ctx.canExclude` when it
+supports this (BackIssue 0.9.3+); on older versions, return the ids that match.
+
+```js
+resolve(selection, ctx) {
+  const started = startedSeriesIds(ctx);
+  if (ctx.canExclude) return { excludeIds: started };
+  return allSeriesIdsIn(ctx.library).filter((id) => !started.includes(id));
+}
+```
+
 ### `registerBookMetadataSource(source)` — book matching data
 
 A place the Books plugin looks up book metadata when it matches files:
