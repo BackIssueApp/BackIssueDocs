@@ -33,6 +33,12 @@ const body = raw
     '## Unreleased\n\nThese changes are on the `dev` image and are not in a tagged release yet.')
   // "## [0.8.4] - 2026-09-14" and the em-dash variant both appear
   .replace(/^## \[([^\]]+)\][ \t]*[-—][ \t]*(.+)$/gm, '## $1\n\n*Released $2.*')
+  // VitePress compiles each page as a Vue template, so a bare "<time>" in
+  // prose reads as an unclosed element and fails the whole build. The
+  // changelog is plain text: escape "<" everywhere outside code spans.
+  .split(/(`[^`\n]*`)/)
+  .map((part, i) => (i % 2 ? part : part.replace(/</g, '&lt;')))
+  .join('')
   .trimEnd();
 
 const page = `---
