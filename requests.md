@@ -58,7 +58,9 @@ Auto-approve also downloads, whoever filed the request: an auto-approved comic r
 
 ## Limiting what can be requested
 
-Two settings narrow what shows up in request search (and are re-checked when a request is filed, so nothing slips through a crafted request):
+These settings narrow what shows up in request search (and are re-checked when a request is filed, so nothing slips through a crafted request):
+
+- **No comics**, **No books**, **No audiobooks** — turn off requests for a whole media type. It disappears from the request window's type picker and new requests for it are refused; requests already made stay in the queue for a decision.
 
 - **Western comics only** — restricts results to Western (US/UK) publishers via an allowlist; manga and foreign-language titles are hidden.
 - **No collections** — hides collected editions (trade paperbacks, hardcovers, omnibuses, "Complete" collections, and the like) so only single-issue series can be requested. ComicVine has no "format" field, so this is detected from each volume's title and description — it catches the large majority of collections but isn't perfect.
