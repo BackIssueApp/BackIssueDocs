@@ -295,6 +295,7 @@ Safety rules for both: only ComicVine-matched series are touched, name collision
 | **Re-index series folders** | For every matched series, re-index its own folder and attribute the files there — without fuzzy matching. Fixes files attached to the wrong same-named series (finding brand-new comics is still **Scan entire library**) |
 | **Tag all untagged files** | Embed ComicVine metadata into every owned file that lacks it (converts CBR as needed) |
 | **Convert all CBR → CBZ** | Repack every `.cbr` so the whole library is consistently taggable |
+| **Re-download corrupt files** | Runs **Unwrap nested archives** first, then queues a fresh download of every other corrupt comic file. Each corrupt file stays until a good copy replaces it; files not matched to an issue can't be fetched and are only counted |
 | **Unwrap nested archives** | Fix comics packaged as a `.cbz` that holds a `.cbr` instead of pages: lifts the inner archive's pages to the top level, in place, keeping the ComicInfo. Anything it cannot prove is left untouched |
 | **Remove duplicate files** | Delete corrupt copies that a good copy of the same issue has replaced. Where two good copies exist, the best is kept — tagged first, then the most pages, then the largest — and the other removed; that part only previews (see Logs → tools for the list) unless you tick the box |
 | **Verify archives** | Deep-check every file for corruption; prune records for files gone from disk |
