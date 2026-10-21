@@ -129,7 +129,7 @@ Your tracked series and their issues. Reads need `library.view`; changes need
 
 | Method | Endpoint | Access | Description |
 |---|---|---|---|
-| GET | `/api/collection` | library.view | Tracked series; `?filter=`, `?search=`, `?sort=`, `?library=`, `?collections=1`, `?facet=`. Add `?limit=`/`?offset=` for a page → `{ rows, counts, total }` |
+| GET | `/api/collection` | library.view | Tracked series; `?filter=`, `?search=`, `?sort=`, `?library=`, `?collections=1`, `?facet=`. Add `?limit=`/`?offset=` for a page → `{ rows, counts, total }`; with `?native=1` the page holds comics and manga only (no books or audiobooks) and the reply adds `native: true` |
 | GET | `/api/collection/{id}` | library.view | One series with issues, owned/missing counts, folder location |
 | GET | `/api/collection/counts` | library.view | Counts for each collection chip — same `?search=`, `?library=`, `?collections=1` and `?facet=` filters as `/api/collection` |
 | GET | `/api/collection/jump` | library.view | A-Z quick jump, same filters as `/api/collection` — `?letter=S` → `{ offset }`, or every letter's offset at once without it |
