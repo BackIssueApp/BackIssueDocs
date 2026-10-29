@@ -15,7 +15,7 @@ BackIssue's core stays lean; extra download sources and whole features ship as p
 | **[Audiobooks](audiobooks)** | An Audiobooks library with an in-browser player — chapters, sleep timer, bookmarks and resume |
 | **[Shelves](shelves)** | Faceted browsing for large book and audiobook libraries — author, decade, format, status |
 | **[OPDS](opds)** | Serve your library to native reader apps (Panels, Chunky, …) |
-| **[KOReader](koreader)** | Browse and download your Books library on an e-reader running KOReader, with reading progress kept in sync |
+| **[KOReader](koreader)** | Browse and download your Books library on an e-reader running KOReader, with position, finished status, highlights and reading time kept in sync |
 | **[Requests](requests)** | People ask for comics, books and audiobooks and curators approve them, with votes and optional auto-approve |
 | **[Discover](discover)** | A browsable feed of new & notable comics to add |
 | **[AirDC++](airdcpp)** | Direct Connect (DC++) as a download source, with [announce-bot watching](airdcpp#watching-announce-bots) |
