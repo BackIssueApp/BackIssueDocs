@@ -203,6 +203,8 @@ ordinary local book. The same for audiobooks:
 
 - **[OPDS](opds)** serves your books to external reader apps, with downloads
   and covers.
+- **[KOReader](koreader)** browses and downloads the library from an e-reader,
+  and keeps reading progress in sync with the web reader.
 - **Import** recognizes loose ebook files under your scan roots and files them
   into the Books library as `Author/Series/Title.ext`.
 - **Permission** — *Books library* (`ebooks.use`, viewer tier) covers reading

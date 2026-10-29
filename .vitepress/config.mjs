@@ -118,6 +118,7 @@ export default defineConfig({
           { text: 'Android app', link: '/android' },
           { text: 'iPhone & iPad app', link: '/ios' },
           { text: 'OPDS catalog', link: '/opds' },
+          { text: 'KOReader', link: '/koreader' },
         ],
       },
       {
