@@ -51,19 +51,37 @@ hands out and, when it is newer than the device's, installs it in place.
 Restart KOReader to finish. **Test connection** mentions a newer version too,
 and the Profile page marks a device whose plugin is behind.
 
-## The dashboard
+## Home and the tabs
 
-**Tools → BackIssue → Dashboard** is the library with its covers on: a row
-of the books you have under way, a row of the newest, and buttons for **All
-books**, **Authors**, **Series**, **On this device**, **Finished** and **Sync
-all books**. The search icon in the title bar finds books by title, series
-or author.
+**Tools → BackIssue → Home** is the library with its covers on. A tab bar
+along the bottom switches between **Home**, **Library**, **Series**,
+**Authors** and **Search**; the Back key goes up a level, and from Home it
+closes the plugin.
 
-Every list is a grid of covers, paged with the arrows at the bottom or a
-swipe. Tap a cover for the book's page: cover, author, series, format and
-size, how far you have read it, its description, and buttons to **Read** it
-if it is on the device or **Download** it if not, to **Mark finished** (or
-unread), and to close. A long press on a cover downloads it at once.
+**Home** lists the books you have under way, most recently read first, each
+with its cover, how far you are and when you last read it, and a **Read**
+button (or **Get**, when the book is not on the device yet: it downloads and
+opens). Below them is a row of the newest additions. The pill in the corner
+says when the device last synced with the server; a tap on it runs **Sync all
+books**. Without a connection the pill reads *Offline* and Home shows only
+the books under way on the device, so you can keep reading.
+
+**Library** is a grid of covers, paged with the arrows at the bottom or a
+swipe. The control in the corner sorts by newest, title, author, recently
+read or under way; the chips filter to **All**, **On device**, **Unread** or
+**Finished**. Each cover carries its status: how far you have read it, a
+tick when it is finished, or *On device*.
+
+Tap a cover for the **book's page**: cover, title, author and series (tap
+the series to see the rest of it), a strip with your progress, the format
+and size, and whether the book is on the device or still on the server, then
+a **Resume**, **Read** or **Download** button, **Mark finished** (or unread),
+and the description. A long press on any cover downloads the book at once.
+
+**Authors** is a grouped list with an A–Z rail for jumping, each author with
+how many books you have and how many you have read. **Series** shows a
+square per book, black when finished, grey when under way, with the first
+book's cover.
 
 Covers are fetched from the server the first time they are shown, scaled to
 the screen and kept in KOReader's cache folder, so a page you have seen
@@ -71,13 +89,10 @@ before draws straight away.
 
 ## Browsing and downloading
 
-The same lists are in the menu directly: **Browse library** for every book,
-**Continue reading** for the ones under way (most recently read first),
-**Recently added** for the newest, **Authors** and **Series** to group them,
-and **Search library**. Downloads go to the **Download folder** (your
-KOReader download folder unless you pick another) and can be opened straight
-away. Books already on the device say *on device*; finished ones say
-*finished*.
+The menu opens the same tabs directly: **Browse library**, **Authors**,
+**Series** and **Search library**. Downloads go to the **Download folder**
+(your KOReader download folder unless you pick another) and can be opened
+straight away.
 
 Books your server fetches on demand from a catalog download the same way;
 the first download takes as long as the server needs to fetch the file.
