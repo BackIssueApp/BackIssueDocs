@@ -51,16 +51,33 @@ hands out and, when it is newer than the device's, installs it in place.
 Restart KOReader to finish. **Test connection** mentions a newer version too,
 and the Profile page marks a device whose plugin is behind.
 
+## The dashboard
+
+**Tools → BackIssue → Dashboard** is the library with its covers on: a row
+of the books you have under way, a row of the newest, and buttons for **All
+books**, **Authors**, **Series**, **On this device**, **Finished** and **Sync
+all books**. The search icon in the title bar finds books by title, series
+or author.
+
+Every list is a grid of covers, paged with the arrows at the bottom or a
+swipe. Tap a cover for the book's page: cover, author, series, format and
+size, how far you have read it, its description, and buttons to **Read** it
+if it is on the device or **Download** it if not, to **Mark finished** (or
+unread), and to close. A long press on a cover downloads it at once.
+
+Covers are fetched from the server the first time they are shown, scaled to
+the screen and kept in KOReader's cache folder, so a page you have seen
+before draws straight away.
+
 ## Browsing and downloading
 
-**Browse library** lists every book, **Continue reading** the ones under way
-(most recently read first), **Recently added** the newest, **Authors** and
-**Series** group them, and **Search library** finds books by title, series or
-author. Tap a book to download it to the **Download folder** (your KOReader
-download folder unless you pick another), and open it straight away if you
-like. Hold a book for its details: author, series, format, size, how far you
-have read it, and its description. Books already on the device say *on
-device*; finished ones say *finished*.
+The same lists are in the menu directly: **Browse library** for every book,
+**Continue reading** for the ones under way (most recently read first),
+**Recently added** for the newest, **Authors** and **Series** to group them,
+and **Search library**. Downloads go to the **Download folder** (your
+KOReader download folder unless you pick another) and can be opened straight
+away. Books already on the device say *on device*; finished ones say
+*finished*.
 
 Books your server fetches on demand from a catalog download the same way;
 the first download takes as long as the server needs to fetch the file.
