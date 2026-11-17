@@ -119,6 +119,7 @@ How downloaded comics are named and filed. See [Naming patterns](library#naming-
 | Folder pattern | How each series' folder is built under a root. Blank uses the default, `{publisher}/{series} ({year})`. |
 | File pattern | How issue files are named. Blank uses the default, `{series} V{year} {edition} #{issue}`; `{edition}` drops out when the issue has no edition. Tokens: `{publisher}` `{series}` `{year}` `{issue}` (`{issue:2}` sets the pad width) `{issueTitle}` `{date}` (`{date:m}` `{date:y}` `{date:mon}` give its parts) `{edition}`. A live example previews as you type. See [Naming patterns](library#date-formats). |
 | Rename downloaded files to the file pattern | On by default. Off: completed downloads keep the source's original filename, and are still filed into the comic's folder. |
+| Convert PDF and EPUB downloads to CBZ | Off by default. On: a PDF or fixed-layout EPUB download that holds one image per page has its pages copied out as they are into a CBZ, which is then tagged and named like any other download. A file not built that way is kept as downloaded and the log says why. |
 
 Pattern changes affect **new** downloads. To apply them to files you already have, run **Reorganize library** on the Tools page.
 
