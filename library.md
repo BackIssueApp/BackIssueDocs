@@ -185,6 +185,7 @@ The scanner reads real file contents, not just names:
 - With **Tag on download** on (Settings → Metadata; off by default), every downloaded issue gets **ComicVine metadata** as `ComicInfo.xml` (series, number, title, date, summary, creators, characters, teams, locations, story arc and page count) — the standard read by comic readers and library servers. Characters and arcs come from ComicVine where it has them and from Metron otherwise, which for anything published before about 1980 is nearly always.
 - **Tag placement** decides where that XML lives. *Embedded* (the default) writes it into the archive. *Sidecar* writes it to a `.xml` file next to the archive — the archive itself is never modified, so its bytes stay identical for torrent seeding and file-share hashing, and `.cbr` files stay `.cbr`. Set it globally in Settings → Metadata, or per library (a seeding library can use sidecars while the rest embed). When a file has both, the sidecar wins.
 - Folder layout and filenames follow your **naming patterns** (below). The defaults — `Publisher/Series (Year)` folders and `Series VYYYY #NNN` filenames — are unambiguous, sortable, and parseable by other library managers. Sidecar files are renamed, moved, and deleted together with their archive.
+- A series in a **manga** library is tagged as a volume: `Volume` carries the volume number, `Number` is left out, and `Manga` is set to `YesAndRightToLeft`, which is what Kavita and Komga expect. Comics keep `Number` and `Volume` = the series' start year.
 - With embedded placement, CBRs are converted to CBZ on the way in (solid-archive-safe, pages stored without recompression), because CBZ is what embedding and readers handle best. Sidecar placement skips the conversion — originals are left untouched.
 
 Existing files you imported keep their names until you opt into renaming (below).
@@ -194,7 +195,7 @@ Existing files you imported keep their names until you opt into renaming (below)
 **Settings → Library → File organization** — you decide how comics are organized on disk, with two token patterns and a live example that updates as you type:
 
 - **Folder pattern** — the series folder under a root. Default: `{publisher}/{series} ({year})`. Use `/` for sub-folders.
-- **File pattern** — the issue filename. Default: `{series} V{year} {edition} #{issue}` — `{edition}` drops out when the issue has no edition.
+- **File pattern** — the issue filename. Default: `{series} V{year} {edition} #{issue}` — `{edition}` drops out when the issue has no edition. A series in a manga library defaults to `{series} Vol. {issue:2}` instead (`[Oshi No Ko] Vol. 01.cbz`), because manga readers read `V2023` as volume 2023; a pattern you type applies to every library.
 
 <figure class="bi-ex" v-pre>
   <div class="bi-ex__frame" role="img" aria-label="Settings, Library, File organization panel with a custom file pattern and its live example path">
@@ -283,7 +284,7 @@ Always explicit, never automatic:
 - **One series** — the volume page's **⋯ → Rename files** moves/renames that series' files to match your patterns (a confirm shows the count first).
 - **Whole library** — **System → Tools → Reorganize library**. **Preview** first: a dry run shows what would move, grouped by destination folder, with counts for already-matching files and name collisions. **Reorganize** then runs as a background job with live progress (also visible under **System → Jobs**) — a big library on a NAS takes a while, and the app stays fully usable during it.
 
-Safety rules for both: only ComicVine-matched series are touched, name collisions are skipped (never overwritten), files never leave their library folder, and emptied folders are cleaned up.
+Safety rules for both: only ComicVine-matched series are touched, name collisions are skipped (never overwritten), files are filed under the series' own library folder (so a series you moved to another library has its files moved on the next rename, which the preview shows first), and emptied folders are cleaned up.
 
 ## Library tools
 
