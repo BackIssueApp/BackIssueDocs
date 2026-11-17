@@ -111,7 +111,7 @@ Same shape as Usenet: **Torznab indexers** (via Prowlarr or Jackett) plus a down
 - **Torznab indexers** — one or more URL + API key entries. Prowlarr gives you a Torznab URL per indexer it manages.
 - **qBittorrent** — **Host**, **Port** (default 8080), **Use HTTPS**, **Username** and **Password** for the Web UI.
 - **Transmission** — the same fields for its RPC interface (default port 9091).
-- **Deluge** — **Host**, **Port** (default 8112), **Use HTTPS** and the Web UI **Password**; Deluge has no username.
+- **Deluge** — **Host**, **Port** (default 8112), **Use HTTPS** and the Web UI **Password**; Deluge has no username. BackIssue fetches the `.torrent` itself and hands Deluge the file, so Deluge never needs to reach your indexer — which matters when it runs behind a VPN.
 - **URL base** — set this when a reverse proxy serves the client under a subpath rather than at the root, so its API lives at `http://host:port/qbittorrent/api/…`. Blank for a normal install. (Seedbox providers commonly do this; it's the same field the *arr apps call "URL Base".) All three clients have it.
 - **Category** — keeps BackIssue's torrents grouped: a category in qBittorrent, a label in Transmission (4.x and later) or in Deluge (needs Deluge's Label plugin; the label is lowercased). Older Transmission versions and Deluge without the plugin still work — the torrents just aren't labelled.
 - **Completed-folder mapping** — same two-path idea as Usenet, for remote/Docker setups.

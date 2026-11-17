@@ -276,7 +276,7 @@ cannot see or steer what the household is grabbing.
 | POST | `/api/wanted/download-all` | downloads.grab | Queue every issue matching the filters — `{ scope?, followed?, hideUnreleased?, q? }` (capped at 500) |
 | POST | `/api/lists/{id}/want` | library.manage | Want every issue on a reading list — series not in the library are added unmonitored with their issues picked → `{ added, picked, failed, issues }` |
 | POST | `/api/search` | downloads.grab | Search all enabled sources for an issue |
-| POST | `/api/search/grab` | downloads.grab | Grab a chosen result — `{ result, seriesId, cvIssueId }` |
+| POST | `/api/search/grab` | downloads.grab | Grab a chosen result — `{ result, seriesId, cvIssueId, number?, name? }`. `number` and `name` come from the catalog issue when left out; `result` carries the release link as `downloadUrl` (torrent) or `nzbUrl` (usenet), and either field is accepted by both |
 | POST | `/api/packs/search` | downloads.grab | Search sources for multi-issue packs |
 | POST | `/api/packs/grab` | downloads.grab | Grab a pack — `{ result, seriesId }` |
 | POST | `/api/queue/retry/{id}` | downloads.grab | Retry a queued/failed item |

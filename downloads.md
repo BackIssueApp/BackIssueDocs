@@ -429,6 +429,10 @@ Multi-issue collections ("packs") are the fastest way to fill a mostly-empty ser
 - Each file in the pack is placed by reading its filename, then confirmed
   against ComicVine. A file whose series isn't in your collection, or whose
   number isn't in the volume, is reported as unmatched rather than guessed at.
+- A manga series is collected by volume, so a pack of **chapter** files
+  (`c001`, `ch. 12`, `Chapter 5`) is not a set of volumes: chapter files are
+  reported as *chapter N, not a volume* and left out, and only volume files
+  (`v01`, `Vol. 1`) and plainly numbered files are imported.
 - The weekly **zero-day** pack is chosen by the week printed in its title, not
   by the title text, because the same week gets reposted repeatedly with
   different labels. Only a week newer than one you already have is grabbed, and
