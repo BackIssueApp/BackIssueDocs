@@ -18,6 +18,7 @@ BackIssue's core stays lean; extra download sources and whole features ship as p
 | **[KOReader](koreader)** | Browse and download your Books library on an e-reader running KOReader, with position, finished status, highlights and reading time kept in sync |
 | **[Requests](requests)** | People ask for comics, books and audiobooks and curators approve them, with votes and optional auto-approve |
 | **[Discover](discover)** | A browsable feed of new & notable comics to add |
+| **[Auto-add](autoadd)** | Rules that add upcoming series for you: a phrase such as Star Trek, or a publisher, caught on the release list up to eight weeks ahead |
 | **[AirDC++](airdcpp)** | Direct Connect (DC++) as a download source, with [announce-bot watching](airdcpp#watching-announce-bots) |
 | **[Notifications Hub](notifications)** | Send alerts to Discord, Telegram, Pushover, ntfy, or any webhook — with per-channel category filters |
 | **[Gamify](gamify)** | Reading as a quest — XP, levels, streaks, achievements, and a household leaderboard |
